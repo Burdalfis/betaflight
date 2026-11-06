@@ -1,0 +1,9 @@
+{
+  "amended_at_utc": "2026-11-06T22:14:31.216025+00:00",
+  "reason": "User corrected fixture: all earlier step/dither recordings were with an unsecured/free servo case; real initial wrong-way output was observed. Earlier processing must not identify brief excursions as definitely electrical or call established-toward onset first motion.",
+  "fixture_preservation": "Prior raw and original processed outputs preserved. All prior data labeled FREE_CASE/provisional; new repeats labeled CLAMPED_CASE independently.",
+  "new_raw_events": "Same3sigma/2%span/3count threshold and5consecutive same-polarity samples: firstANY=min(firstTOWARD,firstWRONGWAY), without future target-continuity validation. Establishedtowardresponse remains a distinct metric and alias of oldonset_ms.",
+  "wrongway": "Preserve raw peak,5sample-sustainedpeak,all threshold run durations incl<5samples,andthreshold-excessarea before first raw sustained10%target crossing. These are wiper excursions, not calibrated absolute output angles.",
+  "filters": "Previous median replacement and centered-window estimators retained for auditable comparison. They can attenuate genuine short motion; raw first40ms plots and raw event metrics are primary for early direction.",
+  "comparability": "Apply identical amended pipeline separately to old free-case and new clamped-case datasets, no parameter tuning to the new fixture."
+}

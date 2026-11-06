@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 13137920,
+  "start_offset": 7469056,
+  "end_offset": 10196992,
+  "clamped-cyclic.bbl": "1c8bada15790b7b5e8ba2744d052c80fb9b74466846599fb6ecf7001277ec16d",
+  "clamped-cyclic-repeat.bbl": "1c8bada15790b7b5e8ba2744d052c80fb9b74466846599fb6ecf7001277ec16d",
+  "two_reads_identical": true
+}

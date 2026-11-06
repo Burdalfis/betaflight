@@ -2,13 +2,22 @@
 
 Recorded 2026-11-06 for M0/M1 of [the control plan](TRICOPTER_CONTROL_PLAN.md).
 
-The user has confirmed that a **Betaflight 2026.6.2 cloud build** is flashed on
-the flight controller and working correctly, supplied its current CLI export,
+At M0 the user confirmed that a **Betaflight 2026.6.2 cloud build** was flashed on
+the flight controller and working correctly, supplied its CLI export,
 and confirmed the physical motor/servo mapping below. The earlier `2026.2.6`
 wording was corrected to `2026.6.2`. This closes the M0 aircraft-mapping check.
 The local build is a separate image whose build evidence must be recorded
 separately. No firmware was flashed and no aircraft configuration was changed
 during this source/configuration audit.
+
+**Wiring revision — 2026-11-06:** the user subsequently connected the servo
+potentiometer wiper to **PB0**, chosen for proximity to the servo. PB0 is now the
+intended `ADC_EXTERNAL1` input (`ADC_EXT 1 B00`), replacing the earlier PC0/AirS
+proposal. Clear its default `ADC_RSSI` resource and keep `RSSI_ADC` disabled.
+The existing M1 binary follows the configured pin; this change needs no rebuild.
+This records wiring and source compatibility, not a measured PB0 bench result.
+
+**Subsequent hardware session:** M1 `bd6a5d727` was flashed/read back and PB0 was measured during servo and low-power motor tests. The full current-version aircraft configuration was recovered and verified after the cloud-to-local feature-set migration. See [the bench record](tricopter_m1_bench_2026-11-06.md); the earlier audit/captures above remain historical provenance.
 
 ## Evidence and preservation
 
@@ -43,7 +52,7 @@ the user has confirmed that physical mapping. Motor directions, rear ESC-output
 identity, and fitted MCU are recorded in the project plan. Board photographs or
 a wiring drawing have not yet been supplied.
 
-### Current working cloud build: supplied evidence
+### M0 working cloud build: supplied evidence before the PB0 revision
 
 The supplied current CLI identifies **2026.6.2 `e0b7bb01b`**, board configuration
 **`3a406c5`**, board **MATEKF405TE**, manufacturer **MTKS**. It confirms TRI,
@@ -51,7 +60,7 @@ The supplied current CLI identifies **2026.6.2 `e0b7bb01b`**, board configuratio
 SERVO1 PB1. Servo 5 retains 1100–1700 µs, midpoint 1420 µs, and 498 Hz output;
 motor protocol is DSHOT300 with bidirectional telemetry enabled.
 
-Active ownership in the supplied export is:
+Active ownership in that supplied, pre-PB0 export is:
 
 | Active pin or peripheral | Owner |
 |---|---|
@@ -112,6 +121,7 @@ The stock TRI mixer retains the expected logical order rear, right, left.
 | SERVO 1 | PB14 | **PB1** |
 | LED_STRIP 1 | PB1 | **NONE** |
 | ADC_EXT 1 | PC0 | PC0 |
+| ADC_RSSI 1 | PB0 | PB0 (RSSI_ADC disabled) |
 
 Motor-output reordering defaults to identity in the local firmware, unlike the
 confirmed aircraft configuration. Restoring board defaults can therefore change
@@ -140,11 +150,33 @@ writing the TRI rudder servo. When unarmed movement is disabled, it can write
 zero to suppress PWM. M1 command logging must observe that final written value,
 including zero, rather than an earlier mixer demand.
 
-## PC0 position-feedback input
+## PB0 position-feedback input — current wiring
 
-The prototype connects the internal potentiometer wiper directly to the AirS /
-PC0 pad, sharing servo and flight-controller ground. Board configuration defines
-`ADC_EXTERNAL1_PIN PC0`; the CLI resource is `ADC_EXT 1 C00`.
+The user wired the internal potentiometer wiper directly to **PB0**, sharing
+servo and flight-controller ground. PB0 is **ADC1_IN8** (also valid on ADC2 in
+the F4 driver map). The board default `ADC_EXTERNAL1_PIN PC0` and historical
+`ADC_EXT 1 C00` capture remain unchanged as baseline evidence; the active
+prototype instead uses configurable `ADC_EXT 1 B00`.
+
+PB0 is also the board's default `ADC_RSSI` pin. After saving the current
+configuration, use this configuration delta without changing actuator resources:
+
+```text
+feature -RSSI_ADC
+resource ADC_RSSI 1 NONE
+resource ADC_EXT 1 B00
+set adc_external1_enabled = ON
+save
+```
+
+The resource command replaces the former external-input tag on PC0. Clearing
+`ADC_RSSI` explicitly matters: Betaflight warns about a pin assigned to a
+different resource but does not automatically clear that other resource.
+After reboot, verify configured `ADC_RSSI 1 NONE` and `ADC_EXT 1 B00`, active
+`B00: ADC_EXT`, PC0 free, and unchanged motor/servo resources and ADC1 DMA.
+`get adc_device` should retain the existing ADC1 selection; no ADC/DMA change is
+required for PB0. The existing M1 binary reads the configured `ADC_EXTERNAL1`
+tag and does not require a firmware rebuild for this remapping.
 
 | Command reference | Measured wiper voltage | Nominal 12-bit ADC count at 3.300 V |
 |---|---:|---:|
@@ -152,11 +184,14 @@ PC0 pad, sharing servo and flight-controller ground. Board configuration defines
 | 1420 µs | 1.281 V | 1590 |
 | 1700 µs | 1.031 V | 1279 |
 
-Counts are predictions, not measurements. The voltage falls as PWM rises; none
-of these points independently establishes rotor angle or vertical zero.
+Counts are predictions, not measurements of PB0 or the former PC0 proposal.
+The voltage falls as PWM rises; none of these wiper points independently
+establishes rotor angle or vertical zero. The repository's ADC pin map does not
+establish the electrical loading or any conditioning on the physical PB0 pad.
 
-PC0 has no duplicate pin assignment in the historical dump or audited modern
-board defaults. Both use ADC1 DMA option 1, historically DMA2 Stream4 Channel0.
+PC0 had no duplicate pin assignment in the historical dump or audited modern
+board defaults. Both use ADC1 DMA option 1, historically DMA2 Stream4 Channel0;
+remapping the external channel to PB0 keeps that ADC device and DMA allocation.
 The old motor timer DMA assignments use different streams (PC9 Stream7, PC8
 Stream2, PA8 Stream1). The current cloud build uses DShot bitbang, whose active
 DMA2 Stream2/Stream3 allocations are separate from ADC1's Stream4; the supplied
@@ -168,7 +203,7 @@ or pull-down, with a 480-cycle sample time and continuous DMA acquisition.
 Check the acquired channel and actual sample behavior on the local image. A
 read of a cached ADC value is not an independent proof of fresh conversion.
 
-Initial measurements must compare wiper voltage with and without PC0 connected,
+Initial measurements must compare wiper voltage with and without PB0 connected,
 ADC noise, and servo behavior. The optional TLV9001 is a 3.3 V unity-gain buffer
 if measurements justify it. Do not add the earlier proposed raw-wiper 100 kΩ
 pull-down or assume that a disconnected, floating input can always be detected
@@ -264,7 +299,7 @@ Completed M0 aircraft evidence and remaining local-image measurements are:
   Add the two front ESC connector numbers when documenting the wiring.
 - [ ] PB1 servo output, command polarity, 1100–1700 µs travel, midpoint, and
   mechanical clearance verified on the local image.
-- [ ] PC0 voltage, acquired ADC count, loading/noise, and servo stability checked
+- [ ] PB0 voltage, acquired ADC count, loading/noise, and servo stability checked
   before and after attaching the direct wiper connection.
 - [ ] Rotor angle independently measured against ADC values; vertical zero,
   stops, and linkage direction documented.

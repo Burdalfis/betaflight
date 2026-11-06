@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 13137920,
+  "start_offset": 10196992,
+  "end_offset": 11630592,
+  "clamped-paired.bbl": "0fe828aebe946b87be73c2a54c7ee382a10ad8707e13a22e91a81b4f575bba2f",
+  "clamped-paired-repeat.bbl": "0fe828aebe946b87be73c2a54c7ee382a10ad8707e13a22e91a81b4f575bba2f",
+  "two_reads_identical": true
+}

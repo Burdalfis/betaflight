@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "near_onset_opposite_pulse_validation": {
+    "onset_ms": 22.000000000000185,
+    "peak_derivative_adc_per_s": 10000.000000000053,
+    "center_only_peak_derivative_adc_per_s": 62181.818181818315,
+    "movement10_90_ms": 80.00000000000009
+  },
+  "impulse_amplitude_validation": [
+    {
+      "pulse_percent_step": 15.0,
+      "onset_ms": 22.000000000000185,
+      "t10_ms": 30.000000000000192,
+      "movement10_90_ms": 80.00000000000009,
+      "unrestricted_t10_ms": 30.000000000000192
+    },
+    {
+      "pulse_percent_step": 50.0,
+      "onset_ms": 22.000000000000185,
+      "t10_ms": 30.000000000000192,
+      "movement10_90_ms": 80.00000000000009,
+      "unrestricted_t10_ms": 1.6653345369377348e-13
+    },
+    {
+      "pulse_percent_step": 100.0,
+      "onset_ms": 22.000000000000185,
+      "t10_ms": 30.000000000000192,
+      "movement10_90_ms": 80.00000000000009,
+      "unrestricted_t10_ms": 1.6653345369377348e-13
+    }
+  ],
+  "tests": [
+    "known20ms onset plus3count/2%threshold",
+    "80ms10\u201390linear ramp",
+    "known10000ADCcounts/s slope",
+    "5ms command impulse rejected by continuity",
+    "positive/negative symmetry",
+    "no-overshoot ramp",
+    "sustained20%overshoot and2%settling",
+    "flat no-response rejection"
+  ],
+  "linear_ramp_metrics": {
+    "onset_ms": 22.000000000000185,
+    "movement10_90_ms": 80.00000000000009,
+    "peak_derivative_adc_per_s": 10000.000000000053,
+    "settling2_ms": 119.00000000000027
+  },
+  "overshoot_metrics": {
+    "sustained_filtered_overshoot_percent": 19.999999999999996,
+    "settling2_ms": 288.0000000000004
+  }
+}

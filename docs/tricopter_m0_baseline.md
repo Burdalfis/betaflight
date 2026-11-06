@@ -64,3 +64,7 @@ The [preserved host test log](../.local-artifacts/tricopter/m0/host-tests.log) c
 ## Boundary before M1
 
 M0 establishes the local build and recovery reference while retaining the legacy mixer. The user's current cloud firmware and mapping confirmation supply separate aircraft evidence. M1 can proceed as logging-only instrumentation; measured PC0 loading/noise, actual output timing, continuous EDT/RPM reception, logging throughput and runtime jitter remain bench-validation work for the instrumented image.
+
+## Subsequent hardware follow-up
+
+M1 `bd6a5d727` was subsequently flashed and tested with the user's revised PB0 feedback wiring; see [the bench record](tricopter_m1_bench_2026-11-06.md). The untouched M0 images above remain recovery references. The standard local build has additional configuration groups compared with the cloud build, so matching source/config revisions did not guarantee configuration retention: first boot reset settings, and the fresh current-version full dump was restored and verified before testing. The M0 reproducibility result establishes repeatability of the stated local build, not binary/feature equivalence to the cloud image.

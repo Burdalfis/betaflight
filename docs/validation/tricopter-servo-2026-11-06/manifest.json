@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-06",
+  "firmware_commit": "bd6a5d7277b3ee4e73f54283ad535483e2a7b78d",
+  "board": "MATEKF405TE",
+  "feedback": "PB0 / ADC_EXTERNAL1 / ADC1_IN8",
+  "servo": "EMAX ES08MD II",
+  "servo_supply_V_reported": 5,
+  "linkage": "disconnected",
+  "motor_state_during_all_servo_records": "stopped",
+  "case_conditions": {
+    "free-case": "servo housing unsecured; user later reported case reaction motion",
+    "clamped-case": "housing securely clamped; shaft/arm free; user confirmed before recording"
+  },
+  "raw": [
+    {
+      "path": "raw/clamped-cyclic.bbl",
+      "bytes": 2727936,
+      "sha256": "1c8bada15790b7b5e8ba2744d052c80fb9b74466846599fb6ecf7001277ec16d"
+    },
+    {
+      "path": "raw/clamped-dither.bbl",
+      "bytes": 1507328,
+      "sha256": "71a787859420f0e6231de53fa2cbac93fe53990a7de86b71cb2bbdcd555aafe8"
+    },
+    {
+      "path": "raw/clamped-paired.bbl",
+      "bytes": 1433600,
+      "sha256": "0fe828aebe946b87be73c2a54c7ee382a10ad8707e13a22e91a81b4f575bba2f"
+    },
+    {
+      "path": "raw/free-cyclic.bbl",
+      "bytes": 2715648,
+      "sha256": "23389c9e594ca370390787c77e75c87adb7e833c07dcfcf868d685d578345660"
+    },
+    {
+      "path": "raw/free-dither.bbl",
+      "bytes": 1501184,
+      "sha256": "72d4b38c05c11e8b6d479e20ebaca7eeb91b575c4a33eef0f6aff40113d0c906"
+    },
+    {
+      "path": "raw/free-paired.bbl",
+      "bytes": 1435648,
+      "sha256": "759d65b2d467775e32c84e98b4f60ee4e940cb6ab13b132017d9afcace3eea4c"
+    }
+  ],
+  "interpretation": "Wiper-voltage response; early common positive transient has unresolved mechanical/electrical origin. Not a calibrated angle or flight-control model."
+}

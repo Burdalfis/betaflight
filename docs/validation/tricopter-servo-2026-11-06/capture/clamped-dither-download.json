@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 13137920,
+  "start_offset": 11630592,
+  "end_offset": 13137920,
+  "clamped-dither.bbl": "71a787859420f0e6231de53fa2cbac93fe53990a7de86b71cb2bbdcd555aafe8",
+  "clamped-dither-repeat.bbl": "71a787859420f0e6231de53fa2cbac93fe53990a7de86b71cb2bbdcd555aafe8",
+  "two_reads_identical": true
+}

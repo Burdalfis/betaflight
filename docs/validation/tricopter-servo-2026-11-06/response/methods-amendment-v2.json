@@ -1,0 +1,7 @@
+{
+  "amended_at_utc": "2026-11-06T21:58:40.382799+00:00",
+  "original_methods_sha256": "3835fa9a22d34236a25f17998b13b181c9169ec3f2c219db13187a30691e3f68",
+  "new_characterization_data_already_read": true,
+  "reason": "Independent reviewer synthetic counterexample:5ms initial pulse of50%trialspan can make unrestricted centered-filtert10 falsely0ms and10\u201390 falsely110ms instead true80ms. Original15%pulse test did not reveal this. This correction follows synthetic evidence, not tuning parameters to observed servo data.",
+  "refinement": "Primary t10/t50/t90 crossings search at or after accepted raw sustained-onset only. Unrestricted crossings retained as artifact-sensitive diagnostic. Strengthened synthetic checks at15%,50%,100%initialpulse amplitude; all must recover known80msmovement. Also output per-block summaries alongside explicitly pooled same-history groups."
+}

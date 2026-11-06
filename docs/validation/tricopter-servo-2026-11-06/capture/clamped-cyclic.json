@@ -1,0 +1,48 @@
+{
+  "conditions": "case rigidly clamped, 5V unloaded servo, linkage disconnected, props removed, motors stopped; 7V2A current-limited aircraft supply",
+  "cycles": 12,
+  "hold_seconds": 1.2,
+  "flash_before": [
+    3,
+    256,
+    16777216,
+    7469056
+  ],
+  "original_servo5": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "host_samples": 3006,
+  "min_reported_voltage_cV": 681,
+  "servo_restored_exact": true,
+  "flash_after": [
+    3,
+    256,
+    16777216,
+    10196992
+  ],
+  "final_motors": [
+    1000,
+    1000,
+    1000,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_debug": [
+    1584,
+    1420,
+    0,
+    255,
+    1,
+    4,
+    1,
+    0
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "amended_at_utc": "2026-11-06T21:56:19.814466+00:00",
+  "original_methods_sha256": "3835fa9a22d34236a25f17998b13b181c9169ec3f2c219db13187a30691e3f68",
+  "new_characterization_data_read": false,
+  "reason": "Synthetic5ms initial impulse test survived centered7sample median and could dominate an unrestricted derivative maximum before the accepted raw onset. This is a validation-driven refinement before decoding new data.",
+  "refinement": "Primary maximum derivative searches regression centers at or after accepted raw onset. The unrestricted maximum is retained separately as an artifact-sensitive diagnostic. This is a peak within the detected movement interval, not proof of infinitesimal-motion velocity before the noise-based onset."
+}

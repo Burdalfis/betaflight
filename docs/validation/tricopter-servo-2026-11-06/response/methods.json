@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "declared_at_utc": "2026-11-06T21:53:26.191774+00:00",
+  "scope": "Unloaded EMAX servo, linkage disconnected,5V. Analyze logged command register writes and wiper ADC, not pulse edges, calibrated rotor/shaft angle, or physical deadtime constants.",
+  "data_state_at_declaration": "New characterization recording has not been read or analyzed. Earlier short bench servo recording informed impulse/noise precautions only.",
+  "trial_time_zero": "First Blackbox sample at which debug[1] changes to the new commanded PWM. Native servo[5] must agree.",
+  "baseline": "Median of raw ADC during final200ms before t0; robust sigma=1.4826*median(abs(x-median(x))).",
+  "endpoint": "Median of raw ADC during final300ms of the current1.2s hold, before the next command.",
+  "credible_response": "Reject span smaller than max(10*prestep robust sigma,10ADC counts). Report reason rather than fabricate metrics.",
+  "orientation": "Progress=(ADC-baseline)/(steady_endpoint-baseline); increasing progress always follows current commanded movement.",
+  "onset": {
+    "signal": "raw ADC, no smoothing phase shift",
+    "threshold_counts": "max(3*prestep robust sigma,2%absolute trial ADC span,3ADC counts)",
+    "sustain": "At least5 consecutive recorded samples beyond threshold; timestamp first sample of accepted run.",
+    "spike_rejection": "Candidate must reach a sustained10% crossing without returning below half-onset-threshold toward baseline, and remain outside that baseline band for10ms after the sustained10% crossing. Reject earlier command-correlated impulses that fail this continuity check.",
+    "interpretation": "Thresholded first sustained wiper response estimate; not earliest infinitesimal motion or a physical transport delay."
+  },
+  "impulse_cleaning_for_smoothed_metrics": {
+    "method": "Centered7-sample local median. Replace points farther than max(6*prestep robust sigma,6ADC counts) from that median.",
+    "record": "Store replacement count and times. Raw onset and raw single-peak overshoot remain uncleaned. True very short excursions can be attenuated."
+  },
+  "smoothing_and_derivative": {
+    "primary": "Centered local-linear regression over11 samples using actual FC timestamps. Fitted center value is smoothed position; slope is ADCcounts/s.",
+    "sensitivity": "Repeat at21samples; report both and relative change of peak derivative. No differentiation of unfiltered samples used as primary velocity.",
+    "edges": "Use only complete regression windows within each pre/hold segment; never use samples after the next command."
+  },
+  "movement_times": "On primary smoothed progress, first sustained5-sample crossings of10%,50%,90%; report t10,t50,t90 relative to t0 and t90-t10. Also report mean10\u201390slew=0.8*trialspan/(t90-t10).",
+  "derivative": "Report peak slope in commanded direction, corresponding signed ADCcounts/s, and absolute peak/pooled measured full1100\u20131700ADCspan per second. Report21sample sensitivity. No degrees/s.",
+  "overshoot": {
+    "raw_single_peak": "max(0,max(raw oriented progress)-1)*100%.",
+    "filtered_sustained": "max(0,max over5sample windows of minimum smoothed progress in window-1)*100%; requires a sustained excursion.",
+    "reference": "Actual steady endpoint median of each trial, not nominal PWM/voltage. Report whether excursion exceeds3*prestep noise sigma."
+  },
+  "settling": {
+    "strict_bands": "\u00b12% and\u00b15% of absolute trialspan around actual endpoint.",
+    "condition": "Earliest primary smoothed sample after which every remaining usable sample lies in band, with at least100ms remaining observation. Otherwise right-censor at usable hold duration.",
+    "noise": "Flag strict band narrower than3*rawprestep robust sigma. Also report separately named noise-adjusted settling using max(strictband,3sigma), never silently substitute it."
+  },
+  "normalization": "Fullspan is pooled median endpoint ADC at1100 minus pooled median endpoint ADC at1700, absolute value. It is an observed electrical span, not mechanical angle calibration.",
+  "history": "Stratify by fromPWM,toPWM and continuation/reversal/unknown relative to preceding command step. Distinguish cycle block, low-pair block, high-pair block; first transitions between blocks retain actual history.",
+  "planned_trials": "12cycles[1420\u21921100\u21921420\u21921700\u21921420], then6lowpaired[1100\u21921420], then6highpaired[1700\u21921420],1.2s holds plus initial3s.",
+  "statistics": "For every transition+history group: n,median,25th/75thpercentiles,min/max; no unlabelled pooling across history. Censored/invalid counts retained. Optional deterministic bootstrap95%CI for median withseed20261106 and10000resamples when n\u22655.",
+  "matched_comparisons": "1420\u21921700 vs1700\u21921420 is equal280\u00b5s.1420\u21921100 vs1100\u21921420 is equal320\u00b5s. Do not compare280vs320\u00b5s durations as equal-amplitude direction tests.",
+  "synthetic_validation": "Known onset and linear-ramp10\u201390/velocity; positive and negative directions; injected short command impulses; sustained overshoot and settling; no-response rejection; window sensitivity."
+}

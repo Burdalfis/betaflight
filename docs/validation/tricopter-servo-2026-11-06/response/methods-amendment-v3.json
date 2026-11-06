@@ -1,0 +1,7 @@
+{
+  "amended_at_utc": "2026-11-06T21:59:24.026146+00:00",
+  "original_methods_sha256": "3835fa9a22d34236a25f17998b13b181c9169ec3f2c219db13187a30691e3f68",
+  "new_characterization_data_already_read": true,
+  "reason": "Independent reviewer synthetic counterexample:negative5ms pulse at15\u201320ms before20ms true onset polluted an11sample derivative centered at22ms despite center>=acceptedonset. This correction is driven by synthetic window-support contamination, not servo-data fitting.",
+  "refinement": "Primary peak derivative requires the entire regression window to start at or after accepted raw onset. Center-only and unrestricted maxima remain diagnostics. Earliest primary window center is onset+~5ms (11samples) or+~10ms (21samples). A true peak before that support is deliberately unmeasurable by this robust primary estimator; do not call it an unrestricted physicalmaximum."
+}

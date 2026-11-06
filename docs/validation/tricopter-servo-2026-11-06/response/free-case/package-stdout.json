@@ -1,0 +1,36 @@
+{
+  "integrity": {
+    "frames_by_input": [
+      62951,
+      33238
+    ],
+    "both_clean_end": true,
+    "reported_corrupt_frames": 0,
+    "all_steps_credible": true,
+    "all_native_servo_write_match": true,
+    "physical_angle_calibrated": false,
+    "scope_edge_timing_measured": false
+  },
+  "overshoot": {
+    "trials_with_filtered_sustained_excursion_over_3raw_baseline_sigma": 0,
+    "interpretation": "Small filtered peak-selection excursions are not resolved physical overshoot under the declared3sigma raw-noise criterion. Raw excursions and impulse replacements remain available."
+  },
+  "settling": {
+    "2": {
+      "trials_strict_band_below_3raw_sigma": 71,
+      "right_censored_trials": 0
+    },
+    "5": {
+      "trials_strict_band_below_3raw_sigma": 0,
+      "right_censored_trials": 0
+    }
+  },
+  "sensitivity": {
+    "percent_change_21sample_vs11sample": {
+      "min": -41.50101527314439,
+      "median": -13.710443735771388,
+      "max": -6.947656028228899
+    },
+    "interpretation": "Window-dependent electrical slope estimate within movement support; not a calibrated instantaneous physical velocity."
+  }
+}

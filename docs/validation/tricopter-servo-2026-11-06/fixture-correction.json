@@ -1,0 +1,8 @@
+{
+  "recorded_at_utc": "2026-11-06T22:13:13.532430+00:00",
+  "original_fixture": "FREE_CASE, linkage disconnected, servo supplied5V",
+  "user_correction": "Servo case was not clamped; internal motor reaction moves the case and genuine brief initial wrong-way output was observed.",
+  "consequence": "Previous results remain raw evidence but provisional for fixed-case dynamics. The old onset metric measured established target-directed response, not first motion of either sign. No earlier short excursion is classified as definitely electrical.",
+  "next_fixture": "CLAMPED_CASE, independently labeled repeat of same acquisition blocks",
+  "preservation": "Original raw recordings unchanged; prior processed outputs and methods snapshotted under each analysisdirectory/free-case-original withSHA256 manifests."
+}

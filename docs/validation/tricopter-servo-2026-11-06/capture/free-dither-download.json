@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 7469056,
+  "start_offset": 5967872,
+  "end_offset": 7469056,
+  "servo-dither.bbl": "72d4b38c05c11e8b6d479e20ebaca7eeb91b575c4a33eef0f6aff40113d0c906",
+  "servo-dither-repeat.bbl": "72d4b38c05c11e8b6d479e20ebaca7eeb91b575c4a33eef0f6aff40113d0c906",
+  "two_reads_identical": true
+}

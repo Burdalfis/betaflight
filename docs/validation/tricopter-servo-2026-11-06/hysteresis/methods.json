@@ -1,0 +1,15 @@
+{
+  "declared_at_utc": "2026-11-06T22:05:11.876551+00:00",
+  "data_state": "New dither recording has not been read.",
+  "scope": "Quasi-static small-step directional hysteresis in servo command/wiper voltage. Does not identify mechanical gearlash separately from internal control deadband, potentiometer/friction effects, or command quantization.",
+  "planned_input": "3 cycles1400\u21921440\u21921400\u00b5s at2\u00b5s increments,0.25s holds; initial1420\u21921400preload excluded. Motors stopped; unloaded5Vservo/linkage disconnected.",
+  "plateau_selection": "Detect first120nativePWM transitions of exactly\u00b12\u00b5s, assert planned ascending20/descending20 pattern percycle; exclude largepreload/restore transitions and any\u00b11\u00b5srestoredPIDjitter.",
+  "steady_estimate": "Median of last100ms of each plateau, excluding nextcommand. Perplateau robustsigma=1.4826*MAD. Also compare final50ms median topreceding50ms as drift/settling diagnostic. Do not pretend100samples are independent.",
+  "comparison": "At commonPWM1402..1438, compare descendingminusascendingADCmedian within eachcycle. Report pairedgaps percycle and median/IQR/range across3cycles. No unexplained pooling ofdifferentPWM orcycles.",
+  "static_slope": "Fit commonADCcounts/\u00b5sslope with separate intercept for eachcycle\u00d7branch tocontrolbetweenbranch offsets; alsofit perbranch slopes andreport. Use onlylast100msplateau medians.",
+  "equivalent_input": "Signed gap_us=(ADCdescending-ADCascending)/fittedcommonADCper\u00b5sslope; absolutevalue is descriptive direction-dependent inputequivalence, not measuredgearlash. No angularunits.",
+  "resolution": "Report staticranges/noise, plateau count, samples/window, actualholddurations, drift. A2\u00b5scommand increment is testresolution; rawADCnoise mayexceedindividualincrement. Repeatedcycle uncertainty isbased3cycles only.",
+  "deadband": "Do not extract a unique motor/gear deadzone from thisexperiment. Ifplateaus repeat, report observed near-flat response descriptively withouta mechanicalbacklashclaim.",
+  "plot": "Show allcyclesPWMversussteadyADC in bothdirections plus directionwise medians; separatelyshowpairedADCgap andequivalentinputunits.",
+  "statistics": "PerPWMmedian/IQR/range over3pairedcycles; globalgap summary clearlydescriptive. No bootstrapphysicalconfidenceclaim or independenceassumption acrossPWMs."
+}
