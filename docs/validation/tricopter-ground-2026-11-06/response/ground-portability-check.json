@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "relocated_script": "/tmp/tri-ground-portable-boiizv6_/analyze_ground.py",
+  "command": [
+    "python3",
+    "analyze_ground.py",
+    "--synthetic-only",
+    "--output-dir",
+    "output"
+  ],
+  "stdout": "{\"synthetic_validation_passed\": true}\n",
+  "original_metric_pipeline_sha256": "d62a03eacb8f6993ad33cd1551759df7d794ed4f486a1aaf04e968a1952a57dd",
+  "copied_metric_pipeline_sha256": "d62a03eacb8f6993ad33cd1551759df7d794ed4f486a1aaf04e968a1952a57dd"
+}

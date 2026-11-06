@@ -1,0 +1,1858 @@
+{
+  "quality": {
+    "frame_count": 17641,
+    "duration_s": 17.599483,
+    "sample_gap_us": {
+      "n": 17640,
+      "median": 997.9999999956135,
+      "q25": 997.0000000052437,
+      "q75": 998.0000000027189,
+      "min": 991.9999999965512,
+      "max": 1114.9999999986449
+    },
+    "gap_over_1p5_nominal_count": 0,
+    "available_count": 17641,
+    "fresh_count": 17623,
+    "usable_count": 17623,
+    "usable_fraction": 0.9989796496797234,
+    "exact_subtraction_mismatch_count": 0,
+    "signed_corrected_negative_count": 0,
+    "signed_corrected_minus_one_count": 0,
+    "status_masks": {
+      "247": 16,
+      "255": 15251,
+      "759": 2,
+      "767": 2372
+    },
+    "pair_observation_age_encoded_100us": {
+      "n": 17641,
+      "median": 2.0,
+      "q25": 0.0,
+      "q75": 2.0,
+      "min": 0.0,
+      "max": 17.0
+    },
+    "pair_observation_age_histogram": {
+      "0": 8800,
+      "2": 5806,
+      "3": 1,
+      "4": 2807,
+      "5": 172,
+      "7": 18,
+      "9": 19,
+      "12": 15,
+      "17": 3
+    },
+    "wiper_rail_count": 0,
+    "ground_floor_count": 2374,
+    "ground_ceiling_count": 0,
+    "rpm_worst_observation_age_encoded_100us": {
+      "n": 17641,
+      "median": 1.0,
+      "q25": 1.0,
+      "q75": 1.0,
+      "min": 1.0,
+      "max": 2.0
+    },
+    "invalid_packet_percentage_encoded_0p01percent": {
+      "n": 17641,
+      "median": 0.0,
+      "q25": 0.0,
+      "q75": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    }
+  },
+  "groups": [
+    {
+      "from_pwm_us": 1420,
+      "to_pwm_us": 1100,
+      "n_trials": 3,
+      "early": {
+        "positive_peak_reduction_percent": {
+          "n": 3,
+          "median": 12.244897959183676,
+          "q25": 4.19937205651491,
+          "q75": 37.50542770299609,
+          "min": -3.8461538461538547,
+          "max": 62.76595744680851
+        },
+        "pb0_pc0_pearson_correlation": {
+          "n": 3,
+          "median": 0.7423142248614304,
+          "q25": 0.716421926072855,
+          "q75": 0.8477306570236287,
+          "min": 0.6905296272842796,
+          "max": 0.9531470891858271
+        },
+        "ground_floor_fraction": {
+          "n": 3,
+          "median": 0.047619047619047616,
+          "q25": 0.047619047619047616,
+          "q75": 0.09523809523809523,
+          "min": 0.047619047619047616,
+          "max": 0.14285714285714285
+        },
+        "usable_sample_count": 63,
+        "expected_sample_count": 63,
+        "status_masks": {
+          "255": 58,
+          "767": 5
+        },
+        "maximum_observation_age_encoded_100us": 4.0,
+        "pb0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 49.0,
+            "q25": 48.0,
+            "q75": 50.5,
+            "min": 47.0,
+            "max": 52.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 1.0,
+            "q25": 1.0,
+            "q75": 4.5,
+            "min": 1.0,
+            "max": 8.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 30.38095238095238,
+            "q25": 28.666666666666664,
+            "q75": 31.023809523809526,
+            "min": 26.952380952380953,
+            "max": 31.666666666666668
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        },
+        "pc0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 40.0,
+            "q25": 39.5,
+            "q75": 40.5,
+            "min": 39.0,
+            "max": 41.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 22.238095238095237,
+            "q25": 20.92857142857143,
+            "q75": 22.333333333333332,
+            "min": 19.61904761904762,
+            "max": 22.428571428571427
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 1.4826,
+            "q25": 1.4826,
+            "q75": 1.4826,
+            "min": 1.4826,
+            "max": 1.4826
+          }
+        },
+        "corrected": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 43.0,
+            "q25": 30.25,
+            "q75": 48.5,
+            "min": 17.5,
+            "max": 54.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 5.0,
+            "q25": 4.0,
+            "q75": 7.25,
+            "min": 3.0,
+            "max": 9.5
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 7.9523809523809526,
+            "q25": 7.392857142857142,
+            "q75": 8.69047619047619,
+            "min": 6.833333333333333,
+            "max": 9.428571428571429
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 3.3358499999999998,
+            "min": 2.9652,
+            "max": 3.7064999999999997
+          }
+        }
+      },
+      "signals": {
+        "pb0": {
+          "raw_first_any_onset_ms": {
+            "n": 2,
+            "median": 3.492500000007226,
+            "q25": 3.2432500000041387,
+            "q75": 3.741750000010313,
+            "min": 2.9940000000010514,
+            "max": 3.9910000000134005
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 2,
+            "median": 3.492500000007226,
+            "q25": 3.2432500000041387,
+            "q75": 3.741750000010313,
+            "min": 2.9940000000010514,
+            "max": 3.9910000000134005
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 2,
+            "median": 3.492500000007226,
+            "q25": 3.2432500000041387,
+            "q75": 3.741750000010313,
+            "min": 2.9940000000010514,
+            "max": 3.9910000000134005
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 2,
+            "median": 1.0,
+            "q25": 1.0,
+            "q75": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 2,
+            "median": 0.2824881299126202,
+            "q25": 0.28208913537884533,
+            "q75": 0.2828871244463951,
+            "min": 0.28169014084507044,
+            "max": 0.28328611898017
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 2,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 2,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "movement10_90_ms": {
+            "n": 2,
+            "median": 100.76749999999635,
+            "q25": 99.76974999999655,
+            "q75": 101.76524999999614,
+            "min": 98.77199999999675,
+            "max": 102.76299999999594
+          },
+          "t10_ms": {
+            "n": 2,
+            "median": 8.481000000006844,
+            "q25": 8.231500000009717,
+            "q75": 8.730500000003971,
+            "min": 7.98200000001259,
+            "max": 8.980000000001098
+          },
+          "t50_ms": {
+            "n": 2,
+            "median": 59.86200000000608,
+            "q25": 59.8620000000043,
+            "q75": 59.86200000000785,
+            "min": 59.862000000002524,
+            "max": 59.86200000000963
+          },
+          "t90_ms": {
+            "n": 2,
+            "median": 109.24850000000319,
+            "q25": 108.50025000000052,
+            "q75": 109.99675000000586,
+            "min": 107.75199999999785,
+            "max": 110.74500000000853
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 2,
+            "median": 4934.13775705409,
+            "q25": 4804.295675583809,
+            "q75": 5063.97983852437,
+            "min": 4674.453594113528,
+            "max": 5193.821919994651
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 2,
+            "median": 4934.13775705409,
+            "q25": 4804.295675583809,
+            "q75": 5063.97983852437,
+            "min": 4674.453594113528,
+            "max": 5193.821919994651
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 2,
+            "median": -17.2619461368565,
+            "q25": -20.323001019868403,
+            "q75": -14.200891253844603,
+            "min": -23.384055902880306,
+            "max": -11.1398363708327
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 2,
+            "median": 0.6674718680357739,
+            "q25": 0.6298930629698218,
+            "q75": 0.7050506731017259,
+            "min": 0.5923142579038698,
+            "max": 0.7426294781676779
+          },
+          "settling2_ms": {
+            "n": 2,
+            "median": 148.15850000000452,
+            "q25": 145.41475000000224,
+            "q75": 150.9022500000068,
+            "min": 142.671,
+            "max": 153.64600000000905
+          },
+          "settling5_ms": {
+            "n": 2,
+            "median": 121.71950000000464,
+            "q25": 121.22075000000265,
+            "q75": 122.21825000000663,
+            "min": 120.72200000000066,
+            "max": 122.71700000000862
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 2,
+            "median": 144.66650000000314,
+            "q25": 142.1722499999998,
+            "q75": 147.1607500000065,
+            "min": 139.67799999999642,
+            "max": 149.65500000000986
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 2,
+            "median": 121.71950000000464,
+            "q25": 121.22075000000265,
+            "q75": 122.21825000000663,
+            "min": 120.72200000000066,
+            "max": 122.71700000000862
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 353.0,
+            "q25": 353.0,
+            "q75": 354.0,
+            "min": 353.0,
+            "max": 355.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1587.0,
+            "q25": 1586.0,
+            "q75": 1587.0,
+            "min": 1585.0,
+            "max": 1587.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1940.0,
+            "q25": 1940.0,
+            "q75": 1940.0,
+            "min": 1940.0,
+            "max": 1940.0
+          }
+        },
+        "pc0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          }
+        },
+        "corrected": {
+          "raw_first_any_onset_ms": {
+            "n": 2,
+            "median": 16.462000000007748,
+            "q25": 16.21250000001062,
+            "q75": 16.711500000004875,
+            "min": 15.963000000013494,
+            "max": 16.961000000002002
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 2,
+            "median": 16.462000000007748,
+            "q25": 16.21250000001062,
+            "q75": 16.711500000004875,
+            "min": 15.963000000013494,
+            "max": 16.961000000002002
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 2,
+            "median": 16.462000000007748,
+            "q25": 16.21250000001062,
+            "q75": 16.711500000004875,
+            "min": 15.963000000013494,
+            "max": 16.961000000002002
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 2,
+            "median": 4.0,
+            "q25": 3.5,
+            "q75": 4.5,
+            "min": 3.0,
+            "max": 5.0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 2,
+            "median": 1.1291545305829311,
+            "q25": 0.9895064437617206,
+            "q75": 1.2688026174041416,
+            "min": 0.84985835694051,
+            "max": 1.4084507042253522
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 2,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 2,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "movement10_90_ms": {
+            "n": 2,
+            "median": 83.80650000000145,
+            "q25": 82.80875000000165,
+            "q75": 84.80425000000125,
+            "min": 81.81100000000185,
+            "max": 85.80200000000104
+          },
+          "t10_ms": {
+            "n": 2,
+            "median": 24.444000000006127,
+            "q25": 24.194500000009,
+            "q75": 24.693500000003255,
+            "min": 23.945000000011873,
+            "max": 24.94300000000038
+          },
+          "t50_ms": {
+            "n": 2,
+            "median": 60.86000000000169,
+            "q25": 60.859999999999914,
+            "q75": 60.86000000000347,
+            "min": 60.85999999999814,
+            "max": 60.86000000000524
+          },
+          "t90_ms": {
+            "n": 2,
+            "median": 108.25050000000758,
+            "q25": 107.5022500000049,
+            "q75": 108.99875000001025,
+            "min": 106.75400000000224,
+            "max": 109.74700000001292
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 2,
+            "median": 5243.946608891214,
+            "q25": 5100.386992691052,
+            "q75": 5387.506225091376,
+            "min": 4956.827376490889,
+            "max": 5531.065841291539
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 2,
+            "median": 5243.946608891214,
+            "q25": 5100.386992691052,
+            "q75": 5387.506225091376,
+            "min": 4956.827376490889,
+            "max": 5531.065841291539
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 2,
+            "median": -16.489510821490654,
+            "q25": -19.272654215783607,
+            "q75": -13.706367427197705,
+            "min": -22.055797610076556,
+            "max": -10.923224032904756
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 2,
+            "median": 0.5650214065275438,
+            "q25": 0.5513865960682929,
+            "q75": 0.5786562169867948,
+            "min": 0.5377517856090419,
+            "max": 0.5922910274460458
+          },
+          "settling2_ms": {
+            "n": 2,
+            "median": 148.15850000000452,
+            "q25": 145.41475000000224,
+            "q75": 150.9022500000068,
+            "min": 142.671,
+            "max": 153.64600000000905
+          },
+          "settling5_ms": {
+            "n": 2,
+            "median": 123.71500000000424,
+            "q25": 122.21850000000245,
+            "q75": 125.21150000000603,
+            "min": 120.72200000000066,
+            "max": 126.70800000000781
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 2,
+            "median": 145.16550000000095,
+            "q25": 142.42174999999867,
+            "q75": 147.90925000000323,
+            "min": 139.67799999999642,
+            "max": 150.65300000000548
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 2,
+            "median": 123.71500000000424,
+            "q25": 122.21850000000245,
+            "q75": 125.21150000000603,
+            "min": 120.72200000000066,
+            "max": 126.70800000000781
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 353.0,
+            "q25": 352.75,
+            "q75": 354.0,
+            "min": 352.5,
+            "max": 355.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1585.0,
+            "q25": 1584.0,
+            "q75": 1585.25,
+            "min": 1583.0,
+            "max": 1585.5
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1938.0,
+            "q25": 1938.0,
+            "q75": 1938.0,
+            "min": 1938.0,
+            "max": 1938.0
+          }
+        }
+      }
+    },
+    {
+      "from_pwm_us": 1100,
+      "to_pwm_us": 1420,
+      "n_trials": 3,
+      "early": {
+        "positive_peak_reduction_percent": {
+          "n": 3,
+          "median": 78.43137254901961,
+          "q25": 68.3065953654189,
+          "q75": 83.40173278613771,
+          "min": 58.18181818181818,
+          "max": 88.37209302325581
+        },
+        "pb0_pc0_pearson_correlation": {
+          "n": 3,
+          "median": 0.8820090211630008,
+          "q25": 0.8793585735223995,
+          "q75": 0.8844058626258232,
+          "min": 0.8767081258817983,
+          "max": 0.8868027040886456
+        },
+        "ground_floor_fraction": {
+          "n": 3,
+          "median": 0.0,
+          "q25": 0.0,
+          "q75": 0.047619047619047616,
+          "min": 0.0,
+          "max": 0.09523809523809523
+        },
+        "usable_sample_count": 63,
+        "expected_sample_count": 63,
+        "status_masks": {
+          "255": 61,
+          "767": 2
+        },
+        "maximum_observation_age_encoded_100us": 4.0,
+        "pb0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 51.0,
+            "q25": 47.0,
+            "q75": 53.0,
+            "min": 43.0,
+            "max": 55.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 8.0,
+            "q25": 5.0,
+            "q75": 14.0,
+            "min": 2.0,
+            "max": 20.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 19.19047619047619,
+            "q25": 17.904761904761905,
+            "q75": 20.30952380952381,
+            "min": 16.61904761904762,
+            "max": 21.428571428571427
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        },
+        "pc0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 40.0,
+            "q25": 40.0,
+            "q75": 41.0,
+            "min": 40.0,
+            "max": 42.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 1.0,
+            "q25": 1.0,
+            "q75": 1.5,
+            "min": 1.0,
+            "max": 2.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 22.095238095238095,
+            "q25": 21.88095238095238,
+            "q75": 22.38095238095238,
+            "min": 21.666666666666668,
+            "max": 22.666666666666668
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 1.4826,
+            "q25": 1.4826,
+            "q75": 1.4826,
+            "min": 1.4826,
+            "max": 1.4826
+          }
+        },
+        "corrected": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 11.0,
+            "q25": 8.0,
+            "q75": 17.0,
+            "min": 5.0,
+            "max": 23.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 17.0,
+            "q25": 17.0,
+            "q75": 22.0,
+            "min": 17.0,
+            "max": 27.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": -2.9047619047619047,
+            "q25": -3.9761904761904763,
+            "q75": -2.071428571428571,
+            "min": -5.0476190476190474,
+            "max": -1.2380952380952381
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        }
+      },
+      "signals": {
+        "pb0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": -348.0,
+            "q25": -350.5,
+            "q75": -348.0,
+            "min": -353.0,
+            "max": -348.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1940.0,
+            "q25": 1940.0,
+            "q75": 1940.0,
+            "min": 1940.0,
+            "max": 1940.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1592.0,
+            "q25": 1589.5,
+            "q75": 1592.0,
+            "min": 1587.0,
+            "max": 1592.0
+          }
+        },
+        "pc0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          }
+        },
+        "corrected": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": -348.0,
+            "q25": -350.5,
+            "q75": -348.0,
+            "min": -353.0,
+            "max": -348.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1938.0,
+            "q25": 1938.0,
+            "q75": 1938.0,
+            "min": 1938.0,
+            "max": 1938.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1590.0,
+            "q25": 1587.5,
+            "q75": 1590.0,
+            "min": 1585.0,
+            "max": 1590.0
+          }
+        }
+      }
+    },
+    {
+      "from_pwm_us": 1420,
+      "to_pwm_us": 1700,
+      "n_trials": 3,
+      "early": {
+        "positive_peak_reduction_percent": {
+          "n": 3,
+          "median": 75.55555555555556,
+          "q25": 62.26757369614512,
+          "q75": 77.36111111111111,
+          "min": 48.97959183673469,
+          "max": 79.16666666666666
+        },
+        "pb0_pc0_pearson_correlation": {
+          "n": 3,
+          "median": 0.8965948441239884,
+          "q25": 0.815041522833321,
+          "q75": 0.9235430449359706,
+          "min": 0.7334882015426537,
+          "max": 0.9504912457479529
+        },
+        "ground_floor_fraction": {
+          "n": 3,
+          "median": 0.047619047619047616,
+          "q25": 0.023809523809523808,
+          "q75": 0.09523809523809523,
+          "min": 0.0,
+          "max": 0.14285714285714285
+        },
+        "usable_sample_count": 63,
+        "expected_sample_count": 63,
+        "status_masks": {
+          "255": 59,
+          "767": 4
+        },
+        "maximum_observation_age_encoded_100us": 4.0,
+        "pb0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 48.0,
+            "q25": 46.5,
+            "q75": 48.5,
+            "min": 45.0,
+            "max": 49.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 3.0,
+            "q25": 2.0,
+            "q75": 4.5,
+            "min": 1.0,
+            "max": 6.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 19.666666666666668,
+            "q25": 18.857142857142858,
+            "q75": 20.69047619047619,
+            "min": 18.047619047619047,
+            "max": 21.714285714285715
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        },
+        "pc0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 40.0,
+            "q25": 39.0,
+            "q75": 43.5,
+            "min": 38.0,
+            "max": 47.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 1.0,
+            "q75": 2.0,
+            "min": 0.0,
+            "max": 2.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 21.571428571428573,
+            "q25": 20.30952380952381,
+            "q75": 21.833333333333336,
+            "min": 19.047619047619047,
+            "max": 22.095238095238095
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 1.4826,
+            "q25": 1.4826,
+            "q75": 1.4826,
+            "min": 1.4826,
+            "max": 1.4826
+          }
+        },
+        "corrected": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 11.0,
+            "q25": 10.5,
+            "q75": 18.0,
+            "min": 10.0,
+            "max": 25.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 20.0,
+            "q25": 17.0,
+            "q75": 22.0,
+            "min": 14.0,
+            "max": 24.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": -1.0,
+            "q25": -1.7142857142857142,
+            "q75": -0.42857142857142855,
+            "min": -2.4285714285714284,
+            "max": 0.14285714285714285
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        }
+      },
+      "signals": {
+        "pb0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": -312.0,
+            "q25": -313.0,
+            "q75": -308.0,
+            "min": -314.0,
+            "max": -304.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1592.0,
+            "q25": 1589.5,
+            "q75": 1592.0,
+            "min": 1587.0,
+            "max": 1592.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1280.0,
+            "q25": 1279.0,
+            "q75": 1281.5,
+            "min": 1278.0,
+            "max": 1283.0
+          }
+        },
+        "pc0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          }
+        },
+        "corrected": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": -312.0,
+            "q25": -313.0,
+            "q75": -308.0,
+            "min": -314.0,
+            "max": -304.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1590.0,
+            "q25": 1587.5,
+            "q75": 1590.0,
+            "min": 1585.0,
+            "max": 1590.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1278.0,
+            "q25": 1277.0,
+            "q75": 1279.5,
+            "min": 1276.0,
+            "max": 1281.0
+          }
+        }
+      }
+    },
+    {
+      "from_pwm_us": 1700,
+      "to_pwm_us": 1420,
+      "n_trials": 3,
+      "early": {
+        "positive_peak_reduction_percent": {
+          "n": 3,
+          "median": 52.08333333333333,
+          "q25": 47.31826241134751,
+          "q75": 56.25,
+          "min": 42.553191489361694,
+          "max": 60.41666666666667
+        },
+        "pb0_pc0_pearson_correlation": {
+          "n": 3,
+          "median": 0.9220168904475694,
+          "q25": 0.9192381597276691,
+          "q75": 0.929541952943831,
+          "min": 0.9164594290077687,
+          "max": 0.9370670154400926
+        },
+        "ground_floor_fraction": {
+          "n": 3,
+          "median": 0.0,
+          "q25": 0.0,
+          "q75": 0.047619047619047616,
+          "min": 0.0,
+          "max": 0.09523809523809523
+        },
+        "usable_sample_count": 63,
+        "expected_sample_count": 63,
+        "status_masks": {
+          "255": 61,
+          "767": 2
+        },
+        "maximum_observation_age_encoded_100us": 4.0,
+        "pb0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 48.0,
+            "q25": 47.5,
+            "q75": 48.0,
+            "min": 47.0,
+            "max": 48.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 7.0,
+            "q25": 4.5,
+            "q75": 9.5,
+            "min": 2.0,
+            "max": 12.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 29.61904761904762,
+            "q25": 28.23809523809524,
+            "q75": 29.642857142857146,
+            "min": 26.857142857142858,
+            "max": 29.666666666666668
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        },
+        "pc0": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 40.0,
+            "q25": 39.5,
+            "q75": 42.0,
+            "min": 39.0,
+            "max": 44.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 1.0,
+            "q25": 0.5,
+            "q75": 1.5,
+            "min": 0.0,
+            "max": 2.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 21.761904761904763,
+            "q25": 21.11904761904762,
+            "q75": 22.38095238095238,
+            "min": 20.476190476190474,
+            "max": 23.0
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 1.4826,
+            "q25": 1.4826,
+            "q75": 1.4826,
+            "min": 1.4826,
+            "max": 1.4826
+          }
+        },
+        "corrected": {
+          "positive_peak_adc": {
+            "n": 3,
+            "median": 23.0,
+            "q25": 21.0,
+            "q75": 25.0,
+            "min": 19.0,
+            "max": 27.0
+          },
+          "negative_peak_adc": {
+            "n": 3,
+            "median": 6.0,
+            "q25": 4.5,
+            "q75": 9.0,
+            "min": 3.0,
+            "max": 12.0
+          },
+          "mean_displacement_adc": {
+            "n": 3,
+            "median": 6.619047619047619,
+            "q25": 6.5,
+            "q75": 7.761904761904762,
+            "min": 6.380952380952381,
+            "max": 8.904761904761905
+          },
+          "baseline_robust_sigma_adc": {
+            "n": 3,
+            "median": 2.9652,
+            "q25": 2.9652,
+            "q75": 2.9652,
+            "min": 2.9652,
+            "max": 2.9652
+          }
+        }
+      },
+      "signals": {
+        "pb0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 307.0,
+            "q25": 304.0,
+            "q75": 307.0,
+            "min": 301.0,
+            "max": 307.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1280.0,
+            "q25": 1279.0,
+            "q75": 1281.5,
+            "min": 1278.0,
+            "max": 1283.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1585.0,
+            "q25": 1584.5,
+            "q75": 1586.0,
+            "min": 1584.0,
+            "max": 1587.0
+          }
+        },
+        "pc0": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 0.0,
+            "q25": 0.0,
+            "q75": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 2.0,
+            "q25": 2.0,
+            "q75": 2.0,
+            "min": 2.0,
+            "max": 2.0
+          }
+        },
+        "corrected": {
+          "raw_first_any_onset_ms": {
+            "n": 0
+          },
+          "raw_first_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_first_wrongway_onset_ms": {
+            "n": 0
+          },
+          "established_toward_onset_ms": {
+            "n": 0
+          },
+          "raw_wrongway_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_peak_percent_step": {
+            "n": 0
+          },
+          "raw_wrongway_sustained5_peak_adc": {
+            "n": 0
+          },
+          "raw_wrongway_longest_run_ms": {
+            "n": 0
+          },
+          "movement10_90_ms": {
+            "n": 0
+          },
+          "t10_ms": {
+            "n": 0
+          },
+          "t50_ms": {
+            "n": 0
+          },
+          "t90_ms": {
+            "n": 0
+          },
+          "peak_derivative_adc_per_s": {
+            "n": 0
+          },
+          "maximum_absolute_derivative_adc_per_s": {
+            "n": 0
+          },
+          "peak_derivative_window_sensitivity_percent": {
+            "n": 0
+          },
+          "sustained_filtered_overshoot_percent": {
+            "n": 0
+          },
+          "settling2_ms": {
+            "n": 0
+          },
+          "settling5_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling2_ms": {
+            "n": 0
+          },
+          "noise_adjusted_settling5_ms": {
+            "n": 0
+          },
+          "signed_step_adc": {
+            "n": 3,
+            "median": 307.0,
+            "q25": 304.0,
+            "q75": 307.5,
+            "min": 301.0,
+            "max": 308.0
+          },
+          "baseline_adc": {
+            "n": 3,
+            "median": 1277.0,
+            "q25": 1276.5,
+            "q75": 1279.0,
+            "min": 1276.0,
+            "max": 1281.0
+          },
+          "endpoint_adc": {
+            "n": 3,
+            "median": 1583.0,
+            "q25": 1582.5,
+            "q75": 1584.0,
+            "min": 1582.0,
+            "max": 1585.0
+          }
+        }
+      }
+    }
+  ]
+}

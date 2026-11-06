@@ -1,0 +1,12 @@
+{
+  "packaged_analysis_reproduced": true,
+  "compared_fields": [
+    "quality",
+    "groups",
+    "trials",
+    "pipeline_sha256",
+    "historical_metric_pipeline_sha256"
+  ],
+  "synthetic_validation_passed": true,
+  "input_csv_sha256": "963dfd07bf074f574b2805528667dc66ff926716ef294e83626a20bd113d3d00"
+}

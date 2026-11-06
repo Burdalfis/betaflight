@@ -1,0 +1,14 @@
+{
+  "upstream": "https://github.com/betaflight/blackbox-tools.git",
+  "commit": "d89f96b983d0f5c8f053acf003ee2998b02b5b0f",
+  "binary": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+  "sha256": "0bdd56d60a95361b4f8224dad3bb465c98b4087b3e66a5cb9a7927474067bfa6",
+  "build_command": "make -j4 obj/blackbox_decode",
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "notes": "Decoder built successfully and --help executes. Makefile emits pkg-config cairo-not-found warnings; decoder does not require renderer Cairo functionality.",
+  "adapted": true,
+  "adaptation": "Parse modern integer P interval as 1/N; upstream only parsed legacy ratio, incorrectly reporting intentional skipped loops as missing.",
+  "adaptation_patch": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools-integer-p-interval.patch",
+  "adaptation_patch_sha256": "22cc5fe77ecc5755456e2a6ba6e03fe39bc7a2cb383d6de082a11c8a61350ab4",
+  "upstream_binary_sha256": "637dad9817490d54d9826b8059e6df0191e73bb75fc79aa2d2db381af2d24a6e"
+}

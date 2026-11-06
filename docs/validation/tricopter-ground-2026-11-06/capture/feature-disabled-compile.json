@@ -1,0 +1,124 @@
+[
+  {
+    "name": "no_adc_no_dshot",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "src/main/flight/servos_tricopter.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "adc_only",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "-DUSE_ADC",
+      "src/main/flight/servos_tricopter.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "dshot_only",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "-DUSE_DSHOT_TELEMETRY",
+      "src/main/flight/servos_tricopter.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "dshot_with_stats",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "-DUSE_DSHOT_TELEMETRY",
+      "-DUSE_DSHOT_TELEMETRY_STATS",
+      "src/main/flight/servos_tricopter.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "all_diagnostics",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "-DUSE_ADC",
+      "-DUSE_DSHOT_TELEMETRY",
+      "-DUSE_DSHOT_TELEMETRY_STATS",
+      "src/main/flight/servos_tricopter.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "non_f4_adc_stub",
+    "command": [
+      "gcc",
+      "-std=gnu17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DUNIT_TEST",
+      "-Isrc/test/unit",
+      "-Isrc/main",
+      "-Ilib/main/CMSIS/DSP/Include",
+      "-fsyntax-only",
+      "-DUSE_ADC",
+      "src/main/drivers/adc.c"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

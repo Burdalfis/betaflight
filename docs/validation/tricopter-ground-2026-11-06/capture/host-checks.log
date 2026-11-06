@@ -1,0 +1,300 @@
+Makefile:819: warning: gcc/g++ support is experimental. For normal testing, clang is recommended
+CC version: gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0 Copyright (C) 2025 Free Software Foundation, Inc. This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+CXX version: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0 Copyright (C) 2025 Free Software Foundation, Inc. This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 15 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 15 tests from TricopterDiagnostics
+[ RUN      ] TricopterDiagnostics.LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode
+[       OK ] TricopterDiagnostics.LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode (0 ms)
+[ RUN      ] TricopterDiagnostics.LogsWrittenPulseIncludingDisarmedZeroWithoutChangingActuators
+[       OK ] TricopterDiagnostics.LogsWrittenPulseIncludingDisarmedZeroWithoutChangingActuators (0 ms)
+[ RUN      ] TricopterDiagnostics.EncodesLogicalMotorAgesAndWorstPacketError
+[       OK ] TricopterDiagnostics.EncodesLogicalMotorAgesAndWorstPacketError (0 ms)
+[ RUN      ] TricopterDiagnostics.MissingSamplesRemainUnavailableAndOldSamplesSaturate
+[       OK ] TricopterDiagnostics.MissingSamplesRemainUnavailableAndOldSamplesSaturate (0 ms)
+[ RUN      ] TricopterDiagnostics.RailsAndStoppedAcquisitionDoNotLookReadyAndPlausible
+[       OK ] TricopterDiagnostics.RailsAndStoppedAcquisitionDoNotLookReadyAndPlausible (0 ms)
+[ RUN      ] TricopterDiagnostics.UnsupportedOrDisabledInputsAreExplicit
+[       OK ] TricopterDiagnostics.UnsupportedOrDisabledInputsAreExplicit (0 ms)
+[ RUN      ] TricopterDiagnostics.LeavingLogModeResetsAdcObservationSessionOnce
+[       OK ] TricopterDiagnostics.LeavingLogModeResetsAdcObservationSessionOnce (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeLogsBothRawValuesAndSignedDifference
+[       OK ] TricopterDiagnostics.GroundModeLogsBothRawValuesAndSignedDifference (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeCancelsCommonOffsetWithoutChangingRawData
+[       OK ] TricopterDiagnostics.GroundModeCancelsCommonOffsetWithoutChangingRawData (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeAllowsZeroGroundAndSignedNegativeOne
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[       OK ] TricopterDiagnostics.GroundModeAllowsZeroGroundAndSignedNegativeOne (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] TricopterDiagnostics.GroundModeDoesNotInventValuesBeforeFirstCoherentPair
+[----------] 1 test from MotorOutputUnittest
+[ RUN      ] MotorOutputUnittest.TestFixMotorOutputReordering
+[       OK ] TricopterDiagnostics.GroundModeDoesNotInventValuesBeforeFirstCoherentPair (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeAgesCachedPairsAndClearsFreshness
+[       OK ] MotorOutputUnittest.TestFixMotorOutputReordering (0 ms)
+[       OK ] TricopterDiagnostics.GroundModeAgesCachedPairsAndClearsFreshness (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeRequiresAllMotorSamplesForWorstRpmAge
+[----------] 1 test from MotorOutputUnittest (0 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] TricopterDiagnostics.GroundModeRequiresAllMotorSamplesForWorstRpmAge (0 ms)
+[ RUN      ] TricopterDiagnostics.SwitchingDiagnosticSchemasResetsAdcSession
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[       OK ] TricopterDiagnostics.SwitchingDiagnosticSchemasResetsAdcSession (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] TricopterDiagnostics.GroundModeLogsSuppressedPulseWithoutWritingActuators
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 20 tests from 1 test suite.
+[----------] 8 tests from AdcPairSnapshot
+[       OK ] TricopterDiagnostics.GroundModeLogsSuppressedPulseWithoutWritingActuators (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] AdcPairSnapshot.LastTwoRanksUseOnlyEarlierUnrelatedConversions
+[----------] 15 tests from TricopterDiagnostics (0 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] AdcPairSnapshot.LastTwoRanksUseOnlyEarlierUnrelatedConversions (0 ms)
+[----------] 20 tests from TricopterDebugModes/DshotTelemetryTest
+[ RUN      ] AdcPairSnapshot.ConfigurationsWithoutGuardedPrefixAreUnavailable
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/0
+[==========] 15 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 15 tests.
+[       OK ] AdcPairSnapshot.ConfigurationsWithoutGuardedPrefixAreUnavailable (0 ms)
+[ RUN      ] AdcPairSnapshot.DmaProgressDuringCopyRejectsPublication
+[       OK ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/1
+[       OK ] AdcPairSnapshot.DmaProgressDuringCopyRejectsPublication (0 ms)
+[ RUN      ] AdcPairSnapshot.InterruptOrFullDmaWrapCannotMasqueradeAsStableCount
+[       OK ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/0
+[       OK ] AdcPairSnapshot.InterruptOrFullDmaWrapCannotMasqueradeAsStableCount (0 ms)
+[ RUN      ] AdcPairSnapshot.CopyClockWrapUsesUnsignedElapsedTime
+[       OK ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/1
+[       OK ] AdcPairSnapshot.CopyClockWrapUsesUnsignedElapsedTime (0 ms)
+[ RUN      ] AdcPairSnapshot.UnseenCacheAndRealZeroReferenceRemainDistinct
+[       OK ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/1 (0 ms)
+[       OK ] AdcPairSnapshot.UnseenCacheAndRealZeroReferenceRemainDistinct (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/0
+[ RUN      ] AdcPairSnapshot.RejectedCopyPreservesPreviousPairAndItsAge
+[       OK ] AdcPairSnapshot.RejectedCopyPreservesPreviousPairAndItsAge (0 ms)
+[ RUN      ] AdcPairSnapshot.CachedAgeWrapIsIndependentOfPairValues
+[       OK ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/0 (0 ms)
+[       OK ] AdcPairSnapshot.CachedAgeWrapIsIndependentOfPairValues (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/1
+[----------] 8 tests from AdcPairSnapshot (0 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/0
+[==========] 8 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 8 tests.
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/1 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/1
+[       OK ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/1 (0 ms)
+[----------] 20 tests from TricopterDebugModes/DshotTelemetryTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 20 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 20 tests.
+running test_motor_output_unittest: PASS
+running test_tricopter_diagnostics_unittest: PASS
+compiling ../main/blackbox/blackbox.c 
+running test_adc_pair_snapshot_unittest: PASS
+compiling ../main/blackbox/blackbox_io.c 
+running test_dshot_telemetry_unittest: PASS
+compiling unit/blackbox_unittest.cc 
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 4 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from BlackboxEncodingTest
+[ RUN      ] BlackboxEncodingTest.TestWriteUnsignedVB
+[       OK ] BlackboxEncodingTest.TestWriteUnsignedVB (0 ms)
+[----------] 1 test from BlackboxEncodingTest (0 ms total)
+
+[----------] 3 tests from BlackboxTest
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS2
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS2 (0 ms)
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS554
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS554 (0 ms)
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS887
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS887 (0 ms)
+[----------] 3 tests from BlackboxTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 4 tests.
+running test_blackbox_encoding_unittest: PASS
+compiling ../main/flight/pid.c 
+compiling ../main/flight/pid_init.c 
+In file included from unit/target.h:81,
+                 from unit/platform.h:114,
+                 from unit/blackbox_unittest.cc:21:
+../main/target/serial_post.h:608:50: warning: ‘*’ in boolean context, suggest ‘&&’ instead [-Wint-in-bool-context]
+  608 | #define SERIAL_LPUART_MASK ((SERIAL_LPUART1_USED * BIT(1 - 1)))
+      |                            ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../main/target/serial_post.h:611:28: note: in expansion of macro ‘SERIAL_LPUART_MASK’
+  611 | #define SERIAL_LPUART_MAX (SERIAL_LPUART_MASK ? LOG2(SERIAL_LPUART_MASK) + 1 : 0)
+      |                            ^~~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:33:31: note: in expansion of macro ‘SERIAL_LPUART_MAX’
+   33 | #define RESOURCE_LPUART_COUNT SERIAL_LPUART_MAX
+      |                               ^~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:36:54: note: in expansion of macro ‘RESOURCE_LPUART_COUNT’
+   36 | #define RESOURCE_SERIAL_COUNT (RESOURCE_UART_COUNT + RESOURCE_LPUART_COUNT + RESOURCE_SOFTSERIAL_COUNT + RESOURCE_PIOUART_COUNT)
+      |                                                      ^~~~~~~~~~~~~~~~~~~~~
+../main/drivers/serial.h:104:21: note: in expansion of macro ‘RESOURCE_SERIAL_COUNT’
+  104 |     ioTag_t ioTagTx[RESOURCE_SERIAL_COUNT];
+      |                     ^~~~~~~~~~~~~~~~~~~~~
+compiling unit/pid_unittest.cc 
+../main/target/serial_post.h:608:50: warning: ‘*’ in boolean context, suggest ‘&&’ instead [-Wint-in-bool-context]
+  608 | #define SERIAL_LPUART_MASK ((SERIAL_LPUART1_USED * BIT(1 - 1)))
+      |                            ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../main/target/serial_post.h:611:28: note: in expansion of macro ‘SERIAL_LPUART_MASK’
+  611 | #define SERIAL_LPUART_MAX (SERIAL_LPUART_MASK ? LOG2(SERIAL_LPUART_MASK) + 1 : 0)
+      |                            ^~~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:33:31: note: in expansion of macro ‘SERIAL_LPUART_MAX’
+   33 | #define RESOURCE_LPUART_COUNT SERIAL_LPUART_MAX
+      |                               ^~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:36:54: note: in expansion of macro ‘RESOURCE_LPUART_COUNT’
+   36 | #define RESOURCE_SERIAL_COUNT (RESOURCE_UART_COUNT + RESOURCE_LPUART_COUNT + RESOURCE_SOFTSERIAL_COUNT + RESOURCE_PIOUART_COUNT)
+      |                                                      ^~~~~~~~~~~~~~~~~~~~~
+../main/drivers/serial.h:105:21: note: in expansion of macro ‘RESOURCE_SERIAL_COUNT’
+  105 |     ioTag_t ioTagRx[RESOURCE_SERIAL_COUNT];
+      |                     ^~~~~~~~~~~~~~~~~~~~~
+In file included from unit/target.h:81,
+                 from unit/platform.h:114,
+                 from unit/pid_unittest.cc:43:
+../main/target/serial_post.h:608:50: warning: ‘*’ in boolean context, suggest ‘&&’ instead [-Wint-in-bool-context]
+  608 | #define SERIAL_LPUART_MASK ((SERIAL_LPUART1_USED * BIT(1 - 1)))
+      |                            ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../main/target/serial_post.h:611:28: note: in expansion of macro ‘SERIAL_LPUART_MASK’
+  611 | #define SERIAL_LPUART_MAX (SERIAL_LPUART_MASK ? LOG2(SERIAL_LPUART_MASK) + 1 : 0)
+      |                            ^~~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:33:31: note: in expansion of macro ‘SERIAL_LPUART_MAX’
+   33 | #define RESOURCE_LPUART_COUNT SERIAL_LPUART_MAX
+      |                               ^~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:36:54: note: in expansion of macro ‘RESOURCE_LPUART_COUNT’
+   36 | #define RESOURCE_SERIAL_COUNT (RESOURCE_UART_COUNT + RESOURCE_LPUART_COUNT + RESOURCE_SOFTSERIAL_COUNT + RESOURCE_PIOUART_COUNT)
+      |                                                      ^~~~~~~~~~~~~~~~~~~~~
+../main/drivers/serial.h:104:21: note: in expansion of macro ‘RESOURCE_SERIAL_COUNT’
+  104 |     ioTag_t ioTagTx[RESOURCE_SERIAL_COUNT];
+      |                     ^~~~~~~~~~~~~~~~~~~~~
+../main/target/serial_post.h:608:50: warning: ‘*’ in boolean context, suggest ‘&&’ instead [-Wint-in-bool-context]
+  608 | #define SERIAL_LPUART_MASK ((SERIAL_LPUART1_USED * BIT(1 - 1)))
+      |                            ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../main/target/serial_post.h:611:28: note: in expansion of macro ‘SERIAL_LPUART_MASK’
+  611 | #define SERIAL_LPUART_MAX (SERIAL_LPUART_MASK ? LOG2(SERIAL_LPUART_MASK) + 1 : 0)
+      |                            ^~~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:33:31: note: in expansion of macro ‘SERIAL_LPUART_MAX’
+   33 | #define RESOURCE_LPUART_COUNT SERIAL_LPUART_MAX
+      |                               ^~~~~~~~~~~~~~~~~
+../main/drivers/serial_resource.h:36:54: note: in expansion of macro ‘RESOURCE_LPUART_COUNT’
+   36 | #define RESOURCE_SERIAL_COUNT (RESOURCE_UART_COUNT + RESOURCE_LPUART_COUNT + RESOURCE_SOFTSERIAL_COUNT + RESOURCE_PIOUART_COUNT)
+      |                                                      ^~~~~~~~~~~~~~~~~~~~~
+../main/drivers/serial.h:105:21: note: in expansion of macro ‘RESOURCE_SERIAL_COUNT’
+  105 |     ioTag_t ioTagRx[RESOURCE_SERIAL_COUNT];
+      |                     ^~~~~~~~~~~~~~~~~~~~~
+linking ../../obj/test/blackbox_unittest/blackbox_unittest 
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from BlackboxTest
+[ RUN      ] BlackboxTest.TestInitIntervals
+[       OK ] BlackboxTest.TestInitIntervals (0 ms)
+[ RUN      ] BlackboxTest.Test_500Hz
+[       OK ] BlackboxTest.Test_500Hz (0 ms)
+[ RUN      ] BlackboxTest.Test_1kHz
+[       OK ] BlackboxTest.Test_1kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_2kHz
+[       OK ] BlackboxTest.Test_2kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_8kHz
+[       OK ] BlackboxTest.Test_8kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_zero_p_interval
+[       OK ] BlackboxTest.Test_zero_p_interval (0 ms)
+[ RUN      ] BlackboxTest.Test_CalculatePDenom
+[       OK ] BlackboxTest.Test_CalculatePDenom (0 ms)
+[ RUN      ] BlackboxTest.Test_CalculateRates
+[       OK ] BlackboxTest.Test_CalculateRates (0 ms)
+[----------] 8 tests from BlackboxTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 8 tests.
+running test_blackbox_unittest: PASS
+linking ../../obj/test/pid_unittest/pid_unittest 
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 15 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 15 tests from pidControllerTest
+[ RUN      ] pidControllerTest.testInitialisation
+[       OK ] pidControllerTest.testInitialisation (0 ms)
+[ RUN      ] pidControllerTest.testStabilisationDisabled
+[       OK ] pidControllerTest.testStabilisationDisabled (0 ms)
+[ RUN      ] pidControllerTest.testPidLoop
+[       OK ] pidControllerTest.testPidLoop (0 ms)
+[ RUN      ] pidControllerTest.testPidLevel
+[       OK ] pidControllerTest.testPidLevel (0 ms)
+[ RUN      ] pidControllerTest.testPidHorizon
+[       OK ] pidControllerTest.testPidHorizon (0 ms)
+[ RUN      ] pidControllerTest.testMixerSaturation
+[       OK ] pidControllerTest.testMixerSaturation (0 ms)
+[ RUN      ] pidControllerTest.testiTermWindup
+[       OK ] pidControllerTest.testiTermWindup (0 ms)
+[ RUN      ] pidControllerTest.testCrashRecoveryMode
+[       OK ] pidControllerTest.testCrashRecoveryMode (0 ms)
+[ RUN      ] pidControllerTest.testFeedForward
+[       OK ] pidControllerTest.testFeedForward (0 ms)
+[ RUN      ] pidControllerTest.testItermRelax
+[       OK ] pidControllerTest.testItermRelax (0 ms)
+[ RUN      ] pidControllerTest.testDtermFiltering
+[       OK ] pidControllerTest.testDtermFiltering (0 ms)
+[ RUN      ] pidControllerTest.testItermRotationHandling
+[       OK ] pidControllerTest.testItermRotationHandling (0 ms)
+[ RUN      ] pidControllerTest.testLaunchControl
+[       OK ] pidControllerTest.testLaunchControl (0 ms)
+[ RUN      ] pidControllerTest.testTpaClassic
+[       OK ] pidControllerTest.testTpaClassic (0 ms)
+[ RUN      ] pidControllerTest.testTpaHyperbolic
+[       OK ] pidControllerTest.testTpaHyperbolic (0 ms)
+[----------] 15 tests from pidControllerTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 15 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 15 tests.
+running test_pid_unittest: PASS
+docs/tricopter_dump.txt: OK
+docs/tricopter_diff.txt: OK
+docs/btfl_001.bbl: OK
+docs/btfl_002.bbl: OK
+docs/btfl_003.bbl: OK
+docs/btfl_004.bbl: OK
+docs/btfl_005.bbl: OK
+docs/btfl_006.bbl: OK

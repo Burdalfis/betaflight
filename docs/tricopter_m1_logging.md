@@ -6,13 +6,13 @@ M1 `bd6a5d727` has been flashed, read back, and bench-tested with PB0 servo feed
 
 The subsequent [unloaded characterization](tricopter_servo_characterization_2026-11-06.md) found an early common-positive wiper transient in both requested directions, persisting with the case clamped. The tap is observable, but early wiper voltage is not yet established as actual shaft/rotor motion. Servo supply/ground/reference measurements remain necessary before active position-dependent control.
 
-The separate [TRI_GROUND mode](tricopter_dual_adc_logging.md) adds raw PB0 wiper, raw PC0 servo-ground sense and signed PB0−PC0 logging with coherent-pair acquisition. It does not change the original `TRI_SERVO` schema documented below.
+The separate [TRI_GROUND mode](tricopter_dual_adc_logging.md) adds raw PB0 wiper, raw PC0 servo-ground sense and signed PB0−PC0 logging with coherent-pair acquisition. It was flashed and bench-recorded at `a15ed3065`; see [dual-input evidence](validation/tricopter-ground-2026-11-06/README.md). It does not change the original `TRI_SERVO` schema documented below.
 
 **Wiring revision — 2026-11-06:** the user connected the wiper to **PB0 / ADC1_IN8** for proximity to the servo, replacing the earlier PC0/AirS proposal. M1 already reads configurable `ADC_EXTERNAL1`; the existing binary supports PB0 without a rebuild. `ADC_EXT 1 B00`, `ADC_RSSI 1 NONE`, and `RSSI_ADC` disabled were applied and verified. Earlier cloud captures remain unedited historical evidence.
 
 ## Modes and output path
 
-- **LEGACY:** any debug mode other than `TRI_SERVO` leaves this diagnostic logger inactive. Existing debug modes retain their values because `TRI_SERVO` was appended to the enum.
+- **LEGACY:** debug modes other than `TRI_SERVO` and `TRI_GROUND` leave this diagnostic logger inactive. Existing debug modes retain their values because the new modes were appended to the enum.
 - **LOG_ONLY:** `set debug_mode = TRI_SERVO` selects instrumentation while retaining the existing motor mixer and yaw-PID-to-servo path. There is no experimental control mode to enable.
 
 The servo hook runs in `writeServos()` immediately after the TRI rudder hardware write, after servo mixing, filtering, limits and disarmed signal suppression. `debug[1]` is the exact PWM value passed to the driver, including zero when pulses are suppressed. It is the register-write request, **not** an independently captured pin edge or the measured mechanical position. At 498 Hz the timer emits pulses asynchronously; a scope is still required to establish output timing.

@@ -85,4 +85,27 @@ For rollback to an older image that does not know `TRI_GROUND`, select `TRI_SERV
 
 ## Verification
 
-The focused suite covers coherent-copy phase/count/preemption/wrap guards, cache age, signed and common-offset subtraction, zero ground, missing/stale pairs, diagnostics-mode isolation, PWM preservation, and both DShot diagnostic modes. Full target and optional-feature builds supplement host tests. Hardware measurements and any observed cancellation will be recorded separately after flashing; no cancellation result is assumed from these software checks.
+The 71 focused host checks pass, covering coherent-copy phase/count/preemption/wrap guards, cache age, signed and common-offset subtraction, zero ground, missing/stale pairs, diagnostics-mode isolation, PWM preservation, and both DShot diagnostic modes. The clean MATEKF405TE build and six optional-feature compile checks also pass.
+
+## Hardware result — 2026-11-06
+
+Clean firmware `a15ed3065` was flashed and read back successfully. Both programmed segments matched, and the configuration sector remained byte-identical before boot. All 1471 saved configuration commands were compared after setup: only `ADC_RSSI 1 NONE` → `C00` and `debug_mode = TRI_SERVO` → `TRI_GROUND` changed. Active PB0/PC0 ownership was verified. The normal receiver, arming, motor and servo settings were retained.
+
+The user confirmed that the case was clamped, the arm free, the linkage disconnected and propellers removed. Three cycles of 1420→1100→1420→1700→1420 were recorded, with 1.2-second holds, servo power at 5 V and the aircraft on its 7 V / 2 A limited supply. Motors remained stopped. The minimum reported battery voltage was 6.84 V. The original servo configuration was restored exactly, Blackbox returned to NORMAL, and a final reboot confirmed disarmed state, zero RPM on all three motors, midpoint 1420 µs and healthy ADC acquisition. Idle CPU was about 46%, versus 45% on the preceding build under this bench setup; this is not a worst-case execution-time measurement.
+
+The two independent downloads match SHA-256 `1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701`. There are 17641 decoded frames over 17.60 seconds, with a median interval of 998 µs and no gaps above 1.5 nominal intervals. Every frame satisfies the exact signed PB0−PC0 identity. Pair freshness is 99.898%; 18 rows have encoded observation ages of 1.2–1.7 ms and are excluded from response analysis. All 12 initial 0–20 ms transition windows contain 21/21 valid fresh rows. PC0 is at zero in 13.46% of the full recording, so negative ground offsets remain unobservable.
+
+The measured ground rise strongly supports a shared electrical origin for much of the initial wiper kick. These are medians of three trials, with peaks measured relative to each signal's pre-step median in the first 20 ms:
+
+| Transition, µs | PB0 positive peak, counts | PC0 positive peak, counts | PB0−PC0 positive peak, counts |
+|---|---:|---:|---:|
+| 1420→1100 | 49 | 40 | 43 |
+| 1100→1420 | 51 | 40 | 11 |
+| 1420→1700 | 48 | 40 | 11 |
+| 1700→1420 | 48 | 40 | 23 |
+
+On **1420→1700**, where a positive wiper excursion opposes the intended final change, unit subtraction reduces the positive peak by a median **75.6%** (49.0–79.2% across the three trials). PB0/PC0 early correlation is 0.73–0.95. At roughly 3.28 V ADC reference, 48 counts is about 38 mV and 11 counts about 9 mV. The reverse-signed 1100→1420 transition also shows a median 78.4% reduction. The same peak statistic on the other two transitions includes intended positive movement within the 20 ms window; it cannot isolate an electrical artifact from motion. Individual residual spikes and PC0 floor readings remain visible.
+
+This establishes observed ground rise and substantial cancellation, not complete electrical rejection or independently measured shaft motion. The remaining signal can still include excitation/reference changes, sequential-sampling effects and mechanical response. The strict uninterrupted-window gate rejects most full-hold response trials because of isolated stale pairs; this short diagnostic run does not replace the earlier full characterization or establish new forward/reverse specifications.
+
+Raw data, acquisition/build provenance, exact quality counts, per-trial results and a reproducible analysis/plot are preserved in [the dual-ADC evidence package](validation/tricopter-ground-2026-11-06/README.md). Historical single-input recordings remain unchanged.

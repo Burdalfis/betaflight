@@ -10,7 +10,7 @@ The local build is a separate image whose build evidence must be recorded
 separately. No firmware was flashed and no aircraft configuration was changed
 during this source/configuration audit.
 
-**Wiring revision — 2026-11-06:** the user subsequently connected the servo
+**Initial wiper wiring revision — 2026-11-06:** the user subsequently connected the servo
 potentiometer wiper to **PB0**, chosen for proximity to the servo. PB0 is now the
 intended `ADC_EXTERNAL1` input (`ADC_EXT 1 B00`), replacing the earlier PC0/AirS
 proposal. Clear its default `ADC_RSSI` resource and keep `RSSI_ADC` disabled.
@@ -18,6 +18,8 @@ The existing M1 binary follows the configured pin; this change needs no rebuild.
 This records wiring and source compatibility, not a measured PB0 bench result.
 
 **Subsequent hardware session:** M1 `bd6a5d727` was flashed/read back and PB0 was measured during servo and low-power motor tests. The full current-version aircraft configuration was recovered and verified after the cloud-to-local feature-set migration. See [the bench record](tricopter_m1_bench_2026-11-06.md); the earlier audit/captures above remain historical provenance.
+
+**Current dual-input wiring:** PB0 remains the wiper input (`ADC_EXT 1 B00`), and PC0 now senses servo PCB ground (`ADC_RSSI 1 C00`). The normal servo power ground remains connected. Logging-only `TRI_GROUND` at `a15ed3065` was flashed/read back and both inputs were verified, with `RSSI_ADC` disabled. This supersedes the earlier single-input instruction to leave PC0 free. See [configuration and acquisition limits](tricopter_dual_adc_logging.md) and [hardware evidence](validation/tricopter-ground-2026-11-06/README.md).
 
 ## Evidence and preservation
 
@@ -150,7 +152,9 @@ writing the TRI rudder servo. When unarmed movement is disabled, it can write
 zero to suppress PWM. M1 command logging must observe that final written value,
 including zero, rather than an earlier mixer demand.
 
-## PB0 position-feedback input — current wiring
+## PB0 position-feedback input — initial single-input setup
+
+The following records the first PB0-only session. For the current PC0 ground-sense connection, use the dual-input configuration linked above; retain PB0 and assign `ADC_RSSI 1 C00` rather than `NONE`.
 
 The user wired the internal potentiometer wiper directly to **PB0**, sharing
 servo and flight-controller ground. PB0 is **ADC1_IN8** (also valid on ADC2 in

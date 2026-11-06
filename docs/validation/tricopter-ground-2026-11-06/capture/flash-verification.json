@@ -1,0 +1,21 @@
+{
+  "segments": [
+    {
+      "address": 134217728,
+      "file": "firmware-0-08000000.bin",
+      "bytes": 392,
+      "sha256": "74c03367e8e49f0876a0e525ef70275a08355ba78294c2191b6fecab62038c85",
+      "readback_equal": true
+    },
+    {
+      "address": 134250496,
+      "file": "firmware-1-08008000.bin",
+      "bytes": 536181,
+      "sha256": "e503555b8b2058689ea3624acf42945cc4d177105156351f57417a37e3bd34c5",
+      "readback_equal": true
+    }
+  ],
+  "config_sector_equal": true,
+  "config_sector_sha256": "feb6f002d4ab8d0b6d60000ef6ec1caa598cc4c98f55d9cee52d545833ef9d07",
+  "readback_sha256": "ba00e777513eec7a711511123f65f83e276b4927e9a9bdd0807156be704e44fa"
+}

@@ -35,3 +35,5 @@ docs/tricopter_diff.txt -text
 docs/tricopter_cloud_cli_2026-11-06.txt -text -whitespace
 *.bbl -text -diff
 docs/validation/tricopter-servo-2026-11-06/**/*.csv -text -whitespace
+docs/validation/tricopter-ground-2026-11-06/**/*.csv -text -whitespace
+docs/validation/tricopter-ground-2026-11-06/capture/*.log -text -whitespace

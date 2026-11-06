@@ -1,0 +1,32 @@
+{
+  "source_commit": "a15ed30656b4f20286aaea1ab0b8d0a54fcc7cd4",
+  "baseline_firmware_commit": "bd6a5d7277b3ee4e73f54283ad535483e2a7b78d",
+  "clean": true,
+  "git_status_porcelain": "",
+  "source_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "config_commit": "3a406c5c30c20d7c3bc7dd5ed547cca961baf0a9",
+  "source_date_epoch": 1789594937,
+  "clean_command": "make CONFIG=MATEKF405TE CCACHE= clean",
+  "build_command": "SOURCE_DATE_EPOCH=1789594937 make -j8 CONFIG=MATEKF405TE V=1 CCACHE= fwo",
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "artifact_sha256": {
+    "tricopter_m1_TRI_GROUND_MATEKF405TE.bin": "7a783e85494e8a8ea3fa9eb0f1b27e9adc617e31de09ffb64836890492472049",
+    "tricopter_m1_TRI_GROUND_MATEKF405TE.elf": "f95cb6eb75e2d7424cbac7152023b95bcbb42998f84664e7d3f5b07565f3190b",
+    "tricopter_m1_TRI_GROUND_MATEKF405TE.hex": "577692c7ac29662c30f97dbdbe739644eb1af5a9c105ed596cbfbab310b9ddcd",
+    "tricopter_m1_TRI_GROUND_MATEKF405TE.map": "0a78d8527d19d93bf0420e5009a548e56cc4c5442c2d5fb70e3d963bca830a60"
+  },
+  "embedded_revision": "a15ed3065",
+  "embedded_revision_verified_in_raw_binary": true,
+  "embedded_revision_raw_binary_offset": 540188,
+  "section_sizes": {
+    "text": 529949,
+    "data": 6624,
+    "bss": 100028
+  },
+  "delta_vs_previous_m1": {
+    "text": 1360,
+    "data": 4,
+    "bss": 24
+  },
+  "hardware_accessed_by_build_agent": false
+}

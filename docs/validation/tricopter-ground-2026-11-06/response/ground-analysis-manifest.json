@@ -1,0 +1,81 @@
+{
+  "scope": "Offline paired-ADC experiment analysis only; hardware capture provenance recorded separately.",
+  "decoder": {
+    "upstream_commit": "d89f96b983d0f5c8f053acf003ee2998b02b5b0f",
+    "binary_sha256": "0bdd56d60a95361b4f8224dad3bb465c98b4087b3e66a5cb9a7927474067bfa6",
+    "integer_P_interval_patch_sha256": "22cc5fe77ecc5755456e2a6ba6e03fe39bc7a2cb383d6de082a11c8a61350ab4",
+    "arguments": [
+      "--unit-vbat",
+      "raw",
+      "--unit-flags",
+      "raw",
+      "--save-headers"
+    ]
+  },
+  "files": {
+    "analyze_ground.py": {
+      "bytes": 18050,
+      "sha256": "7f48500159430abfd122e6ecb5a5bf45e25eb60b02ddbb6adbc62571c0b46117"
+    },
+    "response_metrics_v4.py": {
+      "bytes": 19464,
+      "sha256": "d62a03eacb8f6993ad33cd1551759df7d794ed4f486a1aaf04e968a1952a57dd"
+    },
+    "ground-analysis-methods.json": {
+      "bytes": 3389,
+      "sha256": "b362495cbd3bd1d6273bd7c9b53d6e66f46fa77868786db4a10ca79bbbdcd29d"
+    },
+    "ground-synthetic-validation.json": {
+      "bytes": 2009,
+      "sha256": "7a41f029c5a3b62ec5a4f27b97c90bd0f2c4ecb650b48aa7bc92f25054272a0d"
+    },
+    "ground-portability-check.json": {
+      "bytes": 480,
+      "sha256": "6c8c40453b5f13b1e4c498088b3875506487cbc7793e90c7c99bb36b853f024c"
+    },
+    "ground-transient-report.md": {
+      "bytes": 5564,
+      "sha256": "05aaba30c289652a274cdfde80a75771e83328a92f2db0ea7c5f1413a4476029"
+    },
+    "servo-ground-analysis.json": {
+      "bytes": 111082,
+      "sha256": "983949fc6059b72e9aa0edb3fb304620ec13b6c57cace04120d42ee7a5d2f59f"
+    },
+    "servo-ground-trials.csv": {
+      "bytes": 24619,
+      "sha256": "bbbfeb8dceaa12340743ddf9b4274cbb62d0271787921c734261eb7ef7322aea"
+    },
+    "servo-ground-early.csv": {
+      "bytes": 103097,
+      "sha256": "15ef6fabd3c14f2f4d7682d46d1f5a1be9d9466efed0c2e4366367f25866ccf3"
+    },
+    "servo-ground-comparison.png": {
+      "bytes": 896621,
+      "sha256": "3c4602ff97d877ada867a6222a21f9d71530d0c26a30359aefda3d284968ec66"
+    },
+    "servo-ground-comparison.pdf": {
+      "bytes": 70864,
+      "sha256": "4a162129f6a1eeaf6e3f405c1303b986bfd22acd7cf9684b885bc64d23a41358"
+    },
+    "ground-analysis-stdout.json": {
+      "bytes": 47812,
+      "sha256": "03024522df671a16ed2c290f48713d9bceeb6d9c200abe7f78d0b241d4f6852e"
+    }
+  },
+  "decoded": {
+    "servo-ground.01.csv": {
+      "bytes": 5978352,
+      "sha256": "963dfd07bf074f574b2805528667dc66ff926716ef294e83626a20bd113d3d00"
+    },
+    "servo-ground.01.event": {
+      "bytes": 42,
+      "sha256": "abc74ed20ecb9b3ebf68b0470bd3358ff36df565e476b755e71810f4c929132f"
+    },
+    "servo-ground.01.headers.csv": {
+      "bytes": 6240,
+      "sha256": "001dfb649a774ad1576ba536b0f92e4c5d00c88a6a164b3570c088b7b8be7423"
+    }
+  },
+  "input_BBL_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+  "repeat_BBL_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701"
+}

@@ -1,0 +1,25 @@
+{
+  "declared_before_recording_analysis": true,
+  "fixture": "User confirmed case clamped, output free, linkage disconnected; unloaded servo.",
+  "scope": "Electrical ADC proxy response; no independent shaft-angle or pulse-edge measurement.",
+  "pair_validity": "Require status bits 0-3, PB0/PC0 within ADC range, exact signed PB0-PC0 identity, no PB0 rail or PC0 upper rail. PC0=0 is accepted and reported separately.",
+  "age": "debug[4] is floor(observation age_us/100), not conversion age. Use exact freshness status bit 3, rather than reconstructing its 1ms threshold from quantized age.",
+  "transition_detection": "Final write-request debug[1] changes between 1100,1420,1700, >=100us. Require exactly three cycles of 1420->1100->1420->1700->1420 unless explicit expected-cycle argument changes.",
+  "time_zero": "First logged final PWM request change; neither measured external pulse edge nor shaft movement.",
+  "baseline": "Median and 1.4826*MAD of valid paired rows from -200ms to before request.",
+  "endpoint": "Final 300ms median within observed hold, same as historical v4 pipeline.",
+  "early_window": "Predeclared [0,20)ms for baseline-subtracted PB0, PC0 and corrected positive/negative peaks, RMS, correlation, and PC0 floor fraction. This window can contain actual movement; its reduction is not a mechanical identification.",
+  "positive_peak_reduction": "100*(1 - max(0,peak(corrected-baseline))/max(0,peak(PB0-baseline))) within early window, only if raw positive peak exceeds max(3*baseline_sigma,3counts). Unit-gain subtraction only; no fitted coefficient.",
+  "signed_identity": "PB0-PC0 checked on every available paired row, including cached rows; -1 corrected count is valid and -32768 is unavailable.",
+  "response_metrics": "Reuse historical v4 trial_metrics read-only for PB0, PC0 and corrected separately. Five-row sustained raw first-any/toward events, continuity-qualified established onset; 7-point median outlier replacement then 11-point local-linear levels/slopes, 21-point sensitivity, sustained crossings/overshoot and 100ms confirmation settling. PC0 may fail displacement/noise criteria; this is expected.",
+  "response_window_gate": "Metrics require all rows valid/fresh, no frame gap >1.5 nominal median interval, >=100 pre-step rows and >=400ms observed hold. No interpolation of missing/stale rows. Invalid windows retain raw quality/transient summaries only.",
+  "sample_count_uncertainty": "Three trials per transition are descriptive; report median/range and per-trial values, no confidence interval or universal servo specification.",
+  "sequential_sampling": "Pair comes from same completed scan, not simultaneous; nominal adjacent conversion skew ~47us, potentially extended by injected internal ADC work.",
+  "limitations": [
+    "PC0 cannot represent a servo-ground excursion below FC ground; zero-floor clipping can hide negative offsets.",
+    "Subtraction does not cancel potentiometer excitation/reference changes, unequal conditioning, or offset absent at the ground sense point.",
+    "Unloaded disconnected linkage does not identify flight load, motor gyroscopic torque or load-dependent latency.",
+    "Electrical first excursion is not proof of shaft motion; no angular derivative units are claimed.",
+    "Cached equal samples are not independent new conversions; age/freshness characterize acquisition progress only."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "commands_checked": 1471,
+  "only_expected_changes": true,
+  "expected_changes": [
+    "resource ADC_RSSI 1 NONE -> C00",
+    "set debug_mode = TRI_SERVO -> TRI_GROUND"
+  ],
+  "differences": [
+    "--- \n",
+    "+++ \n",
+    "@@ -73,7 +73,7 @@\n",
+    " resource SPI_SDO 3 NONE",
+    " resource ESCSERIAL 1 NONE",
+    " resource ADC_BATT 1 C04",
+    "-resource ADC_RSSI 1 NONE",
+    "+resource ADC_RSSI 1 C00",
+    " resource ADC_CURR 1 C05",
+    " resource ADC_EXT 1 B00",
+    " resource BARO_CS 1 NONE",
+    "@@ -813,7 +813,7 @@\n",
+    " set osd_custom_serial_text_terminator = LF",
+    " set system_hse_mhz = 8",
+    " set task_statistics = ON",
+    "-set debug_mode = TRI_SERVO",
+    "+set debug_mode = TRI_GROUND",
+    " set rate_6pos_switch = OFF",
+    " set cpu_overclock = OFF",
+    " set pwr_on_arm_grace = 5"
+  ]
+}

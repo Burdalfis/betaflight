@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 13910016,
+  "start_offset": 13137920,
+  "end_offset": 13910016,
+  "servo-ground.bbl": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+  "servo-ground-repeat.bbl": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+  "two_reads_identical": true
+}

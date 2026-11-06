@@ -8,14 +8,14 @@
 
 **Document version:** 0.6 — 2026-11-06
 
-**Status:** M0 complete; M1 flashed and bench-tested; unloaded wiper-response characterization recorded, with an unresolved early power/reference-or-motion transient; **no new flight-control law validated**
+**Status:** M0 complete; M1 flashed and bench-tested; unloaded wiper response recorded; paired PC0 sensing identifies ground rise as much of the early transient, with residual interpretation open; **no new flight-control law validated**
 
 > **Purpose**  
 > Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
 
 ## Quick-start: where we are and what to do next
 
-**Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `feature/tricopter-feedback`. The user confirmed a working cloud build at `e0b7bb01b`, board config `3a406c5`, and correct physical motor/servo mapping. Two clean unchanged local builds produced identical HEX/BIN/ELF files. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range. **Current wiring:** the user connected the wiper directly to **PB0**, replacing the earlier PC0/AirS proposal; configure PB0 as `ADC_EXTERNAL1` using `resource ADC_EXT 1 B00`, clear `ADC_RSSI`, and keep `RSSI_ADC` disabled. The **TLV9001 unity-gain buffer remains optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
+**Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `feature/tricopter-feedback`. The user confirmed a working cloud build at `e0b7bb01b`, board config `3a406c5`, and correct physical motor/servo mapping. Two clean unchanged local builds produced identical HEX/BIN/ELF files. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range. **Current wiring:** the wiper is directly connected to **PB0** (`ADC_EXT 1 B00`); a separate servo PCB ground-sense wire is connected to **PC0** (`ADC_RSSI 1 C00`). `TRI_GROUND` logs both raw channels and signed PB0−PC0, with `RSSI_ADC` disabled. See [dual-ADC setup](tricopter_dual_adc_logging.md). The **TLV9001 unity-gain buffer remains optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
 
 **Immediate next steps (direct ADC prototype; amplifier parts not required):**
 
@@ -24,6 +24,7 @@
 - [x] Implement logging-only `TRI_SERVO` diagnostics for configurable `ADC_EXTERNAL1` counts, final servo write request, ADC scan progress, logical RPM reception ages and packet-quality indication; preserve legacy outputs. Target build and 44 host tests pass. The existing binary supports the current PB0 input through configuration; no rebuild is needed for this pin change. See [M1 schema and setup](tricopter_m1_logging.md).
 - [x] Flash/read back M1 `bd6a5d727`, restore and verify the current 2026.6.2 aircraft configuration, and remap `ADC_EXT` to PB0. Record servo feedback and one-motor-at-a-time 5–10% command tests with props removed. See [the bench record](tricopter_m1_bench_2026-11-06.md).
 - [x] Verify EDT and all three indexed RPM channels in low-power bench recordings. New logs expose ~121 ms startup reception gaps and a 1.336 s stale interval before the required EDT handshake; a zero invalid-packet statistic is not proof of freshness. No continuous in-flight reception claim is made.
+- [x] Flash/read back logging-only `TRI_GROUND` at `a15ed3065`, preserve configuration, and record three clamped unloaded servo cycles with raw PB0, raw PC0, and signed PB0−PC0. See [dual-ADC evidence](validation/tricopter-ground-2026-11-06/README.md).
 - [ ] Complete electrical loading/power-sequencing/fault checks and independent PWM pin-edge timing. ADC scan progress and non-rail counts do not guarantee wiper connection.
 - [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
 - [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
@@ -36,6 +37,8 @@
 
 - Added logging-only `TRI_GROUND`: PB0 remains the wiper and PC0 senses servo PCB ground. Record both raw channels and signed PB0−PC0 using a coherent completed-scan pair. The old `TRI_SERVO` schema is unchanged.
 - Reuse the existing `ADC_RSSI` acquisition slot for PC0 only in this mode, with the RSSI feature off; no parameter-group layout or version change. See [dual-ADC wiring, schema and acquisition limits](tricopter_dual_adc_logging.md).
+- Flashed/read back `a15ed3065`; all 1471 saved configuration commands matched except the intended ADC_RSSI resource and debug-mode changes. Recorded three clamped unloaded cycles with all motors stopped; the original servo configuration was restored and verified after reboot.
+- The paired recording strongly supports ground rise as a major component of the early kick. On 1420→1700, the median positive peak falls from 48 raw PB0 counts to 11 corrected counts (75.6% reduction across three trials). Residual transients, potentiometer excitation effects and independent mechanical position remain unresolved.
 - Ground subtraction is an experiment, not an assumption of calibrated position or cancellation of potentiometer excitation changes. No measured-angle control correction is enabled.
 
 ### Revision notes — v0.5 (2026-11-06)
@@ -331,7 +334,7 @@ Design interfaces around SI units and explicit `dt`; avoid hidden global timing 
 
 ### M2 — Servo hardware and system identification
 
-**Execution status (2026-11-06): unloaded potentiometer-response characterization recorded; M2 acceptance remains open.** Both free and clamped-case measurements are archived. The early common-positive wiper transient survives clamping; first detectable excursion and first target-directed response are reported separately. Verify servo-side ground/potentiometer excitation against independent position before treating early ADC response as angle. A unity-gain buffer alone does not subtract a moving ground reference. Physical angle zero/travel calibration and loaded response remain separate work.
+**Execution status (2026-11-06): unloaded potentiometer-response characterization recorded; M2 acceptance remains open.** Both free and clamped-case measurements are archived. The early common-positive wiper transient survives clamping; first detectable excursion and first target-directed response are reported separately. Subsequent paired PB0/PC0 logging identifies a substantial shared ground-rise component and reduces the initial opposite peak on 1420→1700 by a median 75.6%. Verify residual signal and potentiometer excitation against independent position before treating early ADC response as angle. Physical angle zero/travel calibration and loaded response remain separate work. See [dual-ADC results](tricopter_dual_adc_logging.md).
 
 **Implement:** Use the potentiometer wiper **directly wired to PB0**, replacing the earlier AirS/PC0 proposal, for the first bench recording. Confirm the existing 1.561/1.281/1.031 V wiper points at the ADC; check signal loading and supply sensitivity. **Do not delay this milestone for the analog-component shipment.** Add the TLV9001 only as an optional **unity-gain buffer** if measurements show benefit. Independently calibrate ADC counts ↔ actual rotor tilt angle (zero, sign, stops, travel curve); do not derive angle calibration from PWM commands alone. Measure steps/sweeps, unloaded and under representative force if practical; characterize response, deadband, overshoot and rate limits. Compare command-to-angle with historical command-to-yaw-acceleration observations.
 
