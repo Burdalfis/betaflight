@@ -1,0 +1,424 @@
+# Tricopter Model-Based Control — Development Plan
+
+**Project:** Betaflight tricopter-feedback  
+**Working branch:** `tricopter-feedback`  
+**Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`  
+**Document version:** 0.2 — 2026-11-06  
+**Status:** Planning / instrumentation; **no new flight-control law validated**
+
+> **Purpose**  
+> Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
+
+## Quick-start: where we are and what to do next
+
+**Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `tricopter-feedback`. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range; the initial prototype will connect the wiper **directly to PC0/AirS**, with a **TLV9001 unity-gain buffer optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
+
+**Immediate next steps (direct ADC prototype; amplifier parts not required):**
+
+- [ ] Build and record the output/configuration of **unmodified** Betaflight `2026.6.2` for `MATEKF405TE`; confirm the TRI and servo features are included.
+- [ ] Audit the current target's pin allocation and establish a **known-good motor/servo resource map** from the original aircraft configuration. **Do not assume stock target motor order matches the aircraft.**
+- [ ] Add a logging-only `TRI_SERVO` or equivalent diagnostic channel for `ADC_EXTERNAL1` (PC0), finalized servo command, and optional sensor validity; do not modify control outputs. **Raw PC0 readings can be tested with the direct-wiper connection before the op-amp parts arrive.**
+- [ ] Confirm extended DShot telemetry, correctly decoded motor RPM, telemetry quality, and RPM Blackbox recording. EDT's arm-time handshake does **not** prove continuous in-flight reception.
+- [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
+- [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
+
+**First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, and PC0 ADC readings without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
+
+---
+
+### Revision notes — v0.2 (2026-11-06)
+
+- **Measured** the internal servo potentiometer wiper at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**.
+- Changed M1/M2 prototype from a required inverting TLV9001 level shifter to a **direct wiper→PC0/AirS input**; initial instrumentation need not wait for analog parts.
+- Reclassified the TLV9001 as an **optional 3.3 V unity-gain buffer**, pending evidence of ADC loading, noise or drive limitations.
+- Added raw ADC-count estimates, signal-polarity notes, loading checks and the requirement to calibrate **physical rotor angle separately from servo PWM**.
+
+---
+
+## 1. Hardware baseline and non-negotiable mappings
+
+| Item | Known configuration / assumption |
+|---|---|
+| Flight controller | **Matek F405-miniTE**; fitted MCU **STM32F415RGT6** (Cortex-M4F, 168 MHz); use Betaflight `MATEKF405TE` target unless build verification reveals a specific conflict. |
+| Existing firmware reference | Betaflight **4.3.1**; preserved CLI dump `tricopter.txt` and six logs `btfl_001.bbl` … `btfl_006.bbl`. |
+| Firmware development | Betaflight **2026.6.2**, working branch **`tricopter-feedback`**. |
+| ESC firmware | **Bluejay 0.21**, EDT arming handshake requirement enabled. Verify EDT with compatible Betaflight firmware. |
+| ESC interface | Bidirectional **DSHOT300** initially; **14 magnetic poles** (7 pole pairs); ESCs are on a rotated 4-in-1 board. |
+| Motors and props | Three otherwise identical **rewound 2207** motors, identical **Gemfan 5136 three-blade** propellers. Do **not** assume the original nominal KV is still correct. |
+| Battery | 6S, approximately 1400 mAh. |
+| Tail servo | **EMAX ES08MD II**, 5 V; existing rate approximately **498 Hz**. |
+| Servo PWM output | **PB1**, previously repurposed LED pad; original `resource SERVO 1 B01`. |
+| Servo configuration reference | Original `servo 5 1100 1700 1420 100 -1`: 1100–1700 µs, configured midpoint 1420 µs. Mechanical straight-up angle **believed**, not measured, at 1420 µs. |
+| Servo geometry | Tail motor rides on a bearing-mounted tilt basket. Rough gearing: **1° servo shaft rotation ≈ 1.5° rotor tilt**. Mechanical stops, sign, and curve require measurement. |
+| Position feedback — initial prototype | Fourth wire from **internal servo potentiometer wiper directly to PC0 / ADC_EXT / AirS**; voltage already measured inside 0–3.3 V. No level conversion or op-amp required for first logging tests. |
+| Position feedback — optional revision | **TLV9001 as unity-gain, non-inverting buffer**, supplied at 3.3 V, if loading, sampling noise, wiring, or servo interference justifies it. The previously proposed inverting 5 V→3.3 V level-shift stage is **not required** by measured voltages. |
+| Measured servo wiper voltage | **1100 µs → 1.561 V; 1420 µs → 1.281 V; 1700 µs → 1.031 V.** Measurements are at the potentiometer wiper; supply conditions and physical rotor angle have not yet been calibrated. |
+| Original motor mapping | **Logical 0 = rear CCW, 1 = front-right CW, 2 = front-left CCW.** This was a flown, working mapping. |
+| Physical ESC mapping | Rear motor physically on **ESC output 4**; output 3 unused. The original firmware used `motor_output_reordering = 2,0,1,3,4,5,6,7` and customized resources. **Revalidate complete mapping on the modern build; preserve the aircraft's behaviour.** |
+| Original control/logging rates | Gyro 8 kHz, PID 4 kHz, Blackbox about 1 kHz (`1/4`). New implementation rates are proposals pending profiling. |
+| Flight controller logging | SPI Blackbox flash; verify available space, recording fields, and schema on the new build. |
+
+### Geometry and sign convention
+
+Use a **right-handed body frame**: `x` forward (nose), `y` left, `z` up. Positive yaw is **CCW / nose-left**, as in the earlier Blackbox analysis. Positive tail angle `θ` means the rear motor thrust has a **rightward (`−y`)** component and produces **positive (CCW) yaw moment**. Define all model inputs in mechanical units (N, N·m, rad, rad/s), and convert to/from Betaflight's implementation conventions explicitly at the integration boundary.
+
+| Motor | Logical index | Rotor spins, viewed from above | Reaction on frame while accelerating |
+|---|---:|---|---|
+| Rear | 0 | CCW | Clockwise / negative yaw |
+| Front right | 1 | CW | Counterclockwise / positive yaw |
+| Front left | 2 | CCW | Clockwise / negative yaw |
+
+**Rules:** Never infer physical motor order from array indices after motor-output reordering. Never flip a motor or servo sign merely because a newly built target has different defaults. Verify by tracing the full software-output-to-ESC-to-physical-motor path with props removed.
+
+## 2. Evidence, assumptions, and open measurements
+
+### Established by existing recordings and code inspection
+
+- **Log 005 around 33.7 s:** A commanded yaw step exhibits a strong relation between servo PWM and yaw *acceleration*. After signal alignment, a **~31–37 ms** command-to-acceleration lag was seen over the examined windows; ~33 ms was typical. This is a **closed-loop observation**, *not* a calibrated servo transport delay.
+- **Logs 001 and 005:** Some throttle increases with near-zero yaw setpoint are accompanied by **negative yaw acceleration**, followed by servo correction. **Log 004:** full-throttle disturbance and runaway-takeoff disarm. These are consistent with negative reaction-torque transients, but do **not** independently prove that rotor inertial torque dominates aerodynamic torque.
+- Historical `servo[5]` Blackbox data represents **commanded PWM**, not actual tail position. Historical logs do not provide the independent rotor-speed and tail-angle measurements needed for unique parameter identification.
+- Betaflight `2026.6.2` retains an ordinary tricopter servo mixer driven by yaw PID output and a tricopter motor-correction stub returning zero. Useful insertion points exist, but source-level integration needs build/testing.
+
+### Not yet measured / must not become magic constants
+
+- Aircraft mass and **full inertia tensor** from CAD in the chosen coordinate frame, especially `Izz`, `Ixx`, `Iyy`, and cross terms.
+- Accurate motor/rotor positions relative to the **actual CG**; tail lever arm; tilt-axis location and orientation; servo mechanical limits.
+- Each motor's **RPM versus command, voltage, and airflow**, and acceleration/deceleration dynamics; common rotor axial inertia `J` (identical rotating assemblies, but not necessarily identical transient response).
+- Rotor **thrust coefficient** `kT`, aerodynamic torque coefficient `kQ`, and their dependence on inflow, airspeed, and throttle/RPM.
+- **Measured** servo wiper voltage decreases as commanded PWM increases (1100 µs: 1.561 V; 1420 µs: 1.281 V; 1700 µs: 1.031 V). **Still unknown:** potentiometer-voltage-to-actual-rotor-angle curve, slew limits, load sensitivity, deadband, latency, and changes with servo supply voltage. Do not confuse PWM-command calibration points with a measured rotor-angle calibration.
+- Filtered RPM/ADC update timing and end-to-end actuation latency.
+
+Treat these as calibration parameters or hypotheses, with confidence/validity flags. Keep parameter provenance and measurement conditions with each fitted value.
+
+---
+
+## 3. Target architecture
+
+```text
+Receiver / pilot rate commands
+              │
+              ▼
+   Existing Betaflight rate PID  ◄──── gyro / attitude processing
+              │                         ▲
+              │ desired normalized     │
+              │ moments / demands      │
+              ▼                         │
+   PID demand → physical calibration   │
+              │                         │
+              ▼                         │
+   ┌────────────────────────────────────────────────┐
+   │        Coordinated tricopter allocator         │
+   │  • desired Fz, roll, pitch, yaw moments         │
+   │  • aerodynamic + inertial rotor reaction model  │
+   │  • rear vector angle / thrust magnitude         │
+   │  • motor/servo limits and time-to-actuate        │
+   │  • priority, residual torque, anti-windup info   │
+   └─────────────┬─────────────────┬────────────────┘
+                 │                 │
+             3 motors          tail servo
+                 │                 │
+            DShot + RPM      PWM + ADC angle
+                 │                 │
+                 └────────┬────────┘
+                          ▼
+                 Aircraft dynamics ────────────────► gyro
+
+   Side-channel estimates: motor state observer, servo position/
+   velocity/prediction, battery voltage, telemetry freshness,
+   model residuals and Blackbox diagnostics.
+```
+
+**Design principle:** Separate (1) requested aircraft response, (2) feasible physical actuator allocation, and (3) actual/predicted actuator state. The aircraft needs force/moment commands, not an arbitrary servo pulse derived only from yaw PID. Keep established Betaflight rate control initially; do **not** begin by replacing the PID controller.
+
+**Portability:** Put pure equations, estimators, and allocation logic in bounded, allocation-free **portable C** with host-side tests. Keep Betaflight-specific I/O, scheduling, configuration, and Blackbox integration behind thin adapters. MATLAB/Simulink can be the higher-fidelity 6DOF validation environment.
+
+## 4. Physical model and allocation strategy
+
+### 4.1 Rotor reaction torque
+
+With identical rotor axial inertia `J`, near-vertical rotor axes, and `ω_i` as positive mechanical rotation **magnitudes**:
+
+```text
+S_Q = ω₁² − ω₀² − ω₂²
+S_J = dω₁/dt − dω₀/dt − dω₂/dt
+τ_reaction,z ≈ kQ·S_Q + J·S_J
+```
+
+For general attitude/motion/tilt, model each rotor's **signed angular momentum vector** and its derivative in the body frame; combine with aerodynamic drag torques and the full rigid-body rotational equations. Include rear rotor-axis projection (`cos θ`), the `ω₀ sin θ · dθ/dt` contribution, and gyroscopic cross terms as later refinements—not as unverified assumptions from the historical pitch traces.
+
+```text
+I·dΩ/dt + Ω × (I·Ω) = τ_actuators + τ_external
+```
+
+**Important:** The full model should treat rotor gyroscopic angular momentum consistently so signs and terms are not double-counted. The simplified yaw equation above is the first implementation, not the final general model.
+
+### 4.2 Rear thrust vector
+
+Use `θ > 0` for tail thrust toward aircraft right and positive yaw moment. For a rear moment arm `L > 0`, ignoring offsets beyond the primary rear arm:
+
+```text
+Fz,rear      = T_rear · cos(θ)
+Fy,rear      = −T_rear · sin(θ)
+τz,vector    ≈ L · T_rear · sin(θ)
+
+required_lateral_thrust = (τz,requested − τz,reaction − τz,other) / L
+θ_requested             = atan2(required_lateral_thrust, Fz,rear_requested)
+T_rear_requested        = hypot(Fz,rear_requested, required_lateral_thrust)
+```
+
+The *physical actuator* must maintain the correct vertical rear thrust, using measured/predicted **actual** tail angle and motor response. Commanded angle is not actual angle; avoid compensating so late that the motor introduces a pitch disturbance, or so early that it overcompensates. The allocator must account for CG and pitch/roll moments as well as yaw.
+
+### 4.3 Control authority / saturation
+
+At steady state, three thrusts plus tail angle can provide four controlled quantities (collective, roll, pitch, yaw) in an appropriate operating region. **During fast transients the servo is slow**, and at near-fixed angle only three fast motor inputs remain. Full independent control is not always possible.
+
+- Compute feasible actuator outputs and **residual unmet moment demand**.
+- Respect servo angle/rate, motor min/max output, motor response rate, battery voltage and tail linkage limits.
+- Preserve stable roll/pitch/collective support; yield or soften yaw demand when necessary. Define priority weights and document tradeoffs.
+- Feed yaw saturation and achieved-versus-requested allocation back into the existing PID **anti-windup** path. Do not merely clip final PWM while the integrator continues winding up.
+- Optional future strategy: predictively **slew-limit collective thrust** when an abrupt command would create yaw torque the servo cannot oppose in time. Make this opt-in and measurable.
+
+### 4.4 Observer design
+
+**Motor observer inputs:** motor output demand, battery voltage, mechanical RPM, and valid/fresh telemetry metadata. Estimate `ω_i`, `dω_i/dt`, uncertainty, and short-horizon prediction. Start with a causal first-order motor response; allow acceleration vs deceleration differences and independent per-motor response parameters despite equal rotor inertia. No direct raw-RPM finite differentiation in the active controller.
+
+**Servo observer inputs:** actual ADC potentiometer reading, commanded PWM, calibration curve, fault limits. Estimate `θ`, `dθ/dt`, and short-horizon `θ_pred`. Calibrate nonlinear travel, sign, slew and lag. Do not treat the observed 33 ms closed-loop delay as an actuator constant.
+
+**Model residuals:** compare expected and measured angular response through an appropriately filtered dynamics residual; use initially for **logging and slow model-bias estimation**, not an aggressive acceleration PID. Account for noise, unmodeled airflow and cross-axis coupling.
+
+---
+
+## 5. Hardware interfaces and timing
+
+### 5.1 Servo feedback: measured low-voltage wiper, direct ADC prototype
+
+**New measurement (2026-11-06):** The internal servo potentiometer wiper runs at a much lower voltage than the previously assumed 0–5 V range. Measured wiper voltages at three commanded servo PWM values:
+
+| Servo command | Measured wiper voltage | Approx. 12-bit PC0 ADC count* |
+|---|---:|---:|
+| 1100 µs (configured low) | **1.561 V** | **1937** |
+| 1420 µs (configured middle) | **1.281 V** | **1590** |
+| 1700 µs (configured high) | **1.031 V** | **1279** |
+
+*Counts assume a 3.300 V ADC reference, a linear 12-bit conversion and no material loading of the wiper; actual counts must be measured. The nominal span is ~530 mV, or ~658 counts. The measured voltage decreases as PWM increases. The two intervals suggest roughly −0.88 mV/µs, but do **not** establish a linear mechanical angle relationship.*
+
+**Prototype signal path (first choice):**
+
+```text
+EMAX ES08MD II potentiometer wiper (fourth wire)
+    └── direct signal wire ──► Matek F405-miniTE AirS pad / PC0 / ADC_EXTERNAL1
+
+Servo ground and FC ADC ground must share a reference.
+The original three servo wires and PWM control path remain unchanged.
+```
+
+- **No 5 V→3.3 V attenuation is required for the measured normal operating range.** The 1100–1700 µs samples are ~1.03–1.56 V, below the FC input limit. Confirm voltage at PC0 under actual supply conditions before enabling control; the three samples do not prove every power-up/fault voltage is safe.
+- The direct connection is for **early logging and position characterization**, initially with no change to motor or servo control. Check whether attaching the ADC alters the wiper voltage or servo behaviour, and inspect noise/ripple with motors disabled.
+- A **100 kΩ pull-down directly on the raw pot line is not part of this prototype**: it could load the servo's internal feedback node. Optional small series resistance/ADC-side capacitor can be tested if ADC sampling noise is evident, but do not assume a large input capacitor is harmless without checking servo stability.
+- **Future optional buffer:** use the ordered **TLV9001 as a non-inverting unity-gain voltage follower** powered from the FC 3.3 V supply. It presents a high input impedance to the potentiometer and provides a low-output-impedance ADC drive. The ordered resistors for the earlier inverting/offset level-shift design are **not needed** for this buffer configuration. Add local supply decoupling and validate the IC's input/supply sequencing and output loading when assembled.
+- **Calibration:** first verify the raw ADC-to-voltage relationship and polarity. Then independently measure **actual rotor tilt angle** at multiple positions and fit ADC-counts→angle (accounting for linkage and mechanical limits). `1420 µs` is an assumed vertical rotor reference, **not yet confirmed**. Servo PWM, potentiometer voltage, servo-shaft angle, and rotor tilt angle are distinct quantities.
+- **Later flight-capable implementation:** introduce explicit plausibility/fault checks and any necessary electrical protection, stable wiring/strain relief, and validated fallback. Logging-only direct-wire bench testing is not evidence that the unprotected circuit is flight-ready.
+
+### 5.2 DShot / EDT / RPM
+
+- Bluejay **0.21** with EDT arming option; configure and verify compatible Betaflight EDT support.
+- On current Betaflight, `getDshotRpm(index)` returns **mechanical RPM** after pole-count conversion. Blackbox `eRPM[index]` instead uses **100 electrical RPM per unit**. For 14 poles, `mechanical_RPM = logged_eRPM * 100 / 7`.
+- RPM decoding must use **logical motor indices** and the verified physical output mapping.
+- EDT handshakes are an arm-time condition, **not a continuous data-quality guarantee**. Implement real-time freshness/invalid-frame checks and defined stale-data behaviour. Simply reading the latest cached RPM repeatedly does not guarantee a new observation.
+- Preserve diagnostic logging for both packet quality and model state; make motor telemetry loss visible to the pilot/flight logs where appropriate.
+
+### 5.3 Scheduling proposals (measure, then decide)
+
+| Operation | Initial proposal | Notes |
+|---|---:|---|
+| Gyro sampling / filters | Existing 8 kHz | Preserve baseline unless profiling dictates otherwise. |
+| PID loop | Existing 4 kHz | Preserve baseline. |
+| Motor + servo observers | Up to ~1 kHz or telemetry/ADC update cadence | Timestamp data; never presume a new sample on every invocation. |
+| Physical allocator | ~1 kHz initially | Rate and phase depend on mixer integration; avoid introducing extra sample-and-hold latency. |
+| Servo PWM output | Existing ~498 Hz | Respect servo electrical and mechanical behaviour. |
+| Slow parameter/bias adaptation | 20–100 Hz, later | Disabled until model validated. |
+| Blackbox diagnostics | ~1 kHz when practical | Check storage, channel count and CPU impact. |
+
+Use fixed memory; profile CPU cycles, IRQ/DMA interactions, stack usage, control-loop jitter, and Blackbox write impact on the **actual STM32F415**.
+
+---
+
+## 6. Firmware integration approach
+
+**Minimal behavioural delta first.** Preserve a runtime or build-time **LEGACY / LOG_ONLY / CONTROL** mode distinction and ensure reverting to the legacy mixer is straightforward.
+
+| Area | Current Betaflight source / intended role |
+|---|---|
+| `src/main/flight/servos_tricopter.c` | Start with ADC and finalized-servo-command instrumentation; maintain existing servo mapping in LOG_ONLY. |
+| `src/main/flight/mixer_tricopter.c` | Tricopter-specific correction/allocator integration. Currently returns zero motor correction; no physical allocation yet. |
+| `src/main/flight/servos.c` | Existing yaw PID-to-servo mixer; eventually drive servo from target angle after calibration/limits. |
+| `src/main/flight/mixer.c` | Apply coordinated three-motor outputs and calculate actual actuator saturation/feedback. |
+| `src/main/flight/mixer_init.c` | Fixed TRI mixer reference and logical motor definitions; don't change before independent model/allocator is proven. |
+| `src/main/drivers/adc.h` and ADC implementation | Existing `adcGetValue(ADC_EXTERNAL1)` interface for PC0. Check channel initialization, DMA update rate, and pin conflicts. |
+| `src/main/drivers/dshot.c` / `dshot.h` | Existing `getDshotRpm()` and RPM telemetry interfaces. Add freshness adapter only as needed. |
+| `src/main/build/debug.h`, `debug.c` | Create distinct TRI diagnostic debug modes or channels; preserve existing debug enum values. |
+| `src/main/blackbox/blackbox.c` | Verify RPM fields and sample timestamps; introduce additional recorded model fields as needed. |
+| Proposed `src/main/flight/tricopter_*.c/.h` | Pure model, state observers, allocator, coordinator, and light Betaflight adapters. Exact layout can evolve. |
+
+**Logging caveat:** The debug channel must represent the **final servo PWM written to hardware** if being used to fit servo dynamics; logging earlier in the mixer may record a value subsequently filtered or constrained. Check the order of `servoMixer()`, filtering, and `writeServos()` before deciding where to log.
+
+**Configuration:** Provide configurable parameters with explicit defaults, valid ranges, units, versioning, and profile persistence. Prevent enabling CONTROL without essential calibration and sensor validity. Never silently reuse the old 4.3.1 CLI dump wholesale on 2026.6.2.
+
+### Proposed portable C module contracts
+
+```text
+tricopter_geometry      motor position vectors, CG, tilt geometry, inertia
+tricopter_motor_model   RPM observer, angular momentum and drag torque
+tricopter_servo_model   calibrated angle, velocity, predicted position
+tricopter_allocator     desired wrench -> feasible thrust/angle targets
+tricopter_controller    glue, modes, saturation, fault state, diagnostics
+```
+
+Design interfaces around SI units and explicit `dt`; avoid hidden global timing and heap allocations. Keep model calculations deterministic and suitable for host tests/simulation replay.
+
+---
+
+## 7. Development phases and acceptance gates
+
+### M0 — Baseline preservation and reproducible build
+
+**Implement:** Freeze original CLI dump, logs, motor resource/reordering config and board photos/notes. Build untouched `2026.6.2` with TRI/servo support; capture GCC/toolchain versions, image hash, build flags, firmware size, target/config revision. Create minimal host test framework and CI/local test script.
+
+**Exit gate:** Repeatable build; legacy motor/servo mapping documented and verified **without props**; stock firmware remains recoverable.
+
+### M1 — Observability / telemetry (no behaviour change)
+
+**Implement:** PC0 `ADC_EXTERNAL1` acquisition using **direct potentiometer-wiper input initially**, logged final servo PWM, all three real RPM channels, motor commands, battery voltage, timing, telemetry validity/age, optional debug channels. Add mode `LOG_ONLY` and ADC range/freshness diagnostics. No TLV9001 assembly is needed to begin.
+
+**Exit gate:** Correct logical/physical motor indexing; sane eRPM-to-mechanical conversion; reproducible logs; PC0 reads near the three measured voltage/ADC reference points without disrupting servo feedback; disconnection/invalid data recognized; servo PWM matches hardware output timing. No new allocation active.
+
+### M2 — Servo hardware and system identification
+
+**Implement:** Wire the potentiometer wiper **directly to AirS/PC0** for the first bench recording. Confirm the existing 1.561/1.281/1.031 V points at the ADC; check signal loading and supply sensitivity. **Do not delay this milestone for the analog-component shipment.** Add the TLV9001 only as an optional **unity-gain buffer** if measurements show benefit. Independently calibrate ADC counts ↔ actual rotor tilt angle (zero, sign, stops, travel curve); do not derive angle calibration from PWM commands alone. Measure steps/sweeps, unloaded and under representative force if practical; characterize response, deadband, overshoot and rate limits. Compare command-to-angle with historical command-to-yaw-acceleration observations.
+
+**Exit gate:** Direct-wiper voltage and ADC samples agree under documented supply conditions, with no detected impairment of the servo's own feedback loop; calibrated measured tail angle and bounded predicted angle; fault response tested; no unsafe voltage on PC0 during normal or planned test conditions. If the optional buffer is fitted, repeat the noise/loading/latency measurements.
+
+### M3 — Rotor-state observer and reaction-torque model
+
+**Implement:** Pure-C observer for three motor speeds/accelerations, voltage compensation and telemetry freshness. Separate **aerodynamic** and **inertial** signed torque proxies. Introduce calibrated coefficients `kQ`, `J`, and `kT` only when defensible. Use historical motor-command logs only for qualitative consistency and synthetic replay, **not** as ground-truth RPM. Fit new RPM-equipped data with held-out validation; account for delayed servo torque.
+
+**Exit gate:** Synthetic sign/units tests pass; observer tracks measured RPM with documented latency/error; model predicts transient torque direction and improves fit versus no-reaction-torque baseline on unseen data.
+
+### M4 — Geometric thrust-vector mixer, initially offline
+
+**Implement:** Inverse `atan2`/`hypot` tail vector decomposition; account for **actual/predicted angle**, rear vertical thrust, and all three motor pitch/roll contributions using CAD geometry. Implement bounds and achievable-wrench residual reporting. Port the same C core to MATLAB/Simulink for comparison where useful.
+
+**Exit gate:** For synthetic requests, reconstructed feasible force/moments agree with forward model within numerical tolerance; all constraints handled deterministically; no invalid outputs at zero/low thrust and near saturation.
+
+### M5 — Controller integration: conservative, reversible
+
+**Implement:** Connect Betaflight rate-PID demands to physical allocation (document units/scaling); feed actuator saturation back to integrator control. First enable **static geometric compensation** at conservative gain/limits, then steady-state reaction trim, then dynamic reaction feedforward, **one feature at a time**. Ensure coherent motor/servo timing and safe transition among LEGACY/LOG_ONLY/CONTROL.
+
+**Exit gate:** Prop-off and thrust-stand tests pass; simulated yaw/pitch/roll tracking and saturation tests pass; correct sign/zero behaviour; failure detection reliably disables unsafe corrections; rollback verified.
+
+### M6 — Controlled flight and iterative validation
+
+**Implement:** Controlled hover, small yaw steps, symmetric rapid throttle ramps, deceleration, combined pitch/yaw/throttle, high-throttle saturation only after earlier gates. Compare against baseline and new-flight logs using identical metrics. Retune rate PID only *after* determining physical mixer behaviour.
+
+**Exit gate:** Demonstrable improvement in at least one target metric without worsening roll/pitch stability, runaway/failsafe behaviour, actuator stress, or telemetry reliability; results reproducible across flights and battery voltages.
+
+### M7 — Advanced model and refinement (optional)
+
+**Consider only after evidence:** Full inertia tensor and gyroscopic terms, motor-assisted yaw allocation, aerodynamic gain scheduling, adaptive trim/coefficient identification, dynamic saturation weights, predictive collective slew control, and potentially constrained optimization/MPC. Keep simple bounded methods unless complexity earns its cost.
+
+**Exit gate:** Each addition produces measurable benefit on held-out logs or reproducible flight tests and survives failure-injection tests.
+
+---
+
+## 8. Verification and test matrix
+
+**Host/unit tests:** rotor sign permutations; equal acceleration/deceleration; zero-RPM and stale-RPM behaviour; tilted rear-axis projection; angle/thrust inversion; units and finite outputs; zero/low thrust; servo polarity and travel constraints; throttle/motor saturation; transition modes; anti-windup; deterministic results at irregular `dt`.
+
+**Simulation:** replay identified hover/step/punchout cases; include motor lag, servo lag, battery sag, telemetry quantization/loss, mechanical limits, uncertain `kQ/kT/J`, CG shifts, cross-axis moments and artificial disturbances. Use sweeps to find unstable or unobservable parameter combinations.
+
+**Bench (props off):** resources and motor ordering; receiver/failsafe; bidirectional DShot and EDT; **direct PC0 input at 1.561/1.281/1.031 V reference positions, servo-wiper loading and noise**, ADC polarity and **independently measured rotor-angle** travel calibration; supply/ADC fault conditions; servo speed and stops; command-to-signal latency; Blackbox data integrity. If adding the TLV9001 follower, compare the same measurements before and after buffering.
+
+**Bench (thrust stand / restrained testing):** measured motor command→RPM response, RPM→thrust, drag/torque estimate where possible, servo behaviour under representative tail load. Restraint/propeller testing requires an appropriate guarded setup; do not treat prop-off tests as validation of thrust or torque dynamics.
+
+**Flight:** repeatable low-risk maneuvers; increase authority gradually; compare to legacy on metrics below. Preserve conventional failsafe and runaway protections.
+
+### Performance measurements (baseline first; targets later)
+
+- Yaw-rate step settling time, overshoot and RMS tracking error.
+- Maximum uncommanded yaw rate and integrated yaw excursion during throttle steps.
+- Yaw-acceleration/model-residual magnitude and transient sign prediction.
+- Induced pitch/roll rate or attitude deviation during yaw maneuvers.
+- Servo saturation dwell time, angle tracking error, movement speed, and commanded excursion.
+- Motor output saturation dwell time; thrust redistribution during tail tilt.
+- RPM packet validity, sample age, motor observer error, ADC signal integrity.
+- CPU timing worst case, gyro/PID jitter, flash/RAM usage, Blackbox throughput.
+
+Do **not** invent numerical performance targets before a consistent, repeatable baseline exists.
+
+## 9. Failure modes and fallback policy
+
+- **ADC invalid/out-of-range/disconnected/stale:** no measured-angle-dependent compensation; use explicitly bounded legacy or conservative model-only mode and avoid sudden actuator jumps. Fallback must be exercised before flight.
+- **RPM invalid/stale/implausible:** freeze or decay observer confidence and disable dynamic torque feedforward; retain safe servo/rate-loop behaviour and log the incident. A valid arming handshake does not override this rule.
+- **Servo stalled or saturated:** expose limited yaw authority and suppress yaw integrator windup; avoid increasing rear motor demand beyond thrust/ESC limits.
+- **Motor at min/max or limited by dynamics:** recompute achievable forces/moments and prioritize stable flight over impossible yaw requests.
+- **Unreliable parameter calibration / model divergence:** degrade or disable model compensation and return to stable conventional rate feedback.
+- **Fault in logging/optional subsystem:** must not block core gyro, PID, receiver, motor output, or failsafe tasks.
+- **Mode transition:** make transitions bumpless; never change to aggressive allocation merely because telemetry returns for one sample.
+
+For early prototypes, accept *minimal circuitry* but **do not permit experimental control mode to fly without credible electrical limits, sensor sanity checks, and tested fallback**.
+
+## 10. Repository organization and development discipline
+
+Suggested layout (adapt to existing Betaflight tree and build rules):
+
+```text
+docs/
+  TRICOPTER_CONTROL_PLAN.md        <- this document
+  tricopter_hardware.md            <- pinout, motor order, servo wiring
+  tricopter_calibration.md         <- measurement method, coefficients
+  tricopter_test_matrix.md         <- procedures and results
+src/main/flight/
+  tricopter_motor_model.[ch]
+  tricopter_servo_model.[ch]
+  tricopter_allocator.[ch]
+  tricopter_controller.[ch]
+tests/tricopter/                   <- portable host tests / synthetic cases
+tools/tricopter/                   <- log replay, plotting and fit tools
+```
+
+**Development rules:**
+
+1. Commit a **known-good, unchanged build** before functional edits; keep each feature separable and bisectable.
+2. Gate physical effects independently: **measurement → prediction → offline comparison → bounded feedforward → full allocation**.
+3. Preserve original CLI dump and `.bbl` files; annotate experiments with firmware commit, ESC firmware, config export, battery, prop setup, and parameter set.
+4. Store physical parameters and their units explicitly; annotate whether values are **measured**, **fitted**, **assumed**, or **synthetic**.
+5. Keep integration paths short and measurable. Each new 1 kHz feature must justify its latency, CPU and RAM cost.
+6. Make control-enabled changes observable in Blackbox, including **model terms, limits, and fallback reasons**.
+7. Treat the model as a hypothesis until reproduced on **held-out flights**, not merely one attractive waveform.
+
+## 11. Open technical questions / decisions
+
+- [ ] Exact modern-target resource map, DMA/timer interactions, and any motor-output reordering changes versus 4.3.1.
+- [ ] ADC acquisition rate, wiper source impedance/loading, and sample-and-hold behaviour with the **direct PC0 connection**. Is a **TLV9001 unity-gain buffer** actually necessary for clean, low-latency readings?
+- [ ] Verify that **1420 µs / ~1.281 V** corresponds to the rear rotor's **vertical** position (needs physical measurement); fit actual ADC voltage/count to tilt angle and check supply-voltage dependence.
+- [ ] Effective servo command/position latency under aerodynamic load and at different supply voltages.
+- [ ] Best RPM telemetry timestamp/freshness interface and packet handling with EDT interleaving.
+- [ ] Best causal `ω/dω/dt` observer and motor command→target-RPM model.
+- [ ] How to identify `kQ`, `J` and `kT` without conflating servo correction and airflow-dependent effects.
+- [ ] Full CG-based force/moment geometry and whether the tail tilt axis offsets contribute material coupling.
+- [ ] Exact conversion and anti-windup mapping from Betaflight's normalized PID output to a requested physical moment.
+- [ ] Optimal scheduler placement to avoid an extra cycle of delay between measured angle, predicted thrust, and servo/motor output.
+- [ ] Which advanced gyro/aero terms are **measurably** beneficial after simpler compensation is operating.
+
+---
+
+## Reference materials
+
+- Original **Betaflight 4.3.1** CLI dump: `tricopter.txt` (hardware mapping/configuration source of truth for the flown airframe).
+- Historical Blackbox recordings: `btfl_001.bbl` … `btfl_006.bbl` (2022-era flights; use for baseline phenomena, not RPM/servo-angle ground truth).
+- Prior prototype: `tricopter_torque_v1` (standalone torque equations and unit tests; **review and integrate selectively**, not flight-ready).
+- Betaflight baseline source: <https://github.com/betaflight/betaflight/tree/2026.6.2>
+- Betaflight board configuration: <https://github.com/betaflight/config>
+- Bluejay ESC firmware: <https://github.com/bird-sanctuary/bluejay>
+
+**Guiding rule:** *Command physical moments. Estimate actual actuator state. Coordinate all actuators. Never assume hardware has moved simply because it was commanded to move.*
