@@ -56,6 +56,34 @@ static bool isTricopterDiagnosticMode(uint8_t mode)
     return mode == DEBUG_TRI_SERVO || mode == DEBUG_TRI_GROUND;
 }
 
+tricopterServoPositionSample_t servosTricopterGetPosition(timeUs_t currentTimeUs)
+{
+    tricopterServoPositionSample_t position = {
+        .correctedCounts = TRICOPTER_SERVO_POSITION_UNAVAILABLE,
+        .ageUs = UINT32_MAX,
+    };
+#ifdef USE_ADC
+    // Fixed measurement path: both configured channels form one coherent scan
+    // pair. Never replace a missing ground reference with raw PB0 or zero.
+    const adcDiagnosticPairSnapshot_t pair = adcGetDiagnosticPairSnapshot(ADC_EXTERNAL1, ADC_RSSI, currentTimeUs);
+    position.supported = pair.supported;
+    position.ready = pair.ready;
+    position.sampleSeen = pair.sampleSeen;
+    position.ageUs = pair.sampleSeen ? pair.ageUs : UINT32_MAX;
+    if (pair.sampleSeen) {
+        position.rawWiperCounts = pair.firstValue;
+        position.rawGroundCounts = pair.secondValue;
+        if (pair.supported && pair.firstValue <= 4095 && pair.secondValue <= 4095) {
+            position.correctedCounts = (int32_t)pair.firstValue - (int32_t)pair.secondValue;
+            position.fresh = pair.ready && pair.ageUs <= TRICOPTER_SERVO_POSITION_MAX_AGE_US;
+        }
+    }
+#else
+    (void)currentTimeUs;
+#endif
+    return position;
+}
+
 static void logTricopterGround(int16_t finalPwm, timeUs_t now)
 {
     (void)now;
@@ -69,30 +97,30 @@ static void logTricopterGround(int16_t finalPwm, timeUs_t now)
     debug[7] = -1;             // Existing worst invalid-packet percentage.
 
 #ifdef USE_ADC
-    const adcDiagnosticPairSnapshot_t pair = adcGetDiagnosticPairSnapshot(ADC_EXTERNAL1, ADC_RSSI, now);
-    if (pair.supported) {
+    const tricopterServoPositionSample_t position = servosTricopterGetPosition(now);
+    if (position.supported) {
         flags |= 1 << 0;
     }
-    if (pair.ready) {
+    if (position.ready) {
         flags |= 1 << 1;
     }
-    if (pair.sampleSeen) {
+    if (position.sampleSeen) {
         flags |= 1 << 2;
-        debug[0] = pair.firstValue;
-        debug[2] = pair.secondValue;
-        debug[3] = (int32_t)pair.firstValue - (int32_t)pair.secondValue;
-        debug[4] = diagnosticAge(pair.ageUs);
-        if (pair.ready && pair.ageUs <= 1000) {
+        debug[0] = position.rawWiperCounts;
+        debug[2] = position.rawGroundCounts;
+        debug[3] = position.correctedCounts;
+        debug[4] = diagnosticAge(position.ageUs);
+        if (position.fresh) {
             flags |= 1 << 3;
         }
-        if (pair.firstValue == 0 || pair.firstValue == 4095) {
+        if (position.rawWiperCounts == 0 || position.rawWiperCounts == 4095) {
             flags |= 1 << 8;
         }
         // A zero ground reading is expected, but cannot show negative voltage.
-        if (pair.secondValue == 0) {
+        if (position.rawGroundCounts == 0) {
             flags |= 1 << 9;
         }
-        if (pair.secondValue == 4095) {
+        if (position.rawGroundCounts == 4095) {
             flags |= 1 << 10;
         }
     }

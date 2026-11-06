@@ -11,6 +11,14 @@ This follow-up to [the servo characterization](tricopter_servo_characterization_
 
 The additional PC0 wire is a sense input; it does not replace the servo's normal power ground. Both pins remain ordinary unipolar FC ADC inputs. PC0 can measure a positive servo-ground offset but cannot represent negative excursions below FC ground.
 
+The user clarified that PC0 is soldered to the servo PCB's **power GND input**, not the potentiometer's low terminal, which is not a true ground node. PB0−PC0 therefore measures the wiper relative to the servo power-input ground. Internal potentiometer excitation/electronic behavior can remain in the signal after this subtraction.
+
+## Position measurement contract
+
+**PB0−PC0 is the project's sole servo position measurement source.** Raw PB0 and PC0 are retained only for diagnosis; neither is an alternate position source. New calibration, velocity, hysteresis, observer and eventual measured-position control work must consume the signed corrected signal. Missing, unsupported or stale paired data stays unavailable/stale; it must never silently fall back to raw PB0, assume PC0=0, or substitute commanded PWM as measured position. The legacy controller still uses its existing command path and has no new position correction enabled.
+
+`servosTricopterGetPosition()` exposes this contract in `flight/tricopter_servo_position.h`. Its signed `correctedCounts` is accompanied by support/readiness/sample/freshness metadata and observation age. The two explicitly named raw fields are diagnostic. `TRI_GROUND` records this canonical measurement in `debug[3]`. Existing `TRI_SERVO` raw recordings keep their original schema as historical diagnostics; they do not provide an alternative current position measurement.
+
 The new debug mode is **`TRI_GROUND`**. It enables acquisition of the existing `ADC_RSSI` slot without enabling the RSSI feature or receiver RSSI processing. The ADC parameter-group structure/version is unchanged, and no PG was added. Other debug modes retain the old RSSI/FrSky-D behavior. Save/reboot is required to initialize the additional ADC channel.
 
 After backing up the current configuration and installing the dual-ADC build:

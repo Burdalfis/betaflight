@@ -23,6 +23,7 @@
 #include "pg/pg.h"
 #include "drivers/io_types.h"
 #include "drivers/servo_impl.h"
+#include "flight/tricopter_servo_position.h"
 
 // These must be consecutive, see 'reversedSources'
 enum {

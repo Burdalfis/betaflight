@@ -285,3 +285,113 @@ TEST_F(TricopterDiagnostics, GroundModeLogsSuppressedPulseWithoutWritingActuator
     for (int16_t value : servo) { EXPECT_EQ(1420, value); }
     EXPECT_EQ(0u, mixerCalls);
 }
+
+TEST_F(TricopterDiagnostics, CanonicalPositionUsesOnlyCorrectedCoherentPair)
+{
+    // The position API is independent of the selected debug presentation.
+    debugMode = DEBUG_NONE;
+    adcPair = {true, true, true, 1590, 40, 250};
+    const tricopterServoPositionSample_t before = servosTricopterGetPosition(now);
+    EXPECT_TRUE(before.supported);
+    EXPECT_TRUE(before.ready);
+    EXPECT_TRUE(before.sampleSeen);
+    EXPECT_TRUE(before.fresh);
+    EXPECT_EQ(1550, before.correctedCounts);
+    EXPECT_EQ(250U, before.ageUs);
+    EXPECT_EQ(1590, before.rawWiperCounts);
+    EXPECT_EQ(40, before.rawGroundCounts);
+
+    adcPair.firstValue += 45;
+    adcPair.secondValue += 45;
+    const tricopterServoPositionSample_t after = servosTricopterGetPosition(now);
+    EXPECT_EQ(before.correctedCounts, after.correctedCounts);
+    EXPECT_EQ(1635, after.rawWiperCounts);
+    EXPECT_EQ(85, after.rawGroundCounts);
+    EXPECT_EQ(2u, adcPairReads);
+    EXPECT_EQ(0u, adcReads);
+    EXPECT_EQ(0u, clockReads + mixerCalls);
+    for (int16_t value : servo) { EXPECT_EQ(1420, value); }
+}
+
+TEST_F(TricopterDiagnostics, CanonicalPositionNeverFallsBackToRawWiper)
+{
+    adcSample = {true, true, true, 1590, 0}; // An independently valid PB0 is insufficient.
+    adcPair = {true, true, false, 1590, 0, 0};
+    const tricopterServoPositionSample_t missingReference = servosTricopterGetPosition(now);
+    EXPECT_FALSE(missingReference.sampleSeen);
+    EXPECT_FALSE(missingReference.fresh);
+    EXPECT_EQ(TRICOPTER_SERVO_POSITION_UNAVAILABLE, missingReference.correctedCounts);
+    EXPECT_EQ(UINT32_MAX, missingReference.ageUs);
+    EXPECT_EQ(0u, adcReads);
+
+    adcPair = {false, false, false, 1590, 0, 0};
+    const tricopterServoPositionSample_t unsupported = servosTricopterGetPosition(now);
+    EXPECT_FALSE(unsupported.supported);
+    EXPECT_FALSE(unsupported.fresh);
+    EXPECT_EQ(TRICOPTER_SERVO_POSITION_UNAVAILABLE, unsupported.correctedCounts);
+    EXPECT_EQ(0u, adcReads);
+}
+
+TEST_F(TricopterDiagnostics, CanonicalPositionKeepsSignedCorrectionIncludingZeroGround)
+{
+    adcPair = {true, true, true, 1590, 0, 0};
+    EXPECT_EQ(1590, servosTricopterGetPosition(now).correctedCounts);
+    adcPair.firstValue = 0;
+    adcPair.secondValue = 1;
+    auto sample = servosTricopterGetPosition(now);
+    EXPECT_TRUE(sample.fresh);
+    EXPECT_EQ(-1, sample.correctedCounts);
+    adcPair.secondValue = 4095;
+    EXPECT_EQ(-4095, servosTricopterGetPosition(now).correctedCounts);
+    adcPair.firstValue = 4095;
+    adcPair.secondValue = 0;
+    EXPECT_EQ(4095, servosTricopterGetPosition(now).correctedCounts);
+}
+
+TEST_F(TricopterDiagnostics, CanonicalPositionSeparatesCachedCorrectionFromFreshMeasurement)
+{
+    adcPair = {true, true, true, 1590, 40, TRICOPTER_SERVO_POSITION_MAX_AGE_US};
+    EXPECT_TRUE(servosTricopterGetPosition(now).fresh);
+    adcPair.ageUs++;
+    auto stale = servosTricopterGetPosition(now);
+    EXPECT_FALSE(stale.fresh);
+    EXPECT_EQ(1550, stale.correctedCounts);
+    EXPECT_EQ(1001U, stale.ageUs);
+    adcPair.ready = false;
+    adcPair.ageUs = 100;
+    auto stopped = servosTricopterGetPosition(now);
+    EXPECT_FALSE(stopped.ready);
+    EXPECT_FALSE(stopped.fresh);
+    EXPECT_EQ(1550, stopped.correctedCounts);
+    EXPECT_EQ(0u, adcReads);
+}
+
+TEST_F(TricopterDiagnostics, CanonicalPositionRejectsNonTwelveBitRangeWithoutRawFallback)
+{
+    adcPair = {true, true, true, 4096, 40, 0};
+    auto sample = servosTricopterGetPosition(now);
+    EXPECT_TRUE(sample.sampleSeen);
+    EXPECT_FALSE(sample.fresh);
+    EXPECT_EQ(4096, sample.rawWiperCounts); // Retain the faulty diagnostic value.
+    EXPECT_EQ(TRICOPTER_SERVO_POSITION_UNAVAILABLE, sample.correctedCounts);
+    adcPair.firstValue = 1590;
+    adcPair.secondValue = 5000;
+    sample = servosTricopterGetPosition(now);
+    EXPECT_FALSE(sample.fresh);
+    EXPECT_EQ(TRICOPTER_SERVO_POSITION_UNAVAILABLE, sample.correctedCounts);
+    EXPECT_EQ(0u, adcReads);
+}
+
+TEST_F(TricopterDiagnostics, GroundLoggerReportsCanonicalPositionAndFreshness)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1620, 65, 500};
+    const auto sample = servosTricopterGetPosition(now);
+    servosTricopterLog(1420);
+    EXPECT_EQ(sample.correctedCounts, debug[3]);
+    EXPECT_EQ(sample.rawWiperCounts, debug[0]);
+    EXPECT_EQ(sample.rawGroundCounts, debug[2]);
+    EXPECT_EQ(sample.fresh, (debug[5] & (1 << 3)) != 0);
+    EXPECT_EQ(2u, adcPairReads); // Once per API request, never independent raw reads.
+    EXPECT_EQ(0u, adcReads);
+}

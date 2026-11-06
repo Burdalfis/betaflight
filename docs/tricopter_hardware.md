@@ -21,6 +21,8 @@ This records wiring and source compatibility, not a measured PB0 bench result.
 
 **Current dual-input wiring:** PB0 remains the wiper input (`ADC_EXT 1 B00`), and PC0 now senses servo PCB ground (`ADC_RSSI 1 C00`). The normal servo power ground remains connected. Logging-only `TRI_GROUND` at `a15ed3065` was flashed/read back and both inputs were verified, with `RSSI_ADC` disabled. This supersedes the earlier single-input instruction to leave PC0 free. See [configuration and acquisition limits](tricopter_dual_adc_logging.md) and [hardware evidence](validation/tricopter-ground-2026-11-06/README.md).
 
+The user subsequently clarified the PC0 solder point: **servo PCB power GND input, not the potentiometer low terminal**, which is not true ground. The selected sole position measurement is signed PB0−PC0; raw inputs remain diagnostic. This references the wiper to the power-input ground and does not subtract every internal potentiometer excitation/electronic effect.
+
 ## Evidence and preservation
 
 - `tricopter_dump.txt` and `tricopter_diff.txt`: original flown Betaflight 4.3.1
