@@ -44,6 +44,15 @@ adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t cu
     return (adcDiagnosticSnapshot_t) { .value = adcGetValue(source), .ageUs = UINT32_MAX };
 }
 
+adcDiagnosticPairSnapshot_t adcGetDiagnosticPairSnapshot(adcSource_e first, adcSource_e second, timeUs_t currentTimeUs)
+{
+    UNUSED(first);
+    UNUSED(second);
+    UNUSED(currentTimeUs);
+    // Independent cached channel reads would not establish a coherent pair.
+    return (adcDiagnosticPairSnapshot_t) { .ageUs = UINT32_MAX };
+}
+
 void adcResetDiagnosticSnapshot(void)
 {
 }

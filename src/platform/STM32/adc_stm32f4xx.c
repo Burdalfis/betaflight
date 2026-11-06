@@ -36,6 +36,7 @@
 #include "drivers/dma.h"
 #include "drivers/sensor.h"
 #include "drivers/adc.h"
+#include "drivers/adc_pair_snapshot.h"
 #include "platform/adc_impl.h"
 
 #include "pg/adc.h"
@@ -131,11 +132,22 @@ static dmaChannelDescriptor_t *adcDiagnosticDma;
 static bool adcDiagnosticObserving;
 static bool adcDiagnosticSampleSeen;
 static timeUs_t adcDiagnosticLastScanUs;
+static uint8_t adcDiagnosticChannelCount;
+static bool adcDiagnosticPairObserving;
+static bool adcDiagnosticPairCompletionPending;
+static adcSource_e adcDiagnosticPairFirst = ADC_NONE;
+static adcSource_e adcDiagnosticPairSecond = ADC_NONE;
+static adcDiagnosticPairCache_t adcDiagnosticPairCache;
 
 void adcResetDiagnosticSnapshot(void)
 {
     adcDiagnosticObserving = false;
     adcDiagnosticSampleSeen = false;
+    adcDiagnosticPairObserving = false;
+    adcDiagnosticPairCompletionPending = false;
+    adcDiagnosticPairFirst = ADC_NONE;
+    adcDiagnosticPairSecond = ADC_NONE;
+    memset(&adcDiagnosticPairCache, 0, sizeof(adcDiagnosticPairCache));
 }
 
 adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t currentTimeUs)
@@ -166,6 +178,74 @@ adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t cu
     if (snapshot.sampleSeen) {
         snapshot.ageUs = (uint32_t)(currentTimeUs - adcDiagnosticLastScanUs);
     }
+    return snapshot;
+}
+
+adcDiagnosticPairSnapshot_t adcGetDiagnosticPairSnapshot(adcSource_e first, adcSource_e second, timeUs_t currentTimeUs)
+{
+    adcDiagnosticPairSnapshot_t snapshot = { .supported = true, .ageUs = UINT32_MAX };
+    if ((unsigned)first >= ADC_EXTERNAL_COUNT || (unsigned)second >= ADC_EXTERNAL_COUNT
+        || first == second || !adcDiagnosticDma || !adcDiagnosticChannelCount
+        || !adcOperatingConfig[first].enabled || !adcOperatingConfig[second].enabled
+        || adcOperatingConfig[first].tag == adcOperatingConfig[second].tag) {
+        return snapshot;
+    }
+
+    const unsigned firstIndex = adcOperatingConfig[first].dmaIndex;
+    const unsigned secondIndex = adcOperatingConfig[second].dmaIndex;
+    // For configurations with no earlier unrelated conversion there is no
+    // guarded prefix in this single DMA buffer. Report unavailable honestly.
+    if (!adcDiagnosticPairPhaseIsSafe(adcDiagnosticChannelCount, firstIndex, secondIndex, adcDiagnosticChannelCount)) {
+        return snapshot;
+    }
+
+    const dmaChannelDescriptor_t *descriptor = adcDiagnosticDma;
+    const uint32_t errorFlags = DMA_IT_TEIF | DMA_IT_DMEIF | DMA_IT_FEIF;
+    snapshot.ready = (((DMA_Stream_TypeDef *)descriptor->ref)->CR & DMA_SxCR_EN)
+        && !DMA_GET_FLAG_STATUS(descriptor, errorFlags);
+
+    if (first != adcDiagnosticPairFirst || second != adcDiagnosticPairSecond) {
+        adcDiagnosticPairObserving = false;
+        adcDiagnosticPairCompletionPending = false;
+        adcDiagnosticPairFirst = first;
+        adcDiagnosticPairSecond = second;
+        memset(&adcDiagnosticPairCache, 0, sizeof(adcDiagnosticPairCache));
+    }
+
+    if (!adcDiagnosticPairObserving) {
+        // Discard an old sticky completion from before this logging session.
+        DMA_CLEAR_FLAG(descriptor, DMA_IT_TCIF);
+        adcDiagnosticPairObserving = true;
+    } else if (snapshot.ready) {
+        if (DMA_GET_FLAG_STATUS(descriptor, DMA_IT_TCIF)) {
+            DMA_CLEAR_FLAG(descriptor, DMA_IT_TCIF);
+            adcDiagnosticPairCompletionPending = true;
+        }
+
+        if (adcDiagnosticPairCompletionPending) {
+            const uint32_t startedAtUs = (uint32_t)micros();
+            const unsigned remainingBefore = dmaGetDataLength(descriptor->ref);
+            if (adcDiagnosticPairPhaseIsSafe(adcDiagnosticChannelCount, firstIndex, secondIndex, remainingBefore)) {
+                const uint16_t firstValue = adcValues[firstIndex];
+                const uint16_t secondValue = adcValues[secondIndex];
+                const unsigned remainingAfter = dmaGetDataLength(descriptor->ref);
+                const uint32_t endedAtUs = (uint32_t)micros();
+                if (adcDiagnosticPairCopyIsCoherent(adcDiagnosticChannelCount, firstIndex, secondIndex,
+                    remainingBefore, remainingAfter, startedAtUs, endedAtUs)) {
+                    adcDiagnosticPairCachePublish(&adcDiagnosticPairCache, firstValue, secondValue, (uint32_t)currentTimeUs);
+                    adcDiagnosticPairCompletionPending = false;
+                    // Consume any completion that occurred before this bounded
+                    // copy, including during preemption before startedAtUs.
+                    DMA_CLEAR_FLAG(descriptor, DMA_IT_TCIF);
+                }
+            }
+        }
+    }
+
+    snapshot.sampleSeen = adcDiagnosticPairCache.seen;
+    snapshot.firstValue = adcDiagnosticPairCache.firstValue;
+    snapshot.secondValue = adcDiagnosticPairCache.secondValue;
+    snapshot.ageUs = adcDiagnosticPairCacheAge(&adcDiagnosticPairCache, (uint32_t)currentTimeUs);
     return snapshot;
 }
 
@@ -256,6 +336,7 @@ void adcInit(const adcConfig_t *config)
     uint8_t configuredAdcChannels = 0;
 
     adcDiagnosticDma = NULL;
+    adcDiagnosticChannelCount = 0;
     adcResetDiagnosticSnapshot();
 
     memset(adcOperatingConfig, 0, sizeof(adcOperatingConfig));
@@ -399,6 +480,8 @@ void adcInit(const adcConfig_t *config)
 #endif
 
     ADC_SoftwareStartConv(adc.ADCx);
+
+    adcDiagnosticChannelCount = configuredAdcChannels;
 
 #ifdef USE_DMA_SPEC
     adcDiagnosticDma = dmaGetDescriptorByIdentifier(dmaGetIdentifier(dmaSpec->ref));

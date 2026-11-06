@@ -20,9 +20,10 @@ uint8_t dshotMotorCount;
 #include "gtest/gtest.h"
 
 static adcDiagnosticSnapshot_t adcSample;
+static adcDiagnosticPairSnapshot_t adcPair;
 static dshotTelemetryRpmSample_t rpmSamples[3];
 static int16_t invalidPercent[3];
-static unsigned adcReads, adcResets, rpmReads, clockReads, mixerCalls;
+static unsigned adcReads, adcPairReads, adcResets, rpmReads, clockReads, mixerCalls;
 static timeUs_t now;
 
 extern "C" {
@@ -35,6 +36,14 @@ adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t ti
     return adcSample;
 }
 void adcResetDiagnosticSnapshot(void) { adcResets++; }
+adcDiagnosticPairSnapshot_t adcGetDiagnosticPairSnapshot(adcSource_e first, adcSource_e second, timeUs_t time)
+{
+    EXPECT_EQ(ADC_EXTERNAL1, first);
+    EXPECT_EQ(ADC_RSSI, second);
+    EXPECT_EQ(now, time);
+    adcPairReads++;
+    return adcPair;
+}
 dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motor, timeUs_t time)
 {
     EXPECT_LT(motor, 3);
@@ -55,9 +64,10 @@ protected:
         std::fill(debug, debug + DEBUG16_VALUE_COUNT, 1234);
         std::fill(servo, servo + MAX_SUPPORTED_SERVOS, 1420);
         std::memset(&adcSample, 0, sizeof(adcSample));
+        std::memset(&adcPair, 0, sizeof(adcPair));
         std::memset(rpmSamples, 0, sizeof(rpmSamples));
         std::fill(invalidPercent, invalidPercent + 3, 0);
-        adcReads = adcResets = rpmReads = clockReads = mixerCalls = 0;
+        adcReads = adcPairReads = adcResets = rpmReads = clockReads = mixerCalls = 0;
         useDshotTelemetry = true;
         dshotMotorCount = 3;
         now = 123456;
@@ -68,7 +78,7 @@ TEST_F(TricopterDiagnostics, LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode)
 {
     debugMode = DEBUG_GYRO_FILTERED;
     servosTricopterLog(1700);
-    EXPECT_EQ(0u, adcReads + rpmReads + clockReads + adcResets);
+    EXPECT_EQ(0u, adcReads + adcPairReads + rpmReads + clockReads + adcResets);
     for (int16_t value : debug) { EXPECT_EQ(1234, value); }
 }
 
@@ -152,4 +162,126 @@ TEST_F(TricopterDiagnostics, LeavingLogModeResetsAdcObservationSessionOnce)
     servosTricopterLog(1420);
     servosTricopterLog(1420);
     EXPECT_EQ(1u, adcResets);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeLogsBothRawValuesAndSignedDifference)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1590, 40, 250};
+    rpmSamples[0] = {true, 200, 1};
+    rpmSamples[1] = {true, 6789, 2};
+    rpmSamples[2] = {true, 99999, 3};
+    invalidPercent[1] = 125;
+    servosTricopterLog(1420);
+    EXPECT_EQ(1u, adcPairReads);
+    EXPECT_EQ(0u, adcReads);
+    EXPECT_EQ(1590, debug[0]);
+    EXPECT_EQ(1420, debug[1]);
+    EXPECT_EQ(40, debug[2]);
+    EXPECT_EQ(1550, debug[3]);
+    EXPECT_EQ(2, debug[4]);
+    EXPECT_EQ(255, debug[5]);
+    EXPECT_EQ(999, debug[6]);
+    EXPECT_EQ(125, debug[7]);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeCancelsCommonOffsetWithoutChangingRawData)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1590, 10, 0};
+    servosTricopterLog(1420);
+    EXPECT_EQ(1580, debug[3]);
+    adcPair.firstValue += 45;
+    adcPair.secondValue += 45;
+    servosTricopterLog(1420);
+    EXPECT_EQ(1635, debug[0]);
+    EXPECT_EQ(55, debug[2]);
+    EXPECT_EQ(1580, debug[3]);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeAllowsZeroGroundAndSignedNegativeOne)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1590, 0, 0};
+    servosTricopterLog(1420);
+    EXPECT_EQ(0, debug[2]);
+    EXPECT_EQ(1590, debug[3]);
+    EXPECT_NE(0, debug[5] & (1 << 9));
+    EXPECT_NE(0, debug[5] & (1 << 3));
+    adcPair.firstValue = 0;
+    adcPair.secondValue = 1;
+    servosTricopterLog(1420);
+    EXPECT_EQ(-1, debug[3]); // Real signed data, not the unavailable sentinel.
+    adcPair.secondValue = 4095;
+    servosTricopterLog(1420);
+    EXPECT_EQ(-4095, debug[3]);
+    EXPECT_NE(0, debug[5] & (1 << 10));
+    adcPair.firstValue = 4095;
+    adcPair.secondValue = 0;
+    servosTricopterLog(1420);
+    EXPECT_EQ(4095, debug[3]);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeDoesNotInventValuesBeforeFirstCoherentPair)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, false, 1590, 40, UINT32_MAX};
+    servosTricopterLog(1420);
+    EXPECT_EQ(-1, debug[0]);
+    EXPECT_EQ(-1, debug[2]);
+    EXPECT_EQ(INT16_MIN, debug[3]);
+    EXPECT_EQ(-1, debug[4]);
+    EXPECT_EQ(0, debug[5] & (1 << 2));
+    EXPECT_EQ(0, debug[5] & (1 << 3));
+}
+
+TEST_F(TricopterDiagnostics, GroundModeAgesCachedPairsAndClearsFreshness)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1590, 40, 1000};
+    servosTricopterLog(1420);
+    EXPECT_NE(0, debug[5] & (1 << 3));
+    adcPair.ageUs = 1001;
+    servosTricopterLog(1420);
+    EXPECT_EQ(0, debug[5] & (1 << 3));
+    EXPECT_EQ(1550, debug[3]);
+    adcPair.ready = false;
+    adcPair.ageUs = 4000000;
+    servosTricopterLog(1420);
+    EXPECT_EQ(0, debug[5] & (1 << 1));
+    EXPECT_EQ(INT16_MAX, debug[4]);
+    EXPECT_EQ(1550, debug[3]);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeRequiresAllMotorSamplesForWorstRpmAge)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    rpmSamples[0] = {true, 200, 1};
+    rpmSamples[1] = {true, 500, 1};
+    servosTricopterLog(1420);
+    EXPECT_EQ(-1, debug[6]);
+    rpmSamples[2] = {true, 4000000, 1};
+    servosTricopterLog(1420);
+    EXPECT_EQ(INT16_MAX, debug[6]);
+}
+
+TEST_F(TricopterDiagnostics, SwitchingDiagnosticSchemasResetsAdcSession)
+{
+    debugMode = DEBUG_TRI_SERVO;
+    servosTricopterLog(1420);
+    debugMode = DEBUG_TRI_GROUND;
+    servosTricopterLog(1420);
+    debugMode = DEBUG_TRI_SERVO;
+    servosTricopterLog(1420);
+    EXPECT_EQ(2u, adcResets);
+}
+
+TEST_F(TricopterDiagnostics, GroundModeLogsSuppressedPulseWithoutWritingActuators)
+{
+    debugMode = DEBUG_TRI_GROUND;
+    adcPair = {true, true, true, 1590, 40, 0};
+    servosTricopterLog(0);
+    EXPECT_EQ(0, debug[1]);
+    for (int16_t value : servo) { EXPECT_EQ(1420, value); }
+    EXPECT_EQ(0u, mixerCalls);
 }

@@ -58,7 +58,7 @@ constexpr uint16_t RPM_FRAME = 0x0300; // decoded period = 512 us
 constexpr uint16_t STOPPED_FRAME = 0x0fff;
 constexpr uint16_t TEMPERATURE_FRAME = 0x022a; // EDT: 42 C
 
-class DshotTelemetryTest : public testing::Test {
+class DshotTelemetryTest : public testing::TestWithParam<debugType_e> {
 protected:
     void SetUp() override
     {
@@ -68,7 +68,7 @@ protected:
         motorConfigMutable()->dev.useDshotTelemetry = DSHOT_TELEMETRY_ON;
         motorConfigMutable()->dev.useDshotEdt = DSHOT_EDT_FORCE;
         useDshotTelemetry = true;
-        debugMode = DEBUG_TRI_SERVO;
+        debugMode = GetParam();
         dshotMotorCount = 3;
         testTimeUs = 0;
         timerReadCount = 0;
@@ -104,7 +104,7 @@ protected:
 };
 }
 
-TEST_F(DshotTelemetryTest, UnseenAndOutOfRangeAreExplicitlyUnknown)
+TEST_P(DshotTelemetryTest, UnseenAndOutOfRangeAreExplicitlyUnknown)
 {
     expectUnknown(0, 1000);
     expectUnknown(3, 1000);
@@ -113,7 +113,7 @@ TEST_F(DshotTelemetryTest, UnseenAndOutOfRangeAreExplicitlyUnknown)
     expectUnknown(0, 1000);
 }
 
-TEST_F(DshotTelemetryTest, NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot)
+TEST_P(DshotTelemetryTest, NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot)
 {
     receive(0, RPM_FRAME, 100);
     const uint16_t expectedErpm = (600000U + 256U) / 512U;
@@ -134,7 +134,7 @@ TEST_F(DshotTelemetryTest, NewlyReceivedEqualFramesRefreshButCachedDecodingDoesN
     EXPECT_EQ(0U, sample(0, 300).ageUs);
 }
 
-TEST_F(DshotTelemetryTest, MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh)
+TEST_P(DshotTelemetryTest, MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh)
 {
     receive(0, RPM_FRAME, 100);
     // These transport outcomes never call dshotTelemetryStoreRawValue. The
@@ -152,7 +152,7 @@ TEST_F(DshotTelemetryTest, MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh)
     EXPECT_EQ(1000000U, sample(0, 1000100).ageUs);
 }
 
-TEST_F(DshotTelemetryTest, ExtendedTelemetryDoesNotBecomeAnRpmObservation)
+TEST_P(DshotTelemetryTest, ExtendedTelemetryDoesNotBecomeAnRpmObservation)
 {
     receive(1, TEMPERATURE_FRAME, 50);
     expectUnknown(1, 50);
@@ -165,7 +165,7 @@ TEST_F(DshotTelemetryTest, ExtendedTelemetryDoesNotBecomeAnRpmObservation)
     EXPECT_EQ(500U, sample(0, 600).ageUs);
 }
 
-TEST_F(DshotTelemetryTest, ZeroSpeedIsAValidFreshRpmSample)
+TEST_P(DshotTelemetryTest, ZeroSpeedIsAValidFreshRpmSample)
 {
     receive(2, STOPPED_FRAME, 0);
     EXPECT_TRUE(sample(2, 0).seen);
@@ -175,7 +175,7 @@ TEST_F(DshotTelemetryTest, ZeroSpeedIsAValidFreshRpmSample)
     EXPECT_FLOAT_EQ(0.0f, getDshotRpm(2));
 }
 
-TEST_F(DshotTelemetryTest, InvalidDecodedPeriodAndSentinelsDoNotRefresh)
+TEST_P(DshotTelemetryTest, InvalidDecodedPeriodAndSentinelsDoNotRefresh)
 {
     receive(0, 0, 100); // zero encoded period is invalid
     expectUnknown(0, 100);
@@ -187,7 +187,7 @@ TEST_F(DshotTelemetryTest, InvalidDecodedPeriodAndSentinelsDoNotRefresh)
     EXPECT_EQ(300U, sample(0, 500).ageUs);
 }
 
-TEST_F(DshotTelemetryTest, PerMotorAgesRemainIndependentAndWrapSafely)
+TEST_P(DshotTelemetryTest, PerMotorAgesRemainIndependentAndWrapSafely)
 {
     receive(0, RPM_FRAME, UINT32_MAX - 49U);
     receive(1, RPM_FRAME, UINT32_MAX - 9U);
@@ -196,14 +196,14 @@ TEST_F(DshotTelemetryTest, PerMotorAgesRemainIndependentAndWrapSafely)
     expectUnknown(2, 50);
 }
 
-TEST_F(DshotTelemetryTest, DisabledDiagnosticsPreserveRpmAndAvoidTimerReads)
+TEST_P(DshotTelemetryTest, DisabledDiagnosticsPreserveRpmAndAvoidTimerReads)
 {
     debugMode = DEBUG_NONE;
     receive(0, RPM_FRAME, 100);
     EXPECT_GT(getDshotRpm(0), 0.0f);
     EXPECT_EQ(0U, timerReadCount);
     expectUnknown(0, 100);
-    debugMode = DEBUG_TRI_SERVO;
+    debugMode = GetParam();
     process(200); // selecting diagnostics does not freshen a cached value
     expectUnknown(0, 200);
     receive(0, RPM_FRAME, 300);
@@ -213,7 +213,7 @@ TEST_F(DshotTelemetryTest, DisabledDiagnosticsPreserveRpmAndAvoidTimerReads)
     expectUnknown(0, 300);
 }
 
-TEST_F(DshotTelemetryTest, ProcessedBatchAndCleanCannotCreatePhantomSamples)
+TEST_P(DshotTelemetryTest, ProcessedBatchAndCleanCannotCreatePhantomSamples)
 {
     receive(0, RPM_FRAME, 100);
     testTimeUs = 200;
@@ -226,3 +226,22 @@ TEST_F(DshotTelemetryTest, ProcessedBatchAndCleanCannotCreatePhantomSamples)
     process(300);
     expectUnknown(0, 300);
 }
+
+TEST_P(DshotTelemetryTest, SwitchingDiagnosticModesDoesNotFreshenCachedRpm)
+{
+    receive(0, RPM_FRAME, 100);
+    debugMode = GetParam() == DEBUG_TRI_SERVO ? DEBUG_TRI_GROUND : DEBUG_TRI_SERVO;
+    process(200);
+    EXPECT_EQ(1U, sample(0, 200).sequence);
+    EXPECT_EQ(100U, sample(0, 200).ageUs);
+
+    receive(0, TEMPERATURE_FRAME, 300);
+    EXPECT_EQ(1U, sample(0, 300).sequence);
+    EXPECT_EQ(200U, sample(0, 300).ageUs);
+    receive(0, RPM_FRAME, 400);
+    EXPECT_EQ(2U, sample(0, 400).sequence);
+    EXPECT_EQ(0U, sample(0, 400).ageUs);
+}
+
+INSTANTIATE_TEST_SUITE_P(TricopterDebugModes, DshotTelemetryTest,
+    testing::Values(DEBUG_TRI_SERVO, DEBUG_TRI_GROUND));

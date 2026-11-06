@@ -143,7 +143,7 @@ extern dshotTelemetryState_t dshotTelemetryState;
 // Call only for a newly received raw frame, never for a cached value. EDT
 // enable handshakes are handled by the transport and must not call this.
 void dshotTelemetryStoreRawValue(uint8_t motorIndex, uint16_t rawValue);
-// LOG_ONLY diagnostics, active only in TRI_SERVO debug mode. The timestamp is
+// LOG_ONLY diagnostics, active in TRI_SERVO and TRI_GROUND debug modes. The timestamp is
 // the decoder's observation time, not the ESC's physical RPM measurement time.
 // Unseen/disabled samples return seen=false, ageUs=UINT32_MAX, sequence=0.
 dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motorIndex, timeUs_t currentTimeUs);

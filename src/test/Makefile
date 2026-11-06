@@ -30,6 +30,9 @@ VPATH := $(VPATH):$(USER_DIR):$(TEST_DIR)
 #   <test_name>_EXPAND (run for each target, call the above with target as $1)
 #   <test_name>_BLACKLIST (targets to exclude from an expanded test's run)
 
+# Header-only portable ADC coherence helpers need no linked hardware backend.
+adc_pair_snapshot_unittest_HEADER_ONLY := yes
+
 alignsensor_unittest_SRC := \
 		$(USER_DIR)/sensors/boardalignment.c \
 		$(USER_DIR)/common/sensor_alignment.c \
@@ -1063,5 +1066,5 @@ else
     endif
 endif
 
-$(foreach test,$(TESTS_ALL),$(if $($(basename $(test))_SRC),,$(error \
+$(foreach test,$(TESTS_ALL),$(if $(or $($(basename $(test))_SRC),$($(basename $(test))_HEADER_ONLY)),,$(error \
 	Test 'unit/$(basename $(test)).cc' has no '$(basename $(test))_SRC' variable defined)))

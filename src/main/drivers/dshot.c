@@ -274,10 +274,15 @@ void dshotTelemetryStoreRawValue(uint8_t motorIndex, uint16_t rawValue)
     motorState->newRawValue = rawValue != DSHOT_TELEMETRY_INVALID && rawValue != DSHOT_TELEMETRY_NOEDGE;
 }
 
+static bool isTricopterTelemetryDebugActive(void)
+{
+    return debugMode == DEBUG_TRI_SERVO || debugMode == DEBUG_TRI_GROUND;
+}
+
 dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motorIndex, timeUs_t currentTimeUs)
 {
     dshotTelemetryRpmSample_t sample = { .seen = false, .ageUs = UINT32_MAX, .sequence = 0 };
-    if (debugMode != DEBUG_TRI_SERVO || !useDshotTelemetry || motorIndex >= dshotMotorCount || motorIndex >= MAX_SUPPORTED_MOTORS) {
+    if (!isTricopterTelemetryDebugActive() || !useDshotTelemetry || motorIndex >= dshotMotorCount || motorIndex >= MAX_SUPPORTED_MOTORS) {
         return sample;
     }
 
@@ -305,7 +310,7 @@ FAST_CODE_NOINLINE void updateDshotTelemetry(void)
     uint32_t erpmTotal = 0;
     uint32_t rpmSamples = 0;
     // One observation timestamp per batch, and no timer read outside LOG_ONLY.
-    const bool trackRpmSamples = debugMode == DEBUG_TRI_SERVO;
+    const bool trackRpmSamples = isTricopterTelemetryDebugActive();
     const uint32_t observationTimeUs = trackRpmSamples ? (uint32_t)micros() : 0;
 
     // Decode all telemetry data now to discharge interrupt from this task

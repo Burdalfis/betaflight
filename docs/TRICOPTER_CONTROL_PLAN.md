@@ -6,7 +6,7 @@
 
 **Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
 
-**Document version:** 0.5 — 2026-11-06
+**Document version:** 0.6 — 2026-11-06
 
 **Status:** M0 complete; M1 flashed and bench-tested; unloaded wiper-response characterization recorded, with an unresolved early power/reference-or-motion transient; **no new flight-control law validated**
 
@@ -31,6 +31,12 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, and PB0 `ADC_EXTERNAL1` readings without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.6 (2026-11-06)
+
+- Added logging-only `TRI_GROUND`: PB0 remains the wiper and PC0 senses servo PCB ground. Record both raw channels and signed PB0−PC0 using a coherent completed-scan pair. The old `TRI_SERVO` schema is unchanged.
+- Reuse the existing `ADC_RSSI` acquisition slot for PC0 only in this mode, with the RSSI feature off; no parameter-group layout or version change. See [dual-ADC wiring, schema and acquisition limits](tricopter_dual_adc_logging.md).
+- Ground subtraction is an experiment, not an assumption of calibrated position or cancellation of potentiometer excitation changes. No measured-angle control correction is enabled.
 
 ### Revision notes — v0.5 (2026-11-06)
 

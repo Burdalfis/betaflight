@@ -6,6 +6,8 @@ M1 `bd6a5d727` has been flashed, read back, and bench-tested with PB0 servo feed
 
 The subsequent [unloaded characterization](tricopter_servo_characterization_2026-11-06.md) found an early common-positive wiper transient in both requested directions, persisting with the case clamped. The tap is observable, but early wiper voltage is not yet established as actual shaft/rotor motion. Servo supply/ground/reference measurements remain necessary before active position-dependent control.
 
+The separate [TRI_GROUND mode](tricopter_dual_adc_logging.md) adds raw PB0 wiper, raw PC0 servo-ground sense and signed PB0−PC0 logging with coherent-pair acquisition. It does not change the original `TRI_SERVO` schema documented below.
+
 **Wiring revision — 2026-11-06:** the user connected the wiper to **PB0 / ADC1_IN8** for proximity to the servo, replacing the earlier PC0/AirS proposal. M1 already reads configurable `ADC_EXTERNAL1`; the existing binary supports PB0 without a rebuild. `ADC_EXT 1 B00`, `ADC_RSSI 1 NONE`, and `RSSI_ADC` disabled were applied and verified. Earlier cloud captures remain unedited historical evidence.
 
 ## Modes and output path

@@ -420,6 +420,11 @@ static void validateAndFixConfig(void)
 
     // The FrSky D SPI RX sends RSSI_ADC_PIN (if configured) as A2
     adcConfigMutable()->rssi.enabled = featureIsEnabled(FEATURE_RSSI_ADC);
+#ifdef USE_SERVOS
+    // Logging-only ground-sense input; this does not enable RSSI processing.
+    // Use the persisted mode here: global debugMode is initialized later.
+    adcConfigMutable()->rssi.enabled |= systemConfig()->debug_mode == DEBUG_TRI_GROUND;
+#endif
 #ifdef USE_RX_SPI
     adcConfigMutable()->rssi.enabled |= (featureIsEnabled(FEATURE_RX_SPI) && rxSpiConfig()->rx_spi_protocol == RX_SPI_FRSKY_D);
 #endif

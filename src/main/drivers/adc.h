@@ -83,6 +83,20 @@ typedef struct adcDiagnosticSnapshot_s {
 adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t currentTimeUs);
 void adcResetDiagnosticSnapshot(void);
 
+// A cached pair captured from one completed regular scan. The channels are
+// sampled sequentially, not simultaneously. ageUs measures time since the
+// coherent copy was observed, not the individual conversion timestamps.
+typedef struct adcDiagnosticPairSnapshot_s {
+    bool supported;
+    bool ready;
+    bool sampleSeen;
+    uint16_t firstValue;
+    uint16_t secondValue;
+    uint32_t ageUs;
+} adcDiagnosticPairSnapshot_t;
+
+adcDiagnosticPairSnapshot_t adcGetDiagnosticPairSnapshot(adcSource_e first, adcSource_e second, timeUs_t currentTimeUs);
+
 #ifdef USE_ADC_INTERNAL
 bool adcInternalIsBusy(void);
 void adcInternalStartConversion(void);

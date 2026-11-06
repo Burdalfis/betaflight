@@ -51,27 +51,110 @@ static int16_t diagnosticAge(uint32_t ageUs)
 }
 #endif
 
+static bool isTricopterDiagnosticMode(uint8_t mode)
+{
+    return mode == DEBUG_TRI_SERVO || mode == DEBUG_TRI_GROUND;
+}
+
+static void logTricopterGround(int16_t finalPwm, timeUs_t now)
+{
+    (void)now;
+    uint16_t flags = 0;
+    debug[0] = -1;             // Raw wiper (ADC_EXTERNAL1 / PB0).
+    debug[1] = finalPwm;
+    debug[2] = -1;             // Raw local servo ground (ADC_RSSI / PC0).
+    debug[3] = INT16_MIN;      // Signed wiper minus ground; -1 is valid data.
+    debug[4] = -1;             // Coherent pair observation age, 100 us/count.
+    debug[6] = -1;             // Worst RPM age, only if all three have samples.
+    debug[7] = -1;             // Existing worst invalid-packet percentage.
+
+#ifdef USE_ADC
+    const adcDiagnosticPairSnapshot_t pair = adcGetDiagnosticPairSnapshot(ADC_EXTERNAL1, ADC_RSSI, now);
+    if (pair.supported) {
+        flags |= 1 << 0;
+    }
+    if (pair.ready) {
+        flags |= 1 << 1;
+    }
+    if (pair.sampleSeen) {
+        flags |= 1 << 2;
+        debug[0] = pair.firstValue;
+        debug[2] = pair.secondValue;
+        debug[3] = (int32_t)pair.firstValue - (int32_t)pair.secondValue;
+        debug[4] = diagnosticAge(pair.ageUs);
+        if (pair.ready && pair.ageUs <= 1000) {
+            flags |= 1 << 3;
+        }
+        if (pair.firstValue == 0 || pair.firstValue == 4095) {
+            flags |= 1 << 8;
+        }
+        // A zero ground reading is expected, but cannot show negative voltage.
+        if (pair.secondValue == 0) {
+            flags |= 1 << 9;
+        }
+        if (pair.secondValue == 4095) {
+            flags |= 1 << 10;
+        }
+    }
+#endif
+
+#ifdef USE_DSHOT_TELEMETRY
+    bool allRpmSeen = useDshotTelemetry && dshotMotorCount >= 3;
+    uint32_t worstRpmAgeUs = 0;
+    if (useDshotTelemetry) {
+        flags |= 1 << 4;
+    }
+    for (unsigned motor = 0; motor < 3; motor++) {
+        const dshotTelemetryRpmSample_t sample = getDshotTelemetryRpmSample(motor, now);
+        if (sample.seen) {
+            flags |= 1 << (5 + motor);
+            if (sample.ageUs > worstRpmAgeUs) {
+                worstRpmAgeUs = sample.ageUs;
+            }
+        } else {
+            allRpmSeen = false;
+        }
+#ifdef USE_DSHOT_TELEMETRY_STATS
+        if (useDshotTelemetry && motor < dshotMotorCount) {
+            const int16_t invalidPercent = getDshotTelemetryMotorInvalidPercent(motor);
+            if (invalidPercent > debug[7]) {
+                debug[7] = invalidPercent;
+            }
+        }
+#endif
+    }
+    if (allRpmSeen) {
+        debug[6] = diagnosticAge(worstRpmAgeUs);
+    }
+#endif
+    debug[5] = flags;
+}
+
 void servosTricopterLog(int16_t finalPwm)
 {
 #ifdef USE_ADC
-    static bool logging;
-#endif
-    if (debugMode != DEBUG_TRI_SERVO) {
-#ifdef USE_ADC
-        if (logging) {
+    static uint8_t previousMode = DEBUG_NONE;
+    if (previousMode != debugMode) {
+        if (isTricopterDiagnosticMode(previousMode)) {
             adcResetDiagnosticSnapshot();
         }
-        logging = false;
+        previousMode = debugMode;
+    }
 #endif
+    if (!isTricopterDiagnosticMode(debugMode)) {
         return;
     }
-#ifdef USE_ADC
-    logging = true;
-#endif
 
 #if defined(USE_ADC) || defined(USE_DSHOT_TELEMETRY)
     const timeUs_t now = micros();
+#else
+    const timeUs_t now = 0;
 #endif
+    if (debugMode == DEBUG_TRI_GROUND) {
+        logTricopterGround(finalPwm, now);
+        return;
+    }
+
     uint16_t flags = 0;
     debug[0] = -1;
     debug[1] = finalPwm;
