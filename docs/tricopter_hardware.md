@@ -19,6 +19,12 @@ during this source/configuration audit.
 - [Current cloud-build CLI evidence excerpt](tricopter_cloud_2026-11-06.txt):
   labeled transcription of supplied version/status/configuration and active
   resource facts; this is not a full raw transcript or replay configuration.
+- [Complete CLI text supplied in chat](tricopter_cloud_cli_2026-11-06.txt):
+  preserves the supplied `version`, `status`, `diff all` and `resource show all`
+  text with LF line endings. This is a transcription of the chat message, not
+  an independently captured serial byte stream or a `dump all` export. The
+  user's final sentence, outside the CLI output, was: “I can confirm that the
+  motor and servo mapping is correct”.
 - [Original-file SHA-256 manifest](tricopter_originals.sha256): repo-relative
   names; verify from the repository root using
   `sha256sum -c docs/tricopter_originals.sha256`.
@@ -246,9 +252,9 @@ The cloud-build confirmation and supplied runtime export are recorded above.
 Completed M0 aircraft evidence and remaining local-image measurements are:
 
 - [x] Current 2026.6.2 cloud-build CLI evidence and firmware/build identifier
-  supplied and preserved as a labeled excerpt; resources compared with this
-  historical mapping. A complete raw transcript remains useful rollback
-  evidence when available.
+  supplied and preserved as complete chat-transcribed CLI text plus a labeled
+  excerpt; resources compared with this historical mapping. A full `dump all`
+  export and the original cloud image remain useful rollback evidence.
 - [x] User confirmed that current physical motor/servo mapping is correct;
   active output resources and ADC/DMA ownership agree without conflicts.
 - [ ] Board/ESC/servo wiring photographs or labeled diagram recorded, including

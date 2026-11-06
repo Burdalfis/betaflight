@@ -305,7 +305,7 @@ FAST_CODE_NOINLINE bool pwmTelemetryDecode(void)
                     if ((rawValue == 0x0E00) && (dshotCommandGetCurrent(i) == DSHOT_CMD_EXTENDED_TELEMETRY_ENABLE)) {
                         dshotTelemetryState.motorState[i].telemetryTypes = 1 << DSHOT_TELEMETRY_TYPE_STATE_EVENTS;
                     } else {
-                        dshotTelemetryState.motorState[i].rawValue = rawValue;
+                        dshotTelemetryStoreRawValue(i, rawValue);
                     }
                 } else {
                     dshotTelemetryState.invalidPacketCount++;

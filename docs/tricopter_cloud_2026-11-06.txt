@@ -7,6 +7,10 @@ full dump, complete resource listing, or runnable configuration import.
 Descriptions below normalize formatting and units. Omitted settings and pins
 must not be inferred from their absence in this excerpt.
 
+The complete CLI text supplied in chat is preserved separately in
+tricopter_cloud_cli_2026-11-06.txt. That file is a chat transcription with LF
+line endings, not an independently captured serial byte stream.
+
 USER CONFIRMATION
   The flashed cloud build is Betaflight 2026.6.2 and works correctly.
   The earlier version wording "2026.2.6" was corrected to "2026.6.2".

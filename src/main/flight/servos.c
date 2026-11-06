@@ -372,6 +372,7 @@ void writeServos(void)
             servo[SERVO_RUDDER] = 0; // kill servo signal completely.
         }
         writeServoWithTracking(servoIndex++, SERVO_RUDDER);
+        servosTricopterLog(servo[SERVO_RUDDER]);
         break;
 
     case MIXER_FLYING_WING:

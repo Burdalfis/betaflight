@@ -46,6 +46,7 @@
 
 #include "drivers/dshot_command.h"
 #include "drivers/nvic.h"
+#include "drivers/time.h"
 
 
 #include "pg/rpm_filter.h"
@@ -261,6 +262,34 @@ static void dshotUpdateTelemetryData(uint8_t motorIndex, dshotTelemetryType_t ty
     }
 }
 
+void dshotTelemetryStoreRawValue(uint8_t motorIndex, uint16_t rawValue)
+{
+    if (motorIndex >= MAX_SUPPORTED_MOTORS) {
+        return;
+    }
+
+    dshotTelemetryMotorState_t *motorState = &dshotTelemetryState.motorState[motorIndex];
+    motorState->rawValue = rawValue;
+    // Transport decoders normally reject these before reaching this helper.
+    motorState->newRawValue = rawValue != DSHOT_TELEMETRY_INVALID && rawValue != DSHOT_TELEMETRY_NOEDGE;
+}
+
+dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motorIndex, timeUs_t currentTimeUs)
+{
+    dshotTelemetryRpmSample_t sample = { .seen = false, .ageUs = UINT32_MAX, .sequence = 0 };
+    if (debugMode != DEBUG_TRI_SERVO || !useDshotTelemetry || motorIndex >= dshotMotorCount || motorIndex >= MAX_SUPPORTED_MOTORS) {
+        return sample;
+    }
+
+    const dshotTelemetryMotorState_t *motorState = &dshotTelemetryState.motorState[motorIndex];
+    if (motorState->rpmSampleSeen) {
+        sample.seen = true;
+        sample.ageUs = (uint32_t)currentTimeUs - motorState->rpmSampleTimeUs;
+        sample.sequence = motorState->rpmSampleSequence;
+    }
+    return sample;
+}
+
 FAST_CODE_NOINLINE void updateDshotTelemetry(void)
 {
     if (!useDshotTelemetry) {
@@ -275,11 +304,17 @@ FAST_CODE_NOINLINE void updateDshotTelemetry(void)
     const unsigned motorCount = MIN(MAX_SUPPORTED_MOTORS, dshotMotorCount);
     uint32_t erpmTotal = 0;
     uint32_t rpmSamples = 0;
+    // One observation timestamp per batch, and no timer read outside LOG_ONLY.
+    const bool trackRpmSamples = debugMode == DEBUG_TRI_SERVO;
+    const uint32_t observationTimeUs = trackRpmSamples ? (uint32_t)micros() : 0;
 
     // Decode all telemetry data now to discharge interrupt from this task
     for (uint8_t k = 0; k < motorCount; k++) {
         dshotTelemetryType_t type;
         uint32_t value;
+        dshotTelemetryMotorState_t *motorState = &dshotTelemetryState.motorState[k];
+        const bool newRawValue = motorState->newRawValue;
+        motorState->newRawValue = false;
 
         dshot_decode_telemetry_value(k, &value, &type);
 
@@ -290,6 +325,11 @@ FAST_CODE_NOINLINE void updateDshotTelemetry(void)
                 dshotRpm[k] = erpmToRpm(value);
                 erpmTotal += value;
                 rpmSamples++;
+                if (trackRpmSamples && newRawValue) {
+                    motorState->rpmSampleTimeUs = observationTimeUs;
+                    motorState->rpmSampleSequence++;
+                    motorState->rpmSampleSeen = true;
+                }
             }
         }
     }

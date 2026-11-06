@@ -47,6 +47,14 @@ althold_unittest_SRC := \
 althold_unittest_DEFINES := \
 		USE_ALTITUDE_HOLD= \
 
+tricopter_diagnostics_unittest_SRC := \
+		$(USER_DIR)/flight/servos_tricopter.c
+
+tricopter_diagnostics_unittest_DEFINES := \
+		USE_ADC= \
+		USE_DSHOT_TELEMETRY= \
+		USE_DSHOT_TELEMETRY_STATS=
+
 arming_prevention_unittest_SRC := \
 		$(USER_DIR)/common/bitarray.c \
 		$(USER_DIR)/common/filter.c \
@@ -277,6 +285,14 @@ motor_output_unittest_SRC := \
 
 motor_output_unittest_DEFINES := \
 		USE_DSHOT=
+
+dshot_telemetry_unittest_SRC := \
+		$(USER_DIR)/build/atomic.c \
+		$(USER_DIR)/drivers/dshot.c
+
+dshot_telemetry_unittest_DEFINES := \
+		USE_DSHOT= \
+		USE_DSHOT_TELEMETRY=
 
 msp_serial_unittest_SRC := \
 		$(USER_DIR)/msp/msp_serial.c \

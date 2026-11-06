@@ -70,6 +70,19 @@ struct adcConfig_s;
 void adcInit(const struct adcConfig_s *config);
 uint16_t adcGetValue(adcSource_e source);
 
+// Logging only: progress of a DMA scan observed by polling, not an exact
+// per-channel conversion timestamp or proof that a sensor is connected.
+typedef struct adcDiagnosticSnapshot_s {
+    bool supported;
+    bool ready;
+    bool sampleSeen;
+    uint16_t value;
+    uint32_t ageUs;
+} adcDiagnosticSnapshot_t;
+
+adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t currentTimeUs);
+void adcResetDiagnosticSnapshot(void);
+
 #ifdef USE_ADC_INTERNAL
 bool adcInternalIsBusy(void);
 void adcInternalStartConversion(void);

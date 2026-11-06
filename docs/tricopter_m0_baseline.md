@@ -2,7 +2,7 @@
 
 The unchanged local Betaflight `2026.6.2` build for `MATEKF405TE` is reproducible. Both clean builds produced byte-identical firmware HEX, raw BIN and ELF files. The local images have **not** been flashed. No flight-control law was added or validated during M0.
 
-The existing upstream commit `e0b7bb01b17b21351057e9ead2d1ab39dd44fa16` is the unchanged firmware checkpoint. All local baseline builds completed before instrumentation source edits began. The user separately confirmed their working cloud build reports firmware `e0b7bb01b`, configuration `3a406c5`, and board `MATEKF405TE`, and confirmed the aircraft's motor/servo mapping is correct. That hardware report does not establish that either locally built image has run on the aircraft.
+The existing upstream commit `e0b7bb01b17b21351057e9ead2d1ab39dd44fa16` is the unchanged firmware checkpoint. All local baseline builds completed before instrumentation source edits began. The user separately confirmed their working cloud build reports firmware `e0b7bb01b`, configuration `3a406c5`, and board `MATEKF405TE`, and confirmed the aircraft's motor/servo mapping is correct. The [complete CLI text supplied in chat](tricopter_cloud_cli_2026-11-06.txt) preserves that modern baseline evidence. That hardware report does not establish that either locally built image has run on the aircraft.
 
 ## Build provenance
 

@@ -127,6 +127,48 @@ const adcTagMap_t adcTagMap[] = {
 #define TS_CAL1_ADDR      0x1FFF7A2C
 #define TS_CAL2_ADDR      0x1FFF7A2E
 
+static dmaChannelDescriptor_t *adcDiagnosticDma;
+static bool adcDiagnosticObserving;
+static bool adcDiagnosticSampleSeen;
+static timeUs_t adcDiagnosticLastScanUs;
+
+void adcResetDiagnosticSnapshot(void)
+{
+    adcDiagnosticObserving = false;
+    adcDiagnosticSampleSeen = false;
+}
+
+adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t currentTimeUs)
+{
+    adcDiagnosticSnapshot_t snapshot = { .supported = true, .ageUs = UINT32_MAX };
+    if ((unsigned)source >= ADC_EXTERNAL_COUNT || !adcOperatingConfig[source].enabled || !adcDiagnosticDma) {
+        return snapshot;
+    }
+
+    snapshot.value = adcGetValue(source);
+    const dmaChannelDescriptor_t *descriptor = adcDiagnosticDma;
+    const uint32_t errorFlags = DMA_IT_TEIF | DMA_IT_DMEIF | DMA_IT_FEIF;
+    snapshot.ready = (((DMA_Stream_TypeDef *)descriptor->ref)->CR & DMA_SxCR_EN)
+        && !DMA_GET_FLAG_STATUS(descriptor, errorFlags);
+
+    if (!adcDiagnosticObserving) {
+        // TC may have been sticky since boot. Await a subsequent completed scan
+        // before claiming any progress during this logging session.
+        DMA_CLEAR_FLAG(descriptor, DMA_IT_TCIF);
+        adcDiagnosticObserving = true;
+    } else if (snapshot.ready && DMA_GET_FLAG_STATUS(descriptor, DMA_IT_TCIF)) {
+        DMA_CLEAR_FLAG(descriptor, DMA_IT_TCIF);
+        adcDiagnosticLastScanUs = currentTimeUs;
+        adcDiagnosticSampleSeen = true;
+    }
+
+    snapshot.sampleSeen = adcDiagnosticSampleSeen;
+    if (snapshot.sampleSeen) {
+        snapshot.ageUs = (uint32_t)(currentTimeUs - adcDiagnosticLastScanUs);
+    }
+    return snapshot;
+}
+
 static void adcInitDevice(ADC_TypeDef *adcdev, int channelCount)
 {
     ADC_InitTypeDef ADC_InitStructure;
@@ -212,6 +254,9 @@ void adcInit(const adcConfig_t *config)
 {
     uint8_t i;
     uint8_t configuredAdcChannels = 0;
+
+    adcDiagnosticDma = NULL;
+    adcResetDiagnosticSnapshot();
 
     memset(adcOperatingConfig, 0, sizeof(adcOperatingConfig));
 
@@ -354,6 +399,12 @@ void adcInit(const adcConfig_t *config)
 #endif
 
     ADC_SoftwareStartConv(adc.ADCx);
+
+#ifdef USE_DMA_SPEC
+    adcDiagnosticDma = dmaGetDescriptorByIdentifier(dmaGetIdentifier(dmaSpec->ref));
+#else
+    adcDiagnosticDma = dmaGetDescriptorByIdentifier(dmaGetIdentifier(adc.dmaResource));
+#endif
 }
 
 void adcGetChannelValues(void)

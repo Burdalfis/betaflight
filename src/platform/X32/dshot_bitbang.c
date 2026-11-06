@@ -543,7 +543,7 @@ static bool bbDecodeTelemetry(void)
                 if ((rawValue == 0x0E00) && (dshotCommandGetCurrent(motorIndex) == DSHOT_CMD_EXTENDED_TELEMETRY_ENABLE)) {
                     dshotTelemetryState.motorState[motorIndex].telemetryTypes = 1 << DSHOT_TELEMETRY_TYPE_STATE_EVENTS;
                 } else {
-                    dshotTelemetryState.motorState[motorIndex].rawValue = rawValue;
+                    dshotTelemetryStoreRawValue(motorIndex, rawValue);
                 }
             } else {
                 dshotTelemetryState.invalidPacketCount++;

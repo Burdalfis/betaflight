@@ -147,3 +147,4 @@ void servoMixer(void);
 void servosTricopterInit(void);
 void servosTricopterMixer(void);
 bool servosTricopterIsEnabledServoUnarmed(void);
+void servosTricopterLog(int16_t finalPwm);

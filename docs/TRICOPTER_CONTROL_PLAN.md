@@ -1,23 +1,28 @@
 # Tricopter Model-Based Control — Development Plan
 
-**Project:** Betaflight tricopter-feedback  
-**Working branch:** `tricopter-feedback`  
-**Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`  
-**Document version:** 0.2 — 2026-11-06  
-**Status:** Planning / instrumentation; **no new flight-control law validated**
+**Project:** Betaflight tricopter-feedback
+
+**Working branch:** `feature/tricopter-feedback`
+
+**Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
+
+**Document version:** 0.3 — 2026-11-06
+
+**Status:** M0 complete; M1 firmware implemented, hardware acceptance pending; **no new flight-control law validated**
 
 > **Purpose**  
 > Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
 
 ## Quick-start: where we are and what to do next
 
-**Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `tricopter-feedback`. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range; the initial prototype will connect the wiper **directly to PC0/AirS**, with a **TLV9001 unity-gain buffer optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
+**Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `feature/tricopter-feedback`. The user confirmed a working cloud build at `e0b7bb01b`, board config `3a406c5`, and correct physical motor/servo mapping. Two clean unchanged local builds produced identical HEX/BIN/ELF files. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range; the initial prototype will connect the wiper **directly to PC0/AirS**, with a **TLV9001 unity-gain buffer optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
 
 **Immediate next steps (direct ADC prototype; amplifier parts not required):**
 
-- [ ] Build and record the output/configuration of **unmodified** Betaflight `2026.6.2` for `MATEKF405TE`; confirm the TRI and servo features are included.
-- [ ] Audit the current target's pin allocation and establish a **known-good motor/servo resource map** from the original aircraft configuration. **Do not assume stock target motor order matches the aircraft.**
-- [ ] Add a logging-only `TRI_SERVO` or equivalent diagnostic channel for `ADC_EXTERNAL1` (PC0), finalized servo command, and optional sensor validity; do not modify control outputs. **Raw PC0 readings can be tested with the direct-wiper connection before the op-amp parts arrive.**
+- [x] Build and record the output/configuration of **unmodified** Betaflight `2026.6.2` for `MATEKF405TE`; confirm TRI/servos, PC0 ADC, RPM telemetry, Blackbox and reproducibility. See [M0 evidence](tricopter_m0_baseline.md).
+- [x] Audit the current target's pin allocation and establish the aircraft's motor/servo resource map; compare the supplied current runtime export and user-confirmed physical mapping. See [hardware record](tricopter_hardware.md). **Do not assume stock target motor order matches the aircraft.**
+- [x] Implement logging-only `TRI_SERVO` diagnostics for PC0 counts, final servo write request, ADC scan progress, logical RPM reception ages and packet-quality indication; preserve legacy outputs. Target build and 44 host tests pass. See [M1 schema and setup](tricopter_m1_logging.md).
+- [ ] Bench-validate the local M1 image: direct-wiper ADC loading/noise/reference counts, actual servo PWM timing, telemetry reception/dropout, Blackbox integrity and runtime cost. **No local image has yet been flashed; raw PC0 readings can be tested before the op-amp parts arrive.** ADC scan progress and non-rail counts do not guarantee wiper connection.
 - [ ] Confirm extended DShot telemetry, correctly decoded motor RPM, telemetry quality, and RPM Blackbox recording. EDT's arm-time handshake does **not** prove continuous in-flight reception.
 - [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
 - [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
@@ -25,6 +30,14 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, and PC0 ADC readings without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.3 (2026-11-06)
+
+- Completed M0 local reproducibility and evidence preservation; recorded the user's current cloud build and physical mapping confirmation.
+- Implemented M1 `TRI_SERVO` LOG_ONLY diagnostics and exposed the existing ADC external-channel enable boolean; no CONTROL mode or physical compensation was added.
+- Added transport-level RPM observation tracking so cached RPM, missing packets, EDT handshakes and non-RPM EDT frames cannot fabricate fresh RPM samples.
+- Added 16 focused host tests alongside 28 existing regressions. Preserved baseline and instrumented images, toolchain/config provenance and build logs locally.
+- Kept M1 hardware acceptance open: analog loading/noise, open-wire limitations, pin timing, continuous telemetry, recording throughput and loop cost require bench evidence. Later phases remain unstarted.
 
 ### Revision notes — v0.2 (2026-11-06)
 
@@ -41,7 +54,7 @@
 |---|---|
 | Flight controller | **Matek F405-miniTE**; fitted MCU **STM32F415RGT6** (Cortex-M4F, 168 MHz); use Betaflight `MATEKF405TE` target unless build verification reveals a specific conflict. |
 | Existing firmware reference | Betaflight **4.3.1**; preserved CLI dump `tricopter.txt` and six logs `btfl_001.bbl` … `btfl_006.bbl`. |
-| Firmware development | Betaflight **2026.6.2**, working branch **`tricopter-feedback`**. |
+| Firmware development | Betaflight **2026.6.2**, working branch **`feature/tricopter-feedback`**. |
 | ESC firmware | **Bluejay 0.21**, EDT arming handshake requirement enabled. Verify EDT with compatible Betaflight firmware. |
 | ESC interface | Bidirectional **DSHOT300** initially; **14 magnetic poles** (7 pole pairs); ESCs are on a rotated 4-in-1 board. |
 | Motors and props | Three otherwise identical **rewound 2207** motors, identical **Gemfan 5136 three-blade** propellers. Do **not** assume the original nominal KV is still correct. |
@@ -282,11 +295,15 @@ Design interfaces around SI units and explicit `dt`; avoid hidden global timing 
 
 ### M0 — Baseline preservation and reproducible build
 
+**Execution status (2026-11-06): complete.** Two clean unchanged local builds are byte-identical; source/config/compiler provenance, original input hashes and recovery artifacts are recorded. User-supplied cloud CLI matches the baseline revisions, and the user confirmed correct physical motor/servo mapping. See [M0 evidence](tricopter_m0_baseline.md). Local images remain unflashed.
+
 **Implement:** Freeze original CLI dump, logs, motor resource/reordering config and board photos/notes. Build untouched `2026.6.2` with TRI/servo support; capture GCC/toolchain versions, image hash, build flags, firmware size, target/config revision. Create minimal host test framework and CI/local test script.
 
 **Exit gate:** Repeatable build; legacy motor/servo mapping documented and verified **without props**; stock firmware remains recoverable.
 
 ### M1 — Observability / telemetry (no behaviour change)
+
+**Execution status (2026-11-06): firmware implemented; hardware exit gate pending.** Full target build and 44 host checks pass. `TRI_SERVO` selects logging while retaining legacy control, with final servo write request, PC0 counts/scan-progress indication, and true new-RPM observation ages. No exact pin-edge timing or reliable floating-wiper disconnection detection is claimed. See [M1 schema, setup and pending bench checks](tricopter_m1_logging.md).
 
 **Implement:** PC0 `ADC_EXTERNAL1` acquisition using **direct potentiometer-wiper input initially**, logged final servo PWM, all three real RPM channels, motor commands, battery voltage, timing, telemetry validity/age, optional debug channels. Add mode `LOG_ONLY` and ADC range/freshness diagnostics. No TLV9001 assembly is needed to begin.
 
@@ -414,8 +431,8 @@ tools/tricopter/                   <- log replay, plotting and fit tools
 
 ## Reference materials
 
-- Original **Betaflight 4.3.1** CLI dump: `tricopter.txt` (hardware mapping/configuration source of truth for the flown airframe).
-- Historical Blackbox recordings: `btfl_001.bbl` … `btfl_006.bbl` (2022-era flights; use for baseline phenomena, not RPM/servo-angle ground truth).
+- Original **Betaflight 4.3.1** CLI dump: `docs/tricopter_dump.txt`, with `docs/tricopter_diff.txt` (hardware mapping/configuration source of truth for the historical flown airframe; previously referred to as `tricopter.txt`).
+- Historical Blackbox recordings: `docs/btfl_001.bbl` … `docs/btfl_006.bbl` (2022-era flights; use for baseline phenomena, not RPM/servo-angle ground truth). Their original bytes are protected by [the checksum manifest](tricopter_originals.sha256).
 - Prior prototype: `tricopter_torque_v1` (standalone torque equations and unit tests; **review and integrate selectively**, not flight-ready).
 - Betaflight baseline source: <https://github.com/betaflight/betaflight/tree/2026.6.2>
 - Betaflight board configuration: <https://github.com/betaflight/config>

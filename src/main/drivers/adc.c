@@ -36,6 +36,19 @@
 
 //#define DEBUG_ADC_CHANNELS
 
+#ifndef STM32F4
+adcDiagnosticSnapshot_t adcGetDiagnosticSnapshot(adcSource_e source, timeUs_t currentTimeUs)
+{
+    UNUSED(currentTimeUs);
+    // Other ADC backends do not yet expose acquisition progress.
+    return (adcDiagnosticSnapshot_t) { .value = adcGetValue(source), .ageUs = UINT32_MAX };
+}
+
+void adcResetDiagnosticSnapshot(void)
+{
+}
+#endif
+
 #ifdef USE_ADC_INTERNAL
 
 /**

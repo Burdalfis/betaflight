@@ -105,7 +105,18 @@ typedef struct dshotTelemetryMotorState_s {
     uint16_t telemetryData[DSHOT_TELEMETRY_TYPE_COUNT];
     uint8_t telemetryTypes;
     uint8_t maxTemp;
+    // Diagnostic metadata only; cached RPM/filter semantics remain unchanged.
+    bool newRawValue;
+    bool rpmSampleSeen;
+    uint32_t rpmSampleTimeUs;
+    uint32_t rpmSampleSequence;
 } dshotTelemetryMotorState_t;
+
+typedef struct dshotTelemetryRpmSample_s {
+    bool seen;
+    uint32_t ageUs;
+    uint32_t sequence;
+} dshotTelemetryRpmSample_t;
 
 typedef struct dshotTelemetryState_s {
     bool useDshotTelemetry;
@@ -128,6 +139,14 @@ typedef struct dshotTelemetryCycleCounters_s {
 FAST_DATA_ZERO_INIT extern dshotTelemetryCycleCounters_t dshotDMAHandlerCycleCounters;
 
 extern dshotTelemetryState_t dshotTelemetryState;
+
+// Call only for a newly received raw frame, never for a cached value. EDT
+// enable handshakes are handled by the transport and must not call this.
+void dshotTelemetryStoreRawValue(uint8_t motorIndex, uint16_t rawValue);
+// LOG_ONLY diagnostics, active only in TRI_SERVO debug mode. The timestamp is
+// the decoder's observation time, not the ESC's physical RPM measurement time.
+// Unseen/disabled samples return seen=false, ageUs=UINT32_MAX, sequence=0.
+dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motorIndex, timeUs_t currentTimeUs);
 
 #ifdef USE_DSHOT_TELEMETRY_STATS
 void updateDshotTelemetryQuality(dshotTelemetryQuality_t *qualityStats, bool packetValid, timeMs_t currentTimeMs);

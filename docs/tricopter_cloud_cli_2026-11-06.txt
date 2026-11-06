@@ -1,0 +1,317 @@
+Entering CLI Mode, type 'exit' to reboot, or 'help'
+
+# 
+# Building AutoComplete Cache ... Done!
+# 
+# version
+# Betaflight / STM32F405 (F405) 2026.6.2 Nov  6 2026 / 20:00:01 (e0b7bb01b) MSP API: 1.48
+# config rev: 3a406c5
+# board: manufacturer_id: MTKS, board_name: MATEKF405TE
+
+# status
+MCU: STM32F405xx CLK=168MHz (PLLP-HSE), Vref=3.29V, Core temp=43degC
+STACK: 2048b (0x1000fff0)
+CONFIG: CONFIGURED (4113b / 16384b)
+
+DEVICES DETECTED: SPI=1, I2C=1 (0 errors)
+GYRO: (1) ICM42605 enabled locked
+ACC: ICM42605
+BARO: DPS310
+OSD: NONE 
+FLASH: JEDEC ID=0x00ef4018 16M
+
+BUILD KEY: 79f88bf05db4f0fe82bb7ec47fc06698 (2026.6.2)
+
+System Uptime: 1051 seconds, Current Time: 2026-11-06T21:07:12.741+00:00
+CPU:39%, cycle time: 125, GYRO rate: 8026, RX rate: 0, System rate: 10
+Voltage: 0.76V (0S battery - NOT PRESENT)
+Arming disable flags: RXLOSS NOPREARM CLI MSP
+
+# diff all
+
+# version
+# Betaflight / STM32F405 (F405) 2026.6.2 Nov  6 2026 / 20:00:01 (e0b7bb01b) MSP API: 1.48
+# config rev: 3a406c5
+
+# start the command batch
+batch start
+
+# reset configuration to default settings
+defaults nosave
+
+board_name MATEKF405TE
+manufacturer_id MTKS
+mcu_id 003d001f3031510536333833
+signature 
+
+# resources
+resource MOTOR 3 A08
+resource MOTOR 4 NONE
+resource SERVO 1 B01
+
+# serial
+serial UART1 64 115200 57600 0 115200
+serial UART2 0 115200 57600 0 115200
+serial UART6 2048 115200 57600 0 115200
+
+# mixer
+mixer TRI
+
+# servo
+servo 5 1100 1700 1420 100 -1
+
+# map
+map ATER1234
+
+# aux
+aux 0 0 0 1975 2025 0 0
+aux 1 36 2 1975 2025 0 0
+
+# adjrange
+adjrange 0 0 3 1975 2025 11 7 0 0
+adjrange 1 0 3 1475 1525 10 7 0 0
+adjrange 2 0 3 975 1025 11 7 0 0
+
+# vtxtable
+vtxtable bands 5
+vtxtable channels 8
+vtxtable band 1 BOSCAM_A A FACTORY 5865 5845 5825 5805 5785 5765 5745 5725
+vtxtable band 2 BOSCAM_B B FACTORY 5733 5752 5771 5790 5809 5828 5847 5866
+vtxtable band 3 BOSCAM_E E FACTORY 5705 5685 5665 5645 5885 5905 5925 5945
+vtxtable band 4 FATSHARK F FACTORY 5740 5760 5780 5800 5820 5840 5860 5880
+vtxtable band 5 RACEBAND R FACTORY 5658 5695 5732 5769 5806 5843 5880 5917
+vtxtable powerlevels 2
+vtxtable powervalues 0 1
+vtxtable powerlabels 25 50
+
+# master
+set dyn_notch_count = 1
+set dyn_notch_q = 500
+set acc_calibration = -244,-125,-8,1
+set dshot_bidir = ON
+set motor_pwm_protocol = DSHOT300
+set motor_output_reordering = 2,0,1,3,4,5,6,7
+set align_board_yaw = 270
+set ibata_scale = 281
+set servo_pwm_rate = 498
+set pid_process_denom = 2
+set osd_vbat_pos = 2369
+set osd_link_quality_pos = 2081
+set osd_g_force_pos = 2072
+set osd_throttle_pos = 2456
+set osd_vtx_channel_pos = 2060
+set osd_current_pos = 2400
+set osd_mah_drawn_pos = 2432
+set osd_altitude_pos = 2263
+set osd_pid_pitch_pos = 65
+set osd_pid_yaw_pos = 2113
+set osd_power_pos = 2444
+set osd_warnings_pos = 14697
+set osd_avg_cell_voltage_pos = 2337
+set vtx_band = 1
+set vtx_channel = 5
+set vtx_power = 1
+set vtx_freq = 5785
+
+profile 0
+
+# profile 0
+set p_pitch = 35
+set i_pitch = 17
+set d_pitch = 15
+set f_pitch = 49
+set p_roll = 35
+set i_roll = 16
+set d_roll = 15
+set f_roll = 47
+set p_yaw = 50
+set i_yaw = 10
+set d_yaw = 20
+set f_yaw = 47
+set simplified_pids_mode = OFF
+set simplified_i_gain = 30
+set simplified_d_gain = 30
+set simplified_pi_gain = 70
+set simplified_feedforward_gain = 40
+set tpa_rate = 25
+
+profile 1
+
+profile 2
+
+profile 3
+
+# restore original profile selection
+profile 0
+
+rateprofile 0
+
+# rateprofile 0
+set roll_expo = 50
+set pitch_expo = 50
+set yaw_expo = 50
+
+rateprofile 1
+
+rateprofile 2
+
+# rateprofile 2
+set throttle_limit_percent = 35
+
+rateprofile 3
+
+battery_profile 0
+
+battery_profile 1
+
+battery_profile 2
+
+# restore original rateprofile selection
+rateprofile 0
+
+# restore original battery_profile selection
+battery_profile 0
+
+# save configuration
+save
+# resource show all
+Currently active IO resource assignments:
+(reboot to update)
+--------------------
+A00: FREE
+A01: FREE
+A02: FREE
+A03: FREE
+A04: PINIO 1
+A05: SPI_SCK 1
+A06: SERVO 2
+A07: SPI_SDO 1
+A08: MOTOR 1
+A09: SERIAL_TX 1
+A10: SERIAL_RX 1
+A11: USB
+A12: USB
+A13: LED 2
+A14: LED 1
+A15: FREE
+B00: FREE
+B01: SERVO 1
+B02: FREE
+B03: FREE
+B04: SPI_SDI 1
+B05: PINIO 2
+B06: SERVO 3
+B07: I2C_SDA 1
+B08: I2C_SCL 1
+B09: BEEPER
+B10: FREE
+B11: FREE
+B12: PREINIT 3
+B13: SPI_SCK 2
+B14: FREE
+B15: FREE
+C00: ADC_EXT
+C01: FREE
+C02: SPI_SDI 2
+C03: SPI_SDO 2
+C04: ADC_BATT
+C05: ADC_CURR
+C06: SERIAL_TX 6
+C07: FREE
+C08: MOTOR 3
+C09: MOTOR 2
+C10: FREE
+C11: FREE
+C12: FREE
+C13: FLASH_CS
+C14: GYRO_CS 1
+C15: GYRO_EXTI
+D00: FREE
+D01: FREE
+D02: FREE
+D03: FREE
+D04: FREE
+D05: FREE
+D06: FREE
+D07: FREE
+D08: FREE
+D09: FREE
+D10: FREE
+D11: FREE
+D12: FREE
+D13: FREE
+D14: FREE
+D15: FREE
+E00: FREE
+E01: FREE
+E02: FREE
+E03: FREE
+E04: FREE
+E05: FREE
+E06: FREE
+E07: FREE
+E08: FREE
+E09: FREE
+E10: FREE
+E11: FREE
+E12: FREE
+E13: FREE
+E14: FREE
+E15: FREE
+F00: FREE
+F01: FREE
+F02: FREE
+F03: FREE
+F04: FREE
+F05: FREE
+F06: FREE
+F07: FREE
+F08: FREE
+F09: FREE
+F10: FREE
+F11: FREE
+F12: FREE
+F13: FREE
+F14: FREE
+F15: FREE
+
+Currently active Timers:
+-----------------------
+TIM1: FREE
+TIM2: FREE
+TIM3:
+    CH4 : SERVO 1
+TIM4:
+    CH1 : SERVO 3
+TIM5: FREE
+TIM6: FREE
+TIM7: FREE
+TIM8:
+    CH1 : DSHOT_BITBANG 1
+    CH2 : DSHOT_BITBANG 3
+TIM9: FREE
+TIM10: FREE
+TIM11: FREE
+TIM12: FREE
+TIM13:
+    CH1 : SERVO 2
+TIM14: FREE
+
+Currently active DMA:
+--------------------
+DMA1 Stream 0: FREE
+DMA1 Stream 1: FREE
+DMA1 Stream 2: FREE
+DMA1 Stream 3: SPI_SDI 2
+DMA1 Stream 4: SPI_SDO 2
+DMA1 Stream 5: FREE
+DMA1 Stream 6: FREE
+DMA1 Stream 7: FREE
+DMA2 Stream 0: FREE
+DMA2 Stream 1: FREE
+DMA2 Stream 2: DSHOT_BITBANG 1
+DMA2 Stream 3: DSHOT_BITBANG 3
+DMA2 Stream 4: ADC 1
+DMA2 Stream 5: FREE
+DMA2 Stream 6: FREE
+DMA2 Stream 7: FREE
