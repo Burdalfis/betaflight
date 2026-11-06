@@ -1,0 +1,7430 @@
+{
+  "position_source": "debug[3] only",
+  "pipeline_sha256": "bbd40782f9d2ea682bceb9295cc1bf4b3272f89753b0813f7b0c38e1ee0df75d",
+  "inputs": [
+    {
+      "path": "/home/alex/betaflight/.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/decoded/servo-hysteresis.01.csv",
+      "sha256": "3fa4cc3b6bbd6c620838507950330c08cebce29fc78328894fa98d3c74cc153d"
+    },
+    {
+      "path": "/home/alex/betaflight/.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/servo-hysteresis-events.json",
+      "sha256": "676502414eca0008f877c671a0032c1dda12389490d1885e6a249c0a80b48cc1"
+    },
+    {
+      "path": "/home/alex/betaflight/.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/servo-hysteresis-run.json",
+      "sha256": "d25a99ae12498def387accbd4b8aaaaef7d17f08f261d1d9ae6dc4d8de109ddd"
+    },
+    {
+      "path": "/home/alex/betaflight/.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/servo-hysteresis.bbl",
+      "sha256": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b"
+    }
+  ],
+  "methods": {
+    "primary_position_source": "debug[3] only, signed PB0-PC0. PC0 is the servo power-ground sense, not a separately measured potentiometer-low terminal. Raw debug[0]/[2] are diagnostics only.",
+    "validity": "Status bits0..3, raw inputs valid without PB0 rails or PC0 ceiling, exact signed difference; PC0=0 is accepted and counted. -32768 unavailable, -1 corrected count valid.",
+    "alignment": "Match the complete ordered target_us event plan to decoded final-PWM plateaus; use recorded PWM timestamps rather than host times. Unexplained edges or duplicated target labels require review.",
+    "center_tail_ms": 200,
+    "staircase_tail_ms": 100,
+    "staircase_settling_exclusion_ms": 150,
+    "endpoint": "Median corrected count in final local tail window. Each metric requires all rows in its own window fresh/valid, >=85% expected rows and no >1.5 nominal frame gap. No interpolation. Other portions of the hold do not reject this scalar. Last-vs-first-third drift and25ms block medians characterize stationarity and correlation; no IID confidence interval.",
+    "response_span_min_counts": 10,
+    "response_span_min_sigma": 10,
+    "speed_search_ms": 300,
+    "speed": "Corrected-only descriptive five-row sustained raw first-any, first-toward,10% and90% crossings. Onset threshold=max(3baseline_sigma,2%span,3counts); baseline=-100..0ms. Timing accepted only if its first-event search prefix and required crossing support contain no stale/missing row. Small20us approaches may fail10sigma span criterion; endpoint comparison remains available.",
+    "branch_comparison": "Pair identical interior PWM commands1402..1438 by cycle. Report up-minus-down corrected counts. Fit branch-midpoint local slope to accepted common commands; input-equivalent microseconds only for |slope|>0.05counts/us and R2>=0.7. No angular units.",
+    "reversal_response": "Use last endpoint before each up/down reversal as reference. Corrected count decreases with increasing PWM, based on prior paired hardware data. Detect first of two consecutive accepted command plateaus with target-direction displacement >max(3counts,3*max(reference_sigma,current_sigma)). Report cumulative command change and prior2us grid neighbor only if all intervening endpoints accepted. This is a thresholded detectable-response bracket, not a physical no-motion deadband or isolated gear-lash estimate.",
+    "repeatability": "Three repeats per center approach condition, two staircase cycles. Report per-repeat values, median/range and within-cycle pairs; commands/ADC rows are not independent servo repeats.",
+    "limits": [
+      "Corrected electrical proxy is not independently calibrated shaft angle or proof of mechanical motion.",
+      "PC0 unipolar floor clips negative local-ground offsets, and is power ground rather than an independent potentiometer-low measurement.",
+      "Same-scan ADC channels are sequential, nominal~47us apart; injected work can increase skew.",
+      "Subtraction does not cancel excitation/reference variation, unequal conditioning, or offsets absent at PC0 sense point.",
+      "Unloaded, clamped and disconnected fixture does not characterize flight load, gyro torque or load dependence.",
+      "Firmware PWM-write timestamp is not a measured external pulse edge."
+    ]
+  },
+  "quality": {
+    "frame_count": 38157,
+    "duration_s": 38.07196999999999,
+    "frame_gap_us": {
+      "n": 38156,
+      "median": 997.9999999956135,
+      "min": 991.9999999965512,
+      "max": 1004.0000000088867,
+      "q25": 997.9999999814027,
+      "q75": 998.0000000098244
+    },
+    "usable_rows": 38115,
+    "usable_fraction": 0.9988992845349477,
+    "exact_subtraction_mismatch_count": 0,
+    "status_masks": {
+      "247": 37,
+      "255": 32964,
+      "759": 5,
+      "767": 5151
+    },
+    "pair_observation_age_100us": {
+      "n": 38157,
+      "median": 2.0,
+      "min": 0.0,
+      "max": 19.0,
+      "q25": 0.0,
+      "q75": 2.0
+    },
+    "ground_floor_rows": 5156,
+    "ground_ceiling_rows": 0,
+    "accepted_plateau_windows": 93,
+    "total_plateaus": 108
+  },
+  "center_summary": [
+    {
+      "approach_from_us": 1100,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1591.0,
+        "min": 1587.0,
+        "max": 1591.0,
+        "q25": 1589.0,
+        "q75": 1591.0
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": 0.0,
+        "min": -0.5,
+        "max": 0.0,
+        "q25": -0.25,
+        "q75": 0.0
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 2,
+          "median": 18.957000000000335,
+          "min": 16.962000000006583,
+          "max": 20.951999999994086,
+          "q25": 17.95950000000346,
+          "q75": 19.95449999999721
+        },
+        "first_toward_ms": {
+          "n": 2,
+          "median": 18.957000000000335,
+          "min": 16.962000000006583,
+          "max": 20.951999999994086,
+          "q25": 17.95950000000346,
+          "q75": 19.95449999999721
+        },
+        "movement10_90_ms": {
+          "n": 2,
+          "median": 86.30899999999997,
+          "min": 84.81199999999944,
+          "max": 87.8060000000005,
+          "q25": 85.5604999999997,
+          "q75": 87.05750000000023
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 2,
+          "median": 3262.203831856069,
+          "min": 3156.9596610709796,
+          "max": 3367.448002641158,
+          "q25": 3209.5817464635243,
+          "q75": 3314.825917248613
+        }
+      }
+    },
+    {
+      "approach_from_us": 1400,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1590.0,
+        "min": 1590.0,
+        "max": 1591.0,
+        "q25": 1590.0,
+        "q75": 1590.5
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": -1.0,
+        "min": -1.0,
+        "max": 0.5,
+        "q25": -1.0,
+        "q75": -0.25
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 0
+        },
+        "first_toward_ms": {
+          "n": 0
+        },
+        "movement10_90_ms": {
+          "n": 0
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 0
+        }
+      }
+    },
+    {
+      "approach_from_us": 1440,
+      "trials": 3,
+      "accepted_endpoints": 2,
+      "center_endpoint_adc": {
+        "n": 2,
+        "median": 1583.0,
+        "min": 1583.0,
+        "max": 1583.0,
+        "q25": 1583.0,
+        "q75": 1583.0
+      },
+      "tail_drift_adc": {
+        "n": 2,
+        "median": -0.5,
+        "min": -1.0,
+        "max": 0.0,
+        "q25": -0.75,
+        "q75": -0.25
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 0
+        },
+        "first_toward_ms": {
+          "n": 0
+        },
+        "movement10_90_ms": {
+          "n": 0
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 0
+        }
+      }
+    },
+    {
+      "approach_from_us": 1700,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1583.0,
+        "min": 1582.0,
+        "max": 1583.0,
+        "q25": 1582.5,
+        "q75": 1583.0
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 3,
+          "median": 12.970999999993182,
+          "min": 11.974000000009255,
+          "max": 18.95799999999781,
+          "q25": 12.472500000001219,
+          "q75": 15.964499999995496
+        },
+        "first_toward_ms": {
+          "n": 3,
+          "median": 12.970999999993182,
+          "min": 11.974000000009255,
+          "max": 18.95799999999781,
+          "q25": 12.472500000001219,
+          "q75": 15.964499999995496
+        },
+        "movement10_90_ms": {
+          "n": 2,
+          "median": 73.33799999999258,
+          "min": 72.83899999998766,
+          "max": 73.83699999999749,
+          "q25": 73.08849999999012,
+          "q75": 73.58749999999503
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 2,
+          "median": 3343.6155071402472,
+          "min": 3315.4109728186186,
+          "max": 3371.8200414618764,
+          "q25": 3329.513239979433,
+          "q75": 3357.717774301062
+        }
+      }
+    }
+  ],
+  "center_pairs": [
+    {
+      "repetition": 0,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -4.0
+    },
+    {
+      "repetition": 0,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": false,
+      "high_minus_low_center_adc": null
+    },
+    {
+      "repetition": 1,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -9.0
+    },
+    {
+      "repetition": 1,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -7.0
+    },
+    {
+      "repetition": 2,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -8.0
+    },
+    {
+      "repetition": 2,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -8.0
+    }
+  ],
+  "curves": {
+    "pairs": [
+      {
+        "cycle": 0,
+        "command_us": 1404,
+        "up_adc": 1609.0,
+        "down_adc": 1598.5,
+        "up_minus_down_adc": 10.5,
+        "midpoint_adc": 1603.75
+      },
+      {
+        "cycle": 0,
+        "command_us": 1406,
+        "up_adc": 1604.0,
+        "down_adc": 1594.0,
+        "up_minus_down_adc": 10.0,
+        "midpoint_adc": 1599.0
+      },
+      {
+        "cycle": 0,
+        "command_us": 1408,
+        "up_adc": 1603.5,
+        "down_adc": 1594.0,
+        "up_minus_down_adc": 9.5,
+        "midpoint_adc": 1598.75
+      },
+      {
+        "cycle": 0,
+        "command_us": 1410,
+        "up_adc": 1603.0,
+        "down_adc": 1592.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1597.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1412,
+        "up_adc": 1600.0,
+        "down_adc": 1590.0,
+        "up_minus_down_adc": 10.0,
+        "midpoint_adc": 1595.0
+      },
+      {
+        "cycle": 0,
+        "command_us": 1414,
+        "up_adc": 1600.0,
+        "down_adc": 1589.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1594.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1416,
+        "up_adc": 1596.0,
+        "down_adc": 1583.0,
+        "up_minus_down_adc": 13.0,
+        "midpoint_adc": 1589.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1418,
+        "up_adc": 1592.0,
+        "down_adc": 1583.0,
+        "up_minus_down_adc": 9.0,
+        "midpoint_adc": 1587.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1420,
+        "up_adc": 1591.0,
+        "down_adc": 1580.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1585.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1422,
+        "up_adc": 1590.0,
+        "down_adc": 1578.0,
+        "up_minus_down_adc": 12.0,
+        "midpoint_adc": 1584.0
+      },
+      {
+        "cycle": 0,
+        "command_us": 1424,
+        "up_adc": 1588.0,
+        "down_adc": 1578.0,
+        "up_minus_down_adc": 10.0,
+        "midpoint_adc": 1583.0
+      },
+      {
+        "cycle": 0,
+        "command_us": 1428,
+        "up_adc": 1583.0,
+        "down_adc": 1576.0,
+        "up_minus_down_adc": 7.0,
+        "midpoint_adc": 1579.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1430,
+        "up_adc": 1582.0,
+        "down_adc": 1571.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1576.5
+      },
+      {
+        "cycle": 0,
+        "command_us": 1432,
+        "up_adc": 1579.5,
+        "down_adc": 1568.0,
+        "up_minus_down_adc": 11.5,
+        "midpoint_adc": 1573.75
+      },
+      {
+        "cycle": 0,
+        "command_us": 1434,
+        "up_adc": 1575.0,
+        "down_adc": 1567.0,
+        "up_minus_down_adc": 8.0,
+        "midpoint_adc": 1571.0
+      },
+      {
+        "cycle": 0,
+        "command_us": 1438,
+        "up_adc": 1573.0,
+        "down_adc": 1566.0,
+        "up_minus_down_adc": 7.0,
+        "midpoint_adc": 1569.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1402,
+        "up_adc": 1607.0,
+        "down_adc": 1604.0,
+        "up_minus_down_adc": 3.0,
+        "midpoint_adc": 1605.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1406,
+        "up_adc": 1607.0,
+        "down_adc": 1595.0,
+        "up_minus_down_adc": 12.0,
+        "midpoint_adc": 1601.0
+      },
+      {
+        "cycle": 1,
+        "command_us": 1410,
+        "up_adc": 1601.5,
+        "down_adc": 1591.0,
+        "up_minus_down_adc": 10.5,
+        "midpoint_adc": 1596.25
+      },
+      {
+        "cycle": 1,
+        "command_us": 1412,
+        "up_adc": 1601.0,
+        "down_adc": 1589.0,
+        "up_minus_down_adc": 12.0,
+        "midpoint_adc": 1595.0
+      },
+      {
+        "cycle": 1,
+        "command_us": 1414,
+        "up_adc": 1598.0,
+        "down_adc": 1589.0,
+        "up_minus_down_adc": 9.0,
+        "midpoint_adc": 1593.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1416,
+        "up_adc": 1596.0,
+        "down_adc": 1585.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1590.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1418,
+        "up_adc": 1593.0,
+        "down_adc": 1584.0,
+        "up_minus_down_adc": 9.0,
+        "midpoint_adc": 1588.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1420,
+        "up_adc": 1590.0,
+        "down_adc": 1582.5,
+        "up_minus_down_adc": 7.5,
+        "midpoint_adc": 1586.25
+      },
+      {
+        "cycle": 1,
+        "command_us": 1422,
+        "up_adc": 1590.0,
+        "down_adc": 1577.5,
+        "up_minus_down_adc": 12.5,
+        "midpoint_adc": 1583.75
+      },
+      {
+        "cycle": 1,
+        "command_us": 1424,
+        "up_adc": 1588.0,
+        "down_adc": 1576.0,
+        "up_minus_down_adc": 12.0,
+        "midpoint_adc": 1582.0
+      },
+      {
+        "cycle": 1,
+        "command_us": 1428,
+        "up_adc": 1585.0,
+        "down_adc": 1572.0,
+        "up_minus_down_adc": 13.0,
+        "midpoint_adc": 1578.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1430,
+        "up_adc": 1581.0,
+        "down_adc": 1570.0,
+        "up_minus_down_adc": 11.0,
+        "midpoint_adc": 1575.5
+      },
+      {
+        "cycle": 1,
+        "command_us": 1434,
+        "up_adc": 1575.0,
+        "down_adc": 1571.0,
+        "up_minus_down_adc": 4.0,
+        "midpoint_adc": 1573.0
+      },
+      {
+        "cycle": 1,
+        "command_us": 1436,
+        "up_adc": 1575.0,
+        "down_adc": 1571.0,
+        "up_minus_down_adc": 4.0,
+        "midpoint_adc": 1573.0
+      },
+      {
+        "cycle": 1,
+        "command_us": 1438,
+        "up_adc": 1571.0,
+        "down_adc": 1570.0,
+        "up_minus_down_adc": 1.0,
+        "midpoint_adc": 1570.5
+      }
+    ],
+    "per_cycle_fits": [
+      {
+        "cycle": 0,
+        "n_common_commands": 16,
+        "slope_adc_per_us": -1.0149954900781673,
+        "intercept_adc": 3027.8054720384775,
+        "r_squared": 0.9901406929504971,
+        "median_up_minus_down_adc": 10.25,
+        "median_absolute_branch_gap_adc": 10.25,
+        "median_signed_input_equivalent_gap_us": -10.098567038175334,
+        "median_absolute_input_equivalent_gap_us": 10.098567038175334
+      },
+      {
+        "cycle": 1,
+        "n_common_commands": 15,
+        "slope_adc_per_us": -0.9802165354330388,
+        "intercept_adc": 2978.7442913385366,
+        "r_squared": 0.9924136872880827,
+        "median_up_minus_down_adc": 10.5,
+        "median_absolute_branch_gap_adc": 10.5,
+        "median_signed_input_equivalent_gap_us": -10.71191886735651,
+        "median_absolute_input_equivalent_gap_us": 10.71191886735651
+      }
+    ],
+    "reversals": [
+      {
+        "cycle": 0,
+        "new_direction": "down",
+        "reference_command_us": 1440,
+        "reference_plateau": 46,
+        "reference_endpoint": {
+          "start_s": 138.764624,
+          "end_s": 138.864624,
+          "rows": 100,
+          "valid_rows": 99,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 998.0000000098244,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1567.0
+        },
+        "detection": null,
+        "steps": [],
+        "rejection": "Reference endpoint local window rejected"
+      },
+      {
+        "cycle": 1,
+        "new_direction": "up",
+        "reference_command_us": 1400,
+        "reference_plateau": 66,
+        "reference_endpoint": {
+          "start_s": 144.215597,
+          "end_s": 144.315597,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1607.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1599.0,
+          "max_adc": 1614.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1607.0,
+            1607.0,
+            1606.0,
+            1606.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "detection": {
+          "first_of_two_detected_command_change_us": 14,
+          "confirmation_command_change_us": 16,
+          "lower_grid_neighbor_us": 12,
+          "all_prior_endpoint_windows_accepted": true
+        },
+        "steps": [
+          {
+            "command_us": 1402,
+            "cumulative_command_change_us": 2,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": -0.0,
+            "threshold_adc": 11.119499999999999
+          },
+          {
+            "command_us": 1404,
+            "cumulative_command_change_us": 4,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": -0.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1406,
+            "cumulative_command_change_us": 6,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": -0.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1408,
+            "cumulative_command_change_us": 8,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": 0.5,
+            "threshold_adc": 11.119499999999999
+          },
+          {
+            "command_us": 1410,
+            "cumulative_command_change_us": 10,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": 5.5,
+            "threshold_adc": 11.119499999999999
+          },
+          {
+            "command_us": 1412,
+            "cumulative_command_change_us": 12,
+            "endpoint_accepted": true,
+            "detected": false,
+            "toward_displacement_adc": 6.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1414,
+            "cumulative_command_change_us": 14,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 9.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1416,
+            "cumulative_command_change_us": 16,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 11.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1418,
+            "cumulative_command_change_us": 18,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 14.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1420,
+            "cumulative_command_change_us": 20,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 17.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1422,
+            "cumulative_command_change_us": 22,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 17.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1424,
+            "cumulative_command_change_us": 24,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 19.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1426,
+            "cumulative_command_change_us": 26,
+            "endpoint_accepted": false,
+            "detected": false
+          },
+          {
+            "command_us": 1428,
+            "cumulative_command_change_us": 28,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 22.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1430,
+            "cumulative_command_change_us": 30,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 26.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1432,
+            "cumulative_command_change_us": 32,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 26.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1434,
+            "cumulative_command_change_us": 34,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 32.0,
+            "threshold_adc": 13.343399999999999
+          },
+          {
+            "command_us": 1436,
+            "cumulative_command_change_us": 36,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 32.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1438,
+            "cumulative_command_change_us": 38,
+            "endpoint_accepted": true,
+            "detected": true,
+            "toward_displacement_adc": 36.0,
+            "threshold_adc": 8.8956
+          },
+          {
+            "command_us": 1440,
+            "cumulative_command_change_us": 40,
+            "endpoint_accepted": false,
+            "detected": false
+          }
+        ]
+      },
+      {
+        "cycle": 1,
+        "new_direction": "down",
+        "reference_command_us": 1440,
+        "reference_plateau": 86,
+        "reference_endpoint": {
+          "start_s": 149.67855,
+          "end_s": 149.77855,
+          "rows": 100,
+          "valid_rows": 99,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 998.0000000098244,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1571.0
+        },
+        "detection": null,
+        "steps": [],
+        "rejection": "Reference endpoint local window rejected"
+      }
+    ],
+    "interpretation": "Direction-dependent corrected voltage and thresholded reversal response, not isolated mechanical gear lash. Input-equivalent values use a fitted local command/ADC slope."
+  },
+  "plateaus": [
+    {
+      "plateau": 0,
+      "target_us": 1420,
+      "event": {
+        "phase": "initial",
+        "target_us": 1420,
+        "duration_s": 1.0,
+        "host_s": 0.016145073001098353,
+        "segment": 0
+      },
+      "start_time_us": 117883961,
+      "duration_ms": 882.0500000000067,
+      "endpoint": {
+        "start_s": 118.66601100000001,
+        "end_s": 118.766011,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1585.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1587.0,
+          "min": 1580.0,
+          "max": 1594.0,
+          "q25": 1585.0,
+          "q75": 1589.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 1,
+      "target_us": 1100,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1100,
+        "duration_s": 0.4,
+        "repetition": 0,
+        "approach_from_us": 1100,
+        "host_s": 1.0399924570010626,
+        "segment": 1
+      },
+      "start_time_us": 118766011,
+      "duration_ms": 475.94799999998827,
+      "endpoint": {
+        "start_s": 119.141959,
+        "end_s": 119.241959,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1944.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 1004.0000000088867,
+        "min_adc": 1932.0,
+        "max_adc": 1952.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1942.0,
+          1945.0,
+          1945.0,
+          1944.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1946.0,
+          "min": 1937.0,
+          "max": 1952.0,
+          "q25": 1943.0,
+          "q75": 1947.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 2,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 0,
+        "approach_from_us": 1100,
+        "host_s": 1.5199913020005624,
+        "segment": 2
+      },
+      "start_time_us": 119241959,
+      "duration_ms": 688.4780000000035,
+      "endpoint": {
+        "start_s": 119.730437,
+        "end_s": 119.930437,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1587.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.9999999930887,
+        "min_adc": 1577.0,
+        "max_adc": 1598.0,
+        "late_minus_early_third_adc": -0.5,
+        "block25ms_medians_adc": [
+          1586.0,
+          1587.0,
+          1588.0,
+          1587.0,
+          1586.0,
+          1586.0,
+          1588.0,
+          1587.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1589.0,
+          "min": 1579.0,
+          "max": 1601.0,
+          "q25": 1586.0,
+          "q75": 1591.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 4.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 24
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1944.0,
+          "robust_sigma_adc": 4.4478,
+          "max_frame_gap_us": 1004.0000000088867,
+          "min_adc": 1932.0,
+          "max_adc": 1952.0,
+          "late_minus_early_third_adc": 1.0,
+          "block25ms_medians_adc": [
+            1942.0,
+            1945.0,
+            1945.0,
+            1944.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 119.730437,
+          "end_s": 119.930437,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1587.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.9999999930887,
+          "min_adc": 1577.0,
+          "max_adc": 1598.0,
+          "late_minus_early_third_adc": -0.5,
+          "block25ms_medians_adc": [
+            1586.0,
+            1587.0,
+            1588.0,
+            1587.0,
+            1586.0,
+            1586.0,
+            1588.0,
+            1587.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": true,
+        "signed_span_adc": -357.0,
+        "span_adc": 357.0,
+        "onset_threshold_adc": 13.343399999999999,
+        "first_away_ms": null,
+        "first_away_rejection": "No five-row sustained crossing in search window",
+        "first_toward_ms": 16.962000000006583,
+        "t10_ms": 28.936000000001627,
+        "t90_ms": 113.74800000000107,
+        "first_any_ms": 16.962000000006583,
+        "first_any_direction": "toward",
+        "movement10_90_ms": 84.81199999999944,
+        "mean10_90_slew_adc_per_s": 3367.448002641158
+      }
+    },
+    {
+      "plateau": 3,
+      "target_us": 1700,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1700,
+        "duration_s": 0.4,
+        "repetition": 0,
+        "approach_from_us": 1700,
+        "host_s": 2.2083051660010824,
+        "segment": 3
+      },
+      "start_time_us": 119930437,
+      "duration_ms": 465.96999999999866,
+      "endpoint": {
+        "start_s": 120.296407,
+        "end_s": 120.396407,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1281.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1275.0,
+        "max_adc": 1287.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1281.0,
+          1280.0,
+          1281.0,
+          1281.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1283.0,
+          "min": 1277.0,
+          "max": 1288.0,
+          "q25": 1281.0,
+          "q75": 1284.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 4,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 0,
+        "approach_from_us": 1700,
+        "host_s": 2.672165423999104,
+        "segment": 4
+      },
+      "start_time_us": 120396407,
+      "duration_ms": 628.610000000009,
+      "endpoint": {
+        "start_s": 120.825017,
+        "end_s": 121.025017,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 1003.0000000114114,
+        "min_adc": 1572.0,
+        "max_adc": 1593.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1581.0,
+          1583.0,
+          1583.0,
+          1584.0,
+          1582.0,
+          1583.0,
+          1583.0,
+          1583.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1585.0,
+          "min": 1574.0,
+          "max": 1593.0,
+          "q25": 1582.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 25
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1281.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1275.0,
+          "max_adc": 1287.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1281.0,
+            1280.0,
+            1281.0,
+            1281.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 120.825017,
+          "end_s": 121.025017,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1583.0,
+          "robust_sigma_adc": 4.4478,
+          "max_frame_gap_us": 1003.0000000114114,
+          "min_adc": 1572.0,
+          "max_adc": 1593.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1581.0,
+            1583.0,
+            1583.0,
+            1584.0,
+            1582.0,
+            1583.0,
+            1583.0,
+            1583.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "credible_response": true,
+        "signed_span_adc": 302.0,
+        "span_adc": 302.0,
+        "onset_threshold_adc": 8.8956,
+        "first_away_ms": null,
+        "first_away_rejection": "No five-row sustained crossing in search window",
+        "first_toward_ms": 18.95799999999781,
+        "t10_ms": 26.9400000000104,
+        "t90_ms": null,
+        "t90_rejection": "Invalid/stale row or missing-frame gap in first-event search prefix",
+        "first_any_ms": 18.95799999999781,
+        "first_any_direction": "toward"
+      }
+    },
+    {
+      "plateau": 5,
+      "target_us": 1400,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1400,
+        "duration_s": 0.4,
+        "repetition": 0,
+        "approach_from_us": 1400,
+        "host_s": 3.296092149001197,
+        "segment": 5
+      },
+      "start_time_us": 121025017,
+      "duration_ms": 465.96999999999866,
+      "endpoint": {
+        "start_s": 121.39098700000001,
+        "end_s": 121.490987,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1603.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1596.0,
+        "max_adc": 1613.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1603.0,
+          1603.0,
+          1603.0,
+          1604.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1605.0,
+          "min": 1597.0,
+          "max": 1616.0,
+          "q25": 1603.0,
+          "q75": 1607.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 6,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 0,
+        "approach_from_us": 1400,
+        "host_s": 3.7599859229994763,
+        "segment": 6
+      },
+      "start_time_us": 121490987,
+      "duration_ms": 709.4319999999925,
+      "endpoint": {
+        "start_s": 122.000419,
+        "end_s": 122.200419,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.999999990564,
+        "min_adc": 1579.0,
+        "max_adc": 1597.0,
+        "late_minus_early_third_adc": 0.5,
+        "block25ms_medians_adc": [
+          1590.0,
+          1590.0,
+          1591.0,
+          1590.0,
+          1591.0,
+          1591.0,
+          1589.0,
+          1592.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1592.0,
+          "min": 1585.0,
+          "max": 1598.0,
+          "q25": 1590.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 31
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1603.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1596.0,
+          "max_adc": 1613.0,
+          "late_minus_early_third_adc": 1.0,
+          "block25ms_medians_adc": [
+            1603.0,
+            1603.0,
+            1603.0,
+            1604.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 122.000419,
+          "end_s": 122.200419,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1590.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 999.999999990564,
+          "min_adc": 1579.0,
+          "max_adc": 1597.0,
+          "late_minus_early_third_adc": 0.5,
+          "block25ms_medians_adc": [
+            1590.0,
+            1590.0,
+            1591.0,
+            1590.0,
+            1591.0,
+            1591.0,
+            1589.0,
+            1592.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "signed_span_adc": -13.0,
+        "span_adc": 13.0,
+        "rejection": "Displacement too small relative to raw baseline noise for timing metrics"
+      }
+    },
+    {
+      "plateau": 7,
+      "target_us": 1440,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1440,
+        "duration_s": 0.4,
+        "repetition": 0,
+        "approach_from_us": 1440,
+        "host_s": 4.464156342000933,
+        "segment": 7
+      },
+      "start_time_us": 122200419,
+      "duration_ms": 464.97200000000305,
+      "endpoint": {
+        "start_s": 122.565391,
+        "end_s": 122.665391,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1570.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1560.0,
+        "max_adc": 1577.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1570.0,
+          1568.0,
+          1571.0,
+          1570.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1572.0,
+          "min": 1562.0,
+          "max": 1578.0,
+          "q25": 1570.0,
+          "q75": 1574.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 8,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 0,
+        "approach_from_us": 1440,
+        "host_s": 4.928019710001536,
+        "segment": 8
+      },
+      "start_time_us": 122665391,
+      "duration_ms": 688.479000000001,
+      "endpoint": {
+        "start_s": 123.15387,
+        "end_s": 123.35387,
+        "rows": 200,
+        "valid_rows": 199,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1002.9999999972006,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1581.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1583.0,
+          "min": 1574.0,
+          "max": 1629.0,
+          "q25": 1580.0,
+          "q75": 1585.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 27
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1570.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1560.0,
+          "max_adc": 1577.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1570.0,
+            1568.0,
+            1571.0,
+            1570.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 123.15387,
+          "end_s": 123.35387,
+          "rows": 200,
+          "valid_rows": 199,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 1002.9999999972006,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1581.0
+        },
+        "credible_response": false,
+        "rejection": "Baseline or endpoint local window rejected"
+      }
+    },
+    {
+      "plateau": 9,
+      "target_us": 1440,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1440,
+        "duration_s": 0.4,
+        "repetition": 1,
+        "approach_from_us": 1440,
+        "host_s": 5.615944278000825,
+        "segment": 9
+      },
+      "start_time_us": 123353870,
+      "duration_ms": 475.9480000000025,
+      "endpoint": {
+        "start_s": 123.72981800000001,
+        "end_s": 123.829818,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1569.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1560.0,
+        "max_adc": 1577.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1568.0,
+          1570.0,
+          1569.0,
+          1569.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1571.0,
+          "min": 1563.0,
+          "max": 1578.0,
+          "q25": 1568.0,
+          "q75": 1573.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 10,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 1,
+        "approach_from_us": 1440,
+        "host_s": 6.0962412810004025,
+        "segment": 10
+      },
+      "start_time_us": 123829818,
+      "duration_ms": 689.4769999999966,
+      "endpoint": {
+        "start_s": 124.319295,
+        "end_s": 124.519295,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.9999999930887,
+        "min_adc": 1571.0,
+        "max_adc": 1591.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1583.0,
+          1582.0,
+          1582.0,
+          1582.0,
+          1583.0,
+          1584.0,
+          1582.0,
+          1583.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1584.0,
+          "min": 1572.0,
+          "max": 1627.0,
+          "q25": 1582.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 33
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1569.0,
+          "robust_sigma_adc": 4.4478,
+          "max_frame_gap_us": 999.0000000072996,
+          "min_adc": 1560.0,
+          "max_adc": 1577.0,
+          "late_minus_early_third_adc": 1.0,
+          "block25ms_medians_adc": [
+            1568.0,
+            1570.0,
+            1569.0,
+            1569.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 124.319295,
+          "end_s": 124.519295,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1583.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.9999999930887,
+          "min_adc": 1571.0,
+          "max_adc": 1591.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1583.0,
+            1582.0,
+            1582.0,
+            1582.0,
+            1583.0,
+            1584.0,
+            1582.0,
+            1583.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "signed_span_adc": 14.0,
+        "span_adc": 14.0,
+        "rejection": "Displacement too small relative to raw baseline noise for timing metrics"
+      }
+    },
+    {
+      "plateau": 11,
+      "target_us": 1400,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1400,
+        "duration_s": 0.4,
+        "repetition": 1,
+        "approach_from_us": 1400,
+        "host_s": 6.784058287001244,
+        "segment": 11
+      },
+      "start_time_us": 124519295,
+      "duration_ms": 465.96999999999866,
+      "endpoint": {
+        "start_s": 124.885265,
+        "end_s": 124.985265,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1598.0,
+        "max_adc": 1616.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1606.0,
+          1607.0,
+          1607.0,
+          1607.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1609.0,
+          "min": 1601.0,
+          "max": 1617.0,
+          "q25": 1606.0,
+          "q75": 1610.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 12,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 1,
+        "approach_from_us": 1400,
+        "host_s": 7.2481762310017075,
+        "segment": 12
+      },
+      "start_time_us": 124985265,
+      "duration_ms": 627.6129999999966,
+      "endpoint": {
+        "start_s": 125.41287799999999,
+        "end_s": 125.612878,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1579.0,
+        "max_adc": 1598.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1591.0,
+          1590.0,
+          1592.0,
+          1590.0,
+          1591.0,
+          1590.0,
+          1591.0,
+          1590.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1592.0,
+          "min": 1585.0,
+          "max": 1600.0,
+          "q25": 1590.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 27
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1607.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1598.0,
+          "max_adc": 1616.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1606.0,
+            1607.0,
+            1607.0,
+            1607.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 125.41287799999999,
+          "end_s": 125.612878,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1590.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 999.0000000072996,
+          "min_adc": 1579.0,
+          "max_adc": 1598.0,
+          "late_minus_early_third_adc": -1.0,
+          "block25ms_medians_adc": [
+            1591.0,
+            1590.0,
+            1592.0,
+            1590.0,
+            1591.0,
+            1590.0,
+            1591.0,
+            1590.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "signed_span_adc": -17.0,
+        "span_adc": 17.0,
+        "rejection": "Displacement too small relative to raw baseline noise for timing metrics"
+      }
+    },
+    {
+      "plateau": 13,
+      "target_us": 1700,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1700,
+        "duration_s": 0.4,
+        "repetition": 1,
+        "approach_from_us": 1700,
+        "host_s": 7.872068261000095,
+        "segment": 13
+      },
+      "start_time_us": 125612878,
+      "duration_ms": 465.97100000001035,
+      "endpoint": {
+        "start_s": 125.97884900000001,
+        "end_s": 126.078849,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1276.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1267.0,
+        "max_adc": 1285.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1276.0,
+          1276.0,
+          1275.0,
+          1275.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1278.0,
+          "min": 1270.0,
+          "max": 1285.0,
+          "q25": 1276.0,
+          "q75": 1280.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 14,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 1,
+        "approach_from_us": 1700,
+        "host_s": 8.336115304999112,
+        "segment": 14
+      },
+      "start_time_us": 126078849,
+      "duration_ms": 698.4569999999906,
+      "endpoint": {
+        "start_s": 126.577306,
+        "end_s": 126.777306,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1582.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1001.9999999997253,
+        "min_adc": 1574.0,
+        "max_adc": 1590.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1582.0,
+          1582.0,
+          1582.0,
+          1582.0,
+          1583.0,
+          1581.0,
+          1584.0,
+          1582.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1584.0,
+          "min": 1576.0,
+          "max": 1591.0,
+          "q25": 1582.0,
+          "q75": 1586.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 24
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1276.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1000.0000000047748,
+          "min_adc": 1267.0,
+          "max_adc": 1285.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1276.0,
+            1276.0,
+            1275.0,
+            1275.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 126.577306,
+          "end_s": 126.777306,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1582.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1001.9999999997253,
+          "min_adc": 1574.0,
+          "max_adc": 1590.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1582.0,
+            1582.0,
+            1582.0,
+            1582.0,
+            1583.0,
+            1581.0,
+            1584.0,
+            1582.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "credible_response": true,
+        "signed_span_adc": 306.0,
+        "span_adc": 306.0,
+        "onset_threshold_adc": 8.8956,
+        "first_away_ms": null,
+        "first_away_rejection": "No five-row sustained crossing in search window",
+        "first_toward_ms": 12.970999999993182,
+        "t10_ms": 25.94299999999805,
+        "t90_ms": 99.77999999999554,
+        "first_any_ms": 12.970999999993182,
+        "first_any_direction": "toward",
+        "movement10_90_ms": 73.83699999999749,
+        "mean10_90_slew_adc_per_s": 3315.4109728186186
+      }
+    },
+    {
+      "plateau": 15,
+      "target_us": 1100,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1100,
+        "duration_s": 0.4,
+        "repetition": 1,
+        "approach_from_us": 1100,
+        "host_s": 9.039976199001103,
+        "segment": 15
+      },
+      "start_time_us": 126777306,
+      "duration_ms": 466.97000000000344,
+      "endpoint": {
+        "start_s": 127.144276,
+        "end_s": 127.244276,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1937.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 998.9999999930887,
+        "min_adc": 1927.0,
+        "max_adc": 1945.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1937.0,
+          1938.0,
+          1938.0,
+          1937.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1940.0,
+          "min": 1930.0,
+          "max": 1946.0,
+          "q25": 1936.0,
+          "q75": 1942.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 16,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 1,
+        "approach_from_us": 1100,
+        "host_s": 9.504116775999137,
+        "segment": 16
+      },
+      "start_time_us": 127244276,
+      "duration_ms": 688.4780000000035,
+      "endpoint": {
+        "start_s": 127.732754,
+        "end_s": 127.932754,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1591.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1582.0,
+        "max_adc": 1600.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1591.0,
+          1591.0,
+          1592.0,
+          1589.0,
+          1592.0,
+          1591.0,
+          1591.0,
+          1589.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1593.0,
+          "min": 1584.0,
+          "max": 1602.0,
+          "q25": 1590.0,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 29
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1937.5,
+          "robust_sigma_adc": 3.7064999999999997,
+          "max_frame_gap_us": 998.9999999930887,
+          "min_adc": 1927.0,
+          "max_adc": 1945.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1937.0,
+            1938.0,
+            1938.0,
+            1937.0
+          ],
+          "block25ms_median_range_adc": 1.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 127.732754,
+          "end_s": 127.932754,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1591.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1002.9999999972006,
+          "min_adc": 1582.0,
+          "max_adc": 1600.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1591.0,
+            1591.0,
+            1592.0,
+            1589.0,
+            1592.0,
+            1591.0,
+            1591.0,
+            1589.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "credible_response": true,
+        "signed_span_adc": -346.5,
+        "span_adc": 346.5,
+        "onset_threshold_adc": 11.119499999999999,
+        "first_away_ms": null,
+        "first_away_rejection": "No five-row sustained crossing in search window",
+        "first_toward_ms": 20.951999999994086,
+        "t10_ms": 26.938999999998714,
+        "t90_ms": 114.74499999999921,
+        "first_any_ms": 20.951999999994086,
+        "first_any_direction": "toward",
+        "movement10_90_ms": 87.8060000000005,
+        "mean10_90_slew_adc_per_s": 3156.9596610709796
+      }
+    },
+    {
+      "plateau": 17,
+      "target_us": 1700,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1700,
+        "duration_s": 0.4,
+        "repetition": 2,
+        "approach_from_us": 1700,
+        "host_s": 10.192298245001439,
+        "segment": 17
+      },
+      "start_time_us": 127932754,
+      "duration_ms": 485.9259999999921,
+      "endpoint": {
+        "start_s": 128.31868,
+        "end_s": 128.41868,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1276.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1267.0,
+        "max_adc": 1282.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1275.0,
+          1277.0,
+          1276.0,
+          1276.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1278.0,
+          "min": 1267.0,
+          "max": 1284.0,
+          "q25": 1277.0,
+          "q75": 1280.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 18,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 2,
+        "approach_from_us": 1700,
+        "host_s": 10.671877188000508,
+        "segment": 18
+      },
+      "start_time_us": 128418680,
+      "duration_ms": 688.4799999999984,
+      "endpoint": {
+        "start_s": 128.90716,
+        "end_s": 129.10716,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1571.0,
+        "max_adc": 1593.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1583.0,
+          1583.0,
+          1583.0,
+          1583.0,
+          1584.0,
+          1582.0,
+          1583.0,
+          1584.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1585.0,
+          "min": 1574.0,
+          "max": 1594.0,
+          "q25": 1584.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 34
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 100,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1276.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1267.0,
+          "max_adc": 1282.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1275.0,
+            1277.0,
+            1276.0,
+            1276.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "endpoint_window": {
+          "start_s": 128.90716,
+          "end_s": 129.10716,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1583.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1000.0000000047748,
+          "min_adc": 1571.0,
+          "max_adc": 1593.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1583.0,
+            1583.0,
+            1583.0,
+            1583.0,
+            1584.0,
+            1582.0,
+            1583.0,
+            1584.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": true,
+        "signed_span_adc": 307.0,
+        "span_adc": 307.0,
+        "onset_threshold_adc": 8.8956,
+        "first_away_ms": null,
+        "first_away_rejection": "No five-row sustained crossing in search window",
+        "first_toward_ms": 11.974000000009255,
+        "t10_ms": 25.943000000012262,
+        "t90_ms": 98.78199999999993,
+        "first_any_ms": 11.974000000009255,
+        "first_any_direction": "toward",
+        "movement10_90_ms": 72.83899999998766,
+        "mean10_90_slew_adc_per_s": 3371.8200414618764
+      }
+    },
+    {
+      "plateau": 19,
+      "target_us": 1100,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1100,
+        "duration_s": 0.4,
+        "repetition": 2,
+        "approach_from_us": 1100,
+        "host_s": 11.360059342001477,
+        "segment": 19
+      },
+      "start_time_us": 129107160,
+      "duration_ms": 465.97099999999614,
+      "endpoint": {
+        "start_s": 129.473131,
+        "end_s": 129.573131,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 999.0000000072996,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1940.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1941.0,
+          "min": 1933.0,
+          "max": 1950.0,
+          "q25": 1939.0,
+          "q75": 1944.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 19
+      }
+    },
+    {
+      "plateau": 20,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 2,
+        "approach_from_us": 1100,
+        "host_s": 11.824278460000642,
+        "segment": 20
+      },
+      "start_time_us": 129573131,
+      "duration_ms": 618.6340000000143,
+      "endpoint": {
+        "start_s": 129.99176500000002,
+        "end_s": 130.191765,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1591.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1578.0,
+        "max_adc": 1600.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1591.0,
+          1591.0,
+          1591.0,
+          1590.0,
+          1591.0,
+          1591.0,
+          1591.0,
+          1592.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1593.0,
+          "min": 1586.0,
+          "max": 1601.0,
+          "q25": 1591.0,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 12.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 27
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 99,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 999.0000000072996,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1940.0
+        },
+        "endpoint_window": {
+          "start_s": 129.99176500000002,
+          "end_s": 130.191765,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1591.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 998.0000000098244,
+          "min_adc": 1578.0,
+          "max_adc": 1600.0,
+          "late_minus_early_third_adc": 0.0,
+          "block25ms_medians_adc": [
+            1591.0,
+            1591.0,
+            1591.0,
+            1590.0,
+            1591.0,
+            1591.0,
+            1591.0,
+            1592.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "rejection": "Baseline or endpoint local window rejected"
+      }
+    },
+    {
+      "plateau": 21,
+      "target_us": 1440,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1440,
+        "duration_s": 0.4,
+        "repetition": 2,
+        "approach_from_us": 1440,
+        "host_s": 12.448101559999486,
+        "segment": 21
+      },
+      "start_time_us": 130191765,
+      "duration_ms": 465.97099999999614,
+      "endpoint": {
+        "start_s": 130.557736,
+        "end_s": 130.657736,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1567.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1568.0,
+          "min": 1556.0,
+          "max": 1576.0,
+          "q25": 1566.0,
+          "q75": 1571.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 22,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 2,
+        "approach_from_us": 1440,
+        "host_s": 12.912127635001525,
+        "segment": 22
+      },
+      "start_time_us": 130657736,
+      "duration_ms": 710.4319999999973,
+      "endpoint": {
+        "start_s": 131.168168,
+        "end_s": 131.368168,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1575.0,
+        "max_adc": 1592.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1583.0,
+          1585.0,
+          1583.0,
+          1584.0,
+          1583.0,
+          1583.0,
+          1583.0,
+          1584.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1586.0,
+          "min": 1577.0,
+          "max": 1595.0,
+          "q25": 1583.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 24
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 99,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 998.0000000098244,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1567.0
+        },
+        "endpoint_window": {
+          "start_s": 131.168168,
+          "end_s": 131.368168,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1583.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1000.0000000047748,
+          "min_adc": 1575.0,
+          "max_adc": 1592.0,
+          "late_minus_early_third_adc": -1.0,
+          "block25ms_medians_adc": [
+            1583.0,
+            1585.0,
+            1583.0,
+            1584.0,
+            1583.0,
+            1583.0,
+            1583.0,
+            1584.0
+          ],
+          "block25ms_median_range_adc": 2.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "rejection": "Baseline or endpoint local window rejected"
+      }
+    },
+    {
+      "plateau": 23,
+      "target_us": 1400,
+      "event": {
+        "phase": "approach-pre",
+        "target_us": 1400,
+        "duration_s": 0.4,
+        "repetition": 2,
+        "approach_from_us": 1400,
+        "host_s": 13.615894585000206,
+        "segment": 23
+      },
+      "start_time_us": 131368168,
+      "duration_ms": 464.97300000001474,
+      "endpoint": {
+        "start_s": 131.73314100000002,
+        "end_s": 131.833141,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1604.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1606.0,
+          "min": 1597.0,
+          "max": 1613.0,
+          "q25": 1604.0,
+          "q75": 1608.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 9.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 24,
+      "target_us": 1420,
+      "event": {
+        "phase": "approach-center",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "repetition": 2,
+        "approach_from_us": 1400,
+        "host_s": 14.079910798998753,
+        "segment": 24
+      },
+      "start_time_us": 131833141,
+      "duration_ms": 688.4799999999984,
+      "endpoint": {
+        "start_s": 132.32162100000002,
+        "end_s": 132.521621,
+        "rows": 200,
+        "valid_rows": 200,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1591.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1583.0,
+        "max_adc": 1599.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1590.0,
+          1592.0,
+          1589.0,
+          1590.0,
+          1589.0,
+          1592.0,
+          1590.0,
+          1590.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 200,
+          "median": 1593.0,
+          "min": 1585.0,
+          "max": 1600.0,
+          "q25": 1590.0,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 200,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 24
+      },
+      "speed": {
+        "position_source": "debug[3]",
+        "baseline_window": {
+          "start_s": -0.1,
+          "end_s": 0.0,
+          "rows": 100,
+          "valid_rows": 99,
+          "invalid_rows": 1,
+          "accepted": false,
+          "median_adc": null,
+          "robust_sigma_adc": null,
+          "max_frame_gap_us": 998.0000000098244,
+          "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+          "diagnostic_valid_row_median_adc": 1604.0
+        },
+        "endpoint_window": {
+          "start_s": 132.32162100000002,
+          "end_s": 132.521621,
+          "rows": 200,
+          "valid_rows": 200,
+          "invalid_rows": 0,
+          "accepted": true,
+          "median_adc": 1591.0,
+          "robust_sigma_adc": 2.9652,
+          "max_frame_gap_us": 1002.9999999972006,
+          "min_adc": 1583.0,
+          "max_adc": 1599.0,
+          "late_minus_early_third_adc": -1.0,
+          "block25ms_medians_adc": [
+            1590.0,
+            1592.0,
+            1589.0,
+            1590.0,
+            1589.0,
+            1592.0,
+            1590.0,
+            1590.0
+          ],
+          "block25ms_median_range_adc": 3.0,
+          "tail_quiet": true
+        },
+        "credible_response": false,
+        "rejection": "Baseline or endpoint local window rejected"
+      }
+    },
+    {
+      "plateau": 25,
+      "target_us": 1380,
+      "event": {
+        "phase": "staircase-pre",
+        "target_us": 1380,
+        "duration_s": 0.6,
+        "host_s": 14.767880311999761,
+        "segment": 25
+      },
+      "start_time_us": 132521621,
+      "duration_ms": 618.6349999999834,
+      "endpoint": {
+        "start_s": 133.040256,
+        "end_s": 133.140256,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1629.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1619.0,
+        "max_adc": 1635.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1629.0,
+          1629.0,
+          1627.0,
+          1628.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1631.0,
+          "min": 1623.0,
+          "max": 1636.0,
+          "q25": 1629.0,
+          "q75": 1633.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 26,
+      "target_us": 1400,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1400,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 15.391883876000065,
+        "segment": 26
+      },
+      "start_time_us": 133140256,
+      "duration_ms": 273.3960000000195,
+      "endpoint": {
+        "start_s": 133.31365200000002,
+        "end_s": 133.413652,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1613.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1603.0,
+        "max_adc": 1621.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1614.0,
+          1612.0,
+          1612.0,
+          1613.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1615.0,
+          "min": 1607.0,
+          "max": 1625.0,
+          "q25": 1612.0,
+          "q75": 1617.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 27,
+      "target_us": 1402,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1402,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 15.66421166299915,
+        "segment": 27
+      },
+      "start_time_us": 133413652,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 133.587049,
+        "end_s": 133.687049,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1002.9999999972006,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1610.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1612.0,
+          "min": 1602.0,
+          "max": 1618.0,
+          "q25": 1609.0,
+          "q75": 1613.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 28,
+      "target_us": 1404,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1404,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 15.936039584001264,
+        "segment": 28
+      },
+      "start_time_us": 133687049,
+      "duration_ms": 273.3959999999911,
+      "endpoint": {
+        "start_s": 133.860445,
+        "end_s": 133.960445,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1609.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1600.0,
+        "max_adc": 1616.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1609.0,
+          1609.0,
+          1610.0,
+          1609.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1611.0,
+          "min": 1603.0,
+          "max": 1634.0,
+          "q25": 1609.0,
+          "q75": 1613.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 33.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 29,
+      "target_us": 1406,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1406,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 16.208051698999043,
+        "segment": 29
+      },
+      "start_time_us": 133960445,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 134.13484,
+        "end_s": 134.23484,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1604.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1598.0,
+        "max_adc": 1610.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1605.0,
+          1603.0,
+          1603.0,
+          1604.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1605.0,
+          "min": 1600.0,
+          "max": 1613.0,
+          "q25": 1603.0,
+          "q75": 1608.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 30,
+      "target_us": 1408,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1408,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 16.479887726000015,
+        "segment": 30
+      },
+      "start_time_us": 134234840,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 134.407239,
+        "end_s": 134.507239,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1603.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 1001.9999999997253,
+        "min_adc": 1591.0,
+        "max_adc": 1610.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1604.0,
+          1603.0,
+          1603.0,
+          1604.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1606.0,
+          "min": 1597.0,
+          "max": 1612.0,
+          "q25": 1604.0,
+          "q75": 1607.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 9
+      }
+    },
+    {
+      "plateau": 31,
+      "target_us": 1410,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1410,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 16.752105218001816,
+        "segment": 31
+      },
+      "start_time_us": 134507239,
+      "duration_ms": 274.3940000000009,
+      "endpoint": {
+        "start_s": 134.681633,
+        "end_s": 134.781633,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1603.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1596.0,
+        "max_adc": 1612.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1604.0,
+          1603.0,
+          1603.0,
+          1603.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1606.0,
+          "min": 1598.0,
+          "max": 1613.0,
+          "q25": 1603.75,
+          "q75": 1607.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.75,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 32,
+      "target_us": 1412,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1412,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 17.024011446999793,
+        "segment": 32
+      },
+      "start_time_us": 134781633,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 134.95503,
+        "end_s": 135.05503,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1600.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1591.0,
+        "max_adc": 1611.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1600.0,
+          1600.0,
+          1600.0,
+          1599.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1602.0,
+          "min": 1594.0,
+          "max": 1611.0,
+          "q25": 1600.0,
+          "q75": 1604.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 33,
+      "target_us": 1414,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1414,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 17.295889650999015,
+        "segment": 33
+      },
+      "start_time_us": 135055030,
+      "duration_ms": 273.3960000000195,
+      "endpoint": {
+        "start_s": 135.228426,
+        "end_s": 135.328426,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1600.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1592.0,
+        "max_adc": 1608.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1601.0,
+          1601.0,
+          1600.0,
+          1600.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1602.0,
+          "min": 1594.0,
+          "max": 1609.0,
+          "q25": 1600.0,
+          "q75": 1604.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 34,
+      "target_us": 1416,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1416,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 17.56812554299904,
+        "segment": 34
+      },
+      "start_time_us": 135328426,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 135.491845,
+        "end_s": 135.591845,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1596.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1587.0,
+        "max_adc": 1603.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1595.0,
+          1596.0,
+          1597.0,
+          1596.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1598.0,
+          "min": 1590.0,
+          "max": 1606.0,
+          "q25": 1596.0,
+          "q75": 1600.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 20
+      }
+    },
+    {
+      "plateau": 35,
+      "target_us": 1418,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1418,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 17.839865838999685,
+        "segment": 35
+      },
+      "start_time_us": 135591845,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 135.765242,
+        "end_s": 135.865242,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1592.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1582.0,
+        "max_adc": 1600.0,
+        "late_minus_early_third_adc": -2.0,
+        "block25ms_medians_adc": [
+          1593.0,
+          1591.0,
+          1590.0,
+          1593.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1594.0,
+          "min": 1585.0,
+          "max": 1601.0,
+          "q25": 1592.0,
+          "q75": 1595.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 4.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 36,
+      "target_us": 1420,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1420,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 18.11194390500168,
+        "segment": 36
+      },
+      "start_time_us": 135865242,
+      "duration_ms": 274.3940000000009,
+      "endpoint": {
+        "start_s": 136.039636,
+        "end_s": 136.139636,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1591.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1582.0,
+        "max_adc": 1599.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1591.0,
+          1591.0,
+          1590.0,
+          1592.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1593.0,
+          "min": 1584.0,
+          "max": 1602.0,
+          "q25": 1591.0,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 37,
+      "target_us": 1422,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1422,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 18.384126234999712,
+        "segment": 37
+      },
+      "start_time_us": 136139636,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 136.31303300000002,
+        "end_s": 136.413033,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1581.0,
+        "max_adc": 1597.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1589.0,
+          1590.0,
+          1589.0,
+          1591.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1592.0,
+          "min": 1584.0,
+          "max": 1600.0,
+          "q25": 1589.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 38,
+      "target_us": 1424,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1424,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 18.65583523100213,
+        "segment": 38
+      },
+      "start_time_us": 136413033,
+      "duration_ms": 273.3959999999911,
+      "endpoint": {
+        "start_s": 136.586429,
+        "end_s": 136.686429,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1588.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1580.0,
+        "max_adc": 1597.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1588.0,
+          1589.0,
+          1588.0,
+          1589.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1591.0,
+          "min": 1582.0,
+          "max": 1597.0,
+          "q25": 1589.0,
+          "q75": 1593.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.75,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 39,
+      "target_us": 1426,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1426,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 18.92783106800198,
+        "segment": 39
+      },
+      "start_time_us": 136686429,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 136.859826,
+        "end_s": 136.959826,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 999.0000000072996,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1587.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1588.5,
+          "min": 1582.0,
+          "max": 1594.0,
+          "q25": 1586.0,
+          "q75": 1590.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 40,
+      "target_us": 1428,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1428,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 19.20011872900068,
+        "segment": 40
+      },
+      "start_time_us": 136959826,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 137.13322300000002,
+        "end_s": 137.233223,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1573.0,
+        "max_adc": 1592.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1583.0,
+          1582.0,
+          1583.0,
+          1583.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1585.0,
+          "min": 1575.0,
+          "max": 1593.0,
+          "q25": 1583.0,
+          "q75": 1586.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 16
+      }
+    },
+    {
+      "plateau": 41,
+      "target_us": 1430,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1430,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 19.471893862999423,
+        "segment": 41
+      },
+      "start_time_us": 137233223,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 137.40662,
+        "end_s": 137.50662,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1582.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1576.0,
+        "max_adc": 1591.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1581.0,
+          1582.0,
+          1582.0,
+          1583.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1584.5,
+          "min": 1579.0,
+          "max": 1591.0,
+          "q25": 1582.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 7
+      }
+    },
+    {
+      "plateau": 42,
+      "target_us": 1432,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1432,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 19.743957378999767,
+        "segment": 42
+      },
+      "start_time_us": 137506620,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 137.680017,
+        "end_s": 137.780017,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1579.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1569.0,
+        "max_adc": 1587.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1579.0,
+          1579.0,
+          1581.0,
+          1578.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1582.0,
+          "min": 1574.0,
+          "max": 1587.0,
+          "q25": 1580.0,
+          "q75": 1583.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 43,
+      "target_us": 1434,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1434,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 20.01605477400153,
+        "segment": 43
+      },
+      "start_time_us": 137780017,
+      "duration_ms": 273.3960000000195,
+      "endpoint": {
+        "start_s": 137.953413,
+        "end_s": 138.053413,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1575.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1568.0,
+        "max_adc": 1582.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1575.0,
+          1576.0,
+          1576.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1577.0,
+          "min": 1571.0,
+          "max": 1583.0,
+          "q25": 1576.0,
+          "q75": 1579.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 44,
+      "target_us": 1436,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1436,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 20.287947646000248,
+        "segment": 44
+      },
+      "start_time_us": 138053413,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 138.216832,
+        "end_s": 138.316832,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1576.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1578.0,
+          "min": 1570.0,
+          "max": 1585.0,
+          "q25": 1576.0,
+          "q75": 1580.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.75,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 45,
+      "target_us": 1438,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1438,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 20.559840982001333,
+        "segment": 45
+      },
+      "start_time_us": 138316832,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 138.491227,
+        "end_s": 138.591227,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1573.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1563.0,
+        "max_adc": 1585.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1573.0,
+          1573.0,
+          1573.0,
+          1572.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1574.0,
+          "min": 1565.0,
+          "max": 1587.0,
+          "q25": 1573.0,
+          "q75": 1576.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 24
+      }
+    },
+    {
+      "plateau": 46,
+      "target_us": 1440,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1440,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "up",
+        "host_s": 20.831988841000566,
+        "segment": 46
+      },
+      "start_time_us": 138591227,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 138.764624,
+        "end_s": 138.864624,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1567.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1569.0,
+          "min": 1561.0,
+          "max": 1575.0,
+          "q25": 1568.0,
+          "q75": 1570.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 47,
+      "target_us": 1438,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1438,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 21.103859457001818,
+        "segment": 47
+      },
+      "start_time_us": 138864624,
+      "duration_ms": 273.3960000000195,
+      "endpoint": {
+        "start_s": 139.03802000000002,
+        "end_s": 139.13802,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1566.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1557.0,
+        "max_adc": 1575.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1566.0,
+          1567.0,
+          1566.0,
+          1567.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1568.0,
+          "min": 1560.0,
+          "max": 1577.0,
+          "q25": 1566.0,
+          "q75": 1570.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 48,
+      "target_us": 1436,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1436,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 21.375991807999526,
+        "segment": 48
+      },
+      "start_time_us": 139138020,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 139.311417,
+        "end_s": 139.411417,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1566.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1558.0,
+        "max_adc": 1576.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1566.0,
+          1567.0,
+          1566.0,
+          1567.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1568.0,
+          "min": 1559.0,
+          "max": 1576.0,
+          "q25": 1566.0,
+          "q75": 1570.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 49,
+      "target_us": 1434,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1434,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 21.648042869001074,
+        "segment": 49
+      },
+      "start_time_us": 139411417,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 139.585812,
+        "end_s": 139.685812,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1567.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1560.0,
+        "max_adc": 1581.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1566.0,
+          1567.0,
+          1566.0,
+          1568.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1568.0,
+          "min": 1560.0,
+          "max": 1618.0,
+          "q25": 1567.0,
+          "q75": 1571.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 21
+      }
+    },
+    {
+      "plateau": 50,
+      "target_us": 1432,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1432,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 21.92009667200182,
+        "segment": 50
+      },
+      "start_time_us": 139685812,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 139.858211,
+        "end_s": 139.958211,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1568.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1560.0,
+        "max_adc": 1581.0,
+        "late_minus_early_third_adc": 3.0,
+        "block25ms_medians_adc": [
+          1567.0,
+          1567.0,
+          1568.0,
+          1572.0
+        ],
+        "block25ms_median_range_adc": 5.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1570.0,
+          "min": 1562.0,
+          "max": 1615.0,
+          "q25": 1568.0,
+          "q75": 1572.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 34.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 51,
+      "target_us": 1430,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1430,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 22.192009073998634,
+        "segment": 51
+      },
+      "start_time_us": 139958211,
+      "duration_ms": 273.3959999999911,
+      "endpoint": {
+        "start_s": 140.131607,
+        "end_s": 140.231607,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1571.0,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 1001.0000000022501,
+        "min_adc": 1564.0,
+        "max_adc": 1578.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1571.0,
+          1572.0,
+          1570.0,
+          1572.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1567.0,
+          "max": 1580.0,
+          "q25": 1571.0,
+          "q75": 1575.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 4.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 9
+      }
+    },
+    {
+      "plateau": 52,
+      "target_us": 1428,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1428,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 22.463806906998798,
+        "segment": 52
+      },
+      "start_time_us": 140231607,
+      "duration_ms": 273.39800000001446,
+      "endpoint": {
+        "start_s": 140.40500500000002,
+        "end_s": 140.505005,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1576.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1564.0,
+        "max_adc": 1586.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1576.0,
+          1576.0,
+          1577.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1578.0,
+          "min": 1570.0,
+          "max": 1588.0,
+          "q25": 1576.0,
+          "q75": 1580.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 11.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 20
+      }
+    },
+    {
+      "plateau": 53,
+      "target_us": 1426,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1426,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 22.73610966400156,
+        "segment": 53
+      },
+      "start_time_us": 140505005,
+      "duration_ms": 264.4159999999829,
+      "endpoint": {
+        "start_s": 140.669421,
+        "end_s": 140.769421,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1577.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1001.0000000022501,
+        "min_adc": 1570.0,
+        "max_adc": 1585.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1577.0,
+          1578.0,
+          1577.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1579.0,
+          "min": 1571.0,
+          "max": 1585.0,
+          "q25": 1577.0,
+          "q75": 1580.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 54,
+      "target_us": 1424,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1424,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 23.008121339000354,
+        "segment": 54
+      },
+      "start_time_us": 140769421,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 140.94182,
+        "end_s": 141.04182,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1578.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1569.0,
+        "max_adc": 1585.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1578.0,
+          1578.0,
+          1577.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1580.0,
+          "min": 1572.0,
+          "max": 1613.0,
+          "q25": 1577.0,
+          "q75": 1581.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 34.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 18
+      }
+    },
+    {
+      "plateau": 55,
+      "target_us": 1422,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1422,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 23.279885377000028,
+        "segment": 55
+      },
+      "start_time_us": 141041820,
+      "duration_ms": 273.3959999999911,
+      "endpoint": {
+        "start_s": 141.215216,
+        "end_s": 141.315216,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1578.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1569.0,
+        "max_adc": 1587.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1578.0,
+          1578.0,
+          1579.0,
+          1579.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1580.0,
+          "min": 1571.0,
+          "max": 1619.0,
+          "q25": 1578.0,
+          "q75": 1582.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 40.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 56,
+      "target_us": 1420,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1420,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 23.55185344900019,
+        "segment": 56
+      },
+      "start_time_us": 141315216,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 141.48861300000002,
+        "end_s": 141.588613,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1580.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1571.0,
+        "max_adc": 1588.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1581.0,
+          1580.0,
+          1579.0,
+          1580.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1581.0,
+          "min": 1575.0,
+          "max": 1589.0,
+          "q25": 1580.0,
+          "q75": 1583.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 57,
+      "target_us": 1418,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1418,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 23.82394666700202,
+        "segment": 57
+      },
+      "start_time_us": 141588613,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 141.76201,
+        "end_s": 141.86201,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1575.0,
+        "max_adc": 1591.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1584.0,
+          1583.0,
+          1584.0,
+          1582.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1586.0,
+          "min": 1578.0,
+          "max": 1598.0,
+          "q25": 1583.0,
+          "q75": 1588.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 17.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 16
+      }
+    },
+    {
+      "plateau": 58,
+      "target_us": 1416,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1416,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 24.09585787299875,
+        "segment": 58
+      },
+      "start_time_us": 141862010,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 142.036405,
+        "end_s": 142.136405,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1583.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1574.0,
+        "max_adc": 1593.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1583.0,
+          1583.0,
+          1583.0,
+          1584.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1585.0,
+          "min": 1576.0,
+          "max": 1596.0,
+          "q25": 1584.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 59,
+      "target_us": 1414,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1414,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 24.367841760999,
+        "segment": 59
+      },
+      "start_time_us": 142136405,
+      "duration_ms": 274.39599999999587,
+      "endpoint": {
+        "start_s": 142.310801,
+        "end_s": 142.410801,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1589.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1580.0,
+        "max_adc": 1597.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1589.0,
+          1589.0,
+          1589.0,
+          1591.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1591.0,
+          "min": 1585.0,
+          "max": 1598.0,
+          "q25": 1589.0,
+          "q75": 1593.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 19
+      }
+    },
+    {
+      "plateau": 60,
+      "target_us": 1412,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1412,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 24.639779142999032,
+        "segment": 60
+      },
+      "start_time_us": 142410801,
+      "duration_ms": 273.3949999999936,
+      "endpoint": {
+        "start_s": 142.584196,
+        "end_s": 142.684196,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1584.0,
+        "max_adc": 1598.0,
+        "late_minus_early_third_adc": 2.0,
+        "block25ms_medians_adc": [
+          1589.0,
+          1589.0,
+          1590.0,
+          1591.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1592.0,
+          "min": 1586.0,
+          "max": 1607.0,
+          "q25": 1590.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 21.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 61,
+      "target_us": 1410,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1410,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 24.91209709100076,
+        "segment": 61
+      },
+      "start_time_us": 142684196,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 142.857593,
+        "end_s": 142.957593,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1592.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1582.0,
+        "max_adc": 1601.0,
+        "late_minus_early_third_adc": 2.0,
+        "block25ms_medians_adc": [
+          1590.0,
+          1593.0,
+          1591.0,
+          1593.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1594.0,
+          "min": 1585.0,
+          "max": 1635.0,
+          "q25": 1591.0,
+          "q75": 1595.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 40.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 62,
+      "target_us": 1408,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1408,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 25.18415485999867,
+        "segment": 62
+      },
+      "start_time_us": 142957593,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 143.121012,
+        "end_s": 143.221012,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1594.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1585.0,
+        "max_adc": 1604.0,
+        "late_minus_early_third_adc": 3.0,
+        "block25ms_medians_adc": [
+          1594.0,
+          1594.0,
+          1595.0,
+          1596.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1596.0,
+          "min": 1586.0,
+          "max": 1604.0,
+          "q25": 1594.0,
+          "q75": 1598.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 23
+      }
+    },
+    {
+      "plateau": 63,
+      "target_us": 1406,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1406,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 25.456074544999865,
+        "segment": 63
+      },
+      "start_time_us": 143221012,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 143.394409,
+        "end_s": 143.494409,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1594.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1588.0,
+        "max_adc": 1606.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1594.0,
+          1594.0,
+          1595.0,
+          1595.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1596.5,
+          "min": 1589.0,
+          "max": 1607.0,
+          "q25": 1594.75,
+          "q75": 1598.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 64,
+      "target_us": 1404,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1404,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 25.727803638001205,
+        "segment": 64
+      },
+      "start_time_us": 143494409,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 143.668804,
+        "end_s": 143.768804,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1598.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1589.0,
+        "max_adc": 1609.0,
+        "late_minus_early_third_adc": 3.0,
+        "block25ms_medians_adc": [
+          1597.0,
+          1598.0,
+          1598.0,
+          1600.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1600.0,
+          "min": 1593.0,
+          "max": 1641.0,
+          "q25": 1597.0,
+          "q75": 1603.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 65,
+      "target_us": 1402,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1402,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 25.999883721000515,
+        "segment": 65
+      },
+      "start_time_us": 143768804,
+      "duration_ms": 273.3960000000195,
+      "endpoint": {
+        "start_s": 143.9422,
+        "end_s": 144.0422,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1605.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1597.0,
+        "max_adc": 1611.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1605.0,
+          1604.0,
+          1606.0,
+          1604.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1607.5,
+          "min": 1600.0,
+          "max": 1613.0,
+          "q25": 1606.0,
+          "q75": 1609.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 9
+      }
+    },
+    {
+      "plateau": 66,
+      "target_us": 1400,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1400,
+        "duration_s": 0.25,
+        "cycle": 0,
+        "direction": "down",
+        "host_s": 26.27181750300224,
+        "segment": 66
+      },
+      "start_time_us": 144042200,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 144.215597,
+        "end_s": 144.315597,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1599.0,
+        "max_adc": 1614.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1607.0,
+          1607.0,
+          1606.0,
+          1606.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1608.0,
+          "min": 1602.0,
+          "max": 1614.0,
+          "q25": 1606.0,
+          "q75": 1611.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 67,
+      "target_us": 1402,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1402,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 26.543868439999642,
+        "segment": 67
+      },
+      "start_time_us": 144315597,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 144.48899400000002,
+        "end_s": 144.588994,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 1003.9999999946758,
+        "min_adc": 1599.0,
+        "max_adc": 1616.0,
+        "late_minus_early_third_adc": 3.0,
+        "block25ms_medians_adc": [
+          1608.0,
+          1606.0,
+          1607.0,
+          1606.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1609.0,
+          "min": 1601.0,
+          "max": 1618.0,
+          "q25": 1606.0,
+          "q75": 1611.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 7
+      }
+    },
+    {
+      "plateau": 68,
+      "target_us": 1404,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1404,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 26.815980016999674,
+        "segment": 68
+      },
+      "start_time_us": 144588994,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 144.76338900000002,
+        "end_s": 144.863389,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1599.0,
+        "max_adc": 1614.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1607.0,
+          1605.0,
+          1607.0,
+          1607.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1609.0,
+          "min": 1601.0,
+          "max": 1615.0,
+          "q25": 1606.0,
+          "q75": 1610.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 10.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 69,
+      "target_us": 1406,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1406,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 27.088026804001856,
+        "segment": 69
+      },
+      "start_time_us": 144863389,
+      "duration_ms": 272.3999999999762,
+      "endpoint": {
+        "start_s": 145.035789,
+        "end_s": 145.135789,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1599.0,
+        "max_adc": 1614.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1607.0,
+          1606.0,
+          1607.0,
+          1607.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1609.0,
+          "min": 1602.0,
+          "max": 1615.0,
+          "q25": 1607.0,
+          "q75": 1611.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 70,
+      "target_us": 1408,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1408,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 27.35987087200192,
+        "segment": 70
+      },
+      "start_time_us": 145135789,
+      "duration_ms": 283.3750000000066,
+      "endpoint": {
+        "start_s": 145.319164,
+        "end_s": 145.419164,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1606.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 1001.0000000022501,
+        "min_adc": 1597.0,
+        "max_adc": 1616.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1607.0,
+          1606.0,
+          1607.0,
+          1607.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1608.0,
+          "min": 1600.0,
+          "max": 1618.0,
+          "q25": 1607.0,
+          "q75": 1610.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 9.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 71,
+      "target_us": 1410,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1410,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 27.647756447000575,
+        "segment": 71
+      },
+      "start_time_us": 145419164,
+      "duration_ms": 274.3940000000009,
+      "endpoint": {
+        "start_s": 145.593558,
+        "end_s": 145.693558,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1601.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1593.0,
+        "max_adc": 1608.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1601.0,
+          1601.0,
+          1602.0,
+          1602.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1604.0,
+          "min": 1597.0,
+          "max": 1611.0,
+          "q25": 1601.0,
+          "q75": 1605.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 2.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 6
+      }
+    },
+    {
+      "plateau": 72,
+      "target_us": 1412,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1412,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 27.91979606699897,
+        "segment": 72
+      },
+      "start_time_us": 145693558,
+      "duration_ms": 273.39800000001446,
+      "endpoint": {
+        "start_s": 145.86695600000002,
+        "end_s": 145.966956,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1601.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1592.0,
+        "max_adc": 1611.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1601.0,
+          1601.0,
+          1601.0,
+          1602.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1604.0,
+          "min": 1593.0,
+          "max": 1613.0,
+          "q25": 1601.0,
+          "q75": 1605.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 73,
+      "target_us": 1414,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1414,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 28.191890588001115,
+        "segment": 73
+      },
+      "start_time_us": 145966956,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 146.140353,
+        "end_s": 146.240353,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1598.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1589.0,
+        "max_adc": 1605.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1598.0,
+          1598.0,
+          1598.0,
+          1599.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1600.0,
+          "min": 1591.0,
+          "max": 1606.0,
+          "q25": 1598.0,
+          "q75": 1602.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 74,
+      "target_us": 1416,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1416,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 28.46391400900029,
+        "segment": 74
+      },
+      "start_time_us": 146240353,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 146.41375,
+        "end_s": 146.51375,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1596.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1588.0,
+        "max_adc": 1606.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1595.0,
+          1597.0,
+          1595.0,
+          1597.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1598.0,
+          "min": 1591.0,
+          "max": 1607.0,
+          "q25": 1596.0,
+          "q75": 1600.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 75,
+      "target_us": 1418,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1418,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 28.735915240002214,
+        "segment": 75
+      },
+      "start_time_us": 146513750,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 146.687147,
+        "end_s": 146.787147,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1593.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1586.0,
+        "max_adc": 1600.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1593.0,
+          1593.0,
+          1593.0,
+          1593.0
+        ],
+        "block25ms_median_range_adc": 0.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1595.0,
+          "min": 1588.0,
+          "max": 1603.0,
+          "q25": 1593.0,
+          "q75": 1597.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 76,
+      "target_us": 1420,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1420,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 29.007781476000673,
+        "segment": 76
+      },
+      "start_time_us": 146787147,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 146.961542,
+        "end_s": 147.061542,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1581.0,
+        "max_adc": 1596.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1590.0,
+          1590.0,
+          1591.0,
+          1591.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1592.0,
+          "min": 1584.0,
+          "max": 1600.0,
+          "q25": 1590.75,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 19
+      }
+    },
+    {
+      "plateau": 77,
+      "target_us": 1422,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1422,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 29.279986949000886,
+        "segment": 77
+      },
+      "start_time_us": 147061542,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 147.224961,
+        "end_s": 147.324961,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1579.0,
+        "max_adc": 1598.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1590.0,
+          1589.0,
+          1590.0,
+          1591.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1592.0,
+          "min": 1583.0,
+          "max": 1599.0,
+          "q25": 1590.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 78,
+      "target_us": 1424,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1424,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 29.551766952001344,
+        "segment": 78
+      },
+      "start_time_us": 147324961,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 147.498358,
+        "end_s": 147.598358,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1588.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1577.0,
+        "max_adc": 1594.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1589.0,
+          1587.0,
+          1586.0,
+          1588.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1589.0,
+          "min": 1579.0,
+          "max": 1595.0,
+          "q25": 1587.0,
+          "q75": 1591.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 79,
+      "target_us": 1426,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1426,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 29.823769115999312,
+        "segment": 79
+      },
+      "start_time_us": 147598358,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 147.772753,
+        "end_s": 147.872753,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1000.0000000047748,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1586.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1589.0,
+          "min": 1580.0,
+          "max": 1594.0,
+          "q25": 1586.0,
+          "q75": 1591.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 80,
+      "target_us": 1428,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1428,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 30.0957976819991,
+        "segment": 80
+      },
+      "start_time_us": 147872753,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 148.04615,
+        "end_s": 148.14615,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1585.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1002.9999999972006,
+        "min_adc": 1577.0,
+        "max_adc": 1593.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1585.0,
+          1585.0,
+          1585.0,
+          1584.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1587.0,
+          "min": 1578.0,
+          "max": 1595.0,
+          "q25": 1585.0,
+          "q75": 1589.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 81,
+      "target_us": 1430,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1430,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 30.367781672001,
+        "segment": 81
+      },
+      "start_time_us": 148146150,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 148.320545,
+        "end_s": 148.420545,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1581.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1001.9999999997253,
+        "min_adc": 1574.0,
+        "max_adc": 1589.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1581.0,
+          1580.0,
+          1582.0,
+          1580.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1583.0,
+          "min": 1575.0,
+          "max": 1591.0,
+          "q25": 1581.0,
+          "q75": 1585.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 82,
+      "target_us": 1432,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1432,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 30.63993960500011,
+        "segment": 82
+      },
+      "start_time_us": 148420545,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 148.593942,
+        "end_s": 148.693942,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1581.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1573.0,
+        "max_adc": 1587.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1582.0,
+          1581.0,
+          1580.0,
+          1581.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1583.0,
+          "min": 1575.0,
+          "max": 1589.0,
+          "q25": 1581.0,
+          "q75": 1585.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 16
+      }
+    },
+    {
+      "plateau": 83,
+      "target_us": 1434,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1434,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 30.911889224000333,
+        "segment": 83
+      },
+      "start_time_us": 148693942,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 148.86733900000002,
+        "end_s": 148.967339,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1575.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 1000.9999999738284,
+        "min_adc": 1568.0,
+        "max_adc": 1582.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1576.0,
+          1577.0,
+          1574.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1577.0,
+          "min": 1570.0,
+          "max": 1585.0,
+          "q25": 1575.0,
+          "q75": 1579.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 84,
+      "target_us": 1436,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1436,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 31.18400462900172,
+        "segment": 84
+      },
+      "start_time_us": 148967339,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 149.141734,
+        "end_s": 149.241734,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1575.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1565.0,
+        "max_adc": 1583.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1576.0,
+          1575.0,
+          1575.0,
+          1576.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1577.5,
+          "min": 1566.0,
+          "max": 1585.0,
+          "q25": 1575.0,
+          "q75": 1579.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 85,
+      "target_us": 1438,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1438,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 31.455823292999412,
+        "segment": 85
+      },
+      "start_time_us": 149241734,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 149.405153,
+        "end_s": 149.505153,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1571.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1562.0,
+        "max_adc": 1580.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1571.0,
+          1571.0,
+          1572.0,
+          1571.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1565.0,
+          "max": 1580.0,
+          "q25": 1571.0,
+          "q75": 1575.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 21
+      }
+    },
+    {
+      "plateau": 86,
+      "target_us": 1440,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1440,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "up",
+        "host_s": 31.72779204700055,
+        "segment": 86
+      },
+      "start_time_us": 149505153,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 149.67855,
+        "end_s": 149.77855,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1571.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1564.0,
+          "max": 1581.0,
+          "q25": 1570.0,
+          "q75": 1575.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 87,
+      "target_us": 1438,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1438,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 31.999879512000916,
+        "segment": 87
+      },
+      "start_time_us": 149778550,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 149.952945,
+        "end_s": 150.052945,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1570.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1562.0,
+        "max_adc": 1578.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1570.0,
+          1571.0,
+          1570.0,
+          1570.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1564.0,
+          "max": 1579.0,
+          "q25": 1571.0,
+          "q75": 1574.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 88,
+      "target_us": 1436,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1436,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 32.27199142400059,
+        "segment": 88
+      },
+      "start_time_us": 150052945,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 150.225344,
+        "end_s": 150.325344,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1571.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1562.0,
+        "max_adc": 1579.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1570.0,
+          1572.0,
+          1571.0,
+          1571.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1564.0,
+          "max": 1579.0,
+          "q25": 1571.0,
+          "q75": 1575.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 22
+      }
+    },
+    {
+      "plateau": 89,
+      "target_us": 1434,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1434,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 32.543736489002185,
+        "segment": 89
+      },
+      "start_time_us": 150325344,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 150.499739,
+        "end_s": 150.599739,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1571.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1563.0,
+        "max_adc": 1577.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1568.0,
+          1571.0,
+          1570.0,
+          1571.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1572.0,
+          "min": 1565.0,
+          "max": 1578.0,
+          "q25": 1570.0,
+          "q75": 1574.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 17
+      }
+    },
+    {
+      "plateau": 90,
+      "target_us": 1432,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1432,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 32.81576924800174,
+        "segment": 90
+      },
+      "start_time_us": 150599739,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 150.773136,
+        "end_s": 150.873136,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1002.9999999972006,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1571.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1573.0,
+          "min": 1565.0,
+          "max": 1581.0,
+          "q25": 1570.0,
+          "q75": 1574.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.25
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 91,
+      "target_us": 1430,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1430,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 33.08778208000149,
+        "segment": 91
+      },
+      "start_time_us": 150873136,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 151.045535,
+        "end_s": 151.145535,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1570.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1001.9999999997253,
+        "min_adc": 1561.0,
+        "max_adc": 1576.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1570.0,
+          1570.0,
+          1571.0,
+          1571.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1572.0,
+          "min": 1563.0,
+          "max": 1579.0,
+          "q25": 1571.0,
+          "q75": 1574.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 92,
+      "target_us": 1428,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1428,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 33.359992871999566,
+        "segment": 92
+      },
+      "start_time_us": 151145535,
+      "duration_ms": 274.3949999999984,
+      "endpoint": {
+        "start_s": 151.31993,
+        "end_s": 151.41993,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1572.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.9999999788779,
+        "min_adc": 1562.0,
+        "max_adc": 1579.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1572.0,
+          1573.0,
+          1571.0,
+          1572.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1574.0,
+          "min": 1565.0,
+          "max": 1580.0,
+          "q25": 1572.0,
+          "q75": 1576.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 93,
+      "target_us": 1426,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1426,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 33.631791171999794,
+        "segment": 93
+      },
+      "start_time_us": 151419930,
+      "duration_ms": 273.39800000001446,
+      "endpoint": {
+        "start_s": 151.593328,
+        "end_s": 151.693328,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1574.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1562.0,
+        "max_adc": 1582.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1574.0,
+          1574.0,
+          1574.0,
+          1575.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1577.0,
+          "min": 1567.0,
+          "max": 1584.0,
+          "q25": 1575.0,
+          "q75": 1578.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 11.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 94,
+      "target_us": 1424,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1424,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 33.903747704000125,
+        "segment": 94
+      },
+      "start_time_us": 151693328,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 151.866725,
+        "end_s": 151.966725,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1576.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1564.0,
+        "max_adc": 1584.0,
+        "late_minus_early_third_adc": 3.0,
+        "block25ms_medians_adc": [
+          1573.0,
+          1576.0,
+          1577.0,
+          1578.0
+        ],
+        "block25ms_median_range_adc": 5.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1578.0,
+          "min": 1566.0,
+          "max": 1618.0,
+          "q25": 1575.0,
+          "q75": 1581.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 40.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 16
+      }
+    },
+    {
+      "plateau": 95,
+      "target_us": 1422,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1422,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 34.17576422500133,
+        "segment": 95
+      },
+      "start_time_us": 151966725,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 152.130144,
+        "end_s": 152.230144,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1577.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 999.0000000072996,
+        "min_adc": 1569.0,
+        "max_adc": 1586.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1578.0,
+          1577.0,
+          1577.0,
+          1577.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1580.0,
+          "min": 1573.0,
+          "max": 1586.0,
+          "q25": 1577.0,
+          "q75": 1581.25
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 96,
+      "target_us": 1420,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1420,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 34.44796169500114,
+        "segment": 96
+      },
+      "start_time_us": 152230144,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 152.40354100000002,
+        "end_s": 152.503541,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1582.5,
+        "robust_sigma_adc": 3.7064999999999997,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1574.0,
+        "max_adc": 1590.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1584.0,
+          1583.0,
+          1582.0,
+          1581.0
+        ],
+        "block25ms_median_range_adc": 3.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1585.0,
+          "min": 1574.0,
+          "max": 1590.0,
+          "q25": 1583.0,
+          "q75": 1587.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 16
+      }
+    },
+    {
+      "plateau": 97,
+      "target_us": 1418,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1418,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 34.71980543600148,
+        "segment": 97
+      },
+      "start_time_us": 152503541,
+      "duration_ms": 273.39799999998604,
+      "endpoint": {
+        "start_s": 152.676939,
+        "end_s": 152.776939,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1584.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1575.0,
+        "max_adc": 1592.0,
+        "late_minus_early_third_adc": -1.0,
+        "block25ms_medians_adc": [
+          1585.0,
+          1585.0,
+          1584.0,
+          1583.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1586.0,
+          "min": 1579.0,
+          "max": 1592.0,
+          "q25": 1584.0,
+          "q75": 1588.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 98,
+      "target_us": 1416,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1416,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 34.99175467199893,
+        "segment": 98
+      },
+      "start_time_us": 152776939,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 152.950336,
+        "end_s": 153.050336,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1585.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1576.0,
+        "max_adc": 1591.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1585.0,
+          1584.0,
+          1585.0,
+          1586.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1587.0,
+          "min": 1580.0,
+          "max": 1628.0,
+          "q25": 1585.0,
+          "q75": 1589.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 99,
+      "target_us": 1414,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1414,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 35.26370848499937,
+        "segment": 99
+      },
+      "start_time_us": 153050336,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 153.223733,
+        "end_s": 153.323733,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1589.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1578.0,
+        "max_adc": 1596.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1588.0,
+          1589.0,
+          1589.0,
+          1588.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1590.0,
+          "min": 1582.0,
+          "max": 1599.0,
+          "q25": 1589.0,
+          "q75": 1592.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 5.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 14
+      }
+    },
+    {
+      "plateau": 100,
+      "target_us": 1412,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1412,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 35.53582619599911,
+        "segment": 100
+      },
+      "start_time_us": 153323733,
+      "duration_ms": 273.39799999998604,
+      "endpoint": {
+        "start_s": 153.497131,
+        "end_s": 153.597131,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1589.0,
+        "robust_sigma_adc": 4.4478,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1578.0,
+        "max_adc": 1597.0,
+        "late_minus_early_third_adc": 2.0,
+        "block25ms_medians_adc": [
+          1588.0,
+          1588.0,
+          1592.0,
+          1589.0
+        ],
+        "block25ms_median_range_adc": 4.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1591.0,
+          "min": 1583.0,
+          "max": 1633.0,
+          "q25": 1589.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 40.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 12
+      }
+    },
+    {
+      "plateau": 101,
+      "target_us": 1410,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1410,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 35.80797580000217,
+        "segment": 101
+      },
+      "start_time_us": 153597131,
+      "duration_ms": 272.39900000000716,
+      "endpoint": {
+        "start_s": 153.76953,
+        "end_s": 153.86953,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1591.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1584.0,
+        "max_adc": 1599.0,
+        "late_minus_early_third_adc": 1.0,
+        "block25ms_medians_adc": [
+          1591.0,
+          1591.0,
+          1591.0,
+          1592.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1593.0,
+          "min": 1585.0,
+          "max": 1600.0,
+          "q25": 1591.75,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 13
+      }
+    },
+    {
+      "plateau": 102,
+      "target_us": 1408,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1408,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 36.08007012700182,
+        "segment": 102
+      },
+      "start_time_us": 153869530,
+      "duration_ms": 274.39599999999587,
+      "endpoint": {
+        "start_s": 154.043926,
+        "end_s": 154.143926,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1001.0000000022501,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1590.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1593.0,
+          "min": 1584.0,
+          "max": 1603.0,
+          "q25": 1590.0,
+          "q75": 1595.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 8.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 15
+      }
+    },
+    {
+      "plateau": 103,
+      "target_us": 1406,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1406,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 36.351799307001784,
+        "segment": 103
+      },
+      "start_time_us": 154143926,
+      "duration_ms": 273.397000000017,
+      "endpoint": {
+        "start_s": 154.31732300000002,
+        "end_s": 154.417323,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1595.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1000.0000000047748,
+        "min_adc": 1586.0,
+        "max_adc": 1603.0,
+        "late_minus_early_third_adc": -2.0,
+        "block25ms_medians_adc": [
+          1596.0,
+          1596.0,
+          1595.0,
+          1594.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1597.0,
+          "min": 1589.0,
+          "max": 1606.0,
+          "q25": 1595.0,
+          "q75": 1599.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 9
+      }
+    },
+    {
+      "plateau": 104,
+      "target_us": 1404,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1404,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 36.62400435000018,
+        "segment": 104
+      },
+      "start_time_us": 154417323,
+      "duration_ms": 273.39699999998857,
+      "endpoint": {
+        "start_s": 154.59072,
+        "end_s": 154.69072,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 1001.0000000022501,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1595.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1597.0,
+          "min": 1590.0,
+          "max": 1644.0,
+          "q25": 1595.0,
+          "q75": 1599.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 41.0,
+          "q25": 2.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 10
+      }
+    },
+    {
+      "plateau": 105,
+      "target_us": 1402,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1402,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 36.89581148100115,
+        "segment": 105
+      },
+      "start_time_us": 154690720,
+      "duration_ms": 273.39800000001446,
+      "endpoint": {
+        "start_s": 154.86411800000002,
+        "end_s": 154.964118,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1604.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1596.0,
+        "max_adc": 1610.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1604.0,
+          1605.0,
+          1604.0,
+          1603.0
+        ],
+        "block25ms_median_range_adc": 2.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1606.0,
+          "min": 1599.0,
+          "max": 1611.0,
+          "q25": 1604.0,
+          "q75": 1608.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 106,
+      "target_us": 1400,
+      "event": {
+        "phase": "staircase",
+        "target_us": 1400,
+        "duration_s": 0.25,
+        "cycle": 1,
+        "direction": "down",
+        "host_s": 37.1678034630022,
+        "segment": 106
+      },
+      "start_time_us": 154964118,
+      "duration_ms": 263.41899999999896,
+      "endpoint": {
+        "start_s": 155.12753700000002,
+        "end_s": 155.227537,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1603.0
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1605.5,
+          "min": 1597.0,
+          "max": 1612.0,
+          "q25": 1604.0,
+          "q75": 1607.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 6.0,
+          "q25": 1.0,
+          "q75": 3.0
+        },
+        "ground_floor_rows": 11
+      }
+    },
+    {
+      "plateau": 107,
+      "target_us": 1420,
+      "event": {
+        "phase": "final",
+        "target_us": 1420,
+        "duration_s": 0.6,
+        "host_s": 37.43982129000142,
+        "segment": 107
+      },
+      "start_time_us": 155227537,
+      "duration_ms": 729.39199999999,
+      "endpoint": {
+        "start_s": 155.856929,
+        "end_s": 155.956929,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1590.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 1001.9999999997253,
+        "min_adc": 1581.0,
+        "max_adc": 1598.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1589.0,
+          1590.0,
+          1590.0,
+          1590.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "diagnostic_raw": {
+        "pb0_tail": {
+          "n": 100,
+          "median": 1592.0,
+          "min": 1583.0,
+          "max": 1600.0,
+          "q25": 1590.0,
+          "q75": 1594.0
+        },
+        "pc0_tail": {
+          "n": 100,
+          "median": 2.0,
+          "min": 0.0,
+          "max": 7.0,
+          "q25": 1.0,
+          "q75": 2.0
+        },
+        "ground_floor_rows": 14
+      }
+    }
+  ],
+  "synthetic_validation_passed": true
+}

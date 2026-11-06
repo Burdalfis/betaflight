@@ -1,0 +1,12 @@
+{
+  "packaged_analysis_reproduced": true,
+  "compared_fields": [
+    "quality",
+    "center_summary",
+    "center_pairs",
+    "curves",
+    "plateaus",
+    "pipeline_sha256"
+  ],
+  "synthetic_validation_passed": true
+}

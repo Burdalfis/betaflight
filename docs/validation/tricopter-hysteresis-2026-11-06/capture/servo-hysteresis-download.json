@@ -1,0 +1,11 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 15570944,
+  "start_offset": 13910016,
+  "end_offset": 15570944,
+  "servo-hysteresis.bbl": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+  "servo-hysteresis-repeat.bbl": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+  "two_reads_identical": true
+}

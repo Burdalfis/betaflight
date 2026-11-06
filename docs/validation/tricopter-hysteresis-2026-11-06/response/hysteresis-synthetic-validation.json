@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "tests": [
+    "metric-local freshness windows",
+    "earlier missing-frame gap rejects first-event claim",
+    "known80ms10-90 ramp and toward polarity, with irrelevant late stale row",
+    "known -1.1count/us directional slope",
+    "known4us input-equivalent hysteresis recovered without raw channels"
+  ],
+  "known_hysteresis_fit": {
+    "cycle": 0,
+    "n_common_commands": 19,
+    "slope_adc_per_us": -1.0999999999999828,
+    "intercept_adc": 3061.9999999999745,
+    "r_squared": 1.0,
+    "median_up_minus_down_adc": 4.400000000000091,
+    "median_absolute_branch_gap_adc": 4.400000000000091,
+    "median_signed_input_equivalent_gap_us": -4.000000000000146,
+    "median_absolute_input_equivalent_gap_us": 4.000000000000146
+  }
+}

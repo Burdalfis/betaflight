@@ -1,0 +1,523 @@
+{
+  "quality": {
+    "frame_count": 38157,
+    "duration_s": 38.07196999999999,
+    "frame_gap_us": {
+      "n": 38156,
+      "median": 997.9999999956135,
+      "min": 991.9999999965512,
+      "max": 1004.0000000088867,
+      "q25": 997.9999999814027,
+      "q75": 998.0000000098244
+    },
+    "usable_rows": 38115,
+    "usable_fraction": 0.9988992845349477,
+    "exact_subtraction_mismatch_count": 0,
+    "status_masks": {
+      "247": 37,
+      "255": 32964,
+      "759": 5,
+      "767": 5151
+    },
+    "pair_observation_age_100us": {
+      "n": 38157,
+      "median": 2.0,
+      "min": 0.0,
+      "max": 19.0,
+      "q25": 0.0,
+      "q75": 2.0
+    },
+    "ground_floor_rows": 5156,
+    "ground_ceiling_rows": 0,
+    "accepted_plateau_windows": 93,
+    "total_plateaus": 108
+  },
+  "center_summary": [
+    {
+      "approach_from_us": 1100,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1591.0,
+        "min": 1587.0,
+        "max": 1591.0,
+        "q25": 1589.0,
+        "q75": 1591.0
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": 0.0,
+        "min": -0.5,
+        "max": 0.0,
+        "q25": -0.25,
+        "q75": 0.0
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 2,
+          "median": 18.957000000000335,
+          "min": 16.962000000006583,
+          "max": 20.951999999994086,
+          "q25": 17.95950000000346,
+          "q75": 19.95449999999721
+        },
+        "first_toward_ms": {
+          "n": 2,
+          "median": 18.957000000000335,
+          "min": 16.962000000006583,
+          "max": 20.951999999994086,
+          "q25": 17.95950000000346,
+          "q75": 19.95449999999721
+        },
+        "movement10_90_ms": {
+          "n": 2,
+          "median": 86.30899999999997,
+          "min": 84.81199999999944,
+          "max": 87.8060000000005,
+          "q25": 85.5604999999997,
+          "q75": 87.05750000000023
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 2,
+          "median": 3262.203831856069,
+          "min": 3156.9596610709796,
+          "max": 3367.448002641158,
+          "q25": 3209.5817464635243,
+          "q75": 3314.825917248613
+        }
+      }
+    },
+    {
+      "approach_from_us": 1400,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1590.0,
+        "min": 1590.0,
+        "max": 1591.0,
+        "q25": 1590.0,
+        "q75": 1590.5
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": -1.0,
+        "min": -1.0,
+        "max": 0.5,
+        "q25": -1.0,
+        "q75": -0.25
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 0
+        },
+        "first_toward_ms": {
+          "n": 0
+        },
+        "movement10_90_ms": {
+          "n": 0
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 0
+        }
+      }
+    },
+    {
+      "approach_from_us": 1440,
+      "trials": 3,
+      "accepted_endpoints": 2,
+      "center_endpoint_adc": {
+        "n": 2,
+        "median": 1583.0,
+        "min": 1583.0,
+        "max": 1583.0,
+        "q25": 1583.0,
+        "q75": 1583.0
+      },
+      "tail_drift_adc": {
+        "n": 2,
+        "median": -0.5,
+        "min": -1.0,
+        "max": 0.0,
+        "q25": -0.75,
+        "q75": -0.25
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 0
+        },
+        "first_toward_ms": {
+          "n": 0
+        },
+        "movement10_90_ms": {
+          "n": 0
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 0
+        }
+      }
+    },
+    {
+      "approach_from_us": 1700,
+      "trials": 3,
+      "accepted_endpoints": 3,
+      "center_endpoint_adc": {
+        "n": 3,
+        "median": 1583.0,
+        "min": 1582.0,
+        "max": 1583.0,
+        "q25": 1582.5,
+        "q75": 1583.0
+      },
+      "tail_drift_adc": {
+        "n": 3,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0
+      },
+      "speed": {
+        "first_any_ms": {
+          "n": 3,
+          "median": 12.970999999993182,
+          "min": 11.974000000009255,
+          "max": 18.95799999999781,
+          "q25": 12.472500000001219,
+          "q75": 15.964499999995496
+        },
+        "first_toward_ms": {
+          "n": 3,
+          "median": 12.970999999993182,
+          "min": 11.974000000009255,
+          "max": 18.95799999999781,
+          "q25": 12.472500000001219,
+          "q75": 15.964499999995496
+        },
+        "movement10_90_ms": {
+          "n": 2,
+          "median": 73.33799999999258,
+          "min": 72.83899999998766,
+          "max": 73.83699999999749,
+          "q25": 73.08849999999012,
+          "q75": 73.58749999999503
+        },
+        "mean10_90_slew_adc_per_s": {
+          "n": 2,
+          "median": 3343.6155071402472,
+          "min": 3315.4109728186186,
+          "max": 3371.8200414618764,
+          "q25": 3329.513239979433,
+          "q75": 3357.717774301062
+        }
+      }
+    }
+  ],
+  "center_pairs": [
+    {
+      "repetition": 0,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -4.0
+    },
+    {
+      "repetition": 0,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": false,
+      "high_minus_low_center_adc": null
+    },
+    {
+      "repetition": 1,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -9.0
+    },
+    {
+      "repetition": 1,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -7.0
+    },
+    {
+      "repetition": 2,
+      "low_approach_us": 1100,
+      "high_approach_us": 1700,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -8.0
+    },
+    {
+      "repetition": 2,
+      "low_approach_us": 1400,
+      "high_approach_us": 1440,
+      "both_accepted": true,
+      "high_minus_low_center_adc": -8.0
+    }
+  ],
+  "per_cycle_fits": [
+    {
+      "cycle": 0,
+      "n_common_commands": 16,
+      "slope_adc_per_us": -1.0149954900781673,
+      "intercept_adc": 3027.8054720384775,
+      "r_squared": 0.9901406929504971,
+      "median_up_minus_down_adc": 10.25,
+      "median_absolute_branch_gap_adc": 10.25,
+      "median_signed_input_equivalent_gap_us": -10.098567038175334,
+      "median_absolute_input_equivalent_gap_us": 10.098567038175334
+    },
+    {
+      "cycle": 1,
+      "n_common_commands": 15,
+      "slope_adc_per_us": -0.9802165354330388,
+      "intercept_adc": 2978.7442913385366,
+      "r_squared": 0.9924136872880827,
+      "median_up_minus_down_adc": 10.5,
+      "median_absolute_branch_gap_adc": 10.5,
+      "median_signed_input_equivalent_gap_us": -10.71191886735651,
+      "median_absolute_input_equivalent_gap_us": 10.71191886735651
+    }
+  ],
+  "reversals": [
+    {
+      "cycle": 0,
+      "new_direction": "down",
+      "reference_command_us": 1440,
+      "reference_plateau": 46,
+      "reference_endpoint": {
+        "start_s": 138.764624,
+        "end_s": 138.864624,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1567.0
+      },
+      "detection": null,
+      "steps": [],
+      "rejection": "Reference endpoint local window rejected"
+    },
+    {
+      "cycle": 1,
+      "new_direction": "up",
+      "reference_command_us": 1400,
+      "reference_plateau": 66,
+      "reference_endpoint": {
+        "start_s": 144.215597,
+        "end_s": 144.315597,
+        "rows": 100,
+        "valid_rows": 100,
+        "invalid_rows": 0,
+        "accepted": true,
+        "median_adc": 1607.0,
+        "robust_sigma_adc": 2.9652,
+        "max_frame_gap_us": 998.0000000098244,
+        "min_adc": 1599.0,
+        "max_adc": 1614.0,
+        "late_minus_early_third_adc": 0.0,
+        "block25ms_medians_adc": [
+          1607.0,
+          1607.0,
+          1606.0,
+          1606.0
+        ],
+        "block25ms_median_range_adc": 1.0,
+        "tail_quiet": true
+      },
+      "detection": {
+        "first_of_two_detected_command_change_us": 14,
+        "confirmation_command_change_us": 16,
+        "lower_grid_neighbor_us": 12,
+        "all_prior_endpoint_windows_accepted": true
+      },
+      "steps": [
+        {
+          "command_us": 1402,
+          "cumulative_command_change_us": 2,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": -0.0,
+          "threshold_adc": 11.119499999999999
+        },
+        {
+          "command_us": 1404,
+          "cumulative_command_change_us": 4,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": -0.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1406,
+          "cumulative_command_change_us": 6,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": -0.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1408,
+          "cumulative_command_change_us": 8,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": 0.5,
+          "threshold_adc": 11.119499999999999
+        },
+        {
+          "command_us": 1410,
+          "cumulative_command_change_us": 10,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": 5.5,
+          "threshold_adc": 11.119499999999999
+        },
+        {
+          "command_us": 1412,
+          "cumulative_command_change_us": 12,
+          "endpoint_accepted": true,
+          "detected": false,
+          "toward_displacement_adc": 6.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1414,
+          "cumulative_command_change_us": 14,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 9.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1416,
+          "cumulative_command_change_us": 16,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 11.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1418,
+          "cumulative_command_change_us": 18,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 14.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1420,
+          "cumulative_command_change_us": 20,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 17.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1422,
+          "cumulative_command_change_us": 22,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 17.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1424,
+          "cumulative_command_change_us": 24,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 19.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1426,
+          "cumulative_command_change_us": 26,
+          "endpoint_accepted": false,
+          "detected": false
+        },
+        {
+          "command_us": 1428,
+          "cumulative_command_change_us": 28,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 22.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1430,
+          "cumulative_command_change_us": 30,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 26.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1432,
+          "cumulative_command_change_us": 32,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 26.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1434,
+          "cumulative_command_change_us": 34,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 32.0,
+          "threshold_adc": 13.343399999999999
+        },
+        {
+          "command_us": 1436,
+          "cumulative_command_change_us": 36,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 32.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1438,
+          "cumulative_command_change_us": 38,
+          "endpoint_accepted": true,
+          "detected": true,
+          "toward_displacement_adc": 36.0,
+          "threshold_adc": 8.8956
+        },
+        {
+          "command_us": 1440,
+          "cumulative_command_change_us": 40,
+          "endpoint_accepted": false,
+          "detected": false
+        }
+      ]
+    },
+    {
+      "cycle": 1,
+      "new_direction": "down",
+      "reference_command_us": 1440,
+      "reference_plateau": 86,
+      "reference_endpoint": {
+        "start_s": 149.67855,
+        "end_s": 149.77855,
+        "rows": 100,
+        "valid_rows": 99,
+        "invalid_rows": 1,
+        "accepted": false,
+        "median_adc": null,
+        "robust_sigma_adc": null,
+        "max_frame_gap_us": 998.0000000098244,
+        "rejection": "Needs all local rows valid/fresh, sufficient rows and no >1.5 nominal-frame gap",
+        "diagnostic_valid_row_median_adc": 1571.0
+      },
+      "detection": null,
+      "steps": [],
+      "rejection": "Reference endpoint local window rejected"
+    }
+  ]
+}

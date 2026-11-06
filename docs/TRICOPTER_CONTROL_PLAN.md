@@ -38,6 +38,7 @@
 - Selected signed **PB0−PC0 as the sole servo position measurement**. Raw PB0/PC0 remain diagnostic; no single-channel fallback or PWM-as-position substitution is allowed. The canonical position API exposes coherent-pair freshness and age without changing the legacy actuator path.
 - Clarified the ground-sense solder point: servo PCB **power GND input**, not the potentiometer low terminal. Internal excitation/electronic behavior can remain in the corrected measurement.
 - Calibration, hysteresis, velocity and future position observers must use corrected counts. Actual angle calibration and loaded response remain separate gates.
+- A corrected-only clamped test records three repeats of four center approaches and two fine staircases. It finds about 10–11 µs input-equivalent directional hysteresis and a repeatable center offset by approach. See [the hysteresis/approach results](validation/tricopter-hysteresis-2026-11-06/response/hysteresis-report.md).
 
 ### Revision notes — v0.6 (2026-11-06)
 

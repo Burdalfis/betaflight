@@ -1,0 +1,7 @@
+both_accepted,high_approach_us,high_minus_low_center_adc,low_approach_us,repetition
+True,1700,-4.0,1100,0
+False,1440,,1400,0
+True,1700,-9.0,1100,1
+True,1440,-7.0,1400,1
+True,1700,-8.0,1100,2
+True,1440,-8.0,1400,2

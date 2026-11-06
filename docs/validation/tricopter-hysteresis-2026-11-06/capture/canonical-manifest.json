@@ -1,0 +1,33 @@
+{
+  "source_commit": "f6e496fc18ac7f4c12c452931628e98f1dbae7c2",
+  "clean": true,
+  "git_status_porcelain": "",
+  "config_commit": "3a406c5c30c20d7c3bc7dd5ed547cca961baf0a9",
+  "source_date_epoch": 1789594937,
+  "clean_command": "make CONFIG=MATEKF405TE CCACHE= clean",
+  "build_command": "SOURCE_DATE_EPOCH=1789594937 make -j8 CONFIG=MATEKF405TE V=1 CCACHE= fwo",
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "artifact_sha256": {
+    "tricopter_m1_POSITION_MATEKF405TE.bin": "d9f63f34ca0fa2cd94f6cfd5a5e25a8904a82d56759708912c646a784447b1d0",
+    "tricopter_m1_POSITION_MATEKF405TE.elf": "435b83db4fbd3f16517eb6bdc7cf42f090322fefd61e46f8128909c2368e2592",
+    "tricopter_m1_POSITION_MATEKF405TE.hex": "9446707ab66432c6b21996047d779ceb7730ab6272a652a1ba41b7a6bee3c637",
+    "tricopter_m1_POSITION_MATEKF405TE.map": "04df6fe0ed8137d7d15fa485219ced272db036b1d5dd17dab3a090b67bc3cda7"
+  },
+  "embedded_revision": "f6e496fc1",
+  "embedded_revision_verified_in_raw_binary": true,
+  "embedded_revision_raw_binary_offset": 539868,
+  "section_sizes": {
+    "text": 529625,
+    "data": 6624,
+    "bss": 100024
+  },
+  "hardware_accessed_by_build_agent": false,
+  "optional_feature_syntax_checks": {
+    "no_adc_no_dshot": true,
+    "adc_only": true,
+    "dshot_only": true,
+    "dshot_with_stats": true,
+    "all_diagnostics": true,
+    "non_f4_adc_stub": true
+  }
+}

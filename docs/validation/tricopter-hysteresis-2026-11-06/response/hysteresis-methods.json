@@ -1,0 +1,24 @@
+{
+  "primary_position_source": "debug[3] only, signed PB0-PC0. PC0 is the servo power-ground sense, not a separately measured potentiometer-low terminal. Raw debug[0]/[2] are diagnostics only.",
+  "validity": "Status bits0..3, raw inputs valid without PB0 rails or PC0 ceiling, exact signed difference; PC0=0 is accepted and counted. -32768 unavailable, -1 corrected count valid.",
+  "alignment": "Match the complete ordered target_us event plan to decoded final-PWM plateaus; use recorded PWM timestamps rather than host times. Unexplained edges or duplicated target labels require review.",
+  "center_tail_ms": 200,
+  "staircase_tail_ms": 100,
+  "staircase_settling_exclusion_ms": 150,
+  "endpoint": "Median corrected count in final local tail window. Each metric requires all rows in its own window fresh/valid, >=85% expected rows and no >1.5 nominal frame gap. No interpolation. Other portions of the hold do not reject this scalar. Last-vs-first-third drift and25ms block medians characterize stationarity and correlation; no IID confidence interval.",
+  "response_span_min_counts": 10,
+  "response_span_min_sigma": 10,
+  "speed_search_ms": 300,
+  "speed": "Corrected-only descriptive five-row sustained raw first-any, first-toward,10% and90% crossings. Onset threshold=max(3baseline_sigma,2%span,3counts); baseline=-100..0ms. Timing accepted only if its first-event search prefix and required crossing support contain no stale/missing row. Small20us approaches may fail10sigma span criterion; endpoint comparison remains available.",
+  "branch_comparison": "Pair identical interior PWM commands1402..1438 by cycle. Report up-minus-down corrected counts. Fit branch-midpoint local slope to accepted common commands; input-equivalent microseconds only for |slope|>0.05counts/us and R2>=0.7. No angular units.",
+  "reversal_response": "Use last endpoint before each up/down reversal as reference. Corrected count decreases with increasing PWM, based on prior paired hardware data. Detect first of two consecutive accepted command plateaus with target-direction displacement >max(3counts,3*max(reference_sigma,current_sigma)). Report cumulative command change and prior2us grid neighbor only if all intervening endpoints accepted. This is a thresholded detectable-response bracket, not a physical no-motion deadband or isolated gear-lash estimate.",
+  "repeatability": "Three repeats per center approach condition, two staircase cycles. Report per-repeat values, median/range and within-cycle pairs; commands/ADC rows are not independent servo repeats.",
+  "limits": [
+    "Corrected electrical proxy is not independently calibrated shaft angle or proof of mechanical motion.",
+    "PC0 unipolar floor clips negative local-ground offsets, and is power ground rather than an independent potentiometer-low measurement.",
+    "Same-scan ADC channels are sequential, nominal~47us apart; injected work can increase skew.",
+    "Subtraction does not cancel excitation/reference variation, unequal conditioning, or offsets absent at PC0 sense point.",
+    "Unloaded, clamped and disconnected fixture does not characterize flight load, gyro torque or load dependence.",
+    "Firmware PWM-write timestamp is not a measured external pulse edge."
+  ]
+}

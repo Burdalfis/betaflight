@@ -1,0 +1,16 @@
+Decoding log '.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/servo-hysteresis.bbl' to '.local-artifacts/tricopter/m1-ground/hysteresis-2026-11-06/decoded/servo-hysteresis.01.csv'...
+Data file contained no events
+
+Log 1 of 1, start 01:57.883, end 02:35.955, duration 00:38.071
+
+Statistics
+Looptime            249 avg            0.1 std dev (0.0%)
+I frames    1193   70.3 bytes avg    83923 bytes total
+P frames   36964   41.4 bytes avg  1531031 bytes total
+E frames       1   12.0 bytes avg       12 bytes total
+S frames       5    3.0 bytes avg       15 bytes total
+Frames     38157   42.3 bytes avg  1614954 bytes total
+Data rate 1002Hz  43585 bytes/s     435900 baud
+
+114468 loop iterations weren't logged because of your blackbox_rate settings (28553ms, 75.00%)
+
