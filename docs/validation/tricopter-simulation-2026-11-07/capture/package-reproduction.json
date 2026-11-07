@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "compared": [
+    "protocol_sha256",
+    "protocol",
+    "column_labels",
+    "runs",
+    "comparisons",
+    "calibrated",
+    "for_flight",
+    "script_sha256",
+    "native_build.sources",
+    "all 18 decompressed CSV traces",
+    "fixture input/output/source manifest fields"
+  ],
+  "fixture_hashes_each_match_own_bytes": true,
+  "fixture_only_metadata_difference": "native_build.command includes the output library path",
+  "matlab_consumed_fixture_bytes_matched": true,
+  "native_numeric_parity_exact": true,
+  "matlab_numeric_columns": 85,
+  "matlab_integer_columns": 27,
+  "matlab_flag_columns": 47,
+  "matlab_rows": 701,
+  "matlab_guard_checks": 6,
+  "simulink_signal_playback_exact": true,
+  "hardware_accessed": false
+}

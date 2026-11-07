@@ -2,6 +2,8 @@
 
 This stage adds a portable C allocation experiment with explicit **synthetic placeholder maps and actuator limits**. The primary interface accepts a control-effectiveness matrix; an optional geometry adapter constructs one in SI units. Basic configuration and characterization can therefore replace detailed airframe geometry. The code is separate from the active firmware source list and has no actuator, configuration or hardware I/O. Flight-control outputs remain unchanged. It solves static targets; it does not make the servo or motors respond instantaneously.
 
+The subsequent [integrated offline simulation](tricopter_simulation.md) connects this same core to servo/RPM prediction and synthetic actuator plants. The static results below remain unchanged.
+
 ## Configuring an airframe without CAD
 
 The shared solver operates on four virtual actuator coordinates: front-right effort, front-left effort, tail vertical effort and tail rightward effort. The tail pair shares an effort unit, so its magnitude and direction define a bounded vector. A supplied 4×4 matrix maps these coordinates to collective, roll, pitch and yaw response. Its coefficients can absorb thrust ratios, moment arms and rotational inertia. Neither CG coordinates nor mass, inertia or absolute thrust coefficients are required by this direct interface.

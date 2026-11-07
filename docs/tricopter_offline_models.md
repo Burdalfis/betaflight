@@ -6,6 +6,8 @@ The subsequent [reaction-torque stage](tricopter_reaction_torque.md) adds placeh
 
 The later [configurable allocation stage](tricopter_allocator.md) adds a direct virtual-tail effectiveness interface and optional SI geometry adapter. It uses synthetic maps and bounds, requires no airframe dimensions in its shared solver, and preserves the same measurement and active-output boundaries.
 
+The [integrated simulation](tricopter_simulation.md) now connects those four portable cores in a causal synthetic actuator/response loop, with source-pinned MATLAB parity and Simulink signal playback.
+
 ## Measurement and calibration contract
 
 Servo position is **signed PB0−PC0 only**, in corrected ADC counts. Raw PB0 and PC0 are diagnostic channels. PC0 senses the servo PCB power GND input, not the potentiometer low terminal. Position and velocity remain counts and counts/s; physical shaft/tail angle calibration is unavailable. PWM is a command input, never a measured position.

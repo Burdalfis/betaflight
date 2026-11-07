@@ -1,0 +1,57 @@
+{
+  "fixture_sha256": "3eb11a8833d6f296b2d0852d199d359d4af64d02e99a25ce7493c58b9e5f2cf1",
+  "native_build": {
+    "matlab_version": "26.2.0.3386108 (R2026b)",
+    "source_paths": [
+      "tools/tricopter/matlab/tricopter_simulation_mex.c",
+      "tools/tricopter/simulation_bridge.c",
+      "src/main/flight/tricopter_simulation.c",
+      "src/main/flight/tricopter_servo_model.c",
+      "src/main/flight/tricopter_rpm_observer.c",
+      "src/main/flight/tricopter_reaction_torque.c",
+      "src/main/flight/tricopter_allocator.c",
+      "tools/tricopter/simulation_bridge.h",
+      "src/main/flight/tricopter_simulation.h",
+      "src/main/flight/tricopter_servo_model.h",
+      "src/main/flight/tricopter_rpm_observer.h",
+      "src/main/flight/tricopter_reaction_torque.h",
+      "src/main/flight/tricopter_allocator.h"
+    ],
+    "source_sha256": [
+      "30c2d6ff74c5c38225796adb26baeaa636fd93d305fdf67463597bb470b7a38e",
+      "e6711c0303408828d3344834d48858740348a9d79887a77bf9f87a982b5da2f0",
+      "da9681e6830e5d0db22245faec7098e1bdcafa43410b0b2a4850cdd97c89848f",
+      "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+      "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+      "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+      "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+      "d4fbb0c6b6aca35c64e204620da1bdab243b6f9b1fdfd06e6bb6c86430e9bcbd",
+      "f7fcb675c0803101ce18e21ae05a816d2f80561cb562a2c8471344e27ad1fa96",
+      "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+      "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+      "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+      "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a"
+    ],
+    "binary_sha256": "bc77824f57ce3166ffaf5185039c8c97af259a363a1bc08561519d57ec798117",
+    "compiler": "  <a href=\"matlab:helpPopup('mex.CompilerConfiguration')\" style=\"font-weight:bold\">CompilerConfiguration</a> with properties:\n\n             Name: 'gcc'\n     Manufacturer: 'GNU'\n         Language: 'C'\n          Version: '15'\n         Location: '/usr/bin/gcc'\n        ShortName: 'gcc'\n         Priority: 'A'\n          Details: [1×1 mex.CompilerConfigurationDetails]\n       LinkerName: ''\n    LinkerVersion: ''\n           MexOpt: '/usr/local/MATLAB/R2026b/bin/glnxa64/mexopts/gcc_glnxa64.xml'\n\n"
+  },
+  "rows": 701,
+  "maximum_absolute_numeric_difference": 0,
+  "maximum_tolerance_fraction": 0,
+  "integer_exact": true,
+  "flags_exact": true,
+  "transport_guard_checks_passed": 6,
+  "passed": true,
+  "calibrated": false,
+  "for_flight": false,
+  "fixture": "/home/alex/betaflight/.local-artifacts/tricopter/integrated-simulation-2026-11-07/replay/matlab-parity-fixture.json",
+  "scope": "Same-C execution/transport parity, not independent physics validation",
+  "simulink": {
+    "executed": true,
+    "passed": true,
+    "rows": 701,
+    "maximum_replay_difference": 0,
+    "interpolation": false,
+    "scope": "Discrete signal playback, not an independent dynamic plant"
+  }
+}

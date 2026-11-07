@@ -1,0 +1,187 @@
+{
+  "variants": {
+    "strict": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_simulation.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_simulation.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_servo_model.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_servo_model.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_rpm_observer.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_rpm_observer.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_reaction_torque.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_reaction_torque.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_allocator.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_allocator.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_simulation.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_servo_model.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_rpm_observer.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_reaction_torque.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_allocator.o",
+          "obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests.xml"
+        ]
+      ],
+      "passed_tests": 15
+    },
+    "fast-math": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_simulation.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_simulation.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_servo_model.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_servo_model.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_rpm_observer.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_rpm_observer.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_reaction_torque.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_reaction_torque.o"
+        ],
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_allocator.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_allocator.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_simulation.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_servo_model.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_rpm_observer.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_reaction_torque.o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tricopter_allocator.o",
+          "obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/fast-math-tests.xml"
+        ]
+      ],
+      "passed_tests": 15
+    }
+  },
+  "source_sha256": {
+    "src/main/flight/tricopter_simulation.c": "da9681e6830e5d0db22245faec7098e1bdcafa43410b0b2a4850cdd97c89848f",
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_simulation.h": "f7fcb675c0803101ce18e21ae05a816d2f80561cb562a2c8471344e27ad1fa96",
+    "src/test/unit/tricopter_simulation_unittest.cc": "f222877ef356829f283ec332992e195324515a7a6ef5b5d6bb37a84197c6a758"
+  },
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

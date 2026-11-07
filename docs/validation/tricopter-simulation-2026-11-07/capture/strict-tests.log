@@ -1,0 +1,116 @@
+[
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_simulation.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_simulation.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_servo_model.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_servo_model.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_rpm_observer.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_rpm_observer.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_reaction_torque.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_reaction_torque.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_allocator.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_allocator.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_simulation.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_servo_model.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_rpm_observer.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_reaction_torque.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tricopter_allocator.o",
+      "obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-simulation-2026-11-07/strict-tests.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 15 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 15 tests from TricopterSimulation\n[ RUN      ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired\n[       OK ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired (0 ms)\n[ RUN      ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct\n[       OK ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct (0 ms)\n[ RUN      ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay\n[       OK ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay (0 ms)\n[ RUN      ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction\n[       OK ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction (0 ms)\n[ RUN      ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap\n[       OK ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap (0 ms)\n[ RUN      ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration\n[       OK ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration (0 ms)\n[ RUN      ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand\n[       OK ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand (0 ms)\n[ RUN      ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw\n[       OK ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw (0 ms)\n[ RUN      ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand\n[       OK ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand (0 ms)\n[ RUN      ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits\n[       OK ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits (0 ms)\n[ RUN      ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions\n[       OK ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions (0 ms)\n[ RUN      ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse\n[       OK ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse (0 ms)\n[ RUN      ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair\n[       OK ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair (0 ms)\n[ RUN      ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset\n[       OK ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset (0 ms)\n[ RUN      ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath\n[       OK ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath (0 ms)\n[----------] 15 tests from TricopterSimulation (1 ms total)\n\n[----------] Global test environment tear-down\n[==========] 15 tests from 1 test suite ran. (1 ms total)\n[  PASSED  ] 15 tests.\n",
+    "stderr": ""
+  }
+]

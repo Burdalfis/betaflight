@@ -6,9 +6,9 @@
 
 **Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
 
-**Document version:** 0.10 — 2026-11-07
+**Document version:** 0.11 — 2026-11-07
 
-**Status:** M0 complete; M1 flashed and bench-tested; servo prediction, RPM observation, placeholder-coefficient yaw reaction and configurable thrust-vector allocation implemented offline; airframe characterization, physical calibration and loaded identification remain open; **no new flight-control law validated**
+**Status:** M0 complete; M1 flashed and bench-tested; servo prediction, RPM observation, placeholder-coefficient yaw reaction and configurable allocation connected in an offline synthetic actuator/response simulation; airframe characterization, physical calibration and loaded identification remain open; **no new flight-control law validated**
 
 > **Purpose**  
 > Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
@@ -28,6 +28,7 @@
 - [x] Implement and validate offline corrected-count servo prediction/replay, followed by a causal per-motor RPM observer. Keep angle calibration unavailable and leave the active controller unchanged. See [offline models and results](tricopter_offline_models.md).
 - [x] Implement offline aerodynamic/inertial yaw reaction equations with explicit synthetic coefficients, separate terms, validity gates and analytic tests. No active control integration. See [reaction-torque model and evidence](tricopter_reaction_torque.md).
 - [x] Implement offline bounded allocation using a configurable virtual-tail effectiveness map, plus an optional SI geometry adapter. Synthetic maps/geometry/coefficients exercise reconstruction, saturation, units and held-angle behavior; detailed airframe dimensions are not required by the shared solver. See [allocator configuration and evidence](tricopter_allocator.md).
+- [x] Connect all four portable modules in a causal offline actuator/response simulation with separate plant/predictor states, synthetic airframes, delayed/faulted RPM observations and explicit reaction quality. Preserve the generic map interface and active-output boundary. See [simulation architecture and evidence](tricopter_simulation.md).
 - [ ] Complete electrical loading/power-sequencing/fault checks and independent PWM pin-edge timing. ADC scan progress and non-rail counts do not guarantee wiper connection.
 - [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
 - [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
@@ -35,6 +36,13 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, signed PB0−PC0 position measurements and raw ADC diagnostics without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.11 (2026-11-07)
+
+- Added an offline coordinator composing the servo predictor, three RPM observers, scalar reaction model and virtual-tail allocator. Only initial corrected position and causal RPM observations enter the coordinator; plant truth remains separate.
+- Added synthetic motor/servo plants, telemetry delivery/fault scheduling, map/actuator mismatch and bounded experimental reaction/virtual-tail-vertical coordination modes. Targets, current predictions, achieved surrogate response and their validity remain distinct.
+- The synthetic additive yaw reaction is counted once and deliberately independent of virtual direction. Effectiveness maps exclude that separately modeled contribution; no 3D/gyroscopic or body-flight-dynamics claim is introduced.
+- MATLAB executes the same C simulation through a source-pinned MEX adapter; the optional Simulink model is explicitly discrete signal playback/analysis. No active-flight source list, actuator/configuration path, PB0−PC0 source or real angle calibration changes.
 
 ### Revision notes — v0.10 (2026-11-07)
 
@@ -350,6 +358,7 @@ tricopter_motor_model   RPM observer, angular momentum and drag torque
 tricopter_servo_model   calibrated angle, velocity, predicted position
 tricopter_allocator     effectiveness map -> bounded effort/vector targets
                         optional SI wrench/thrust/angle interpretation
+tricopter_simulation    offline causal coordinator and synthetic test boundary
 tricopter_controller    glue, modes, saturation, fault state, diagnostics
 ```
 
@@ -400,6 +409,8 @@ Design interfaces around declared units and explicit `dt`; preserve SI units for
 **Exit gate:** For synthetic requests, reconstructed feasible force/moments agree with forward model within numerical tolerance; all constraints handled deterministically; no invalid outputs at zero/low thrust and near saturation.
 
 ### M5 — Controller integration: conservative, reversible
+
+**Preparation status (2026-11-07): the four models are connected only in an offline synthetic actuator/response simulation.** Its causal timing, quality gates, bounded allocation and experimental coordination are testable without the aircraft. The controller interface still requires no CAD/CG/inertia data. MATLAB same-C parity and Simulink signal playback aid inspection; neither validates a physical airframe or enables M5 flight outputs. See [the simulation boundary](tricopter_simulation.md).
 
 **Implement:** Connect Betaflight rate-PID demands to physical allocation (document units/scaling); feed actuator saturation back to integrator control. First enable **static geometric compensation** at conservative gain/limits, then steady-state reaction trim, then dynamic reaction feedforward, **one feature at a time**. Ensure coherent motor/servo timing and safe transition among LEGACY/LOG_ONLY/CONTROL.
 

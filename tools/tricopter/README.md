@@ -70,3 +70,16 @@ python3 tools/tricopter/allocator_replay.py --output .local-artifacts/tricopter/
 The frozen protocol contains synthetic direct-map and geometric examples. The runner checks feasible reconstruction, effort/thrust and direction/angle bounds, saturation, independent convex objective-gap certificates, unit rescaling and a held-angle forward evaluation. Static request sweeps are not dynamic servo simulations. Direct-map proxy units remain distinct from N/N·m/RPM, and mathematical vector direction is not automatically calibrated mechanical angle.
 
 The direct map must use the solver's virtual front/tail-vector coordinates; a local three-motor-plus-servo-PWM Jacobian has different constraints and cannot be substituted. No airframe coefficients are fitted here. Calibration and flight-use flags remain false; PB0−PC0 stays the sole servo position measurement and no count/PWM-to-angle conversion is added. See [configuration, equations and validation](../../docs/tricopter_allocator.md).
+
+## Integrated synthetic simulation
+
+`simulation_native.py` builds the actual servo, RPM, reaction and allocation cores together with `tricopter_simulation.[ch]`. The separate C plant has synthetic motor lag/slew, its own servo state and a configurable response map. The coordinator sees only its initial corrected count and causal RPM packets. It uses no CAD, CG or body-inertia data, and never consumes later plant truth.
+
+```sh
+python3 -m unittest discover -s tools/tricopter -p 'test_simulation_replay.py' -v
+python3 tools/tricopter/simulation_replay.py --output .local-artifacts/tricopter/simulation-replay
+```
+
+The frozen protocol exercises multiple synthetic maps, baseline/reaction/virtual-tail-vertical coordination modes, motor/servo mismatch, saturation and telemetry faults. Actual response errors include all rows; prediction errors include their availability coverage. Unavailable reaction remains explicit. Maps exclude the separately added scalar yaw disturbance, which is a declared surrogate independent of virtual direction, not a full tilted-rotor or flight-dynamics model.
+
+The runner exports a source-pinned MATLAB parity fixture. [The MATLAB adapter](matlab/README.md) compiles the same C bridge as MEX and checks numeric/status/quality outputs; its optional Simulink model is discrete signal playback only. All mappings/coefficients remain synthetic, PB0−PC0 remains the sole position source, and no active firmware output/configuration path is connected. See [architecture, results and limits](../../docs/tricopter_simulation.md).

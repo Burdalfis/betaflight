@@ -1,0 +1,6 @@
+{
+  "output": "/home/alex/betaflight/.local-artifacts/tricopter/simulation-2026-11-07/reproduced",
+  "runs": 18,
+  "rows": 81018,
+  "fixture_sha256": "bfc446b5ca9f932a9fd21b8e9c3b0af013e44614c80812c97f0fd2ca330ae192"
+}
