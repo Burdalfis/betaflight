@@ -1,0 +1,164 @@
+[
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_dynamic_allocator.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_simulation.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_servo_model.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_servo_model.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_rpm_observer.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_rpm_observer.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_reaction_torque.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_reaction_torque.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_allocator.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_allocator.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_servo_model.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_rpm_observer.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_reaction_torque.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_allocator.o",
+      "obj/test/tricopter_dynamic_allocator_unittest/tricopter_dynamic_allocator_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator_unittest"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator_unittest",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator_unittest.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 14 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 14 tests from TricopterDynamicAllocator\n[ RUN      ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon\n[       OK ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup\n[       OK ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup (0 ms)\n[ RUN      ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering\n[       OK ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands\n[       OK ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor\n[       OK ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm\n[       OK ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm (0 ms)\n[ RUN      ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite\n[       OK ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap\n[       OK ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets\n[       OK ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval\n[       OK ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions\n[       OK ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit\n[       OK ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed\n[       OK ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed (0 ms)\n[ RUN      ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath\n[       OK ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath (0 ms)\n[----------] 14 tests from TricopterDynamicAllocator (1 ms total)\n\n[----------] Global test environment tear-down\n[==========] 14 tests from 1 test suite ran. (1 ms total)\n[  PASSED  ] 14 tests.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_dynamic_allocator.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_servo_model.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_rpm_observer.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_reaction_torque.o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_allocator.o",
+      "obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation_unittest"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation_unittest",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-dynamic-allocator-2026-11-07/strict-tricopter_simulation_unittest.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 18 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 18 tests from TricopterSimulation\n[ RUN      ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired\n[       OK ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired (0 ms)\n[ RUN      ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct\n[       OK ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct (0 ms)\n[ RUN      ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay\n[       OK ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay (0 ms)\n[ RUN      ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction\n[       OK ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction (0 ms)\n[ RUN      ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap\n[       OK ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap (0 ms)\n[ RUN      ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration\n[       OK ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration (0 ms)\n[ RUN      ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand\n[       OK ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand (0 ms)\n[ RUN      ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw\n[       OK ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw (0 ms)\n[ RUN      ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand\n[       OK ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand (0 ms)\n[ RUN      ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits\n[       OK ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits (0 ms)\n[ RUN      ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions\n[       OK ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions (0 ms)\n[ RUN      ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse\n[       OK ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse (0 ms)\n[ RUN      ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair\n[       OK ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair (0 ms)\n[ RUN      ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset\n[       OK ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset (0 ms)\n[ RUN      ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath\n[       OK ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath (0 ms)\n[ RUN      ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture\n[       OK ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture (0 ms)\n[ RUN      ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim\n[       OK ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim (0 ms)\n[ RUN      ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode\n[       OK ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode (1 ms)\n[----------] 18 tests from TricopterSimulation (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 18 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 18 tests.\n",
+    "stderr": ""
+  }
+]

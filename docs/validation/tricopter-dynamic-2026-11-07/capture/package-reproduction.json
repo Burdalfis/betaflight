@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "compared_summary_fields": [
+    "protocol_sha256",
+    "protocol",
+    "legacy_regression",
+    "runs",
+    "sampled_candidate_audits",
+    "calibrated",
+    "for_flight",
+    "script_sha256"
+  ],
+  "runs": 24,
+  "rows": 120024,
+  "all_decompressed_trace_bytes_equal": true,
+  "traces": [
+    {
+      "file": "synthetic_A-ideal_zero_reaction-dynamic_priority.csv.gz",
+      "decompressed_sha256": "1a69b9c23bee69812b1ccc5ba60e085d56901fec62dfb3f28fd7bd9945cafc1b"
+    },
+    {
+      "file": "synthetic_A-ideal_zero_reaction-soft_weighted.csv.gz",
+      "decompressed_sha256": "8ef978c33dd5c20f12ea4588692f5242d1f3460fdadebddcce3b952c006fbad9"
+    },
+    {
+      "file": "synthetic_A-ideal_zero_reaction-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "16e9216863352b781c88cede7122e15669ce9b66bc1021879d3d9d7c7993d66f"
+    },
+    {
+      "file": "synthetic_A-matched-dynamic_priority.csv.gz",
+      "decompressed_sha256": "72f1f75011fc4d075a23ef14facebe9b8639217ad67b3edfb98cdb5e41b82a30"
+    },
+    {
+      "file": "synthetic_A-matched-soft_weighted.csv.gz",
+      "decompressed_sha256": "2a73c3dc7385b932fdd163d13dab461713a10353bde8556fe657d231aa86e3c3"
+    },
+    {
+      "file": "synthetic_A-matched-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "f5fc2d237a26358cb130917daa17cfb47b34dfeb100f3188e28d0b9fe5646ee2"
+    },
+    {
+      "file": "synthetic_A-model_mismatch-dynamic_priority.csv.gz",
+      "decompressed_sha256": "297e8959a3de6d20a589f37aca9ad88d1bce190ddfac5302dce4888932ffa1f8"
+    },
+    {
+      "file": "synthetic_A-model_mismatch-soft_weighted.csv.gz",
+      "decompressed_sha256": "a9e751dba0c258533290531b03dc0b85a31f39c9714bb537c360e1f4a177b5ae"
+    },
+    {
+      "file": "synthetic_A-model_mismatch-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "283a45f31254e0b069b642061d1ab1fe7e0912f0014ead6704820a55a35ee2ce"
+    },
+    {
+      "file": "synthetic_A-telemetry_faults-dynamic_priority.csv.gz",
+      "decompressed_sha256": "32c43b646d7c71fd80a45b419cb12a21ebebb6df2621849e72b276a08d7b04e0"
+    },
+    {
+      "file": "synthetic_A-telemetry_faults-soft_weighted.csv.gz",
+      "decompressed_sha256": "abde379f04516795aa19cb852b45c61927dd3f42a075362026e2db1ceadc3497"
+    },
+    {
+      "file": "synthetic_A-telemetry_faults-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "aad6b08162d1804ebcf948ecb2291ae9bd33e874fb9b2b82a88d51902694ff19"
+    },
+    {
+      "file": "synthetic_B-ideal_zero_reaction-dynamic_priority.csv.gz",
+      "decompressed_sha256": "5ff476cccf58cfcef0ba7c78aa61dc2a9ef6d85f2f6bca98daf676e7f97b0676"
+    },
+    {
+      "file": "synthetic_B-ideal_zero_reaction-soft_weighted.csv.gz",
+      "decompressed_sha256": "0d253517345970d0af19600d08f9b1fb593dc2afc32e2292df0e0a49c02d8004"
+    },
+    {
+      "file": "synthetic_B-ideal_zero_reaction-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "0b9da8943848e8c6b2d0e507fc3117916ea208be3e056b71095677c0c943f764"
+    },
+    {
+      "file": "synthetic_B-matched-dynamic_priority.csv.gz",
+      "decompressed_sha256": "f73eaa5341b4b5d9c5f8ca601a8b5b619ab88460c9bfc0b7e845569b70f743d6"
+    },
+    {
+      "file": "synthetic_B-matched-soft_weighted.csv.gz",
+      "decompressed_sha256": "a49140452487cb615daf16a90d0c865628d50d4740bc42a76413599d02143142"
+    },
+    {
+      "file": "synthetic_B-matched-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "5125bd22b1dcabd26b2cf99964d04f335f7b3bdb1d327c098495aa3341e9edd7"
+    },
+    {
+      "file": "synthetic_B-model_mismatch-dynamic_priority.csv.gz",
+      "decompressed_sha256": "f1fa9222907c3acf973cbafe1421e81d2b3935ddaf2d009ce5bee3d0f6bf00de"
+    },
+    {
+      "file": "synthetic_B-model_mismatch-soft_weighted.csv.gz",
+      "decompressed_sha256": "aae08ba8d133b89525ac1158bc01cba2311282c8df45ad52814b1136d4b92c32"
+    },
+    {
+      "file": "synthetic_B-model_mismatch-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "83eba417798feb9b29f5a61a3e63074162ec2939e902987a3cac139590c6d2eb"
+    },
+    {
+      "file": "synthetic_B-telemetry_faults-dynamic_priority.csv.gz",
+      "decompressed_sha256": "ee0f895d7175bfbc6c1163f8823e541fae7a088836c0a2a3895c663dd100da1c"
+    },
+    {
+      "file": "synthetic_B-telemetry_faults-soft_weighted.csv.gz",
+      "decompressed_sha256": "8fb5e51981e63b6a622c87aa6a38790ecbd042bba3961f01c7db619c0a65523b"
+    },
+    {
+      "file": "synthetic_B-telemetry_faults-vertical_heuristic.csv.gz",
+      "decompressed_sha256": "9fbd05be9159402335062f3fc10d38667eabc18a7fcc234def522c73f4a0f6d6"
+    }
+  ],
+  "candidate_audit_equal_except_build_output_command": true,
+  "both_candidate_audit_byte_hashes_verified": true,
+  "all_response_manifest_checksums_verified": true,
+  "all_native_and_script_sources_current": true,
+  "current_matlab_consumed_audit_verified": true,
+  "frozen_summary_sha256": "c30013abaf6b007157a6974beb6706e7d47f90f065536eeb32f617f7d485920f",
+  "reproduced_summary_sha256": "16eec4f0de01e1e9bb542bc1ac4fc5217aed8ab2e9448705494f6a35f6e67b48",
+  "frozen_audit_sha256": "0fcfda12f05a754785fa2c8d4c0e4d9ca12a4f4b41bcab78b2f6e09346e4d959",
+  "reproduced_audit_sha256": "7c08f6c01e87278aa3bcfc1718e1554b03e0dd6f0b59b55899d5838cc8096948"
+}

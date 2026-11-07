@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "base_commit": "e7608a372ec56d7985a3637cf2f4496ed0a88ebc",
+  "branch": "feature/tricopter-feedback",
+  "host_tests": 177,
+  "python_tests": 59,
+  "strict_and_fast_math_xml": [
+    {
+      "file": "fast-math-tricopter_dynamic_allocator_unittest.xml",
+      "tests": 14,
+      "failures": 0
+    },
+    {
+      "file": "fast-math-tricopter_simulation_unittest.xml",
+      "tests": 18,
+      "failures": 0
+    },
+    {
+      "file": "strict-tricopter_dynamic_allocator_unittest.xml",
+      "tests": 14,
+      "failures": 0
+    },
+    {
+      "file": "strict-tricopter_simulation_unittest.xml",
+      "tests": 18,
+      "failures": 0
+    }
+  ],
+  "native_source_sha256": {
+    "src/main/flight/tricopter_simulation.c": "821baba5c4bc360815f59bbb7eca60d52251b85536540666bb3eb5fa5120991d",
+    "src/main/flight/tricopter_simulation.h": "1a03ecb3f90548709ade5e40e85e136599a3421d66907319cbde1067c728d24d",
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_allocator.h": "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a",
+    "src/main/flight/tricopter_dynamic_allocator.c": "de34c7a80b5875b62131c32146323679fdae4847986682599b7a81ee9e694ae8",
+    "src/main/flight/tricopter_dynamic_allocator.h": "01d3d73d59ea965a8c81b3683998a1501bcec2dcb6a36ec2f3b09cddd38a57e1",
+    "tools/tricopter/simulation_bridge.c": "e35e6ee8f8dd9a0b25316714771004e6ee8ced2072e5a4008b2a9f2ac46bd6f6",
+    "tools/tricopter/simulation_bridge.h": "fea68affeb5369af2ea6f8a49e21acb0a4fe47d19f1874cd561254c2f2c33989",
+    "tools/tricopter/dynamic_bridge.c": "fe18c8dcfb512db08964c6ee43b02ef9c5a6518325bb9e6526525475050a867b",
+    "tools/tricopter/dynamic_bridge.h": "db346c77a8a49c3e659821d102f4c5c66d1580df8aaa17a335ed51703de2f958"
+  },
+  "validation_script_sha256": {
+    "src/test/Makefile": "f0ccc20735f25a8e661bdf3565ca0b7a25c2576217f87076b37b590304bd9c9d",
+    "src/test/run_tricopter_checks.sh": "e5c00d147965914cb069ed699c3415bfe05ab6b9791d8e9eb46ed28a142e4333",
+    "src/test/unit/tricopter_dynamic_allocator_unittest.cc": "691a1d9df34619fe12322cf670794faeced27cfdddaa2923023cd9c4e8e4fb81",
+    "src/test/unit/tricopter_simulation_unittest.cc": "a4cf7e67cb825d2c808153e006a209990e86cfa993e70376f4358b43e62a6d38",
+    "tools/tricopter/allocator_native.py": "9f05b9d99fa2c818266a3f59785e4449b7edbe972454c6d1601fd4edd5f9ae24",
+    "tools/tricopter/dynamic_audit.py": "56677eb33cac52c24d0103bdb8b720a49fd530aed577edca054749b1dcb885e9",
+    "tools/tricopter/dynamic_bridge.c": "fe18c8dcfb512db08964c6ee43b02ef9c5a6518325bb9e6526525475050a867b",
+    "tools/tricopter/dynamic_bridge.h": "db346c77a8a49c3e659821d102f4c5c66d1580df8aaa17a335ed51703de2f958",
+    "tools/tricopter/dynamic_legacy.py": "fd481c7f677d86e3f594b751a4aab43b25bf41ec0c0c572e5cd71a28739571df",
+    "tools/tricopter/dynamic_native.py": "94df154dcbd2c6d1eccf428b12672261eb2ad3d1ee831b0af5a3b5cd09d5be79",
+    "tools/tricopter/dynamic_protocol.json": "d6191c11c5fd5aa103abc17588bcffa901a0f7c6ba11baf01e3f99c43f8bbbda",
+    "tools/tricopter/dynamic_reference.py": "42da87f0e23df49591848c5652263914a76bed357da5b96730464e287087a28a",
+    "tools/tricopter/dynamic_replay.py": "c0aa5e7ebf94959da18d6066b21a33715ca55f33b583d93dfd6f15056490a2fb",
+    "tools/tricopter/matlab/build_tricopter_simulation_mex.m": "3ce9b159f85c5e3a3e6da2121a23a64411ce220287dfefeb8c65199ccad8d551",
+    "tools/tricopter/matlab/run_tricopter_simulation.m": "c003294f1096e771006cba6d15f596d9146a818e251601c3cee0e5c1b2753bd2",
+    "tools/tricopter/matlab/tricopter_simulink_playback.m": "f7c02a266ea8b4b329010b8cdf17f67882477acc2ff9763bb962617b85adf4a2",
+    "tools/tricopter/matlab/validate_tricopter_dynamic_allocator.m": "5988f7b7a25833723445a24643a4972685cc2c729b4a25969d557b5165fabc11",
+    "tools/tricopter/rpm_data.py": "5593617520c9085077f17f54c661dc03d5cf434b803b8636f03c9e09d240e476",
+    "tools/tricopter/simulation_native.py": "5265789fdccf17df123a2303dff6433ee3e5585c7c9444b35c8ed8d59a42fa62",
+    "tools/tricopter/simulation_replay.py": "1f02328f4ebf8e080aa341a82bcde937d84224552348221c45b4492b6c89ea81",
+    "tools/tricopter/test_dynamic_replay.py": "30381e43d120fdd21197b115e54f1f917d4a08b44f4f3675c6785ee31fc2ea42"
+  },
+  "unchanged_from_base_sha256": {
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_allocator.h": "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a",
+    "Makefile": "c45b513bf960d91ce0949b75e5ec2a31e33e451748df82179d64057d18903a91",
+    "mk/source.mk": "0ae7619a1bd14120999a5c506fa9cf31a8644cfaaca371a42ab8d46c4cc853bf",
+    "src/main/flight/mixer.c": "893fb2cfc032bb91caa2a60877e961befdb0a82546c462879f6a99e19a11b4bd",
+    "src/main/flight/mixer.h": "79fc08b25095ce206a6293177605c463d4567754829bf7d898673698cfda71e4",
+    "src/main/flight/pid.c": "d1065b12de3936c8bbc0385e8fee81928bb7f08779f3d0f915ab99f69b75e013",
+    "src/main/flight/pid.h": "89653c0f3cf9ec900f2367ec0ef0a46b1fc0b5b52d9551c0378c36590156980f",
+    "src/main/flight/servos.c": "b259b1accdcc5752c9a43910445073351ed02109bcc9f66667e2bba5f89b5447",
+    "src/main/flight/servos.h": "7b91a55d68a50d9aab1a6becffcc79b1e719e1876a28d457bef5ba728a6abb5d",
+    "src/main/flight/tricopter_servo_position.h": "c9e23f3dee6035f26e25e6d2007592c18b99fe284b85341aa0dd20d630d02dcd",
+    "src/main/drivers/adc.c": "cf677223cf6d2a833d98a7c9e4856b76d103ac3be3ec3ba3ed5aa73f93743044",
+    "src/main/drivers/adc.h": "aff05b9f946c3ea38521149fb3f12dea1c175b8b8786201d4a341495221649d2",
+    "src/platform/STM32/adc_stm32f4xx.c": "a08f97b52cd1f0ef5f27d75c594801b139e42e0a756f3be679de8a53719326cc",
+    "src/platform/common/stm32/adc_impl.c": "4028bd15fc898bed04db002d0a3baa464c7e1caeb2fbc6e72c59eb94c8d956a3",
+    "src/main/drivers/dshot.c": "2182886e4b757840ed1290826b4ef0c5a0e9a0e52bdaeaee4dfec76ffca5e970",
+    "src/main/drivers/dshot.h": "87a515e31dc89bec53a6a1d7ced537dc44aa1f8d5ce50a2995471d84af72e6be",
+    "src/main/scheduler/scheduler.c": "1e646a0767656b7ea46f2cada90dc360f1efe79a7c351316062f2405e9d1ca2c",
+    "src/main/scheduler/scheduler.h": "5ab4b96e705ba4107315f38b6c405a5a855e67593c93b78b99b62271b6495abc"
+  },
+  "existing_src_main_changes_only": [
+    "src/main/flight/tricopter_simulation.c",
+    "src/main/flight/tricopter_simulation.h"
+  ],
+  "dynamic_references_in_src_main": [
+    "src/main/flight/tricopter_dynamic_allocator.h",
+    "src/main/flight/tricopter_dynamic_allocator.c",
+    "src/main/flight/tricopter_simulation.h",
+    "src/main/flight/tricopter_simulation.c"
+  ],
+  "no_active_build_integration": true,
+  "hardware_executed": false,
+  "calibrated": false,
+  "for_flight": false,
+  "review": "Independent read-only code, numerical oracle, trace-metric and artifact-provenance review passed; documentation matrix order and invalid-configuration wording corrected."
+}

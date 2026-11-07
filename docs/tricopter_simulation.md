@@ -2,6 +2,8 @@
 
 This experiment connects the existing C servo predictor, RPM observer, reaction-torque model and virtual-tail allocator in a time-stepped synthetic actuator/response loop. It uses configurable effectiveness maps, with no CAD, CG or body-inertia requirement in the coordinator. All airframes, actuator mappings, limits and coefficients are explicit synthetic placeholders. No aircraft parameters are identified and no flight-control outputs are changed.
 
+The subsequent [opt-in dynamic allocator](tricopter_dynamic_allocator.md) uses predicted servo/motor state and explicit collective/roll/pitch group priority over yaw. The original simulation modes and evidence below remain preserved.
+
 ## Controller and plant boundary
 
 The coordinator receives requested collective/roll/pitch/yaw response proxies and timestamped mechanical-RPM observations. Reset is its only corrected-position measurement input. Its servo predictor subsequently advances from commands alone. It has no access to plant direction, position, motor acceleration, future packets or plant parameters.

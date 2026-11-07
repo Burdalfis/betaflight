@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "source": "SYNTHETIC_PLACEHOLDER",
+  "calibrated": false,
+  "for_flight": false,
+  "base_protocol": "tools/tricopter/simulation_protocol.json",
+  "base_protocol_sha256": "be686a7d4a5c27e88a17364733c2925697440364859febea777d2b918674b122",
+  "scope": "Opt-in finite-horizon sampled-PWM allocation using explicit motor reachability; no PID, body dynamics, CAD/CG/inertia requirement or hardware integration",
+  "dynamic": {
+    "horizon_us": 40000,
+    "max_rpm_age_us": 10000,
+    "motor_tau_increasing_s": [0.05, 0.045, 0.055],
+    "motor_tau_decreasing_s": [0.07, 0.065, 0.075],
+    "motor_slew_increasing_rpm_s": [40000, 45000, 38000],
+    "motor_slew_decreasing_rpm_s": [50000, 55000, 48000],
+    "pwm_grid_us": [1212, 1240.640625, 1269.28125, 1297.921875, 1326.5625, 1355.203125, 1383.84375, 1412.484375, 1441.125, 1469.765625, 1498.40625, 1527.046875, 1555.6875, 1584.328125, 1612.96875, 1641.609375, 1670.25],
+    "max_high_matrix_condition": 1000000,
+    "high_cost_tolerance": 1e-8,
+    "yaw_cost_tolerance": 1e-8,
+    "movement_cost_tolerance": 1e-8
+  },
+  "priority_contract": "Among accepted sampled PWM candidates, minimize published high3 normalized squared residual first; then yaw among candidates within the global high minimum plus tolerance; then movement within both global tolerance bands. This is not a continuous-PWM optimum or a yaw optimum over the entire primary-tolerance motor-effort sublevel set.",
+  "high_group_axes": [0, 1, 2],
+  "yaw_axis": 3,
+  "dt_us": 1000,
+  "duration_us": 5000000,
+  "request_segments": [
+    {"start_us": 0, "end_us": 300000, "start": [0, 0, 0, 0], "end": [0, 0, 0, 0]},
+    {"start_us": 300000, "end_us": 800000, "start": [0.7, 0, 0, 0], "end": [1.15, 0, 0, 0]},
+    {"start_us": 800000, "end_us": 1300000, "start": [1.15, 0, 0, 0], "end": [1.15, 0, 0, 0]},
+    {"start_us": 1300000, "end_us": 2100000, "start": [1.15, 0, 0, 0.18], "end": [1.15, 0, 0, 0.18]},
+    {"start_us": 2100000, "end_us": 2900000, "start": [1.15, 0, 0, -0.18], "end": [1.15, 0, 0, -0.18]},
+    {"start_us": 2900000, "end_us": 3500000, "start": [3, 0.8, -0.6, 1.2], "end": [3, 0.8, -0.6, 1.2]},
+    {"start_us": 3500000, "end_us": 4100000, "start": [1.15, 0, 0, 0.15], "end": [1.15, 0, 0, 0.15]},
+    {"start_us": 4100000, "end_us": 4700000, "start": [0.4, 0, 0, -0.1], "end": [0.4, 0, 0, -0.1]},
+    {"start_us": 4700000, "end_us": 5000000, "start": [0, 0, 0, 0], "end": [0, 0, 0, 0]}
+  ],
+  "transition_windows": [
+    {"name": "yaw_positive_transition", "start_us": 1300000, "end_us": 1700000, "plot_transition": true, "high_group_request_unchanged": true},
+    {"name": "yaw_reverse_transition", "start_us": 2100000, "end_us": 2500000, "plot_transition": true, "high_group_request_unchanged": true},
+    {"name": "high_demand", "start_us": 2900000, "end_us": 3500000, "plot_transition": false, "high_group_request_unchanged": false}
+  ],
+  "experiments": [
+    {"name": "soft_weighted", "mode": 1},
+    {"name": "vertical_heuristic", "mode": 3},
+    {"name": "dynamic_priority", "mode": 5}
+  ],
+  "scenarios": [
+    {"name": "ideal_zero_reaction", "zero_reaction": true, "telemetry_period_us": 1000, "telemetry_delay_us": 0, "telemetry_phase_us": [0, 0, 0], "observer_tracking_tau_s": 1e-6, "dropouts": [], "outliers": []},
+    {"name": "matched", "dropouts": [], "outliers": []},
+    {"name": "telemetry_faults", "dropouts": [{"start_us": 1500000, "end_us": 1800000, "motors": [0]}, {"start_us": 3000000, "end_us": 3300000, "motors": [0, 1, 2]}], "outliers": [{"start_us": 3750000, "end_us": 3780000, "motors": [1]}]},
+    {"name": "model_mismatch", "plant_matrix_row_factors": [1.08, 0.9, 1.12, 0.85], "plant_reaction_kq_factor": 1.25, "plant_reaction_inertia_factor": 1.1, "plant_motor_tau_factor": 1.35, "plant_servo_tau_factor": 1.8, "plant_servo_delay_us": 15000, "dropouts": [], "outliers": []}
+  ],
+  "audit_policy": {
+    "times_us": [100000, 1300000, 1340000, 1520000, 1808000, 2100000, 2140000, 2900000, 2940000, 3200000],
+    "matlab_export": {"airframe": "synthetic_A", "scenario": "ideal_zero_reaction", "times_us": [1300000, 1340000, 2100000, 2900000, 2940000]},
+    "independent_primary_objective_tolerance": 1e-6,
+    "independent_primary_gap_tolerance": 1e-5,
+    "description": "Frozen audit times before evaluation: independently enumerate all 27 faces for every accepted candidate at these rows. Full-time traces retain summary only; candidate arrays are not archived per tick."
+  },
+  "metrics_policy": "Score all actual rows and separately the declared transition windows. Dynamic priority is a predicted horizon guarantee over accepted samples; actual transient performance under delay/mismatch/faults is measured without presuming improvement. Missing state/authority yields explicit static fallback, never fabricated zero RPM.",
+  "provenance": "All maps, coefficients, predictor/motor dynamics and corrected-count mappings are synthetic placeholders inherited from a pinned base protocol. The original e7608a372 evidence remains reproducible from that commit; opt-in callback use is separately versioned. No real-aircraft fit or mechanical-angle calibration."
+}

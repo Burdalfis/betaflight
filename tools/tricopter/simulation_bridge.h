@@ -5,6 +5,8 @@
 #pragma once
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
+#include "flight/tricopter_simulation.h"
 
 #define SIMULATION_CONTROLLER_PARAMETERS 75U
 #define SIMULATION_PLANT_PARAMETERS 74U
@@ -80,3 +82,22 @@ int tricopterSimulationReplay(const double *controller, const double *plant, siz
     const uint64_t *timeUs, const float *requestedResponse, const uint8_t *modes,
     const uint8_t *dropGeneration, const uint8_t *outlierGeneration,
     double *numeric, uint32_t *integer, uint8_t *flags);
+
+/* Optional per-run coordinator policy. The original entrypoint supplies NULL
+ * and retains its original behavior/layout. Hooks receive no plant truth;
+ * record sees controller output only. Context is owned by the caller, without
+ * global state. This tools-only API shares one synthetic plant implementation.
+ */
+typedef struct simulationReplayPolicy_s {
+    void *context;
+    bool (*reset)(void *context, const tricopterSimulationParams_t *params,
+        const tricopterSimulationInitialState_t *initial);
+    tricopterSimulationOutput_t (*tick)(void *context, uint64_t nowUs,
+        const tricopterSimulationInput_t *input);
+    void (*record)(void *context, size_t row, const tricopterSimulationOutput_t *output);
+} simulationReplayPolicy_t;
+
+int tricopterSimulationReplayWithPolicy(const double *controller, const double *plant, size_t count,
+    const uint64_t *timeUs, const float *requestedResponse, const uint8_t *modes,
+    const uint8_t *dropGeneration, const uint8_t *outlierGeneration,
+    double *numeric, uint32_t *integer, uint8_t *flags, const simulationReplayPolicy_t *policy);

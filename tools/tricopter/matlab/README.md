@@ -18,4 +18,18 @@ When requested, it also builds and runs a self-contained `tricopter_offline_sign
 
 The replay vector's first four channels are requested collective/roll/pitch/yaw proxies; the next four are actual surrogate responses in the same order. The MAT file retains all native numeric/status/flag columns; their labels are in the fixture and `simulation_bridge.h`.
 
+## Independent dynamic-allocation audit
+
+The dynamic allocator has a separate opt-in C/Python entry point. Its compact `candidate-audit.json` can be checked with MATLAB's Optimization Toolbox:
+
+```matlab
+validate_tricopter_dynamic_allocator( ...
+    fullfile(root,'.local-artifacts','tricopter','dynamic-replay','candidate-audit.json'), ...
+    fullfile(root,'.local-artifacts','tricopter','dynamic-matlab-audit'));
+```
+
+This uses [MathWorks `lsqlin`](https://www.mathworks.com/help/optim/ug/lsqlin.html) as an independent bounded least-squares solver for the protected collective/roll/pitch problem. It also forwards published RPM commands through an independent motor equation and checks the global primary/yaw/movement selection bands. Exported servo-horizon directions are inputs to this algebra audit; it does not independently validate the servo or airframe physics. Source/protocol hashes and explicit numerical differences are saved in the report.
+
+The original MEX runner retains its original flat ABI and modes. Its regenerated fixture and Simulink replay check compatibility; they are separate from the new dynamic-candidate audit.
+
 MEX transport uses [MathWorks' C gateway API](https://www.mathworks.com/help/matlab/matlab_external/gateway-routine.html); signal playback follows the [From Workspace data contract](https://www.mathworks.com/help/simulink/ug/load-data-using-the-from-workspace-block.html). Generated binaries and caches belong in `.local-artifacts`, not the source tree. The current validation boundary and limits are in [the simulation documentation](../../../docs/tricopter_simulation.md).

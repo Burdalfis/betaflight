@@ -10,7 +10,7 @@ from allocator_native import virtual_parameters
 from rpm_data import ROOT, sha
 
 PROTOCOL = Path(__file__).with_name('simulation_protocol.json')
-CORE_NAMES = ('tricopter_simulation', 'tricopter_servo_model', 'tricopter_rpm_observer', 'tricopter_reaction_torque', 'tricopter_allocator')
+CORE_NAMES = ('tricopter_simulation', 'tricopter_servo_model', 'tricopter_rpm_observer', 'tricopter_reaction_torque', 'tricopter_allocator', 'tricopter_dynamic_allocator')
 SOURCES = [ROOT/'src/main/flight'/(name+suffix) for name in CORE_NAMES for suffix in ('.c', '.h')]
 SOURCES += [Path(__file__).with_name('simulation_bridge.c'), Path(__file__).with_name('simulation_bridge.h')]
 COUNTS = (75, 74, 85, 27, 47)

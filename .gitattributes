@@ -49,3 +49,5 @@ docs/validation/tricopter-allocator-2026-11-07/**/*.csv -text -whitespace
 docs/validation/tricopter-allocator-2026-11-07/capture/*.log -text -whitespace
 docs/validation/tricopter-simulation-2026-11-07/**/*.csv -text -whitespace
 docs/validation/tricopter-simulation-2026-11-07/capture/*.log -text -whitespace
+docs/validation/tricopter-dynamic-2026-11-07/**/*.csv -text -whitespace
+docs/validation/tricopter-dynamic-2026-11-07/capture/*.log -text -whitespace

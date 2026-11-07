@@ -24,6 +24,17 @@ static double clamp(double value, double minimum, double maximum)
     return value < minimum ? minimum : (value > maximum ? maximum : value);
 }
 
+static tricopterDynamicAllocatorModel_t dynamicModel(const tricopterSimulationParams_t *p)
+{
+    tricopterDynamicAllocatorModel_t model = {
+        .allocator = p->allocator,
+        .correctedCountsAtDirectionMin = p->correctedCountsAtDirectionMin,
+        .correctedCountsAtDirectionMax = p->correctedCountsAtDirectionMax,
+    };
+    memcpy(model.effortPerOmegaSquared,p->effortPerOmegaSquared,sizeof(model.effortPerOmegaSquared));
+    return model;
+}
+
 bool tricopterSimulationValidateParams(const tricopterSimulationParams_t *p)
 {
     if (!p || !p->effectivenessExcludesReaction
@@ -50,6 +61,10 @@ bool tricopterSimulationValidateParams(const tricopterSimulationParams_t *p)
             || !finiteFloat(p->effortPerOmegaSquared[i]) || p->effortPerOmegaSquared[i] < 1e-12f || p->effortPerOmegaSquared[i] > 1e3f) return false;
         const double maxRpm = sqrt((double)p->allocator.maxEffort[i] / p->effortPerOmegaSquared[i]) * (30.0 / 3.14159265358979323846);
         if (maxRpm > p->rpm[i].maxRpm || maxRpm > p->reaction.maxMechanicalRpm) return false;
+    }
+    if (p->dynamicConfigured) {
+        const tricopterDynamicAllocatorModel_t model = dynamicModel(p);
+        if (!tricopterDynamicAllocatorValidateParams(&model,&p->dynamic,&p->servo)) return false;
     }
     return true;
 }
@@ -207,7 +222,8 @@ tricopterSimulationOutput_t tricopterSimulationTick(tricopterSimulationState_t *
     if (!state || !state->initialized) return fail(state, TRICOPTER_SIMULATION_NOT_INITIALIZED);
     if (state->latchedStatus) return fail(state, state->latchedStatus);
     const tricopterSimulationParams_t *p = &state->params;
-    if (!input || (input->modes & ~(TRICOPTER_SIMULATION_REACTION_COMPENSATION | TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION))) return fail(state, TRICOPTER_SIMULATION_INVALID_INPUT);
+    if (!input || (input->modes & ~(TRICOPTER_SIMULATION_REACTION_COMPENSATION | TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION | TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION))
+        || ((input->modes & TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION) && (input->modes & TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION))) return fail(state, TRICOPTER_SIMULATION_INVALID_INPUT);
     for (unsigned i = 0; i < 4; ++i) {
         if (!finiteFloat(input->requestedResponse[i]) || fabsf(input->requestedResponse[i]) > 1e8f) return fail(state, TRICOPTER_SIMULATION_INVALID_INPUT);
     }
@@ -247,6 +263,22 @@ tricopterSimulationOutput_t tricopterSimulationTick(tricopterSimulationState_t *
     out.targetDirectionRad = out.nominalAllocation.tailDirectionRad;
     out.pwmCommandUs = pwmFromDirection(p, out.targetDirectionRad);
     memcpy(out.commandedEffort, out.nominalAllocation.effort, sizeof(out.commandedEffort));
+    if (input->modes & TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION) {
+        if (p->dynamicConfigured) {
+            const tricopterDynamicAllocatorModel_t model = dynamicModel(p);
+            tricopterDynamicAllocatorInput_t request = { .nowUs = nowUs, .currentPwmUs = state->previousPwmUs, .nominalPwmUs = out.pwmCommandUs };
+            memcpy(request.requestedResponse,out.netRequestedResponse,sizeof(request.requestedResponse));
+            for (unsigned i = 0; i < 3; ++i) request.motors[i] = (tricopterDynamicAllocatorMotorState_t) {
+                .mechanicalRpm = out.rpm[i].mechanicalRpm, .ageUs = out.rpm[i].ageUs,
+                .seen = out.rpm[i].seen, .fresh = out.rpm[i].fresh, .valid = out.rpm[i].valid,
+            };
+            out.dynamicAllocation = tricopterDynamicAllocatorAllocate(&model,&p->dynamic,&state->servo,&request);
+        } else out.dynamicAllocation.status = TRICOPTER_DYNAMIC_ALLOCATOR_INVALID_CONFIG;
+        if (out.dynamicAllocation.valid && out.dynamicAllocation.priorityAvailable) {
+            out.dynamicAllocationUsed = true;
+            out.pwmCommandUs = out.dynamicAllocation.selected.pwmUs;
+        } else out.status |= TRICOPTER_SIMULATION_DYNAMIC_UNAVAILABLE;
+    }
     if ((input->modes & TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION) && out.servoPredictionAvailable) {
         const double cosine = cos(out.predictedDirectionRad);
         if (cosine < p->minTailSupportCosine) {
@@ -259,9 +291,13 @@ tricopterSimulationOutput_t tricopterSimulationTick(tricopterSimulationState_t *
         }
     }
     for (unsigned i = 0; i < 3; ++i) {
-        const double omega = sqrt((double)out.commandedEffort[i] / p->effortPerOmegaSquared[i]);
+        const double omega = out.dynamicAllocationUsed ? out.dynamicAllocation.selected.commandMechanicalRpm[i] * (3.14159265358979323846 / 30.0)
+            : sqrt((double)out.commandedEffort[i] / p->effortPerOmegaSquared[i]);
         out.commandedOmegaRadS[i] = (float)omega;
-        out.commandedMechanicalRpm[i] = (float)(omega * (30.0 / 3.14159265358979323846));
+        if (out.dynamicAllocationUsed) {
+            out.commandedMechanicalRpm[i] = out.dynamicAllocation.selected.commandMechanicalRpm[i];
+            out.commandedEffort[i] = (float)(p->effortPerOmegaSquared[i] * omega * omega);
+        } else out.commandedMechanicalRpm[i] = (float)(omega * (30.0 / 3.14159265358979323846));
     }
     // Queue the new command at now, after the captured prediction. It affects
     // the following interval, never observations/prediction already captured.

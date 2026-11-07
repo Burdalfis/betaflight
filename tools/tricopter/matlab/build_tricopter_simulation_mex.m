@@ -7,6 +7,7 @@ relativeSources = {
     'tools/tricopter/matlab/tricopter_simulation_mex.c'
     'tools/tricopter/simulation_bridge.c'
     'src/main/flight/tricopter_simulation.c'
+    'src/main/flight/tricopter_dynamic_allocator.c'
     'src/main/flight/tricopter_servo_model.c'
     'src/main/flight/tricopter_rpm_observer.c'
     'src/main/flight/tricopter_reaction_torque.c'
@@ -14,6 +15,7 @@ relativeSources = {
 relativeHeaders = {
     'tools/tricopter/simulation_bridge.h'
     'src/main/flight/tricopter_simulation.h'
+    'src/main/flight/tricopter_dynamic_allocator.h'
     'src/main/flight/tricopter_servo_model.h'
     'src/main/flight/tricopter_rpm_observer.h'
     'src/main/flight/tricopter_reaction_torque.h'

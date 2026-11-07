@@ -14,6 +14,7 @@ make -j"${TRICOPTER_TEST_JOBS:-4}" "${compiler_args[@]}" \
     test_tricopter_reaction_torque_unittest \
     test_tricopter_allocator_unittest \
     test_tricopter_simulation_unittest \
+    test_tricopter_dynamic_allocator_unittest \
     test_adc_pair_snapshot_unittest \
     test_motor_output_unittest test_blackbox_unittest \
     test_blackbox_encoding_unittest test_pid_unittest

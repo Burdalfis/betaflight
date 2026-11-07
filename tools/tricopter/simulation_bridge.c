@@ -86,21 +86,24 @@ static void motorAdvance(double *rpm, double target, double dt, double tauInc, d
     *acceleration = sign*speed;
 }
 
-int tricopterSimulationReplay(const double *controller, const double *plant, size_t count,
+int tricopterSimulationReplayWithPolicy(const double *controller, const double *plant, size_t count,
     const uint64_t *timeUs, const float *requestedResponse, const uint8_t *modes,
     const uint8_t *dropGeneration, const uint8_t *outlierGeneration,
-    double *numeric, uint32_t *integer, uint8_t *flags)
+    double *numeric, uint32_t *integer, uint8_t *flags, const simulationReplayPolicy_t *policy)
 {
     if (!controller || !plant || !count || count > SIZE_MAX/SIMULATION_NUMERIC_COLUMNS || !timeUs || !requestedResponse
         || !modes || !dropGeneration || !outlierGeneration || !numeric || !integer || !flags
         || !finiteVector(plant, SIMULATION_PLANT_PARAMETERS) || plant[67] != 1 || plant[57] == plant[58]
         || plant[60] <= 0 || !unsignedValue(plant[61], UINT32_MAX) || plant[61] < 1
         || !unsignedValue(plant[62], UINT32_MAX) || plant[62] > (SIMULATION_PACKET_CAPACITY-2)*plant[61]
-        || plant[70] < -1 || plant[70] > 1 || plant[70] != floor(plant[70])) return 0;
+        || plant[70] < -1 || plant[70] > 1 || plant[70] != floor(plant[70])
+        || (policy && (!policy->context || !policy->reset || !policy->tick))) return 0;
     tricopterSimulationParams_t params; tricopterSimulationInitialState_t initial;
     if (!readController(controller, &params, &initial, timeUs[0])) return 0;
     tricopterSimulationState_t coordinator;
-    if (!tricopterSimulationReset(&coordinator, &params, &initial)) return 0;
+    if (policy) {
+        if (!policy->reset(policy->context, &params, &initial)) return 0;
+    } else if (!tricopterSimulationReset(&coordinator, &params, &initial)) return 0;
     tricopterServoModelParams_t truthServoParams; tricopterServoModelState_t truthServo;
     tricopterReactionTorqueParams_t truthReactionParams;
     if (!readServo(plant+16, &truthServoParams) || !readReaction(plant+44, &truthReactionParams)
@@ -176,9 +179,11 @@ int tricopterSimulationReplay(const double *controller, const double *plant, siz
         tricopterSimulationInput_t input = { .modes = modes[row] };
         for (unsigned axis = 0; axis < 4; ++axis) input.requestedResponse[axis] = requestedResponse[4*row+axis];
         for (unsigned motor = 0; motor < 3; ++motor) input.rpm[motor] = cached[motor];
-        const tricopterSimulationOutput_t out = tricopterSimulationTick(&coordinator, now, &input);
+        const tricopterSimulationOutput_t out = policy ? policy->tick(policy->context, now, &input)
+            : tricopterSimulationTick(&coordinator, now, &input);
         if (!out.valid) return 0;
         if (out.calibrated || out.forFlight || out.nominalAllocation.calibrated || out.reaction.coefficientsCalibrated || out.servo.angleCalibrated) return -1;
+        if (policy && policy->record) policy->record(policy->context, row, &out);
         for (unsigned axis = 0; axis < 4; ++axis) {
             f[SIM_REQUEST+axis] = out.requestedResponse[axis]; f[SIM_ACTUAL_ACTUATOR_RESPONSE+axis] = actual[axis];
             f[SIM_ACTUAL_RESPONSE+axis] = actual[axis]+(axis == 3 ? disturbance : 0);
@@ -226,4 +231,13 @@ int tricopterSimulationReplay(const double *controller, const double *plant, siz
         previousTime = now;
     }
     return 1;
+}
+
+int tricopterSimulationReplay(const double *controller, const double *plant, size_t count,
+    const uint64_t *timeUs, const float *requestedResponse, const uint8_t *modes,
+    const uint8_t *dropGeneration, const uint8_t *outlierGeneration,
+    double *numeric, uint32_t *integer, uint8_t *flags)
+{
+    return tricopterSimulationReplayWithPolicy(controller, plant, count, timeUs, requestedResponse,
+        modes, dropGeneration, outlierGeneration, numeric, integer, flags, NULL);
 }

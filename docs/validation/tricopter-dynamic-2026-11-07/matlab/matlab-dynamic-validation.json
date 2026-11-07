@@ -1,0 +1,847 @@
+{
+  "passed": true,
+  "matlab_version": "26.2.0.3386108 (R2026b)",
+  "snapshots_checked": 5,
+  "candidate_problems_checked": 88,
+  "minimum_lsqlin_exit_flag": 1,
+  "maximum_continuous_effort_difference": 2.0357537433568496E-8,
+  "maximum_continuous_primary_cost_difference": 2.9953781144342884E-7,
+  "maximum_published_forward_cost_difference": 1.4210854715202004E-14,
+  "global_priority_selection_checked": true,
+  "calibrated": false,
+  "for_flight": false,
+  "audit_sha256": "0fcfda12f05a754785fa2c8d4c0e4d9ca12a4f4b41bcab78b2f6e09346e4d959",
+  "protocol_sha256": "d6191c11c5fd5aa103abc17588bcffa901a0f7c6ba11baf01e3f99c43f8bbbda",
+  "validator_sha256": "5988f7b7a25833723445a24643a4972685cc2c729b4a25969d557b5165fabc11",
+  "source_paths": [
+    "src/main/flight/tricopter_simulation.c",
+    "src/main/flight/tricopter_simulation.h",
+    "src/main/flight/tricopter_servo_model.c",
+    "src/main/flight/tricopter_servo_model.h",
+    "src/main/flight/tricopter_rpm_observer.c",
+    "src/main/flight/tricopter_rpm_observer.h",
+    "src/main/flight/tricopter_reaction_torque.c",
+    "src/main/flight/tricopter_reaction_torque.h",
+    "src/main/flight/tricopter_allocator.c",
+    "src/main/flight/tricopter_allocator.h",
+    "src/main/flight/tricopter_dynamic_allocator.c",
+    "src/main/flight/tricopter_dynamic_allocator.h",
+    "tools/tricopter/simulation_bridge.c",
+    "tools/tricopter/simulation_bridge.h",
+    "tools/tricopter/dynamic_bridge.c",
+    "tools/tricopter/dynamic_bridge.h"
+  ],
+  "source_sha256": [
+    "821baba5c4bc360815f59bbb7eca60d52251b85536540666bb3eb5fa5120991d",
+    "1a03ecb3f90548709ade5e40e85e136599a3421d66907319cbde1067c728d24d",
+    "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a",
+    "de34c7a80b5875b62131c32146323679fdae4847986682599b7a81ee9e694ae8",
+    "01d3d73d59ea965a8c81b3683998a1501bcec2dcb6a36ec2f3b09cddd38a57e1",
+    "e35e6ee8f8dd9a0b25316714771004e6ee8ced2072e5a4008b2a9f2ac46bd6f6",
+    "fea68affeb5369af2ea6f8a49e21acb0a4fe47d19f1874cd561254c2f2c33989",
+    "fe18c8dcfb512db08964c6ee43b02ef9c5a6518325bb9e6526525475050a867b",
+    "db346c77a8a49c3e659821d102f4c5c66d1580df8aaa17a335ed51703de2f958"
+  ],
+  "candidates": [
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 0,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 7.3709190831588291E-30,
+      "continuous_cost_difference": 4.6399002719289624E-15,
+      "maximum_effort_difference": 1.430928753265448E-8,
+      "published_forward_cost_difference": 2.7755575615628914E-17
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 1,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.2154754622747818E-30,
+      "continuous_cost_difference": 1.8094232326978998E-16,
+      "maximum_effort_difference": 3.0117220939374079E-9,
+      "published_forward_cost_difference": 1.3877787807814457E-17
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 2,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.1723346315205078E-30,
+      "continuous_cost_difference": 5.1993653499742713E-15,
+      "maximum_effort_difference": 1.2000739291195828E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 3,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.3202460512494475E-30,
+      "continuous_cost_difference": 8.7877784853586642E-17,
+      "maximum_effort_difference": 3.1529689414888651E-9,
+      "published_forward_cost_difference": 6.9388939039072284E-18
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 4,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0286034802780793E-24,
+      "continuous_cost_difference": 3.256186236642877E-16,
+      "maximum_effort_difference": 8.3272864159766868E-9,
+      "published_forward_cost_difference": 3.4694469519536142E-18
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 5,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.4555273394996363E-24,
+      "continuous_cost_difference": 5.7864826021506806E-15,
+      "maximum_effort_difference": 1.4375770351904293E-8,
+      "published_forward_cost_difference": 3.4638706826703217E-23
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 6,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.46258917812979E-24,
+      "continuous_cost_difference": 8.4555566660822244E-15,
+      "maximum_effort_difference": 1.483136136126717E-8,
+      "published_forward_cost_difference": 2.1684043449710089E-19
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 7,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.9301347219760375E-24,
+      "continuous_cost_difference": 6.5568008779274678E-15,
+      "maximum_effort_difference": 1.4092470079773989E-8,
+      "published_forward_cost_difference": 4.3368086899420177E-19
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 8,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.3957428357650137E-24,
+      "continuous_cost_difference": 3.1684126341088925E-15,
+      "maximum_effort_difference": 1.2492785084194935E-8,
+      "published_forward_cost_difference": 1.7347234759768071E-18
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 9,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.1185150070760765E-24,
+      "continuous_cost_difference": 3.65477569785883E-15,
+      "maximum_effort_difference": 1.2106257440969159E-8,
+      "published_forward_cost_difference": 2.1645238045136349E-23
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 10,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.0600565374874074E-24,
+      "continuous_cost_difference": 5.7789927092432173E-15,
+      "maximum_effort_difference": 1.3430123124713589E-8,
+      "published_forward_cost_difference": 4.4408920985006262E-16
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 11,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.1999324228205396E-24,
+      "continuous_cost_difference": 3.3584059302914163E-15,
+      "maximum_effort_difference": 9.6837221574830323E-9,
+      "published_forward_cost_difference": 1.1102230246251565E-16
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 12,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.5317639584477592E-24,
+      "continuous_cost_difference": 3.1454607588442268E-15,
+      "maximum_effort_difference": 1.0115199400306807E-8,
+      "published_forward_cost_difference": 3.3306690738754696E-16
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 13,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.0294402983034857E-24,
+      "continuous_cost_difference": 2.5967644854704104E-15,
+      "maximum_effort_difference": 9.5060275207004E-9,
+      "published_forward_cost_difference": 1.0704446672889936E-23
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 14,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.5950307704993855E-24,
+      "continuous_cost_difference": 9.049861384422232E-16,
+      "maximum_effort_difference": 1.1221634177438489E-8,
+      "published_forward_cost_difference": 1.2490009027033011E-16
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 15,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.009716502587436E-24,
+      "continuous_cost_difference": 4.859385865197867E-16,
+      "maximum_effort_difference": 1.2387506020949957E-8,
+      "published_forward_cost_difference": 1.1102230246251565E-16
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 16,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.0623267518552491E-24,
+      "continuous_cost_difference": 3.164799463314292E-15,
+      "maximum_effort_difference": 1.0737626732204575E-8,
+      "published_forward_cost_difference": 0
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 17,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.2675968447589094E-24,
+      "continuous_cost_difference": 6.3183484303925815E-15,
+      "maximum_effort_difference": 1.2298727258830411E-8,
+      "published_forward_cost_difference": 1.5759803408291803E-23
+    },
+    {
+      "snapshot": 1,
+      "candidate_index_zero_based": 18,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.9643426890548151E-24,
+      "continuous_cost_difference": 2.2790651910367315E-15,
+      "maximum_effort_difference": 7.8225055877290117E-9,
+      "published_forward_cost_difference": 1.9428902930940239E-16
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 0,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.889446169063678E-24,
+      "continuous_cost_difference": 6.8116127079413521E-15,
+      "maximum_effort_difference": 1.4337818321497053E-8,
+      "published_forward_cost_difference": 2.8203164179122551E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 1,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.889446169063678E-24,
+      "continuous_cost_difference": 6.8116127079413521E-15,
+      "maximum_effort_difference": 1.4337818321497053E-8,
+      "published_forward_cost_difference": 2.8203164179122551E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 2,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.889446169063678E-24,
+      "continuous_cost_difference": 6.8116127079413521E-15,
+      "maximum_effort_difference": 1.4337818321497053E-8,
+      "published_forward_cost_difference": 2.8203164179122551E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 3,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.8738757311240388E-24,
+      "continuous_cost_difference": 2.1484967078764179E-15,
+      "maximum_effort_difference": 1.4171484874481166E-8,
+      "published_forward_cost_difference": 3.0726689588587948E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 4,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.7931354230442156E-24,
+      "continuous_cost_difference": 4.0689277853185421E-15,
+      "maximum_effort_difference": 1.1106510711123008E-8,
+      "published_forward_cost_difference": 8.6335764744871844E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 5,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.6862491091217473E-24,
+      "continuous_cost_difference": 1.6310507558090767E-15,
+      "maximum_effort_difference": 1.3395538900340398E-8,
+      "published_forward_cost_difference": 1.466842361503417E-22
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 6,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.5938842638391279E-24,
+      "continuous_cost_difference": 6.7894820198313434E-16,
+      "maximum_effort_difference": 1.3443828328352225E-8,
+      "published_forward_cost_difference": 2.2204460492503131E-16
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 7,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.5448129493627252E-24,
+      "continuous_cost_difference": 1.0277042503061184E-15,
+      "maximum_effort_difference": 1.4790529967445565E-8,
+      "published_forward_cost_difference": 3.39594561721104E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 8,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.5757546933302177E-24,
+      "continuous_cost_difference": 9.28353531244727E-16,
+      "maximum_effort_difference": 1.4662138669851998E-8,
+      "published_forward_cost_difference": 2.2204460492503131E-16
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 9,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.7209445922399515E-24,
+      "continuous_cost_difference": 6.2871069790827073E-15,
+      "maximum_effort_difference": 1.431729779177715E-8,
+      "published_forward_cost_difference": 7.5203865310233172E-24
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 10,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.0190556645018684E-24,
+      "continuous_cost_difference": 6.4970552684973406E-15,
+      "maximum_effort_difference": 1.3633097817322692E-8,
+      "published_forward_cost_difference": 4.1246100850334017E-23
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 11,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.5544803668530528E-24,
+      "continuous_cost_difference": 2.4889035552981319E-15,
+      "maximum_effort_difference": 1.0719046872331717E-8,
+      "published_forward_cost_difference": 3.4694469519536142E-18
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 12,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.619126224863546E-24,
+      "continuous_cost_difference": 7.2831961107008049E-16,
+      "maximum_effort_difference": 1.4135944748083773E-8,
+      "published_forward_cost_difference": 8.6736173798840355E-19
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 13,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.9379603547359839E-24,
+      "continuous_cost_difference": 7.25734972824845E-15,
+      "maximum_effort_difference": 1.4810432436007659E-8,
+      "published_forward_cost_difference": 2.405573570202213E-19
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 14,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.3880387852918782E-30,
+      "continuous_cost_difference": 3.8026226292777787E-15,
+      "maximum_effort_difference": 1.2463314380539714E-8,
+      "published_forward_cost_difference": 7.45931094670027E-17
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 15,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.7685453694286488E-30,
+      "continuous_cost_difference": 5.1786415285710043E-15,
+      "maximum_effort_difference": 1.3501998130660553E-8,
+      "published_forward_cost_difference": 9.71445146547012E-17
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 16,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.050171080075472E-29,
+      "continuous_cost_difference": 1.0202383508559396E-15,
+      "maximum_effort_difference": 7.56832713166844E-9,
+      "published_forward_cost_difference": 6.9388939039072284E-18
+    },
+    {
+      "snapshot": 2,
+      "candidate_index_zero_based": 17,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.5776651460895556E-24,
+      "continuous_cost_difference": 2.9978497531923608E-15,
+      "maximum_effort_difference": 1.3052580183359197E-8,
+      "published_forward_cost_difference": 3.4477629085039041E-17
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 0,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.354996973340485E-24,
+      "continuous_cost_difference": 2.3198990811149723E-15,
+      "maximum_effort_difference": 1.0596277577601398E-8,
+      "published_forward_cost_difference": 1.1888527956588896E-22
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 1,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.354996973340485E-24,
+      "continuous_cost_difference": 2.3198990811149723E-15,
+      "maximum_effort_difference": 1.0596277577601398E-8,
+      "published_forward_cost_difference": 1.1888527956588896E-22
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 2,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.354996973340485E-24,
+      "continuous_cost_difference": 2.3198990811149723E-15,
+      "maximum_effort_difference": 1.0596277577601398E-8,
+      "published_forward_cost_difference": 1.1888527956588896E-22
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 3,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.354996973340485E-24,
+      "continuous_cost_difference": 2.3198990811149723E-15,
+      "maximum_effort_difference": 1.0596277577601398E-8,
+      "published_forward_cost_difference": 1.1888527956588896E-22
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 4,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.3545840971012392E-24,
+      "continuous_cost_difference": 2.2069546767952191E-15,
+      "maximum_effort_difference": 9.6559308881971617E-9,
+      "published_forward_cost_difference": 4.7483043031859862E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 5,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.3528457989557539E-24,
+      "continuous_cost_difference": 3.4789377138960291E-15,
+      "maximum_effort_difference": 1.2696362294839503E-8,
+      "published_forward_cost_difference": 2.5580327098146616E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 6,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.3544553648622684E-24,
+      "continuous_cost_difference": 2.7612163050466838E-16,
+      "maximum_effort_difference": 8.7827080053060058E-9,
+      "published_forward_cost_difference": 0
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 7,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.3786841675342904E-24,
+      "continuous_cost_difference": 9.646222789031298E-16,
+      "maximum_effort_difference": 1.108541602956592E-8,
+      "published_forward_cost_difference": 1.2450113617394665E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 8,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.472735917907015E-24,
+      "continuous_cost_difference": 5.1855982083641683E-15,
+      "maximum_effort_difference": 1.1309969683015453E-8,
+      "published_forward_cost_difference": 2.1335767320372467E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 9,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.6958317476641129E-24,
+      "continuous_cost_difference": 4.62041227914458E-15,
+      "maximum_effort_difference": 1.3858028780067144E-8,
+      "published_forward_cost_difference": 1.3877787807814457E-17
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 10,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.1060939483891125E-24,
+      "continuous_cost_difference": 8.8649635508657012E-15,
+      "maximum_effort_difference": 1.4715544560672811E-8,
+      "published_forward_cost_difference": 1.3196861972051359E-24
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 11,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.8305791691862715E-24,
+      "continuous_cost_difference": 3.587911013742111E-15,
+      "maximum_effort_difference": 1.029779927996799E-8,
+      "published_forward_cost_difference": 3.4694469519536142E-18
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 12,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 4.1331727720313377E-24,
+      "continuous_cost_difference": 3.94686481156067E-15,
+      "maximum_effort_difference": 1.1728262583332594E-8,
+      "published_forward_cost_difference": 2.8494724803109521E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 13,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.6270256170183368E-30,
+      "continuous_cost_difference": 2.4546724995798137E-15,
+      "maximum_effort_difference": 1.2131085247446549E-8,
+      "published_forward_cost_difference": 1.3081134105103173E-23
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 14,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 2.6439166276547974E-30,
+      "continuous_cost_difference": 3.7424950522007488E-15,
+      "maximum_effort_difference": 1.1111792708184964E-8,
+      "published_forward_cost_difference": 8.6736173798840355E-19
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 15,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.8733159584033145E-30,
+      "continuous_cost_difference": 3.2741899522287459E-15,
+      "maximum_effort_difference": 1.1982604297688937E-8,
+      "published_forward_cost_difference": 7.1054273576010019E-15
+    },
+    {
+      "snapshot": 3,
+      "candidate_index_zero_based": 16,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 1.5111616715640007E-29,
+      "continuous_cost_difference": 2.6207319998723725E-15,
+      "maximum_effort_difference": 9.9843421308420943E-9,
+      "published_forward_cost_difference": 4.2067427720539852E-25
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 0,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.9284630113077474,
+      "continuous_cost_difference": 2.9494623277059873E-7,
+      "maximum_effort_difference": 2.0357537211523891E-8,
+      "published_forward_cost_difference": 1.7763568394002505E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 1,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.9415030496123187,
+      "continuous_cost_difference": 2.9554675418097531E-7,
+      "maximum_effort_difference": 2.0357537211523891E-8,
+      "published_forward_cost_difference": 1.7763568394002505E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 2,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.95852559776689,
+      "continuous_cost_difference": 2.9632287645853239E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 1.7763568394002505E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 3,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.9742503614341906,
+      "continuous_cost_difference": 2.9703127690794418E-7,
+      "maximum_effort_difference": 2.0357537211523891E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 4,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 5.9886240277333176,
+      "continuous_cost_difference": 2.9767069786856837E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 1.4210854715202004E-14
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 5,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0014571387605509,
+      "continuous_cost_difference": 2.9823384206650871E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 3.5527136788005009E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 6,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0120003016261254,
+      "continuous_cost_difference": 2.9868973161484291E-7,
+      "maximum_effort_difference": 2.0357537211523891E-8,
+      "published_forward_cost_difference": 1.7763568394002505E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 7,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0202307855044754,
+      "continuous_cost_difference": 2.9904015974580034E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 8,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0266836274911828,
+      "continuous_cost_difference": 2.9931045375519716E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 8.8817841970012523E-16
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 9,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0308238835478116,
+      "continuous_cost_difference": 2.9948114832478723E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 8.8817841970012523E-16
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 10,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 11,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 12,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 13,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 14,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 15,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 4,
+      "candidate_index_zero_based": 16,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 6.0322128130368871,
+      "continuous_cost_difference": 2.9953781144342884E-7,
+      "maximum_effort_difference": 2.0357537433568496E-8,
+      "published_forward_cost_difference": 2.6645352591003757E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 0,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.725438726032622,
+      "continuous_cost_difference": 1.571573258196679E-7,
+      "maximum_effort_difference": 1.5294790767228506E-8,
+      "published_forward_cost_difference": 2.7755575615628914E-17
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 1,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.72731948747102,
+      "continuous_cost_difference": 1.5736963199231013E-7,
+      "maximum_effort_difference": 1.5294790656206203E-8,
+      "published_forward_cost_difference": 4.163336342344337E-17
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 2,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7297899012501858,
+      "continuous_cost_difference": 1.5764543048746305E-7,
+      "maximum_effort_difference": 1.5294790656206203E-8,
+      "published_forward_cost_difference": 4.4408920985006262E-16
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 3,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7320919318192822,
+      "continuous_cost_difference": 1.5789878826666381E-7,
+      "maximum_effort_difference": 1.5294790656206203E-8,
+      "published_forward_cost_difference": 1.7763568394002505E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 4,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7342189461831614,
+      "continuous_cost_difference": 1.58129099148141E-7,
+      "maximum_effort_difference": 1.5294790656206203E-8,
+      "published_forward_cost_difference": 8.8817841970012523E-16
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 5,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7361435630710864,
+      "continuous_cost_difference": 1.58333576916192E-7,
+      "maximum_effort_difference": 1.52947905451839E-8,
+      "published_forward_cost_difference": 4.4408920985006262E-16
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 6,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.737750404797326,
+      "continuous_cost_difference": 1.5850062462519077E-7,
+      "maximum_effort_difference": 1.52947905451839E-8,
+      "published_forward_cost_difference": 2.7755575615628914E-17
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 7,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7390279007864575,
+      "continuous_cost_difference": 1.5863031244123249E-7,
+      "maximum_effort_difference": 1.529479098927311E-8,
+      "published_forward_cost_difference": 8.8817841970012523E-16
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 8,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7400498554872046,
+      "continuous_cost_difference": 1.5873141023803328E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 4.4408920985006262E-16
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 9,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7407187581647316,
+      "continuous_cost_difference": 1.5879595682832814E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 10,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 11,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 12,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 13,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 14,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 15,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    },
+    {
+      "snapshot": 5,
+      "candidate_index_zero_based": 16,
+      "lsqlin_exit_flag": 1,
+      "lsqlin_primary_cost": 3.7409461352816953,
+      "continuous_cost_difference": 1.5881754000801607E-7,
+      "maximum_effort_difference": 1.5294789879050086E-8,
+      "published_forward_cost_difference": 1.3322676295501878E-15
+    }
+  ],
+  "scope": "Independent motor/box/priority algebra audit; exported servo forecasts are inputs, not independently validated physics"
+}

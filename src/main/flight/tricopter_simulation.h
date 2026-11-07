@@ -8,11 +8,14 @@
 #include "tricopter_reaction_torque.h"
 #include "tricopter_rpm_observer.h"
 #include "tricopter_servo_model.h"
+#include "tricopter_dynamic_allocator.h"
 
 typedef enum tricopterSimulationMode_e {
     TRICOPTER_SIMULATION_BASELINE = 0,
     TRICOPTER_SIMULATION_REACTION_COMPENSATION = 1U << 0,
     TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION = 1U << 1,
+    // May combine with reaction compensation, not legacy vertical coordination.
+    TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION = 1U << 2,
 } tricopterSimulationMode_e;
 
 typedef struct tricopterSimulationParams_s {
@@ -32,6 +35,8 @@ typedef struct tricopterSimulationParams_s {
     float maxAbsReactionCompensationResponse;
     float minTailSupportCosine; // Explicit software guard, [0.001,1].
     bool effectivenessExcludesReaction; // Must be explicitly true.
+    bool dynamicConfigured; // False preserves all existing offline modes.
+    tricopterDynamicAllocatorParams_t dynamic;
 } tricopterSimulationParams_t;
 
 typedef struct tricopterSimulationInitialState_s {
@@ -66,6 +71,7 @@ typedef enum tricopterSimulationStatus_e {
     TRICOPTER_SIMULATION_PREDICTED_RESPONSE_UNAVAILABLE = 1U << 13,
     TRICOPTER_SIMULATION_COORDINATED_RESPONSE_UNAVAILABLE = 1U << 14,
     TRICOPTER_SIMULATION_NOT_INITIALIZED = 1U << 15,
+    TRICOPTER_SIMULATION_DYNAMIC_UNAVAILABLE = 1U << 16,
 } tricopterSimulationStatus_e;
 
 typedef struct tricopterSimulationOutput_s {
@@ -76,7 +82,7 @@ typedef struct tricopterSimulationOutput_s {
     tricopterReactionTorqueOutput_t reaction;
     tricopterServoModelOutput_t servo; // Prediction immediately before new PWM.
     float appliedReactionCompensationResponse;
-    float targetDirectionRad;
+    float targetDirectionRad; // Nominal static allocator goal, also in dynamic mode.
     float pwmCommandUs;
     float commandedEffort[3];
     float commandedOmegaRadS[3];
@@ -103,6 +109,8 @@ typedef struct tricopterSimulationOutput_s {
     bool valid; // Bounded feasible commands; not submodel/allocator convergence.
     bool calibrated; // Always false.
     bool forFlight; // Always false.
+    tricopterDynamicAllocatorOutput_t dynamicAllocation;
+    bool dynamicAllocationUsed; // False on explicit static nominal fallback.
 } tricopterSimulationOutput_t;
 
 typedef struct tricopterSimulationState_s {

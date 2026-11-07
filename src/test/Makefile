@@ -67,10 +67,16 @@ tricopter_allocator_unittest_SRC := \
 
 tricopter_simulation_unittest_SRC := \
 		$(USER_DIR)/flight/tricopter_simulation.c \
+		$(USER_DIR)/flight/tricopter_dynamic_allocator.c \
 		$(USER_DIR)/flight/tricopter_servo_model.c \
 		$(USER_DIR)/flight/tricopter_rpm_observer.c \
 		$(USER_DIR)/flight/tricopter_reaction_torque.c \
 		$(USER_DIR)/flight/tricopter_allocator.c
+
+tricopter_dynamic_allocator_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_dynamic_allocator.c \
+		$(USER_DIR)/flight/tricopter_allocator.c \
+		$(USER_DIR)/flight/tricopter_servo_model.c
 
 tricopter_diagnostics_unittest_DEFINES := \
 		USE_ADC= \

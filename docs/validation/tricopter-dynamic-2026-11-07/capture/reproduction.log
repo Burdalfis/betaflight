@@ -1,0 +1,7 @@
+{
+  "output": "/home/alex/betaflight/.local-artifacts/tricopter/dynamic-2026-11-07/reproduced",
+  "runs": 24,
+  "rows": 120024,
+  "audit_rows": 80,
+  "legacy_bit_exact": true
+}

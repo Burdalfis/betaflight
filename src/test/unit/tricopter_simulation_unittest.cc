@@ -281,7 +281,7 @@ TEST(TricopterSimulation, InvalidInputAndClockLatchUntilExplicitReset)
     ASSERT_TRUE(tricopterSimulationReset(&state, &p, &start));
     expectFatal(tricopterSimulationTick(&state, 21001, &in));
     ASSERT_TRUE(tricopterSimulationReset(&state, &p, &start));
-    in.modes = 4; expectFatal(tricopterSimulationTick(&state, 1000, &in));
+    in.modes = 8; expectFatal(tricopterSimulationTick(&state, 1000, &in));
     for (float bad : {std::numeric_limits<float>::quiet_NaN(), std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity()}) {
         ASSERT_TRUE(tricopterSimulationReset(&state, &p, &start)); in = input(1000, 1); in.requestedResponse[3] = bad;
         expectFatal(tricopterSimulationTick(&state, 1000, &in));
@@ -310,4 +310,60 @@ TEST(TricopterSimulation, InvalidMappingAndNumericParametersRejectWithFastMath)
     EXPECT_FALSE(tricopterSimulationValidateParams(&p));
     p = parameters(); p.allocator.tailDirectionMinRad = p.allocator.tailDirectionMaxRad = 0;
     EXPECT_FALSE(tricopterSimulationValidateParams(&p));
+}
+
+static void configureDynamic(tricopterSimulationParams_t &p)
+{
+    p.dynamicConfigured = true; p.dynamic.horizonUs = 100000; p.dynamic.maxRpmAgeUs = 10000;
+    for (unsigned i = 0; i < 3; ++i) p.dynamic.motorTauIncreasingS[i] = p.dynamic.motorTauDecreasingS[i] = .05f;
+    const float grid[5] = {1100,1250,1400,1550,1700}; std::memcpy(p.dynamic.pwmGridUs,grid,sizeof(grid)); p.dynamic.gridCount = 5;
+    p.dynamic.maxHighMatrixCondition = 1e6f;
+    p.dynamic.highCostTolerance = p.dynamic.yawCostTolerance = p.dynamic.movementCostTolerance = 1e-10f;
+}
+
+TEST(TricopterSimulation, DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture)
+{
+    auto p = parameters(); configureDynamic(p); const auto start = initial(); tricopterSimulationState_t state = {};
+    ASSERT_TRUE(tricopterSimulationReset(&state,&p,&start));
+    auto in = input(0,1,3000,TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION); in.requestedResponse[3] = .3f;
+    const auto out = tricopterSimulationTick(&state,0,&in);
+    expectCommands(p,out); ASSERT_TRUE(out.dynamicAllocationUsed); EXPECT_TRUE(out.dynamicAllocation.priorityAvailable);
+    EXPECT_EQ(out.pwmCommandUs,out.dynamicAllocation.selected.pwmUs);
+    for (unsigned i = 0; i < 3; ++i) EXPECT_EQ(out.commandedMechanicalRpm[i],out.dynamicAllocation.selected.commandMechanicalRpm[i]);
+    EXPECT_EQ(state.servo.timeUs,0U); EXPECT_EQ(out.servo.positionCounts,1500);
+    EXPECT_GT(out.dynamicAllocation.selected.horizonDirectionRad,out.predictedDirectionRad);
+}
+
+TEST(TricopterSimulation, DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim)
+{
+    auto p = parameters(); configureDynamic(p); const auto start = initial(); tricopterSimulationState_t a = {};
+    ASSERT_TRUE(tricopterSimulationReset(&a,&p,&start)); auto b = a;
+    auto in = input(0,1,1000); for (auto &sample : in.rpm) sample.seen = false;
+    const auto off = tricopterSimulationTick(&a,0,&in);
+    in.modes = TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION;
+    const auto degraded = tricopterSimulationTick(&b,0,&in);
+    expectCommands(p,degraded); EXPECT_FALSE(degraded.dynamicAllocationUsed); EXPECT_FALSE(degraded.dynamicAllocation.priorityAvailable);
+    EXPECT_NE(degraded.status & TRICOPTER_SIMULATION_DYNAMIC_UNAVAILABLE,0U);
+    EXPECT_EQ(degraded.pwmCommandUs,off.pwmCommandUs);
+    for (unsigned i = 0; i < 3; ++i) EXPECT_EQ(degraded.commandedMechanicalRpm[i],off.commandedMechanicalRpm[i]);
+    in.modes = TRICOPTER_SIMULATION_DYNAMIC_ALLOCATION | TRICOPTER_SIMULATION_TAIL_VERTICAL_COORDINATION;
+    expectFatal(tricopterSimulationTick(&b,1000,&in));
+}
+
+TEST(TricopterSimulation, ConfiguredDynamicModuleDoesNotChangeAnyExistingMode)
+{
+    const auto oldParams = parameters(); auto extended = oldParams; configureDynamic(extended); const auto start = initial();
+    for (uint8_t mode = 0; mode <= 3; ++mode) {
+        tricopterSimulationState_t a = {}, b = {};
+        ASSERT_TRUE(tricopterSimulationReset(&a,&oldParams,&start)); ASSERT_TRUE(tricopterSimulationReset(&b,&extended,&start));
+        for (uint32_t tick = 0; tick <= 20000; tick += 1000) {
+            auto in = input(tick,tick/1000,3000,mode); in.requestedResponse[3] = .2f;
+            const auto old = tricopterSimulationTick(&a,tick,&in), current = tricopterSimulationTick(&b,tick,&in);
+            EXPECT_EQ(old.status,current.status); EXPECT_EQ(old.pwmCommandUs,current.pwmCommandUs);
+            EXPECT_EQ(old.servo.positionCounts,current.servo.positionCounts); EXPECT_EQ(old.appliedReactionCompensationResponse,current.appliedReactionCompensationResponse);
+            for (unsigned i = 0; i < 3; ++i) EXPECT_EQ(old.commandedMechanicalRpm[i],current.commandedMechanicalRpm[i]);
+            for (unsigned i = 0; i < 4; ++i) EXPECT_EQ(old.predictedTotalResponse[i],current.predictedTotalResponse[i]);
+            EXPECT_FALSE(current.dynamicAllocationUsed);
+        }
+    }
 }

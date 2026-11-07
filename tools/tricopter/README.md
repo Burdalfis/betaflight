@@ -83,3 +83,16 @@ python3 tools/tricopter/simulation_replay.py --output .local-artifacts/tricopter
 The frozen protocol exercises multiple synthetic maps, baseline/reaction/virtual-tail-vertical coordination modes, motor/servo mismatch, saturation and telemetry faults. Actual response errors include all rows; prediction errors include their availability coverage. Unavailable reaction remains explicit. Maps exclude the separately added scalar yaw disturbance, which is a declared surrogate independent of virtual direction, not a full tilted-rotor or flight-dynamics model.
 
 The runner exports a source-pinned MATLAB parity fixture. [The MATLAB adapter](matlab/README.md) compiles the same C bridge as MEX and checks numeric/status/quality outputs; its optional Simulink model is discrete signal playback only. All mappings/coefficients remain synthetic, PB0−PC0 remains the sole position source, and no active firmware output/configuration path is connected. See [architecture, results and limits](../../docs/tricopter_simulation.md).
+
+## Dynamic allocation with protected response priorities
+
+`dynamic_native.py` links the actual finite-horizon allocator and opt-in coordinator mode to the shared synthetic plant. The controller forecasts copied servo state and reachable motor effort, minimizes configured collective/roll/pitch group error, then yaw and movement in separate stages. The old simulation ABI and modes retain their behavior.
+
+```sh
+python3 -m unittest discover -s tools/tricopter -p 'test_dynamic_replay.py' -v
+python3 tools/tricopter/dynamic_replay.py --output .local-artifacts/tricopter/dynamic-replay
+```
+
+The pinned protocol compares soft-weighted, vertical-heuristic and dynamic policies across synthetic airframes, faults and mismatch. Whole-wave metrics and predeclared transition windows are separate; pure-map static feasibility is checked per airframe. All actual rows are scored; dynamic use/fallback coverage is explicit. The guarantee concerns predicted horizon response over accepted sampled candidates, not every realized transient or a continuous servo optimum.
+
+Full-time traces retain compact dynamic summaries. Detailed candidate tables are archived only at predeclared audit times, with independent NumPy face/box certificates and an optional [MATLAB `lsqlin` cross-check](matlab/README.md). See [the algorithm, limits and results](../../docs/tricopter_dynamic_allocator.md).

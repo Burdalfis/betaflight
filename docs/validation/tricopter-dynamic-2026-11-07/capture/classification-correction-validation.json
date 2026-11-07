@@ -1,0 +1,110 @@
+{
+  "classification_only": true,
+  "all_24_uncompressed_trace_bytes_identical": true,
+  "all_parameters_and_numeric_metrics_identical": true,
+  "all_compiled_C_source_hashes_identical": true,
+  "old_summary_sha256": "27e660667d1ea1e42937b1f34b8603fe69d6ee7a757c4e98926288a2bd75b6e3",
+  "new_summary_sha256": "c30013abaf6b007157a6974beb6706e7d47f90f065536eeb32f617f7d485920f",
+  "new_protocol_sha256": "d6191c11c5fd5aa103abc17588bcffa901a0f7c6ba11baf01e3f99c43f8bbbda",
+  "new_candidate_audit_sha256": "0fcfda12f05a754785fa2c8d4c0e4d9ca12a4f4b41bcab78b2f6e09346e4d959",
+  "classifications": [
+    {
+      "airframe": "synthetic_A",
+      "window": "yaw_positive_transition",
+      "full4_actuator_feasible": true,
+      "required_direction": 0.35391483834122156,
+      "required_effort": [
+        0.4278296433019805,
+        0.45695012045365263,
+        0.3493812360648346
+      ],
+      "violated": [],
+      "high3_status": "proven_feasible",
+      "collective_upper": 2.5291989302017064
+    },
+    {
+      "airframe": "synthetic_A",
+      "window": "yaw_reverse_transition",
+      "full4_actuator_feasible": false,
+      "required_direction": -0.4069294294265473,
+      "required_effort": [
+        0.45691387076672546,
+        0.4816124721466921,
+        0.3386463414954524
+      ],
+      "violated": [
+        "tail_direction_below_minimum"
+      ],
+      "high3_status": "proven_feasible",
+      "collective_upper": 2.5291989302017064
+    },
+    {
+      "airframe": "synthetic_A",
+      "window": "high_demand",
+      "full4_actuator_feasible": false,
+      "required_direction": 1.0719823437691562,
+      "required_effort": [
+        1.25243381741065,
+        0.9007388851226543,
+        1.6706953019644957
+      ],
+      "violated": [
+        "tail_effort_above_maximum",
+        "front_left_effort_above_maximum",
+        "tail_direction_above_maximum"
+      ],
+      "high3_status": "proven_infeasible",
+      "collective_upper": 2.5291989302017064
+    },
+    {
+      "airframe": "synthetic_B",
+      "window": "yaw_positive_transition",
+      "full4_actuator_feasible": false,
+      "required_direction": 0.5837083330877332,
+      "required_effort": [
+        0.39619109354827575,
+        0.35356021017997946,
+        0.48992240628696576
+      ],
+      "violated": [
+        "tail_direction_above_maximum"
+      ],
+      "high3_status": "proven_feasible",
+      "collective_upper": 2.6259085980008843
+    },
+    {
+      "airframe": "synthetic_B",
+      "window": "yaw_reverse_transition",
+      "full4_actuator_feasible": false,
+      "required_direction": -0.6022368577294724,
+      "required_effort": [
+        0.367785137810428,
+        0.32239971497858705,
+        0.5221656739015887
+      ],
+      "violated": [
+        "tail_direction_below_minimum"
+      ],
+      "high3_status": "proven_feasible",
+      "collective_upper": 2.6259085980008843
+    },
+    {
+      "airframe": "synthetic_B",
+      "window": "high_demand",
+      "full4_actuator_feasible": false,
+      "required_direction": 1.2476989137662289,
+      "required_effort": [
+        1.4557967471870228,
+        0.6549406609672528,
+        1.9396434372849212
+      ],
+      "violated": [
+        "tail_effort_above_maximum",
+        "front_left_effort_above_maximum",
+        "tail_direction_above_maximum"
+      ],
+      "high3_status": "proven_infeasible",
+      "collective_upper": 2.6259085980008843
+    }
+  ]
+}

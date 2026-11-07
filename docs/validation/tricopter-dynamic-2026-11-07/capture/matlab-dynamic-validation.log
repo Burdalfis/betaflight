@@ -1,0 +1,9 @@
+WARNING: package sun.security.action not in java.base
+WARNING: package sun.security.action not in java.base
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::loadLibrary has been called by com.mathworks.jmi.Matlab in an unnamed module (file:/usr/local/MATLAB/R2026b/java/jar/jmi.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+{"passed":true,"matlab_version":"26.2.0.3386108 (R2026b)","snapshots_checked":5,"candidate_problems_checked":88,"minimum_lsqlin_exit_flag":1,"maximum_continuous_effort_difference":2.0357537433568496E-8,"maximum_continuous_primary_cost_difference":2.9953781144342884E-7,"maximum_published_forward_cost_difference":1.4210854715202004E-14,"global_priority_selection_checked":true,"calibrated":false,"for_flight":false,"audit_sha256":"0fcfda12f05a754785fa2c8d4c0e4d9ca12a4f4b41bcab78b2f6e09346e4d959","protocol_sha256":"d6191c11c5fd5aa103abc17588bcffa901a0f7c6ba11baf01e3f99c43f8bbbda","validator_sha256":"5988f7b7a25833723445a24643a4972685cc2c729b4a25969d557b5165fabc11","scope":"Independent motor/box/priority algebra audit; exported servo forecasts are inputs, not independently validated physics"}
+MALFORMED_REFERENCE_REJECTED=1
