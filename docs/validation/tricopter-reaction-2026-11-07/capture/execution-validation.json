@@ -1,0 +1,33 @@
+{
+  "host_tests_passed": 129,
+  "python_native_tests_passed": 28,
+  "new_reaction_c_tests": 18,
+  "new_reaction_python_tests": 9,
+  "synthetic_cases_passed": 6,
+  "stored_fault_checks_passed": 11,
+  "cortex_m4f_compile_only_passed": true,
+  "arm_flags": [
+    "-std=c11",
+    "-O3",
+    "-ffast-math",
+    "-mcpu=cortex-m4",
+    "-mthumb",
+    "-mfpu=fpv4-sp-d16",
+    "-mfloat-abi=hard",
+    "-Wall",
+    "-Wextra",
+    "-Werror"
+  ],
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "host_compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "arm_compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "source_sha256": {
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "src/test/unit/tricopter_reaction_torque_unittest.cc": "812999300fd909ee630fe636fa01278cb0739b639a59551632d710eaa0ef4eb2"
+  },
+  "hardware_accessed": false,
+  "active_flight_integration": false,
+  "coefficients_calibrated": false,
+  "for_flight": false
+}

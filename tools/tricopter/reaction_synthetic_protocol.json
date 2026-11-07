@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "purpose": "Frozen synthetic-only vertical-axis yaw reaction-torque checks, not aircraft identification",
+  "coefficient_source": "SYNTHETIC_PLACEHOLDER",
+  "calibrated": false,
+  "for_flight": false,
+  "logical_motor_order": ["rear", "front_right", "front_left"],
+  "parameters": {
+    "k_q_nm_per_rad_s_squared": [1e-7, 1e-7, 1e-7],
+    "rotor_inertia_kg_m2": [2e-5, 2e-5, 2e-5],
+    "reaction_sign": [-1, 1, -1],
+    "max_mechanical_rpm": 20000,
+    "max_abs_acceleration_rpm_s": 100000,
+    "max_rpm_age_us": 10000,
+    "max_abs_torque_nm": 2
+  },
+  "coefficient_provenance": "Arbitrary illustrative constants chosen for synthetic testing. Neither kQ nor inertia is estimated from this aircraft, its unloaded bench recordings, current, voltage, RPM or servo ADC data.",
+  "sign_convention": "Body z up, positive yaw CCW/nose left. Positive mechanical rotation magnitudes; body reaction signs for logical motors rear/front-right/front-left are [-1,+1,-1], opposite their rotor rotation.",
+  "units": {
+    "mechanical_rpm": "revolutions per minute, nonnegative magnitude",
+    "acceleration_rpm_s": "signed change of RPM magnitude per second",
+    "omega_rad_s": "mechanical_rpm * pi/30",
+    "alpha_rad_s2": "acceleration_rpm_s * pi/30",
+    "aerodynamic_body_torque_nm": "reaction_sign * kQ * omega^2",
+    "inertial_body_torque_nm": "reaction_sign * J * alpha",
+    "total_body_torque_nm": "sum of aerodynamic and inertial terms over logical motors"
+  },
+  "software_guards": "RPM, acceleration, age and torque limits are software-domain guards, not physical parameter or operating-envelope calibration. Each motor must be seen, fresh and valid, with accelerationValid independently true. Observer initialization/reacquisition zeros do not establish known acceleration. Any invalid motor suppresses every torque output; no partial sum.",
+  "cases": [
+    {"name": "steady_equal", "kind": "steady", "rpm": [6000, 6000, 6000], "acceleration_rpm_s": [0, 0, 0], "duration_s": 1, "dt_s": 0.001},
+    {"name": "rear_ramp", "kind": "ramp", "motor": 0, "initial_rpm": 1000, "acceleration_rpm_s": 2000, "duration_s": 2, "dt_s": 0.001},
+    {"name": "front_right_ramp", "kind": "ramp", "motor": 1, "initial_rpm": 1000, "acceleration_rpm_s": 2000, "duration_s": 2, "dt_s": 0.001},
+    {"name": "rear_braking", "kind": "braking", "motor": 0, "initial_rpm": 3000, "stop_time_s": 0.1, "duration_s": 0.2, "dt_s": 0.0001},
+    {"name": "cancellation_snapshot", "kind": "cancellation_snapshot", "rpm_base": 1000, "acceleration_base_rpm_s": 100},
+    {"name": "free_coast", "kind": "free_coast", "motor": 0, "initial_omega_rad_s": 300, "duration_s": 1, "dt_s": 0.001}
+  ],
+  "validation_boundary": "Only the portable C algebra, units, signs and software guards are checked against independent analytic synthetic truth. This is a near-vertical fixed-axis model, without servo angle, rear tilt projection, gyroscopic vector terms, vehicle motion, thrust or control allocation. No hardware or active actuator path."
+}

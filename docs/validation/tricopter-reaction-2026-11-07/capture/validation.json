@@ -1,0 +1,75 @@
+{
+  "variants": {
+    "strict": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_reaction_torque.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/strict.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/strict.o",
+          "obj/test/tricopter_reaction_torque_unittest/tricopter_reaction_torque_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/strict-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/strict-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/strict-tests.xml"
+        ]
+      ],
+      "passed_tests": 18
+    },
+    "fast-math": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_reaction_torque.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math.o",
+          "obj/test/tricopter_reaction_torque_unittest/tricopter_reaction_torque_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests.xml"
+        ]
+      ],
+      "passed_tests": 18
+    }
+  },
+  "source_sha256": {
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "src/test/unit/tricopter_reaction_torque_unittest.cc": "812999300fd909ee630fe636fa01278cb0739b639a59551632d710eaa0ef4eb2"
+  },
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

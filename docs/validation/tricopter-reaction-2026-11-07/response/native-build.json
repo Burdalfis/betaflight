@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "tools/tricopter/reaction_model_bridge.c": "4a8b066e3b2469c7c35a2cc088a531cc0c4bae86f9c613c69fa213be85f9aee8"
+  },
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-fPIC",
+    "-shared",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/home/alex/betaflight/src/main",
+    "/home/alex/betaflight/src/main/flight/tricopter_reaction_torque.c",
+    "/home/alex/betaflight/tools/tricopter/reaction_model_bridge.c",
+    "-lm",
+    "-o",
+    "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/reaction-replay/build/libtricopter_reaction.so"
+  ],
+  "binary_sha256": "b0ab567889ffd5faf06d0e5c5c8c3926c0a6d1e38c83eae40970825721dbb8f2",
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

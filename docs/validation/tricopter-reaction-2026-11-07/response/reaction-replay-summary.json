@@ -1,0 +1,349 @@
+{
+  "protocol_sha256": "b7677a67d283265c4dd5a735a2eb078b81f28a7b1c50f32fc4b7cde969f40f0e",
+  "protocol": {
+    "schema_version": 1,
+    "purpose": "Frozen synthetic-only vertical-axis yaw reaction-torque checks, not aircraft identification",
+    "coefficient_source": "SYNTHETIC_PLACEHOLDER",
+    "calibrated": false,
+    "for_flight": false,
+    "logical_motor_order": [
+      "rear",
+      "front_right",
+      "front_left"
+    ],
+    "parameters": {
+      "k_q_nm_per_rad_s_squared": [
+        1e-07,
+        1e-07,
+        1e-07
+      ],
+      "rotor_inertia_kg_m2": [
+        2e-05,
+        2e-05,
+        2e-05
+      ],
+      "reaction_sign": [
+        -1,
+        1,
+        -1
+      ],
+      "max_mechanical_rpm": 20000,
+      "max_abs_acceleration_rpm_s": 100000,
+      "max_rpm_age_us": 10000,
+      "max_abs_torque_nm": 2
+    },
+    "coefficient_provenance": "Arbitrary illustrative constants chosen for synthetic testing. Neither kQ nor inertia is estimated from this aircraft, its unloaded bench recordings, current, voltage, RPM or servo ADC data.",
+    "sign_convention": "Body z up, positive yaw CCW/nose left. Positive mechanical rotation magnitudes; body reaction signs for logical motors rear/front-right/front-left are [-1,+1,-1], opposite their rotor rotation.",
+    "units": {
+      "mechanical_rpm": "revolutions per minute, nonnegative magnitude",
+      "acceleration_rpm_s": "signed change of RPM magnitude per second",
+      "omega_rad_s": "mechanical_rpm * pi/30",
+      "alpha_rad_s2": "acceleration_rpm_s * pi/30",
+      "aerodynamic_body_torque_nm": "reaction_sign * kQ * omega^2",
+      "inertial_body_torque_nm": "reaction_sign * J * alpha",
+      "total_body_torque_nm": "sum of aerodynamic and inertial terms over logical motors"
+    },
+    "software_guards": "RPM, acceleration, age and torque limits are software-domain guards, not physical parameter or operating-envelope calibration. Each motor must be seen, fresh and valid, with accelerationValid independently true. Observer initialization/reacquisition zeros do not establish known acceleration. Any invalid motor suppresses every torque output; no partial sum.",
+    "cases": [
+      {
+        "name": "steady_equal",
+        "kind": "steady",
+        "rpm": [
+          6000,
+          6000,
+          6000
+        ],
+        "acceleration_rpm_s": [
+          0,
+          0,
+          0
+        ],
+        "duration_s": 1,
+        "dt_s": 0.001
+      },
+      {
+        "name": "rear_ramp",
+        "kind": "ramp",
+        "motor": 0,
+        "initial_rpm": 1000,
+        "acceleration_rpm_s": 2000,
+        "duration_s": 2,
+        "dt_s": 0.001
+      },
+      {
+        "name": "front_right_ramp",
+        "kind": "ramp",
+        "motor": 1,
+        "initial_rpm": 1000,
+        "acceleration_rpm_s": 2000,
+        "duration_s": 2,
+        "dt_s": 0.001
+      },
+      {
+        "name": "rear_braking",
+        "kind": "braking",
+        "motor": 0,
+        "initial_rpm": 3000,
+        "stop_time_s": 0.1,
+        "duration_s": 0.2,
+        "dt_s": 0.0001
+      },
+      {
+        "name": "cancellation_snapshot",
+        "kind": "cancellation_snapshot",
+        "rpm_base": 1000,
+        "acceleration_base_rpm_s": 100
+      },
+      {
+        "name": "free_coast",
+        "kind": "free_coast",
+        "motor": 0,
+        "initial_omega_rad_s": 300,
+        "duration_s": 1,
+        "dt_s": 0.001
+      }
+    ],
+    "validation_boundary": "Only the portable C algebra, units, signs and software guards are checked against independent analytic synthetic truth. This is a near-vertical fixed-axis model, without servo angle, rear tilt projection, gyroscopic vector terms, vehicle motion, thrust or control allocation. No hardware or active actuator path."
+  },
+  "native_build": {
+    "sources": {
+      "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+      "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+      "tools/tricopter/reaction_model_bridge.c": "4a8b066e3b2469c7c35a2cc088a531cc0c4bae86f9c613c69fa213be85f9aee8"
+    },
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/home/alex/betaflight/src/main",
+      "/home/alex/betaflight/src/main/flight/tricopter_reaction_torque.c",
+      "/home/alex/betaflight/tools/tricopter/reaction_model_bridge.c",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/reaction-replay/build/libtricopter_reaction.so"
+    ],
+    "binary_sha256": "b0ab567889ffd5faf06d0e5c5c8c3926c0a6d1e38c83eae40970825721dbb8f2",
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "cases": [
+    {
+      "name": "steady_equal",
+      "kind": "steady",
+      "rows": 1001,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 1.1762510098378698e-05,
+        "alpha_rad_s2": 0.0,
+        "aerodynamic_nm": 1.1840505659277412e-10,
+        "inertial_nm": 0.0,
+        "total_nm": 1.1840505659277412e-10,
+        "summed_nm": 1.1840505659277412e-10
+      },
+      "maximum_absolute_summed_torque_nm": 0.03947841748595238,
+      "all_evaluations_valid": true
+    },
+    {
+      "name": "rear_ramp",
+      "kind": "ramp",
+      "rows": 2001,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 3.0066801627981476e-05,
+        "alpha_rad_s2": 3.920836718407372e-06,
+        "aerodynamic_nm": 1.2372521826509164e-09,
+        "inertial_nm": 2.1871242057019957e-10,
+        "total_nm": 2.0752253526712394e-09,
+        "summed_nm": 2.0752253526712394e-09
+      },
+      "maximum_absolute_summed_torque_nm": 0.031604357063770294,
+      "all_evaluations_valid": true,
+      "inertial_impulse_nm_s": [
+        -0.00837757997214797,
+        0.0,
+        0.0
+      ],
+      "signed_J_delta_omega_nm_s": [
+        -0.008377580409572783,
+        0.0,
+        -0.0
+      ],
+      "maximum_impulse_error_nm_s": 4.3742481338482353e-10
+    },
+    {
+      "name": "front_right_ramp",
+      "kind": "ramp",
+      "rows": 2001,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 3.0066801627981476e-05,
+        "alpha_rad_s2": 3.920836718407372e-06,
+        "aerodynamic_nm": 1.2372521826509164e-09,
+        "inertial_nm": 2.1871242057019957e-10,
+        "total_nm": 2.0752253526712394e-09,
+        "summed_nm": 2.0752253526712394e-09
+      },
+      "maximum_absolute_summed_torque_nm": 0.031604357063770294,
+      "all_evaluations_valid": true,
+      "inertial_impulse_nm_s": [
+        0.0,
+        0.00837757997214797,
+        0.0
+      ],
+      "signed_J_delta_omega_nm_s": [
+        -0.0,
+        0.008377580409572783,
+        -0.0
+      ],
+      "maximum_impulse_error_nm_s": 4.3742481338482353e-10
+    },
+    {
+      "name": "rear_braking",
+      "kind": "braking",
+      "rows": 2001,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 1.5206572470560786e-05,
+        "alpha_rad_s2": 0.00011984770662820665,
+        "aerodynamic_nm": 5.653591813453707e-10,
+        "inertial_nm": 4.212008880566387e-09,
+        "total_nm": 5.1789188076911685e-09,
+        "summed_nm": 5.1789188076911685e-09
+      },
+      "maximum_absolute_summed_torque_nm": 0.06283184140920639,
+      "all_evaluations_valid": true
+    },
+    {
+      "name": "cancellation_snapshot",
+      "kind": "cancellation_snapshot",
+      "rows": 1,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 1.960418359203686e-06,
+        "alpha_rad_s2": 3.70855783415891e-07,
+        "aerodynamic_nm": 1.486423701138606e-10,
+        "inertial_nm": 1.6050475943989173e-11,
+        "total_nm": 2.1990338543165233e-10,
+        "summed_nm": 1.881929187139142e-10
+      },
+      "maximum_absolute_summed_torque_nm": 1.8819291958127593e-10,
+      "all_evaluations_valid": true
+    },
+    {
+      "name": "free_coast",
+      "kind": "free_coast",
+      "rows": 1001,
+      "maximum_absolute_oracle_errors": {
+        "omega_rad_s": 2.7392715708174364e-05,
+        "alpha_rad_s2": 3.475372852790315e-05,
+        "aerodynamic_nm": 1.2211339613099614e-09,
+        "inertial_nm": 9.313225746154785e-10,
+        "total_nm": 1.1642341535278433e-09,
+        "summed_nm": 1.2211339613099614e-09
+      },
+      "maximum_absolute_summed_torque_nm": 1.1642341535278433e-09,
+      "all_evaluations_valid": true,
+      "inertial_impulse_nm_s": [
+        0.0036000020144274446,
+        0.0,
+        0.0
+      ],
+      "signed_J_delta_omega_nm_s": [
+        0.0036000000000000003,
+        0.0,
+        -0.0
+      ],
+      "maximum_impulse_error_nm_s": 2.014427444296807e-09
+    }
+  ],
+  "guard_checks": [
+    {
+      "name": "seen",
+      "status": 8,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "fresh",
+      "status": 16,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "valid",
+      "status": 32,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "acceleration_valid",
+      "status": 64,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "stale_age",
+      "status": 16,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "nan_rpm",
+      "status": 4,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "negative_rpm",
+      "status": 128,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "rpm_bound",
+      "status": 128,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "acceleration_bound",
+      "status": 128,
+      "invalid_motor_mask": 2,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "torque_bound",
+      "status": 256,
+      "invalid_motor_mask": 7,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    },
+    {
+      "name": "unspecified_coefficients",
+      "status": 3,
+      "invalid_motor_mask": 7,
+      "valid": false,
+      "all_numerical_outputs_zero": true
+    }
+  ],
+  "validation_boundary": "Only the portable C algebra, units, signs and software guards are checked against independent analytic synthetic truth. This is a near-vertical fixed-axis model, without servo angle, rear tilt projection, gyroscopic vector terms, vehicle motion, thrust or control allocation. No hardware or active actuator path.",
+  "calibrated": false,
+  "for_flight": false,
+  "script_sha256": {
+    "tools/tricopter/reaction_replay.py": "5f868c364173ba9a4ad540d794d1b6131b917d79f04af89a1f5db36da87bf3e7",
+    "tools/tricopter/reaction_model_bridge.c": "4a8b066e3b2469c7c35a2cc088a531cc0c4bae86f9c613c69fa213be85f9aee8",
+    "tools/tricopter/reaction_synthetic_protocol.json": "b7677a67d283265c4dd5a735a2eb078b81f28a7b1c50f32fc4b7cde969f40f0e",
+    "tools/tricopter/reaction_cases.py": "7dde4b4dedc5b6309184996c4e042f711b7f75d379e3fdccfc94e74b2a2a8d3c",
+    "tools/tricopter/reaction_native.py": "09bafd3c2022c7d61ef9248b18a50a34ec86e7ca4b6d9029ec9904d72091059c",
+    "tools/tricopter/test_reaction_replay.py": "c919f69d2f524c23033991908f65840c1f47d306c76b20efb0bceeb6e3f00bec",
+    "tools/tricopter/rpm_data.py": "5593617520c9085077f17f54c661dc03d5cf434b803b8636f03c9e09d240e476"
+  }
+}

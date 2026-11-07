@@ -1,0 +1,45 @@
+[
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-ffast-math",
+      "-c",
+      "src/main/flight/tricopter_reaction_torque.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math.o",
+      "obj/test/tricopter_reaction_torque_unittest/tricopter_reaction_torque_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-reaction-torque-2026-11-07/fast-math-tests.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 18 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 18 tests from TricopterReactionTorque\n[ RUN      ] TricopterReactionTorque.RequiresExplicitSyntheticProvenanceAndValidSoftwareGuards\n[       OK ] TricopterReactionTorque.RequiresExplicitSyntheticProvenanceAndValidSoftwareGuards (0 ms)\n[ RUN      ] TricopterReactionTorque.RejectsNonfiniteCoefficientsAndBoundsWithFastMath\n[       OK ] TricopterReactionTorque.RejectsNonfiniteCoefficientsAndBoundsWithFastMath (0 ms)\n[ RUN      ] TricopterReactionTorque.KnownStoppedRotorsGiveValidZeroWithoutFlightClaim\n[       OK ] TricopterReactionTorque.KnownStoppedRotorsGiveValidZeroWithoutFlightClaim (0 ms)\n[ RUN      ] TricopterReactionTorque.ConvertsMechanicalRpmWithoutPoleCountMultiplication\n[       OK ] TricopterReactionTorque.ConvertsMechanicalRpmWithoutPoleCountMultiplication (0 ms)\n[ RUN      ] TricopterReactionTorque.EqualSymmetricThreeRotorsDoNotCancel\n[       OK ] TricopterReactionTorque.EqualSymmetricThreeRotorsDoNotCancel (0 ms)\n[ RUN      ] TricopterReactionTorque.EveryLogicalMotorUsesItsExplicitReactionSign\n[       OK ] TricopterReactionTorque.EveryLogicalMotorUsesItsExplicitReactionSign (0 ms)\n[ RUN      ] TricopterReactionTorque.MotorPermutationPreservesSummedTorque\n[       OK ] TricopterReactionTorque.MotorPermutationPreservesSummedTorque (0 ms)\n[ RUN      ] TricopterReactionTorque.IsolatedInertiaChangesSignOnDeceleration\n[       OK ] TricopterReactionTorque.IsolatedInertiaChangesSignOnDeceleration (0 ms)\n[ RUN      ] TricopterReactionTorque.IntegratedInertialImpulseMatchesAngularMomentumChange\n[       OK ] TricopterReactionTorque.IntegratedInertialImpulseMatchesAngularMomentumChange (0 ms)\n[ RUN      ] TricopterReactionTorque.CoastingCancelsMountTorqueAndStrongerBrakingReversesIt\n[       OK ] TricopterReactionTorque.CoastingCancelsMountTorqueAndStrongerBrakingReversesIt (0 ms)\n[ RUN      ] TricopterReactionTorque.AerodynamicQuadraticAndCoefficientLinearScaling\n[       OK ] TricopterReactionTorque.AerodynamicQuadraticAndCoefficientLinearScaling (0 ms)\n[ RUN      ] TricopterReactionTorque.PositiveRotorSqrtTwoSpeedCancelsTwoEqualOpposingRotors\n[       OK ] TricopterReactionTorque.PositiveRotorSqrtTwoSpeedCancelsTwoEqualOpposingRotors (0 ms)\n[ RUN      ] TricopterReactionTorque.AnyUnavailableMotorSuppressesAllTermsWithoutPartialSum\n[       OK ] TricopterReactionTorque.AnyUnavailableMotorSuppressesAllTermsWithoutPartialSum (0 ms)\n[ RUN      ] TricopterReactionTorque.UnknownAccelerationInvalidEvenWithZeroInertia\n[       OK ] TricopterReactionTorque.UnknownAccelerationInvalidEvenWithZeroInertia (0 ms)\n[ RUN      ] TricopterReactionTorque.NumericalInputAndSoftwareRangeGuardsAreFinite\n[       OK ] TricopterReactionTorque.NumericalInputAndSoftwareRangeGuardsAreFinite (0 ms)\n[ RUN      ] TricopterReactionTorque.FreshnessBoundaryIsInclusiveAndSentinelAgeRejected\n[       OK ] TricopterReactionTorque.FreshnessBoundaryIsInclusiveAndSentinelAgeRejected (0 ms)\n[ RUN      ] TricopterReactionTorque.HugeFiniteCoefficientsCannotOverflowOrHideBehindCancellation\n[       OK ] TricopterReactionTorque.HugeFiniteCoefficientsCannotOverflowOrHideBehindCancellation (0 ms)\n[ RUN      ] TricopterReactionTorque.ComponentPerMotorAndGrandSumsEachRespectTorqueGuard\n[       OK ] TricopterReactionTorque.ComponentPerMotorAndGrandSumsEachRespectTorqueGuard (0 ms)\n[----------] 18 tests from TricopterReactionTorque (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 18 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 18 tests.\n",
+    "stderr": ""
+  }
+]

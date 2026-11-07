@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "compared": [
+    "protocol_sha256",
+    "protocol",
+    "cases",
+    "guard_checks",
+    "validation_boundary",
+    "calibrated",
+    "for_flight",
+    "script_sha256",
+    "native_build.sources"
+  ],
+  "independent_replay_of_synthetic_inputs": true,
+  "hardware_accessed": false
+}

@@ -43,3 +43,5 @@ docs/validation/tricopter-rpm-2026-11-06/**/*.csv -text -whitespace
 docs/validation/tricopter-rpm-2026-11-06/capture/*.log -text -whitespace
 docs/validation/tricopter-offline-2026-11-07/**/*.csv -text -whitespace
 docs/validation/tricopter-offline-2026-11-07/capture/*.log -text -whitespace
+docs/validation/tricopter-reaction-2026-11-07/**/*.csv -text -whitespace
+docs/validation/tricopter-reaction-2026-11-07/capture/*.log -text -whitespace

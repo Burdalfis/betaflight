@@ -44,3 +44,16 @@ The RPM command verifies and decodes the two archived motor records, runs all th
 These historical `TRI_SERVO` records preserve per-motor quantized ages but no exact observation sequences or timestamps. The logger's within-loop phase is also unmeasured. Interval overlap supplies only a conservative cache-identity/timestamp proxy; phase allowances are sensitivity assumptions. Equal-valued or zero-RPM observations can be genuinely new, while cached zeros preserve age. Real replay checks compatibility/freshness behavior, and has no acceleration ground truth. The historical raw PB0 field is unused for position. Exact-timing synthetic cases separately validate observer mathematics.
 
 Future live integration requires a coherent RPM/identity/timestamp adapter and explicit tracking support where needed; the current firmware only tracks those metadata in `TRI_SERVO`/`TRI_GROUND`. No code here changes that policy or invokes actuator, scheduler, serial or flash operations. See [full results and limits](../../docs/tricopter_offline_models.md).
+
+## Synthetic reaction-torque model
+
+`reaction_native.py` executes `src/main/flight/tricopter_reaction_torque.[ch]` through the C batch bridge. The protocol in `reaction_synthetic_protocol.json` supplies explicit arbitrary `kQ` and rotor-inertia placeholders, software guards and logical motor signs. It rejects calibrated/flight provenance and preserves the unit convention. No aircraft logs are fitted or converted into measured torque.
+
+```sh
+python3 -m unittest discover -s tools/tricopter -p 'test_reaction_replay.py' -v
+python3 tools/tricopter/reaction_replay.py --output .local-artifacts/tricopter/reaction-replay
+```
+
+The command saves six independent analytic cases, eleven all-output-suppression fault checks, source/compiler/protocol fingerprints, compressed replay data and component plots. Tests cover mechanical RPM conversion, the odd-rotor steady residual, aerodynamic speed-squared scaling, acceleration/deceleration signs, tuple permutations, coast cancellation and inertial angular impulse.
+
+The model is fixed/negligible-body-motion near-vertical shaft reaction, or the simplified yaw RHS when locked-rotor inertia is included consistently. It is not total external aircraft-plus-rotor torque. Every motor needs fresh valid speed and explicitly valid acceleration; initialized observer zeros do not establish acceleration. All numerical outputs are cleared on any failed input/bound, and calibration/flight-use flags always remain false. No active flight-control source or caller is added. See [equations, inertia convention and validation](../../docs/tricopter_reaction_torque.md).

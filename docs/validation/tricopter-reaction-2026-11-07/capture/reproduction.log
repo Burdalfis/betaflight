@@ -1,0 +1,7 @@
+{
+  "output": "/home/alex/betaflight/.local-artifacts/tricopter/reaction-validation-2026-11-07/reproduced",
+  "cases": 6,
+  "guard_checks_passed": 11,
+  "calibrated": false,
+  "for_flight": false
+}
