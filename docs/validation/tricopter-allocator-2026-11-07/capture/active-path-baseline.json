@@ -1,0 +1,19 @@
+{
+  "base_commit": "4172115fb3f6a58da7bc25fc75e11d50bad9add5",
+  "branch": "feature/tricopter-feedback",
+  "active_files_unchanged": {
+    "Makefile": "c45b513bf960d91ce0949b75e5ec2a31e33e451748df82179d64057d18903a91",
+    "mk/source.mk": "0ae7619a1bd14120999a5c506fa9cf31a8644cfaaca371a42ab8d46c4cc853bf",
+    "src/main/flight/mixer.c": "893fb2cfc032bb91caa2a60877e961befdb0a82546c462879f6a99e19a11b4bd",
+    "src/main/flight/mixer_tricopter.c": "59373cbb54e49b1427d1746d63a9a71b6db978a3e51822ac533bc1844b67b19a",
+    "src/main/flight/servos_tricopter.c": "92056cbeb678972340925e23d032d94a1bc725a2ef5f3c640a417c04f83bec2b",
+    "src/main/flight/tricopter_servo_position.h": "c9e23f3dee6035f26e25e6d2007592c18b99fe284b85341aa0dd20d630d02dcd",
+    "src/main/drivers/adc.c": "cf677223cf6d2a833d98a7c9e4856b76d103ac3be3ec3ba3ed5aa73f93743044",
+    "src/main/drivers/dshot.c": "2182886e4b757840ed1290826b4ef0c5a0e9a0e52bdaeaee4dfec76ffca5e970"
+  },
+  "hardware_accessed": false,
+  "flashed": false,
+  "configuration_changed": false,
+  "servo_position_source": "PB0-PC0; no angle conversion",
+  "active_flight_integration": false
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_allocator.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict.o",
+      "obj/test/tricopter_allocator_unittest/tricopter_allocator_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 16 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 16 tests from TricopterAllocator\n[ RUN      ] TricopterAllocator.ExactAsymmetricGeometryReconstructsFeasibleWrenches\n[       OK ] TricopterAllocator.ExactAsymmetricGeometryReconstructsFeasibleWrenches (0 ms)\n[ RUN      ] TricopterAllocator.ForwardUsesActualAngleIncludingCgHeightAndLateralForce\n[       OK ] TricopterAllocator.ForwardUsesActualAngleIncludingCgHeightAndLateralForce (0 ms)\n[ RUN      ] TricopterAllocator.KnownReactionOffsetIsRemovedBeforeSolveAndAddedToAchieved\n[       OK ] TricopterAllocator.KnownReactionOffsetIsRemovedBeforeSolveAndAddedToAchieved (0 ms)\n[ RUN      ] TricopterAllocator.ZeroAndLowTailPolicyPreservesFiniteMeaningfulDiagnostics\n[       OK ] TricopterAllocator.ZeroAndLowTailPolicyPreservesFiniteMeaningfulDiagnostics (0 ms)\n[ RUN      ] TricopterAllocator.ExplicitKtOnlyConvertsSiThrustToMechanicalSpeed\n[       OK ] TricopterAllocator.ExplicitKtOnlyConvertsSiThrustToMechanicalSpeed (0 ms)\n[ RUN      ] TricopterAllocator.SaturationRemainsFeasibleAndBeatsObviousFeasibleControls\n[       OK ] TricopterAllocator.SaturationRemainsFeasibleAndBeatsObviousFeasibleControls (0 ms)\n[ RUN      ] TricopterAllocator.ConeProjectionPrecedesRadialCap\n[       OK ] TricopterAllocator.ConeProjectionPrecedesRadialCap (0 ms)\n[ RUN      ] TricopterAllocator.VirtualMapRequiresNeitherGeometryNorPhysicalCoefficients\n[       OK ] TricopterAllocator.VirtualMapRequiresNeitherGeometryNorPhysicalCoefficients (0 ms)\n[ RUN      ] TricopterAllocator.FullyCoupledMapAndResponseUnitScalingPreserveAllocation\n[       OK ] TricopterAllocator.FullyCoupledMapAndResponseUnitScalingPreserveAllocation (0 ms)\n[ RUN      ] TricopterAllocator.EffortUnitChangePreservesResponseAndDirection\n[       OK ] TricopterAllocator.EffortUnitChangePreservesResponseAndDirection (0 ms)\n[ RUN      ] TricopterAllocator.BoundedIterationsExposeUnconvergedFeasibleResult\n[       OK ] TricopterAllocator.BoundedIterationsExposeUnconvergedFeasibleResult (0 ms)\n[ RUN      ] TricopterAllocator.ZeroWidthDirectionSectorAndFrontBoundsRemainConvex\n[       OK ] TricopterAllocator.ZeroWidthDirectionSectorAndFrontBoundsRemainConvex (0 ms)\n[ RUN      ] TricopterAllocator.FloatUnderflowedTailEffortHasZeroUndefinedDirection\n[       OK ] TricopterAllocator.FloatUnderflowedTailEffortHasZeroUndefinedDirection (0 ms)\n[ RUN      ] TricopterAllocator.RejectsDegenerateAndIllConditionedGeometryAndTinyWeightedMap\n[       OK ] TricopterAllocator.RejectsDegenerateAndIllConditionedGeometryAndTinyWeightedMap (0 ms)\n[ RUN      ] TricopterAllocator.PhysicalAndGenericParameterGuardsSurviveFastMath\n[       OK ] TricopterAllocator.PhysicalAndGenericParameterGuardsSurviveFastMath (0 ms)\n[ RUN      ] TricopterAllocator.InvalidInputsAndForwardBoundsClearEveryNumericOutput\n[       OK ] TricopterAllocator.InvalidInputsAndForwardBoundsClearEveryNumericOutput (0 ms)\n[----------] 16 tests from TricopterAllocator (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 16 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 16 tests.\n",
+    "stderr": ""
+  }
+]

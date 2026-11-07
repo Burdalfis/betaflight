@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "compared": [
+    "protocol_sha256",
+    "protocol",
+    "families",
+    "synthetic_identification_demo",
+    "held_angle_demo",
+    "failure_demos",
+    "calibrated",
+    "for_flight",
+    "script_sha256",
+    "native_build.sources",
+    "decompressed CSV rows"
+  ],
+  "independent_replay_of_synthetic_inputs": true,
+  "hardware_accessed": false
+}

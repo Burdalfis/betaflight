@@ -6,9 +6,9 @@
 
 **Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
 
-**Document version:** 0.9 — 2026-11-07
+**Document version:** 0.10 — 2026-11-07
 
-**Status:** M0 complete; M1 flashed and bench-tested; servo prediction, RPM observation and placeholder-coefficient yaw reaction equations implemented offline; physical calibration and loaded identification remain open; **no new flight-control law validated**
+**Status:** M0 complete; M1 flashed and bench-tested; servo prediction, RPM observation, placeholder-coefficient yaw reaction and configurable thrust-vector allocation implemented offline; airframe characterization, physical calibration and loaded identification remain open; **no new flight-control law validated**
 
 > **Purpose**  
 > Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
@@ -27,6 +27,7 @@
 - [x] Flash/read back logging-only `TRI_GROUND` at `a15ed3065`, preserve configuration, and record three clamped unloaded servo cycles with raw PB0, raw PC0, and signed PB0−PC0. See [dual-ADC evidence](validation/tricopter-ground-2026-11-06/README.md).
 - [x] Implement and validate offline corrected-count servo prediction/replay, followed by a causal per-motor RPM observer. Keep angle calibration unavailable and leave the active controller unchanged. See [offline models and results](tricopter_offline_models.md).
 - [x] Implement offline aerodynamic/inertial yaw reaction equations with explicit synthetic coefficients, separate terms, validity gates and analytic tests. No active control integration. See [reaction-torque model and evidence](tricopter_reaction_torque.md).
+- [x] Implement offline bounded allocation using a configurable virtual-tail effectiveness map, plus an optional SI geometry adapter. Synthetic maps/geometry/coefficients exercise reconstruction, saturation, units and held-angle behavior; detailed airframe dimensions are not required by the shared solver. See [allocator configuration and evidence](tricopter_allocator.md).
 - [ ] Complete electrical loading/power-sequencing/fault checks and independent PWM pin-edge timing. ADC scan progress and non-rail counts do not guarantee wiper connection.
 - [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
 - [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
@@ -34,6 +35,13 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, signed PB0−PC0 position measurements and raw ADC diagnostics without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.10 (2026-11-07)
+
+- Added a pure C bounded allocator with a direct 4×4 virtual-tail control-effectiveness interface. Basic configuration and characterization can supply the map without CAD dimensions, CG, mass, inertia or absolute thrust coefficients; all current coefficients remain synthetic placeholders.
+- Kept geometric SI modeling as a separate adapter: CG-relative cross products, tail `atan2`/`hypot` decomposition, full force reporting and explicit thrust-to-speed conversion. Proxy response units and mathematical direction remain distinct from calibrated N/N·m/RPM and mechanical angle.
+- Saturation minimizes an explicit weighted response error and reports achievable response, residual, active constraints and convergence. Independent synthetic projection/forward/convex-gap checks cover bounds, infeasible requests and unit changes. A fixed-angle forward example exposes the gap between a requested and an actual vector.
+- No active-flight source-list/caller, measurement-source, configuration or hardware change is part of this stage. PB0−PC0 remains the sole servo position source; actual angle/effort mapping, identified effectiveness, actuator timing and M5 integration remain open.
 
 ### Revision notes — v0.9 (2026-11-07)
 
@@ -148,6 +156,8 @@ Use a **right-handed body frame**: `x` forward (nose), `y` left, `z` up. Positiv
 
 Treat these as calibration parameters or hypotheses, with confidence/validity flags. Keep parameter provenance and measurement conditions with each fitted value.
 
+Detailed geometry, absolute thrust and full-body inertia are optional for the direct control-effectiveness route. Basic output/servo configuration and characterized effort-to-response gains can absorb these effects in declared proxy units. Use CAD/SI parameters when useful for physical interpretation; do not make them a prerequisite for every tricopter. Characterizing the actuator/vector coordinates and their operating region remains necessary.
+
 ---
 
 ## 3. Target architecture
@@ -226,7 +236,7 @@ required_lateral_thrust = (τz,requested − τz,reaction − τz,other) / L
 T_rear_requested        = hypot(Fz,rear_requested, required_lateral_thrust)
 ```
 
-The *physical actuator* must maintain the correct vertical rear thrust, using measured/predicted **actual** tail angle and motor response. Commanded angle is not actual angle; avoid compensating so late that the motor introduces a pitch disturbance, or so early that it overcompensates. The allocator must account for CG and pitch/roll moments as well as yaw.
+The *physical actuator* must maintain the correct vertical rear thrust, using measured/predicted **actual** tail angle and motor response. Commanded angle is not actual angle; avoid compensating so late that the motor introduces a pitch disturbance, or so early that it overcompensates. The allocator must account for pitch/roll effects as well as yaw, using characterized effectiveness or explicit CG geometry.
 
 ### 4.3 Control authority / saturation
 
@@ -335,14 +345,15 @@ Use fixed memory; profile CPU cycles, IRQ/DMA interactions, stack usage, control
 ### Proposed portable C module contracts
 
 ```text
-tricopter_geometry      motor position vectors, CG, tilt geometry, inertia
+tricopter_geometry      optional SI adapter: motor positions, CG, tilt geometry
 tricopter_motor_model   RPM observer, angular momentum and drag torque
 tricopter_servo_model   calibrated angle, velocity, predicted position
-tricopter_allocator     desired wrench -> feasible thrust/angle targets
+tricopter_allocator     effectiveness map -> bounded effort/vector targets
+                        optional SI wrench/thrust/angle interpretation
 tricopter_controller    glue, modes, saturation, fault state, diagnostics
 ```
 
-Design interfaces around SI units and explicit `dt`; avoid hidden global timing and heap allocations. Keep model calculations deterministic and suitable for host tests/simulation replay.
+Design interfaces around declared units and explicit `dt`; preserve SI units for physical models and keep characterized proxy units distinct. Avoid hidden global timing and heap allocations. Keep model calculations deterministic and suitable for host tests/simulation replay.
 
 ---
 
@@ -382,7 +393,9 @@ Design interfaces around SI units and explicit `dt`; avoid hidden global timing 
 
 ### M4 — Geometric thrust-vector mixer, initially offline
 
-**Implement:** Inverse `atan2`/`hypot` tail vector decomposition; account for **actual/predicted angle**, rear vertical thrust, and all three motor pitch/roll contributions using CAD geometry. Implement bounds and achievable-wrench residual reporting. Port the same C core to MATLAB/Simulink for comparison where useful.
+**Execution status (2026-11-07): configurable offline allocator and optional geometric adapter implemented with synthetic placeholders; aircraft characterization and integration remain open.** The primary interface accepts an effectiveness map and effort/vector bounds, reducing dependence on detailed airframe knowledge. It uses a virtual tail-vector basis, not an arbitrary motor/servo-PWM Jacobian. The SI adapter separately constructs the map from CG-relative geometry. Both report bounded targets, achievable response, residual and convergence; an independent forward evaluator can use an actual/predicted angle. No instantaneous actuator tracking or physical calibration is implied. See [model, configuration and validation](tricopter_allocator.md).
+
+**Implement:** Inverse `atan2`/`hypot` tail vector decomposition; account for **actual/predicted angle**, rear vertical effort/thrust, and all three motor pitch/roll effects using characterized effectiveness or approximate geometry. Detailed CAD/CG/inertia knowledge is optional for the effectiveness-map route. Implement bounds and achievable-response residual reporting. Port the same C core to MATLAB/Simulink for comparison where useful.
 
 **Exit gate:** For synthetic requests, reconstructed feasible force/moments agree with forward model within numerical tolerance; all constraints handled deterministically; no invalid outputs at zero/low thrust and near saturation.
 
@@ -481,8 +494,8 @@ tools/tricopter/                   <- log replay, plotting and fit tools
 - [ ] Best RPM telemetry timestamp/freshness interface and packet handling with EDT interleaving.
 - [ ] Best causal `ω/dω/dt` observer and motor command→target-RPM model.
 - [ ] How to identify `kQ`, `J` and `kT` without conflating servo correction and airflow-dependent effects.
-- [ ] Full CG-based force/moment geometry and whether the tail tilt axis offsets contribute material coupling.
-- [ ] Exact conversion and anti-windup mapping from Betaflight's normalized PID output to a requested physical moment.
+- [ ] Characterized effectiveness map and its operating region; optional CG geometry/tilt-axis offsets for physical interpretation and coupling checks.
+- [ ] Conversion and anti-windup mapping from Betaflight's normalized PID output to the allocator's declared response units; physical moments are an optional interpretation.
 - [ ] Optimal scheduler placement to avoid an extra cycle of delay between measured angle, predicted thrust, and servo/motor output.
 - [ ] Which advanced gyro/aero terms are **measurably** beneficial after simpler compensation is operating.
 

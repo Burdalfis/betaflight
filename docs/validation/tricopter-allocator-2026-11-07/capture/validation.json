@@ -1,0 +1,75 @@
+{
+  "variants": {
+    "strict": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_allocator.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict.o",
+          "obj/test/tricopter_allocator_unittest/tricopter_allocator_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/strict-tests.xml"
+        ]
+      ],
+      "passed_tests": 16
+    },
+    "fast-math": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_allocator.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/fast-math.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/fast-math.o",
+          "obj/test/tricopter_allocator_unittest/tricopter_allocator_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/fast-math-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/fast-math-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-allocator-2026-11-07/fast-math-tests.xml"
+        ]
+      ],
+      "passed_tests": 16
+    }
+  },
+  "source_sha256": {
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_allocator.h": "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a",
+    "src/test/unit/tricopter_allocator_unittest.cc": "bc662c524f0639267ab084816a2aaf00e966090cfa0a8d5f6220052ce4a1c06b"
+  },
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

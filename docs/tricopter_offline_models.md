@@ -4,6 +4,8 @@ This stage uses saved recordings and synthetic signals. It does not access the a
 
 The subsequent [reaction-torque stage](tricopter_reaction_torque.md) adds placeholder-coefficient yaw equations and synthetic tests, with no active control integration. The original servo/RPM results below remain unchanged; the expanded combined suite passes 129 host/regression and 28 Python/native-C harness tests.
 
+The later [configurable allocation stage](tricopter_allocator.md) adds a direct virtual-tail effectiveness interface and optional SI geometry adapter. It uses synthetic maps and bounds, requires no airframe dimensions in its shared solver, and preserves the same measurement and active-output boundaries.
+
 ## Measurement and calibration contract
 
 Servo position is **signed PB0−PC0 only**, in corrected ADC counts. Raw PB0 and PC0 are diagnostic channels. PC0 senses the servo PCB power GND input, not the potentiometer low terminal. Position and velocity remain counts and counts/s; physical shaft/tail angle calibration is unavailable. PWM is a command input, never a measured position.

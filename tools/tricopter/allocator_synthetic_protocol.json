@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "coefficient_source": "SYNTHETIC_PLACEHOLDER",
+  "calibrated": false,
+  "for_flight": false,
+  "logical_motor_order": ["rear", "front_right", "front_left"],
+  "frame": "x forward, y left, z up; positive yaw CCW/nose left",
+  "geometry_m": {
+    "rotor_positions": [[-0.30, 0, 0], [0.15, -0.24, 0], [0.17, 0.26, 0]],
+    "center_of_gravity": [0.025, -0.015, 0.04]
+  },
+  "limits": {
+    "maximum_thrust_n": [8, 7.5, 8.5],
+    "tail_angle_min_rad": -0.4363323129985824,
+    "tail_angle_max_rad": 0.6108652381980153
+  },
+  "thrust_coefficients_n_per_rad_s_squared": [1.1e-5, 1.2e-5, 1.15e-5],
+  "wrench_order": ["Fz_N", "Mx_Nm", "My_Nm", "Mz_Nm"],
+  "wrench_scales": [1, 0.2, 0.2, 0.1],
+  "objective": "0.5 * sum(((achieved-requested)/wrench_scale)^2); scales are explicit illustrative allocation priorities",
+  "solver": {"max_iterations": 4096, "projected_gradient_tolerance": 1e-5, "independent_gap_tolerance": 1e-4, "max_condition_number": 1000000, "low_tail_thrust_n": 0.001},
+  "numerical_tolerance_provenance": "Gradient mapping tolerance 1e-5 explicitly accommodates float32 publication; it is distinct from the dimensionless independent objective-gap cutoff 1e-4. These numerical settings are not physical coefficients.",
+  "provenance": "Arbitrary synthetic geometry, CG, thrust coefficients and limits. No aircraft fit, measured travel calibration, thrust test, flight envelope or real-time performance qualification.",
+  "units": {"position": "m", "thrust": "N", "angle": "rad", "moment": "N*m", "angular_speed": "rad/s", "mechanical_speed": "RPM"},
+  "cases": [
+    {"name": "feasible_interior", "kind": "forward_request", "thrust_n": [4.5, 4, 4.2], "tail_angle_rad": 0.17453292519943295, "reaction_yaw_nm": 0.01},
+    {"name": "yaw_positive", "kind": "wrench", "request": [12, 0, 0, 0.2], "reaction_yaw_nm": 0},
+    {"name": "yaw_negative", "kind": "wrench", "request": [12, 0, 0, -0.2], "reaction_yaw_nm": 0},
+    {"name": "asymmetric_cg", "kind": "forward_request", "thrust_n": [3.8, 5.2, 2.9], "tail_angle_rad": -0.29670597283903605, "reaction_yaw_nm": -0.025},
+    {"name": "zero", "kind": "wrench", "request": [0, 0, 0, 0], "reaction_yaw_nm": 0},
+    {"name": "low_force", "kind": "forward_request", "thrust_n": [0.0001, 0.0002, 0.00015], "tail_angle_rad": -0.08726646259971647, "reaction_yaw_nm": 0},
+    {"name": "front_high", "kind": "forward_request", "thrust_n": [4, 12, 4], "tail_angle_rad": 0, "reaction_yaw_nm": 0},
+    {"name": "force_below_zero", "kind": "wrench", "request": [-2, 0, 0, 0], "reaction_yaw_nm": 0},
+    {"name": "angle_high", "kind": "forward_request", "thrust_n": [5, 4, 4], "tail_angle_rad": 0.9599310885968813, "reaction_yaw_nm": 0},
+    {"name": "angle_low", "kind": "forward_request", "thrust_n": [5, 4, 4], "tail_angle_rad": -0.7853981633974483, "reaction_yaw_nm": 0},
+    {"name": "mixed_infeasible", "kind": "wrench", "request": [35, 3, -2, 3], "reaction_yaw_nm": 0.03}
+  ],
+  "held_angle_demo": {"case": "feasible_interior", "held_tail_angle_rad": 0},
+  "sweep": {"vertical_force_n": 12, "yaw_request_nm": [-2, 2], "points": 81, "reaction_yaw_nm": 0.02},
+  "direct_effectiveness": {
+    "coefficient_source": "SYNTHETIC_PLACEHOLDER",
+    "calibrated": false,
+    "for_flight": false,
+    "effectiveness_matrix": [[1, 0.85, 0.95, 0.1], [-0.75, 0.9, 0.1, -0.08], [-0.5, -0.45, 0.95, 0.03], [0.05, -0.04, 0.02, 1.1]],
+    "maximum_effort": [0.8, 1, 0.9],
+    "tail_direction_min_rad": -0.4363323129985824,
+    "tail_direction_max_rad": 0.6108652381980153,
+    "response_scales": [1, 0.2, 0.2, 0.1],
+    "solver": {"max_iterations": 4096, "projected_gradient_tolerance": 1e-5, "independent_gap_tolerance": 1e-4, "max_condition_number": 1000000, "low_tail_effort": 0.0001},
+    "units": {"actuator": "normalized effort proxy", "response": ["collective response proxy", "roll response proxy", "pitch response proxy", "yaw response proxy"], "tail_direction": "mathematical effort direction in rad, not a calibrated mechanical angle"},
+    "provenance": "Arbitrary synthetic effectiveness map, never fitted to aircraft logs. This configuration requires no rotor positions, CG, mass, inertia, kT or force/moment calibration.",
+    "cases": [
+      {"name": "direct_interior", "kind": "forward_request", "effort": [0.4, 0.3, 0.35], "tail_direction_rad": 0.1},
+      {"name": "direct_zero", "kind": "response", "request": [0, 0, 0, 0]},
+      {"name": "direct_low", "kind": "forward_request", "effort": [0.00001, 0.00002, 0.000015], "tail_direction_rad": -0.2},
+      {"name": "direct_sector_high", "kind": "forward_request", "effort": [0.5, 0.4, 0.4], "tail_direction_rad": 0.85},
+      {"name": "direct_mixed_infeasible", "kind": "response", "request": [4, 1, -1, 2]}
+    ]
+  },
+  "validation_boundary": "Offline static geometric allocation only. Sweep index is a synthetic sequence of static requests, not elapsed time or servo dynamics. Tail angle is an assumed synthetic input, not derived from servo PWM or ADC counts. Known reaction yaw is exogenous and applied once; no coupled kQ/J allocation, gyroscopic model, PID, mixer or actuator integration."
+}

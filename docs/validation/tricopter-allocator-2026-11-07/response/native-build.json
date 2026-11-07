@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_allocator.h": "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a",
+    "tools/tricopter/allocator_model_bridge.c": "039890aa0bb34a39c385e3202eb611b3d55ec78fdcfc36820097afeffe3c5f69"
+  },
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-fPIC",
+    "-shared",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/home/alex/betaflight/src/main",
+    "/home/alex/betaflight/src/main/flight/tricopter_allocator.c",
+    "/home/alex/betaflight/tools/tricopter/allocator_model_bridge.c",
+    "-lm",
+    "-o",
+    "/home/alex/betaflight/.local-artifacts/tricopter/allocator-2026-11-07/replay/build/libtricopter_allocator.so"
+  ],
+  "binary_sha256": "7340017bcc73cf941657a14520da3be6a1cb92d1ed6a995c8f0cf6970fdcae20",
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

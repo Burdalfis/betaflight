@@ -1,0 +1,14 @@
+{
+  "output": "/home/alex/betaflight/.local-artifacts/tricopter/allocator-2026-11-07/reproduced",
+  "all_declared_checks_pass": true,
+  "families": [
+    [
+      "direct-effectiveness",
+      7.992018822903374e-06
+    ],
+    [
+      "physical-adapter",
+      5.014982907938884e-05
+    ]
+  ]
+}

@@ -57,3 +57,16 @@ python3 tools/tricopter/reaction_replay.py --output .local-artifacts/tricopter/r
 The command saves six independent analytic cases, eleven all-output-suppression fault checks, source/compiler/protocol fingerprints, compressed replay data and component plots. Tests cover mechanical RPM conversion, the odd-rotor steady residual, aerodynamic speed-squared scaling, acceleration/deceleration signs, tuple permutations, coast cancellation and inertial angular impulse.
 
 The model is fixed/negligible-body-motion near-vertical shaft reaction, or the simplified yaw RHS when locked-rotor inertia is included consistently. It is not total external aircraft-plus-rotor torque. Every motor needs fresh valid speed and explicitly valid acceleration; initialized observer zeros do not establish acceleration. All numerical outputs are cleared on any failed input/bound, and calibration/flight-use flags always remain false. No active flight-control source or caller is added. See [equations, inertia convention and validation](../../docs/tricopter_reaction_torque.md).
+
+## Configurable offline thrust-vector allocation
+
+`allocator_native.py` executes `src/main/flight/tricopter_allocator.[ch]`. The shared virtual-tail solver accepts an explicit 4×4 control-effectiveness map, effort limits, tail vector direction bounds and response scales. It requires no CAD dimensions, CG, mass, inertia or absolute thrust calibration. A separate SI adapter builds the map from CG-relative positions and supplies thrust-to-speed conversion using explicit `kT` coefficients.
+
+```sh
+python3 -m unittest discover -s tools/tricopter -p 'test_allocator_replay.py' -v
+python3 tools/tricopter/allocator_replay.py --output .local-artifacts/tricopter/allocator-replay
+```
+
+The frozen protocol contains synthetic direct-map and geometric examples. The runner checks feasible reconstruction, effort/thrust and direction/angle bounds, saturation, independent convex objective-gap certificates, unit rescaling and a held-angle forward evaluation. Static request sweeps are not dynamic servo simulations. Direct-map proxy units remain distinct from N/N·m/RPM, and mathematical vector direction is not automatically calibrated mechanical angle.
+
+The direct map must use the solver's virtual front/tail-vector coordinates; a local three-motor-plus-servo-PWM Jacobian has different constraints and cannot be substituted. No airframe coefficients are fitted here. Calibration and flight-use flags remain false; PB0−PC0 stays the sole servo position measurement and no count/PWM-to-angle conversion is added. See [configuration, equations and validation](../../docs/tricopter_allocator.md).
