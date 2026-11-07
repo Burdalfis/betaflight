@@ -1,0 +1,62 @@
+{
+  "schema": "TRI_GROUND",
+  "protocol_sha256": "cbe0a39992dafc659a1e729a3564858b8445eba13f06ce50aaab44475fecae7d",
+  "decoder": {
+    "upstream": "https://github.com/betaflight/blackbox-tools.git",
+    "commit": "d89f96b983d0f5c8f053acf003ee2998b02b5b0f",
+    "binary": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+    "sha256": "0bdd56d60a95361b4f8224dad3bb465c98b4087b3e66a5cb9a7927474067bfa6",
+    "build_command": "make -j4 obj/blackbox_decode",
+    "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "notes": "Decoder built successfully and --help executes. Makefile emits pkg-config cairo-not-found warnings; decoder does not require renderer Cairo functionality.",
+    "adapted": true,
+    "adaptation": "Parse modern integer P interval as 1/N; upstream only parsed legacy ratio, incorrectly reporting intentional skipped loops as missing.",
+    "adaptation_patch": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools-integer-p-interval.patch",
+    "adaptation_patch_sha256": "22cc5fe77ecc5755456e2a6ba6e03fe39bc7a2cb383d6de082a11c8a61350ab4",
+    "upstream_binary_sha256": "637dad9817490d54d9826b8059e6df0191e73bb75fc79aa2d2db381af2d24a6e"
+  },
+  "datasets": {
+    "ground": {
+      "raw": "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl",
+      "raw_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+      "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground/servo-ground.01.csv",
+      "csv_sha256": "963dfd07bf074f574b2805528667dc66ff926716ef294e83626a20bd113d3d00",
+      "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground/servo-ground.01.headers.csv",
+      "headers_sha256": "001dfb649a774ad1576ba536b0f92e4c5d00c88a6a164b3570c088b7b8be7423",
+      "events": "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/capture/servo-ground-events.json",
+      "events_sha256": "97f01ea55d243fd9c575321d1a596feb6bdd5ba4264e233bba040ce7f9dab88e",
+      "decoder_command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+        "--unit-vbat",
+        "raw",
+        "--unit-flags",
+        "raw",
+        "--save-headers",
+        "--output-dir",
+        "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground",
+        "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl"
+      ]
+    },
+    "hysteresis": {
+      "raw": "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl",
+      "raw_sha256": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+      "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis/servo-hysteresis.01.csv",
+      "csv_sha256": "3fa4cc3b6bbd6c620838507950330c08cebce29fc78328894fa98d3c74cc153d",
+      "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis/servo-hysteresis.01.headers.csv",
+      "headers_sha256": "d4921bc478dd3d376f3a86972b874dc74b4fbf55215370a95417c9529cd269d3",
+      "events": "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/capture/servo-hysteresis-events.json",
+      "events_sha256": "676502414eca0008f877c671a0032c1dda12389490d1885e6a249c0a80b48cc1",
+      "decoder_command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+        "--unit-vbat",
+        "raw",
+        "--unit-flags",
+        "raw",
+        "--save-headers",
+        "--output-dir",
+        "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis",
+        "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl"
+      ]
+    }
+  }
+}

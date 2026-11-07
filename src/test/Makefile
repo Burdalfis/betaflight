@@ -53,6 +53,12 @@ althold_unittest_DEFINES := \
 tricopter_diagnostics_unittest_SRC := \
 		$(USER_DIR)/flight/servos_tricopter.c
 
+tricopter_servo_model_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_servo_model.c
+
+tricopter_rpm_observer_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_rpm_observer.c
+
 tricopter_diagnostics_unittest_DEFINES := \
 		USE_ADC= \
 		USE_DSHOT_TELEMETRY= \

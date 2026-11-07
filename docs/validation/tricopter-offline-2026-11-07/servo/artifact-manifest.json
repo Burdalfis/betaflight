@@ -1,0 +1,100 @@
+{
+  "files": {
+    "final-replay.log": {
+      "bytes": 1045,
+      "sha256": "04d9ea2ef414e8c38570e48ab4152dbdf452278a2792920d1fe8481168f66723"
+    },
+    "fit.log": {
+      "bytes": 1158,
+      "sha256": "b8944a709b1ed2d5c799d6eaefdc4865f0594991a7170989d19e2370cd1010a7"
+    },
+    "fitted-parameter-parent.json": {
+      "bytes": 84554,
+      "sha256": "3d5d5bde5dbfcc773d6ffd7d42b0a5e17d659c306fccabf1f9af42c62b79af9b"
+    },
+    "frozen-fit-protocol.json": {
+      "bytes": 5413,
+      "sha256": "99adbf7e421f5be5e3787b2961937602907d82698f8b32327114f2352a491f74"
+    },
+    "frozen-replay-check.json": {
+      "bytes": 265,
+      "sha256": "ae1a3e51e5d302af123cce1ee6483f57693071541fcb329c0ff51f8d46efbcc6"
+    },
+    "inputs/ground/decoder-stderr.log": {
+      "bytes": 807,
+      "sha256": "2c3ab9622559bfcd818b40077270ec6d9384bc34abd052970231cb235ce76cd6"
+    },
+    "inputs/ground/decoder-stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inputs/ground/servo-ground.01.csv": {
+      "bytes": 5978352,
+      "sha256": "963dfd07bf074f574b2805528667dc66ff926716ef294e83626a20bd113d3d00"
+    },
+    "inputs/ground/servo-ground.01.event": {
+      "bytes": 42,
+      "sha256": "abc74ed20ecb9b3ebf68b0470bd3358ff36df565e476b755e71810f4c929132f"
+    },
+    "inputs/ground/servo-ground.01.headers.csv": {
+      "bytes": 6240,
+      "sha256": "001dfb649a774ad1576ba536b0f92e4c5d00c88a6a164b3570c088b7b8be7423"
+    },
+    "inputs/hysteresis/decoder-stderr.log": {
+      "bytes": 824,
+      "sha256": "68464c516172da6694766be01c528e760ee42c346a5815bebdd0860fe746d057"
+    },
+    "inputs/hysteresis/decoder-stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inputs/hysteresis/servo-hysteresis.01.csv": {
+      "bytes": 12984590,
+      "sha256": "3fa4cc3b6bbd6c620838507950330c08cebce29fc78328894fa98d3c74cc153d"
+    },
+    "inputs/hysteresis/servo-hysteresis.01.event": {
+      "bytes": 43,
+      "sha256": "c2d4ccdfb471c67531c15691d47863ce32de8a67d9fdebb8685dfc8619318e5b"
+    },
+    "inputs/hysteresis/servo-hysteresis.01.headers.csv": {
+      "bytes": 6240,
+      "sha256": "d4921bc478dd3d376f3a86972b874dc74b4fbf55215370a95417c9529cd269d3"
+    },
+    "inputs/input-provenance.json": {
+      "bytes": 4056,
+      "sha256": "466ea6e654b54a40401d7e5af402828cf5b68787db66ba8a87ed4f4558298939"
+    },
+    "python-tests.log": {
+      "bytes": 1452,
+      "sha256": "8680463aac5079d2f361d72b2b4df6ed9caf53c9e527f721b25a587153f0bf65"
+    },
+    "servo-model-heldout.pdf": {
+      "bytes": 409442,
+      "sha256": "e601f28b2e28dc683ee1565bcda8bc3bfe777ac1332ceefe11e227c6cc1551dd"
+    },
+    "servo-model-heldout.png": {
+      "bytes": 340345,
+      "sha256": "21ce18bf633e94b9252310dc2335210494c93ef753724f21f86e936b16d00f3f"
+    },
+    "servo-model-report.json": {
+      "bytes": 84795,
+      "sha256": "8e584924ce43ae2c7f320be50ea3bd8713216ed7ad1cc216fc3bdd0e345c6924"
+    },
+    "servo-replay.csv.gz": {
+      "bytes": 1842820,
+      "sha256": "41a51383e04dba991f577a5e1f4362577832265b3b4c694d79862b303508cffd"
+    }
+  },
+  "source_hashes": {
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "tools/tricopter/servo_data.py": "167f4095b22160d6752c474e3da2e487fd246f073fbe4e2f0daa10294cca0988",
+    "tools/tricopter/servo_fit_settings.json": "c32269f990013d998441e76a2d6733a3b72af54ac3b9870df2f8748c3ef89354",
+    "tools/tricopter/servo_model_bridge.c": "43cc009b3a8e63bb6fbdb03ad937a4d7f0d0163a5b6eaaa04304f1926c2322d0",
+    "tools/tricopter/servo_native.py": "786944ec38ae471c39331cdfea0bc64eb453e5cb445c6a681614b919dcd7e32d",
+    "tools/tricopter/servo_replay.py": "20b3c10f0ec4f0312f5e3b71df3c854a2387db31d8da2b72b8ef4e9e8cdf9729",
+    "tools/tricopter/servo_replay_protocol.json": "cbe0a39992dafc659a1e729a3564858b8445eba13f06ce50aaab44475fecae7d",
+    "tools/tricopter/test_servo_replay.py": "cc86aaa7ce5654ea016fac85aae9fd8db05274fa1272b7fc60ff1009081c678b"
+  },
+  "source_hash_scope": "Servo fit/replay sources only; unrelated RPM files and shared prose excluded from packaged source manifest."
+}

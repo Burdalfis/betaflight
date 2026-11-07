@@ -39,3 +39,7 @@ docs/validation/tricopter-ground-2026-11-06/**/*.csv -text -whitespace
 docs/validation/tricopter-ground-2026-11-06/capture/*.log -text -whitespace
 docs/validation/tricopter-hysteresis-2026-11-06/**/*.csv -text -whitespace
 docs/validation/tricopter-hysteresis-2026-11-06/capture/*.log -text -whitespace
+docs/validation/tricopter-rpm-2026-11-06/**/*.csv -text -whitespace
+docs/validation/tricopter-rpm-2026-11-06/capture/*.log -text -whitespace
+docs/validation/tricopter-offline-2026-11-07/**/*.csv -text -whitespace
+docs/validation/tricopter-offline-2026-11-07/capture/*.log -text -whitespace

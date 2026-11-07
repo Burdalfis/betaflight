@@ -1,0 +1,97 @@
+{
+  "variants": {
+    "strict": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-c",
+          "src/main/flight/tricopter_rpm_observer.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/strict.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/strict.o",
+          "obj/test/tricopter_rpm_observer_unittest/tricopter_rpm_observer_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/strict-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/strict-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/strict-tests.xml"
+        ]
+      ],
+      "passed_tests": 18,
+      "metrics": {
+        "TracksAnalyticRampOnIrregularObservationIntervals": {
+          "speed_rmse_rpm": "0.000304",
+          "acceleration_rmse_rpm_s": "0.015768"
+        },
+        "FiltersNoiseWithoutRawDifferentiation": {
+          "speed_rmse_rpm": "1.234134",
+          "acceleration_rmse_rpm_s": "31.237212",
+          "raw_derivative_rmse_rpm_s": "49999.995560"
+        }
+      }
+    },
+    "fast-math": {
+      "commands": [
+        [
+          "gcc",
+          "-std=c11",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-ffast-math",
+          "-c",
+          "src/main/flight/tricopter_rpm_observer.c",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math.o"
+        ],
+        [
+          "g++",
+          "--coverage",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math.o",
+          "obj/test/tricopter_rpm_observer_unittest/tricopter_rpm_observer_unittest.o",
+          "obj/test/gtest_main.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests"
+        ],
+        [
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests",
+          "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests.xml"
+        ]
+      ],
+      "passed_tests": 18,
+      "metrics": {
+        "TracksAnalyticRampOnIrregularObservationIntervals": {
+          "speed_rmse_rpm": "0.000304",
+          "acceleration_rmse_rpm_s": "0.015768"
+        },
+        "FiltersNoiseWithoutRawDifferentiation": {
+          "speed_rmse_rpm": "1.234134",
+          "acceleration_rmse_rpm_s": "31.237215",
+          "raw_derivative_rmse_rpm_s": "49999.995560"
+        }
+      }
+    }
+  },
+  "source_sha256": {
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "src/test/unit/tricopter_rpm_observer_unittest.cc": "2901d625bbd0570d6258e7763f417b495d197c5240f0373bfa847836833dba20"
+  },
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

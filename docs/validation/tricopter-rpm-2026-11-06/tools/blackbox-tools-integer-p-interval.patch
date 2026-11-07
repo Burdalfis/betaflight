@@ -1,0 +1,17 @@
+diff --git a/src/parser.c b/src/parser.c
+index 19a6e65..6d0115c 100644
+--- a/src/parser.c
++++ b/src/parser.c
+@@ -395,6 +395,12 @@ static size_t parseHeaderLine(flightLog_t *log, mmapStream_t *stream, ParserStat
+         if (slashPos) {
+             log->frameIntervalPNum = atoi(fieldValue);
+             log->frameIntervalPDenom = atoi(slashPos + 1);
++        } else {
++            // Modern Betaflight logs the PID-loop divisor as a single integer.
++            log->frameIntervalPNum = 1;
++            log->frameIntervalPDenom = atoi(fieldValue);
++            if (log->frameIntervalPDenom < 1)
++                log->frameIntervalPDenom = 1;
+         }
+     } else if (strcmp(fieldName, "Data version") == 0) {
+         log->private->dataVersion = atoi(fieldValue);

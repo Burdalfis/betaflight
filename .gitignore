@@ -22,7 +22,8 @@ README.pdf
 
 # artefacts of top-level Makefile
 /downloads/
-/tools/
+/tools/*
+!/tools/tricopter/
 /build/
 # local changes only
 mk/local.mk

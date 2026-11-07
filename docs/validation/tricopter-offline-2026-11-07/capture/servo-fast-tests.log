@@ -1,0 +1,41 @@
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 16 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 16 tests from TricopterServoModel
+[ RUN      ] TricopterServoModel.ValidatesMapShapeAndParameterBounds
+[       OK ] TricopterServoModel.ValidatesMapShapeAndParameterBounds (0 ms)
+[ RUN      ] TricopterServoModel.RejectsNonfiniteConfigurationEvenWithFastMathModelBuild
+[       OK ] TricopterServoModel.RejectsNonfiniteConfigurationEvenWithFastMathModelBuild (0 ms)
+[ RUN      ] TricopterServoModel.StaticPiecewiseMapKeepsSignedCorrectedCountsAndCopiesConfig
+[       OK ] TricopterServoModel.StaticPiecewiseMapKeepsSignedCorrectedCountsAndCopiesConfig (0 ms)
+[ RUN      ] TricopterServoModel.DelayedCommandActsAtExactBoundaryWithIrregularCalls
+[       OK ] TricopterServoModel.DelayedCommandActsAtExactBoundaryWithIrregularCalls (0 ms)
+[ RUN      ] TricopterServoModel.SolvesSlewLimitedLagAndExponentialTail
+[       OK ] TricopterServoModel.SolvesSlewLimitedLagAndExponentialTail (0 ms)
+[ RUN      ] TricopterServoModel.UnlimitedSlewLagAndSlewOnlyHaveDistinctLimits
+[       OK ] TricopterServoModel.UnlimitedSlewLagAndSlewOnlyHaveDistinctLimits (0 ms)
+[ RUN      ] TricopterServoModel.DirectionParametersReferToPwmEvenWhenCountsDecrease
+[       OK ] TricopterServoModel.DirectionParametersReferToPwmEvenWhenCountsDecrease (0 ms)
+[ RUN      ] TricopterServoModel.PlayMemoryCrossesReversalsWithoutInstantDirectionOffset
+[       OK ] TricopterServoModel.PlayMemoryCrossesReversalsWithoutInstantDirectionOffset (0 ms)
+[ RUN      ] TricopterServoModel.DelayPreservesOrderedZeroDtCommandsAndCoalescesRepeats
+[       OK ] TricopterServoModel.DelayPreservesOrderedZeroDtCommandsAndCoalescesRepeats (0 ms)
+[ RUN      ] TricopterServoModel.HistoryIsInvariantToExtraUnchangedPwmSamples
+[       OK ] TricopterServoModel.HistoryIsInvariantToExtraUnchangedPwmSamples (0 ms)
+[ RUN      ] TricopterServoModel.InvalidCommandLatchesFiniteOutputUntilExplicitReset
+[       OK ] TricopterServoModel.InvalidCommandLatchesFiniteOutputUntilExplicitReset (0 ms)
+[ RUN      ] TricopterServoModel.ResetRequiresValidInitialSamplePwmAndApproach
+[       OK ] TricopterServoModel.ResetRequiresValidInitialSamplePwmAndApproach (0 ms)
+[ RUN      ] TricopterServoModel.RejectsBackwardOverflowAndUnobservedCommandGaps
+[       OK ] TricopterServoModel.RejectsBackwardOverflowAndUnobservedCommandGaps (0 ms)
+[ RUN      ] TricopterServoModel.BoundedQueueCannotSilentlyDropCommandHistory
+[       OK ] TricopterServoModel.BoundedQueueCannotSilentlyDropCommandHistory (0 ms)
+[ RUN      ] TricopterServoModel.ExplicitResetCanReuseRetainedParametersAfterFault
+[       OK ] TricopterServoModel.ExplicitResetCanReuseRetainedParametersAfterFault (0 ms)
+[ RUN      ] TricopterServoModel.AcceptedNumericExtremesProduceFiniteBoundedPredictions
+[       OK ] TricopterServoModel.AcceptedNumericExtremesProduceFiniteBoundedPredictions (0 ms)
+[----------] 16 tests from TricopterServoModel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 16 tests.

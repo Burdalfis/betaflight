@@ -1,0 +1,14 @@
+test_frozen_metadata_matches_fixed_bridge_architecture (test_servo_replay.ServoReplayTests.test_frozen_metadata_matches_fixed_bridge_architecture) ... ok
+test_known_lag_recovered_with_real_core (test_servo_replay.ServoReplayTests.test_known_lag_recovered_with_real_core) ... ok
+test_malformed_native_inputs_rejected_before_pointer_access (test_servo_replay.ServoReplayTests.test_malformed_native_inputs_rejected_before_pointer_access) ... ok
+test_missing_command_history_cannot_improve_score_by_dropping_suffix (test_servo_replay.ServoReplayTests.test_missing_command_history_cannot_improve_score_by_dropping_suffix) ... ok
+test_native_bridge_known_exponential_and_units (test_servo_replay.ServoReplayTests.test_native_bridge_known_exponential_and_units) ... ok
+test_only_first_measurement_initializes_and_stale_does_not_freeze_time (test_servo_replay.ServoReplayTests.test_only_first_measurement_initializes_and_stale_does_not_freeze_time) ... ok
+test_replay_cannot_relabel_old_training_as_new_holdout (test_servo_replay.ServoReplayTests.test_replay_cannot_relabel_old_training_as_new_holdout) ... ok
+test_schema_identity_and_no_raw_fallback (test_servo_replay.ServoReplayTests.test_schema_identity_and_no_raw_fallback) ... ok
+test_validation_targets_never_change_fit (test_servo_replay.ServoReplayTests.test_validation_targets_never_change_fit) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.489s
+
+OK

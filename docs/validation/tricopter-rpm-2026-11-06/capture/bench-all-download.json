@@ -1,0 +1,9 @@
+{
+  "flags": 3,
+  "sectors": 256,
+  "total": 16777216,
+  "used": 1816576,
+  "bench-all.bbl": "2749e0ca1a2affda8b2c354bd94bb784d948a6af031f25c2e2e6415087a8be6d",
+  "bench-all-repeat.bbl": "2749e0ca1a2affda8b2c354bd94bb784d948a6af031f25c2e2e6415087a8be6d",
+  "two_reads_identical": true
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "TRI_SERVO",
+  "decoder": {
+    "upstream": "https://github.com/betaflight/blackbox-tools.git",
+    "commit": "d89f96b983d0f5c8f053acf003ee2998b02b5b0f",
+    "binary": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+    "sha256": "0bdd56d60a95361b4f8224dad3bb465c98b4087b3e66a5cb9a7927474067bfa6",
+    "build_command": "make -j4 obj/blackbox_decode",
+    "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "notes": "Decoder built successfully and --help executes. Makefile emits pkg-config cairo-not-found warnings; decoder does not require renderer Cairo functionality.",
+    "adapted": true,
+    "adaptation": "Parse modern integer P interval as 1/N; upstream only parsed legacy ratio, incorrectly reporting intentional skipped loops as missing.",
+    "adaptation_patch": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools-integer-p-interval.patch",
+    "adaptation_patch_sha256": "22cc5fe77ecc5755456e2a6ba6e03fe39bc7a2cb383d6de082a11c8a61350ab4",
+    "upstream_binary_sha256": "637dad9817490d54d9826b8059e6df0191e73bb75fc79aa2d2db381af2d24a6e"
+  },
+  "records": [
+    {
+      "name": "record-02-aborted-motor",
+      "raw": "docs/validation/tricopter-rpm-2026-11-06/raw/record-02-aborted-motor.bbl",
+      "raw_sha256": "8cbda0e16ac03908e9d88b3af84a263378da400ac9d0544622c9fdf48f2a1567",
+      "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded/record-02-aborted-motor.01.csv",
+      "csv_sha256": "1bb1b625db25d8feed0a9de159cf8f71d9a4cc3824c56c499055f74784409d40",
+      "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded/record-02-aborted-motor.01.headers.csv",
+      "headers_sha256": "133cb030f991338e8593a90251f538b4a8bcc894e0f9ebe46d79c45787fb95ba",
+      "decoder_command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+        "--unit-vbat",
+        "raw",
+        "--unit-flags",
+        "raw",
+        "--save-headers",
+        "--output-dir",
+        "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded",
+        "/home/alex/betaflight/docs/validation/tricopter-rpm-2026-11-06/raw/record-02-aborted-motor.bbl"
+      ]
+    },
+    {
+      "name": "record-03-low-power-motors",
+      "raw": "docs/validation/tricopter-rpm-2026-11-06/raw/record-03-low-power-motors.bbl",
+      "raw_sha256": "d4342dca03ba8e492cdf6307c23e8e3c8c3d4eff3c7f280b320df5143e86c327",
+      "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded/record-03-low-power-motors.01.csv",
+      "csv_sha256": "65288a2f9a28126d35f007689ac2329c9c91529c2cc14d99fc6071c23d38ea1c",
+      "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded/record-03-low-power-motors.01.headers.csv",
+      "headers_sha256": "133cb030f991338e8593a90251f538b4a8bcc894e0f9ebe46d79c45787fb95ba",
+      "decoder_command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+        "--unit-vbat",
+        "raw",
+        "--unit-flags",
+        "raw",
+        "--save-headers",
+        "--output-dir",
+        "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/decoded",
+        "/home/alex/betaflight/docs/validation/tricopter-rpm-2026-11-06/raw/record-03-low-power-motors.bbl"
+      ]
+    }
+  ],
+  "archive_manifest_sha256": "026fa3513a1ae9982ffec7b7446123dd623bce472eb54ab318ad5f3a24f1b5c2"
+}

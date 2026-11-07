@@ -1,0 +1,67 @@
+[
+  {
+    "host_s": 0.015965290000167442,
+    "motor": null,
+    "external_command": 1000
+  },
+  {
+    "host_s": 3.039911337000376,
+    "motor": 0,
+    "external_command": 1050
+  },
+  {
+    "host_s": 4.591953184999511,
+    "motor": 0,
+    "external_command": 1075
+  },
+  {
+    "host_s": 6.143962676998854,
+    "motor": 0,
+    "external_command": 1100
+  },
+  {
+    "host_s": 7.711904238998613,
+    "motor": null,
+    "external_command": 1000
+  },
+  {
+    "host_s": 8.767818151998654,
+    "motor": 1,
+    "external_command": 1050
+  },
+  {
+    "host_s": 10.33581841799969,
+    "motor": 1,
+    "external_command": 1075
+  },
+  {
+    "host_s": 11.887939999000082,
+    "motor": 1,
+    "external_command": 1100
+  },
+  {
+    "host_s": 13.439890031999312,
+    "motor": null,
+    "external_command": 1000
+  },
+  {
+    "host_s": 14.511814583998785,
+    "motor": 2,
+    "external_command": 1050
+  },
+  {
+    "host_s": 16.06375909399867,
+    "motor": 2,
+    "external_command": 1075
+  },
+  {
+    "host_s": 17.631764996998754,
+    "motor": 2,
+    "external_command": 1100
+  },
+  {
+    "host_s": 19.183859599999778,
+    "motor": null,
+    "external_command": 1000
+  }
+]

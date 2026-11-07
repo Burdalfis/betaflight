@@ -1,0 +1,6 @@
+{
+  "servo_frozen_models_and_evaluation_identical": true,
+  "rpm_records_settings_sources_and_synthetic_metrics_identical": true,
+  "raw_inputs_redecoded": true,
+  "hardware_accessed": false
+}

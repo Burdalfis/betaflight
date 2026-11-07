@@ -1,0 +1,73 @@
+{'host_s': 0.015965290000167442, 'motor': None, 'external_command': 1000} RPM last [0, 0, 0] Vmin 6.84
+{'host_s': 3.039911337000376, 'motor': 0, 'external_command': 1050} RPM last [643, 0, 0] Vmin 6.84
+{'host_s': 4.591953184999511, 'motor': 0, 'external_command': 1075} RPM last [1300, 0, 0] Vmin 6.84
+{'host_s': 6.143962676998854, 'motor': 0, 'external_command': 1100} RPM last [1871, 0, 0] Vmin 6.84
+{'host_s': 7.711904238998613, 'motor': None, 'external_command': 1000} RPM last [0, 0, 0] Vmin 6.84
+{'host_s': 8.767818151998654, 'motor': 1, 'external_command': 1050} RPM last [0, 686, 0] Vmin 6.84
+{'host_s': 10.33581841799969, 'motor': 1, 'external_command': 1075} RPM last [0, 1271, 0] Vmin 6.84
+{'host_s': 11.887939999000082, 'motor': 1, 'external_command': 1100} RPM last [0, 1814, 0] Vmin 6.84
+{'host_s': 13.439890031999312, 'motor': None, 'external_command': 1000} RPM last [0, 0, 0] Vmin 6.86
+{'host_s': 14.511814583998785, 'motor': 2, 'external_command': 1050} RPM last [0, 0, 657] Vmin 6.84
+{'host_s': 16.06375909399867, 'motor': 2, 'external_command': 1075} RPM last [0, 0, 1229] Vmin 6.84
+{'host_s': 17.631764996998754, 'motor': 2, 'external_command': 1100} RPM last [0, 0, 1814] Vmin 6.84
+{'host_s': 19.183859599999778, 'motor': None, 'external_command': 1000} RPM last [0, 0, 0] Vmin 6.84
+{
+  "supply_limit_A": 2,
+  "supply_setting_V": 7,
+  "maximum_external_motor_command": 1100,
+  "motor_test_only": true,
+  "original_servo5": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "initial_voltage_cV": 685,
+  "flash_before": [
+    3,
+    256,
+    16777216,
+    940032
+  ],
+  "samples": 247,
+  "minimum_voltage_cV": 684,
+  "maximum_mechanical_rpm": [
+    1871,
+    1857,
+    1829
+  ],
+  "servo_config_unchanged": true,
+  "final_motors": [
+    1000,
+    1000,
+    1000,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_rpm": [
+    0,
+    0,
+    0
+  ],
+  "flash_after": [
+    3,
+    256,
+    16777216,
+    1816576
+  ],
+  "final_debug": [
+    1589,
+    1420,
+    0,
+    255,
+    1,
+    1,
+    1,
+    0
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "guarded_frozen_replay_models_identical": true,
+  "guarded_frozen_replay_evaluation_identical": true,
+  "protocol_and_settings_unchanged": true,
+  "parameter_parent_sha256": "3d5d5bde5dbfcc773d6ffd7d42b0a5e17d659c306fccabf1f9af42c62b79af9b"
+}

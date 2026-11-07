@@ -1,0 +1,14 @@
+{
+  "declared_before_fitting": true,
+  "objective": "Mean over complete training units of their fresh-row mean squared corrected-count error; exclude exactly the initialization row; no filtering or target interpolation.",
+  "optimizer": "Deterministic bounded Nelder-Mead in normalized coordinates, clipping candidates to declared bounds; one fixed engineering-prior start per baseline; no validation-driven restarts.",
+  "evaluation_budget": {"static": 500, "lag": 800, "full": 1800},
+  "map_knot_commands_us": [1100, 1420, 1700],
+  "map_initialization": "Median fresh last100ms plateau samples at each knot across training units only; median fresh training samples nearest knot if no plateau.",
+  "map_bounds_counts_relative_training_median": [-80, 80],
+  "bounds": {"backlash_us": [0, 30], "delay_us": [0, 40000], "tau_s": [0, 0.12], "rate_counts_s": [1200, 15000]},
+  "fixed_prior_start": {"backlash_us": 6, "delay_us": 5000, "tau_s": 0.02, "rate_counts_s": 5000},
+  "model_max_gap_us": 5000,
+  "full_parameters": ["map1100_counts", "map1420_counts", "map1700_counts", "backlash_us", "delay_us", "tau_increasing_pwm_s", "tau_decreasing_pwm_s", "rate_increasing_pwm_counts_s", "rate_decreasing_pwm_counts_s"],
+  "baselines": {"static": "Three optimized map knots, all dynamics/hysteresis disabled", "lag": "Three optimized map knots plus one common tau, no delay/backlash/rate limit", "full": "Three map knots, play backlash, common delay, directional tau and directional rate limits"}
+}

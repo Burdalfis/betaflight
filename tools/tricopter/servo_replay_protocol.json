@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "declared_before_fitting": true,
+  "position_source": "TRI_GROUND debug[3] only, signed PB0-PC0; counts and counts/s; angle calibration unavailable",
+  "datasets": {
+    "ground": {
+      "raw": "docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl",
+      "raw_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+      "events": "docs/validation/tricopter-ground-2026-11-06/capture/servo-ground-events.json",
+      "grouping": "Four large commands form each complete cycle; event cycle -1 is initial hold only",
+      "training_units": [0, 1],
+      "validation_units": [2]
+    },
+    "hysteresis": {
+      "raw": "docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl",
+      "raw_sha256": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+      "events": "docs/validation/tricopter-hysteresis-2026-11-06/capture/servo-hysteresis-events.json",
+      "approach_training_units": [0, 1],
+      "approach_validation_units": [2],
+      "staircase_training_units": [0],
+      "staircase_validation_units": [1]
+    }
+  },
+  "initialization": "Exactly once per declared complete cycle/repetition: first valid corrected sample, previous recorded command and command-only approach direction/history. Exclude pre-initialization unavailable rows. No observed-position correction or state reset at command edges. Initial observed sample excluded from error scoring.",
+  "prediction": "Every recorded timestamp and command advances the same portable C core. Stale/unavailable position targets are unscored, not interpolated; they do not stop model time or reset state.",
+  "valid_target": "Status bits0..3; raw0/2 within ADC range with no PB0 rail or PC0 ceiling, exact debug3=debug0-debug2. PC0 zero accepted and counted. Corrected -1 is valid; -32768 is unavailable. debug4 age retained explicitly, freshness from flagbit3.",
+  "fitting": "All parameters and static-map initialization use training units only. Deterministic bounded optimizer and fixed budget. Validation target arrays must never be passed to objective/initial guesses. Model selection reports all predefined baselines; no validation-driven retuning.",
+  "holdout_caveat": "All recordings were previously inspected for exploratory characterization. These units are held out from this fit/tuning, not a pristine prospective experiment; model architecture reflects that earlier knowledge.",
+  "baselines": ["instantaneous static command map", "static map plus first-order lag", "full bounded servo model"],
+  "metrics": ["fresh-row MAE/RMSE and95th absolute error in corrected counts", "per-unit and equally weighted per-unit aggregate", "first150ms transient and final100ms plateau subsets", "validity/age/rail/floor diagnostics", "training vs held-out parameter provenance"],
+  "limits": "Small single-fixture dataset and at most three held-out units; electrical proxy lacks independently measured angle, load, excitation/reference isolation and direct PWM-edge timing. Good replay does not authorize flight compensation or prove identified mechanical parameters."
+}

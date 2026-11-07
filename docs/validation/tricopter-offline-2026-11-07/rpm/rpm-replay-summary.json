@@ -1,0 +1,775 @@
+{
+  "settings_sha256": "3085e65902b3559d334a9b9c62a0edf35ef6286f89ee1ebd755568072c587f7d",
+  "settings": {
+    "schema_version": 1,
+    "purpose": "Frozen illustrative offline filter settings; no motor dynamics fit or physical coefficients",
+    "parameters": {
+      "tracking_tau_s": 0.02,
+      "stale_acceleration_decay_tau_s": 0.03,
+      "max_rpm": 20000.0,
+      "max_acceleration_rpm_s": 100000.0,
+      "stale_after_us": 10000,
+      "max_prediction_us": 100000,
+      "max_call_gap_us": 1000000
+    },
+    "phase_allowance_sensitivity_us": [
+      0,
+      250,
+      500
+    ],
+    "primary_display_phase_allowance_us": 250,
+    "phase_assumption": "Logger phase after Blackbox PID timestamp is assumed in [0, allowance]; this unmeasured bound is only a sensitivity convention",
+    "timestamp_proxy": "[tBB-(age+1)*100+1, tBB-age*100+allowance] integer microseconds",
+    "proxy_policy": "Equal-valued overlapping intervals retain one ambiguous cached identity with their intersection; disjoint/changed-valued feasible newer intervals create proxy identities. Earliest feasible timestamp is used. Exact packets are unknown.",
+    "mechanical_rpm_conversion": "native eRPM * 100 / (14/2)",
+    "freshness_policy": "Require DShot-enable bit4, per-motor seen bit5+i, finite nonnegative RPM and unsaturated age0..32766; effective fresh additionally requires native conservative age and observer fresh",
+    "real_data_validation_scope": "Compatibility, finite outputs, causality and stale handling. No exact packet count, true acceleration accuracy, command timing identification, loaded response or torque calibration. Raw PB0 is diagnostic only and unused."
+  },
+  "native_build": {
+    "sources": {
+      "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+      "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+      "tools/tricopter/rpm_observer_bridge.c": "734ad19d1cfbbff7ebbd22a30ed6c395c19418ccd10b7917f14d5e56e8577062"
+    },
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/home/alex/betaflight/src/main",
+      "/home/alex/betaflight/src/main/flight/tricopter_rpm_observer.c",
+      "/home/alex/betaflight/tools/tricopter/rpm_observer_bridge.c",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/build/libtricopter_rpm.so"
+    ],
+    "binary_sha256": "8d0f9eda3778b54ab5186addbf40295211f2f63a2b4670a1450294a68f882923",
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "validation_boundary": "Compatibility, finite outputs, causality and stale handling. No exact packet count, true acceleration accuracy, command timing identification, loaded response or torque calibration. Raw PB0 is diagnostic only and unused.",
+  "synthetic_exact_source_check": {
+    "source": "Independent analytic ramp: RPM=1000+2000*t; exact synthetic timestamps and identities",
+    "tail_after_s": 0.3,
+    "maximum_tail_speed_error_rpm": 0.0006103515625,
+    "maximum_tail_acceleration_error_rpm_s": 0.0640869140625,
+    "applies_to_real_trace_acceleration_accuracy": false
+  },
+  "records": [
+    {
+      "name": "record-02-aborted-motor",
+      "rows": 4297,
+      "duration_s": 4.286419,
+      "cases": [
+        {
+          "phase_allowance_us": 0,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 2961,
+                "ambiguous_cached_rows": 1334,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 2,
+                "maximum_native_age_lower_us": 1335600.0
+              },
+              "c_observer_accepted_proxy_observations": 2959,
+              "effective_fresh_rows": 2968,
+              "not_effectively_fresh_rows": 1329,
+              "prediction_valid_rows": 3058,
+              "horizon_exceeded_rows": 1239,
+              "rejected_observation_rows": 1239,
+              "maximum_native_age_lower_us": 1335600,
+              "maximum_observer_age_us": 1335715,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.96138,
+                  "end_s": 4.286419,
+                  "rows": 1329,
+                  "max_native_age_lower_us": 1335600
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 199,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 199,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        },
+        {
+          "phase_allowance_us": 250,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 2959,
+                "ambiguous_cached_rows": 1338,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 1335600.0
+              },
+              "c_observer_accepted_proxy_observations": 2959,
+              "effective_fresh_rows": 2968,
+              "not_effectively_fresh_rows": 1329,
+              "prediction_valid_rows": 3058,
+              "horizon_exceeded_rows": 1239,
+              "rejected_observation_rows": 1239,
+              "maximum_native_age_lower_us": 1335600,
+              "maximum_observer_age_us": 1335965,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.96138,
+                  "end_s": 4.286419,
+                  "rows": 1329,
+                  "max_native_age_lower_us": 1335600
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 449,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 449,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        },
+        {
+          "phase_allowance_us": 500,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 2958,
+                "ambiguous_cached_rows": 1339,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 1335600.0
+              },
+              "c_observer_accepted_proxy_observations": 2958,
+              "effective_fresh_rows": 2967,
+              "not_effectively_fresh_rows": 1330,
+              "prediction_valid_rows": 3057,
+              "horizon_exceeded_rows": 1240,
+              "rejected_observation_rows": 1240,
+              "maximum_native_age_lower_us": 1335600,
+              "maximum_observer_age_us": 1336713,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.96138,
+                  "end_s": 4.286419,
+                  "rows": 1329,
+                  "max_native_age_lower_us": 1335600
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 699,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 4297,
+                "ambiguous_cached_rows": 0,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 100.0
+              },
+              "c_observer_accepted_proxy_observations": 4297,
+              "effective_fresh_rows": 4297,
+              "not_effectively_fresh_rows": 0,
+              "prediction_valid_rows": 4297,
+              "horizon_exceeded_rows": 0,
+              "rejected_observation_rows": 0,
+              "maximum_native_age_lower_us": 100,
+              "maximum_observer_age_us": 699,
+              "maximum_logged_cached_mechanical_rpm": 0.0,
+              "maximum_absolute_estimated_acceleration_rpm_s": 0.0,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 0.0,
+              "native_age_over_10ms_intervals": [],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "record-03-low-power-motors",
+      "rows": 20208,
+      "duration_s": 20.162233,
+      "cases": [
+        {
+          "phase_allowance_us": 0,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 19722,
+                "ambiguous_cached_rows": 486,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121600.0
+              },
+              "c_observer_accepted_proxy_observations": 19722,
+              "effective_fresh_rows": 20064,
+              "not_effectively_fresh_rows": 144,
+              "prediction_valid_rows": 20186,
+              "horizon_exceeded_rows": 22,
+              "rejected_observation_rows": 22,
+              "maximum_native_age_lower_us": 121600,
+              "maximum_observer_age_us": 121631,
+              "maximum_logged_cached_mechanical_rpm": 1885.7142857142858,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17137.92578125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 17.658725987318654,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.891576,
+                  "end_s": 3.00233,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121600
+                },
+                {
+                  "start_s": 3.013306,
+                  "end_s": 3.037252,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 7.658987,
+                  "end_s": 7.664975,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 19785,
+                "ambiguous_cached_rows": 423,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19785,
+              "effective_fresh_rows": 20064,
+              "not_effectively_fresh_rows": 144,
+              "prediction_valid_rows": 20186,
+              "horizon_exceeded_rows": 22,
+              "rejected_observation_rows": 22,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 121431,
+              "maximum_logged_cached_mechanical_rpm": 1871.4285714285713,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17039.095703125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 13.00479986437402,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 8.631827,
+                  "end_s": 8.742581,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 8.753557,
+                  "end_s": 8.777504,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 13.390262,
+                  "end_s": 13.396249,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 19801,
+                "ambiguous_cached_rows": 407,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19801,
+              "effective_fresh_rows": 20059,
+              "not_effectively_fresh_rows": 149,
+              "prediction_valid_rows": 20186,
+              "horizon_exceeded_rows": 22,
+              "rejected_observation_rows": 22,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 121433,
+              "maximum_logged_cached_mechanical_rpm": 1828.5714285714287,
+              "maximum_absolute_estimated_acceleration_rpm_s": 16777.158203125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 12.375661549970363,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 14.384056,
+                  "end_s": 14.494812,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 14.505786,
+                  "end_s": 14.528735,
+                  "rows": 24,
+                  "max_native_age_lower_us": 33700
+                },
+                {
+                  "start_s": 19.157462,
+                  "end_s": 19.160456,
+                  "rows": 4,
+                  "max_native_age_lower_us": 13800
+                },
+                {
+                  "start_s": 19.173427,
+                  "end_s": 19.175422,
+                  "rows": 3,
+                  "max_native_age_lower_us": 12100
+                },
+                {
+                  "start_s": 19.198372,
+                  "end_s": 19.20336,
+                  "rows": 6,
+                  "max_native_age_lower_us": 15800
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        },
+        {
+          "phase_allowance_us": 250,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 19720,
+                "ambiguous_cached_rows": 488,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121600.0
+              },
+              "c_observer_accepted_proxy_observations": 19720,
+              "effective_fresh_rows": 20062,
+              "not_effectively_fresh_rows": 146,
+              "prediction_valid_rows": 20185,
+              "horizon_exceeded_rows": 23,
+              "rejected_observation_rows": 23,
+              "maximum_native_age_lower_us": 121600,
+              "maximum_observer_age_us": 122179,
+              "maximum_logged_cached_mechanical_rpm": 1885.7142857142858,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17137.92578125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 17.677735944113046,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.891576,
+                  "end_s": 3.00233,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121600
+                },
+                {
+                  "start_s": 3.013306,
+                  "end_s": 3.037252,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 7.658987,
+                  "end_s": 7.664975,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 19783,
+                "ambiguous_cached_rows": 425,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19783,
+              "effective_fresh_rows": 20063,
+              "not_effectively_fresh_rows": 145,
+              "prediction_valid_rows": 20186,
+              "horizon_exceeded_rows": 22,
+              "rejected_observation_rows": 22,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 121681,
+              "maximum_logged_cached_mechanical_rpm": 1871.4285714285713,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17039.091796875,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 12.992033795355551,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 8.631827,
+                  "end_s": 8.742581,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 8.753557,
+                  "end_s": 8.777504,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 13.390262,
+                  "end_s": 13.396249,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 19801,
+                "ambiguous_cached_rows": 407,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19801,
+              "effective_fresh_rows": 20056,
+              "not_effectively_fresh_rows": 152,
+              "prediction_valid_rows": 20186,
+              "horizon_exceeded_rows": 22,
+              "rejected_observation_rows": 22,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 121683,
+              "maximum_logged_cached_mechanical_rpm": 1828.5714285714287,
+              "maximum_absolute_estimated_acceleration_rpm_s": 16777.158203125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 12.299255148084589,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 14.384056,
+                  "end_s": 14.494812,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 14.505786,
+                  "end_s": 14.528735,
+                  "rows": 24,
+                  "max_native_age_lower_us": 33700
+                },
+                {
+                  "start_s": 19.157462,
+                  "end_s": 19.160456,
+                  "rows": 4,
+                  "max_native_age_lower_us": 13800
+                },
+                {
+                  "start_s": 19.173427,
+                  "end_s": 19.175422,
+                  "rows": 3,
+                  "max_native_age_lower_us": 12100
+                },
+                {
+                  "start_s": 19.198372,
+                  "end_s": 19.20336,
+                  "rows": 6,
+                  "max_native_age_lower_us": 15800
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        },
+        {
+          "phase_allowance_us": 500,
+          "motors": [
+            {
+              "logical_motor": 0,
+              "proxy": {
+                "logical_motor": 0,
+                "proxy_observations": 19644,
+                "ambiguous_cached_rows": 564,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121600.0
+              },
+              "c_observer_accepted_proxy_observations": 19644,
+              "effective_fresh_rows": 20062,
+              "not_effectively_fresh_rows": 146,
+              "prediction_valid_rows": 20185,
+              "horizon_exceeded_rows": 23,
+              "rejected_observation_rows": 23,
+              "maximum_native_age_lower_us": 121600,
+              "maximum_observer_age_us": 122429,
+              "maximum_logged_cached_mechanical_rpm": 1885.7142857142858,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17153.865234375,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 17.681575852445903,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 2.891576,
+                  "end_s": 3.00233,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121600
+                },
+                {
+                  "start_s": 3.013306,
+                  "end_s": 3.037252,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 7.658987,
+                  "end_s": 7.664975,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 1,
+              "proxy": {
+                "logical_motor": 1,
+                "proxy_observations": 19722,
+                "ambiguous_cached_rows": 486,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19722,
+              "effective_fresh_rows": 20062,
+              "not_effectively_fresh_rows": 146,
+              "prediction_valid_rows": 20185,
+              "horizon_exceeded_rows": 23,
+              "rejected_observation_rows": 23,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 122429,
+              "maximum_logged_cached_mechanical_rpm": 1871.4285714285713,
+              "maximum_absolute_estimated_acceleration_rpm_s": 17041.96484375,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 12.970786060843936,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 8.631827,
+                  "end_s": 8.742581,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 8.753557,
+                  "end_s": 8.777504,
+                  "rows": 25,
+                  "max_native_age_lower_us": 34800
+                },
+                {
+                  "start_s": 13.390262,
+                  "end_s": 13.396249,
+                  "rows": 7,
+                  "max_native_age_lower_us": 16100
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            },
+            {
+              "logical_motor": 2,
+              "proxy": {
+                "logical_motor": 2,
+                "proxy_observations": 19744,
+                "ambiguous_cached_rows": 464,
+                "metadata_unavailable_rows": 0,
+                "timestamp_conflicts_skipped": 0,
+                "maximum_native_age_lower_us": 121300.0
+              },
+              "c_observer_accepted_proxy_observations": 19744,
+              "effective_fresh_rows": 20055,
+              "not_effectively_fresh_rows": 153,
+              "prediction_valid_rows": 20185,
+              "horizon_exceeded_rows": 23,
+              "rejected_observation_rows": 23,
+              "maximum_native_age_lower_us": 121300,
+              "maximum_observer_age_us": 122431,
+              "maximum_logged_cached_mechanical_rpm": 1828.5714285714287,
+              "maximum_absolute_estimated_acceleration_rpm_s": 16771.158203125,
+              "fresh_cached_speed_discrepancy_rmse_rpm_not_accuracy": 12.27845487870373,
+              "native_age_over_10ms_intervals": [
+                {
+                  "start_s": 14.384056,
+                  "end_s": 14.494812,
+                  "rows": 112,
+                  "max_native_age_lower_us": 121300
+                },
+                {
+                  "start_s": 14.505786,
+                  "end_s": 14.528735,
+                  "rows": 24,
+                  "max_native_age_lower_us": 33700
+                },
+                {
+                  "start_s": 19.157462,
+                  "end_s": 19.160456,
+                  "rows": 4,
+                  "max_native_age_lower_us": 13800
+                },
+                {
+                  "start_s": 19.173427,
+                  "end_s": 19.175422,
+                  "rows": 3,
+                  "max_native_age_lower_us": 12100
+                },
+                {
+                  "start_s": 19.198372,
+                  "end_s": 19.20336,
+                  "rows": 6,
+                  "max_native_age_lower_us": 15800
+                }
+              ],
+              "accepted_when_native_age_beyond_horizon": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "script_sha256": {
+    "rpm_replay.py": "d281d612e198025cb8d5eed6ccafdf1ba41b4243b6fc24fed23e4568baadbf22",
+    "rpm_replay_settings.json": "3085e65902b3559d334a9b9c62a0edf35ef6286f89ee1ebd755568072c587f7d",
+    "rpm_data.py": "5593617520c9085077f17f54c661dc03d5cf434b803b8636f03c9e09d240e476",
+    "rpm_native.py": "56efe580c69f5f6ea530fd06c75f942b93999198f9efca16e967df3015923aa1",
+    "rpm_observer_bridge.c": "734ad19d1cfbbff7ebbd22a30ed6c395c19418ccd10b7917f14d5e56e8577062",
+    "test_rpm_replay.py": "142592dafc5742c579453a90193e4ce3616b8bae75b2dcb27488a2326546b313"
+  }
+}

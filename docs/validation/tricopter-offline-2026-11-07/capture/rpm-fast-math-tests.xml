@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="18" failures="0" disabled="0" errors="0" time="0.002" timestamp="2026-11-07T00:36:43.946" name="AllTests">
+  <testsuite name="TricopterRpmObserver" tests="18" failures="0" disabled="0" skipped="0" errors="0" time="0.002" timestamp="2026-11-07T00:36:43.946">
+    <testcase name="ValidatesSoftwareConfiguration" file="unit/tricopter_rpm_observer_unittest.cc" line="44" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="RejectsNonfiniteConfigurationUnderFastMath" file="unit/tricopter_rpm_observer_unittest.cc" line="70" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="ResetStartsUnseenAndCopiesAliasedConfiguration" file="unit/tricopter_rpm_observer_unittest.cc" line="92" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="EqualAndZeroGenuineObservationsRefreshIdentity" file="unit/tricopter_rpm_observer_unittest.cc" line="109" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="CachedSamplesAndMissingFramesNeverRefreshAge" file="unit/tricopter_rpm_observer_unittest.cc" line="122" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="UsesObservationTimeRatherThanDeliveryTime" file="unit/tricopter_rpm_observer_unittest.cc" line="140" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="RepeatedQueriesCannotIntegrateTwice" file="unit/tricopter_rpm_observer_unittest.cc" line="158" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver" />
+    <testcase name="TracksAnalyticRampOnIrregularObservationIntervals" file="unit/tricopter_rpm_observer_unittest.cc" line="180" status="run" result="completed" time="0.001" timestamp="2026-11-07T00:36:43.946" classname="TricopterRpmObserver">
+      <properties>
+        <property name="speed_rmse_rpm" value="0.000304"/>
+        <property name="acceleration_rmse_rpm_s" value="0.015768"/>
+      </properties>
+    </testcase>
+    <testcase name="FiltersNoiseWithoutRawDifferentiation" file="unit/tricopter_rpm_observer_unittest.cc" line="206" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.948" classname="TricopterRpmObserver">
+      <properties>
+        <property name="speed_rmse_rpm" value="1.234134"/>
+        <property name="acceleration_rmse_rpm_s" value="31.237215"/>
+        <property name="raw_derivative_rmse_rpm_s" value="49999.995560"/>
+      </properties>
+    </testcase>
+    <testcase name="EstimatesAccelerationAndDecelerationSigns" file="unit/tricopter_rpm_observer_unittest.cc" line="234" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.948" classname="TricopterRpmObserver" />
+    <testcase name="StalePredictionDecaysAndStopsAtHorizon" file="unit/tricopter_rpm_observer_unittest.cc" line="251" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.948" classname="TricopterRpmObserver" />
+    <testcase name="BoundsRemainFiniteAndRejectInvalidMeasurementsWithoutAgeRefresh" file="unit/tricopter_rpm_observer_unittest.cc" line="276" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.948" classname="TricopterRpmObserver" />
+    <testcase name="ClockAndSequenceWrapForward" file="unit/tricopter_rpm_observer_unittest.cc" line="299" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+    <testcase name="LongOutageCannotBecomeFreshAfterFullClockWrap" file="unit/tricopter_rpm_observer_unittest.cc" line="311" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+    <testcase name="NewSameTimeObservationCoalescesWithoutDerivative" file="unit/tricopter_rpm_observer_unittest.cc" line="327" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+    <testcase name="BadClockAndCallGapLatchUntilExplicitReset" file="unit/tricopter_rpm_observer_unittest.cc" line="339" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+    <testcase name="SequenceRollbackBackwardObservationAndMetadataMismatchLatch" file="unit/tricopter_rpm_observer_unittest.cc" line="354" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+    <testcase name="FutureAndTooOldObservationsAreRejectedWithoutPoisoningState" file="unit/tricopter_rpm_observer_unittest.cc" line="373" status="run" result="completed" time="0." timestamp="2026-11-07T00:36:43.949" classname="TricopterRpmObserver" />
+  </testsuite>
+</testsuites>

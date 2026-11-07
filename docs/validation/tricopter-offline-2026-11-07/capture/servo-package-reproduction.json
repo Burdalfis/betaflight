@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "compared": [
+    "models",
+    "evaluation"
+  ],
+  "raw_inputs_redecoded": true,
+  "mode": "frozen parameter replay; no refit"
+}

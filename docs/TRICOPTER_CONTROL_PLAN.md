@@ -6,9 +6,9 @@
 
 **Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
 
-**Document version:** 0.7 — 2026-11-06
+**Document version:** 0.8 — 2026-11-07
 
-**Status:** M0 complete; M1 flashed and bench-tested; unloaded wiper response recorded; paired PC0 sensing identifies ground rise as much of the early transient, with residual interpretation open; **no new flight-control law validated**
+**Status:** M0 complete; M1 flashed and bench-tested; corrected-count servo prediction/replay and a causal RPM observer implemented offline; physical angle calibration and loaded identification remain open; **no new flight-control law validated**
 
 > **Purpose**  
 > Build an actuator-aware, physically informed controller for a thrust-vectoring tricopter. Retain Betaflight's proven gyro, receiver, PID/rate-loop, failsafe, DShot, and Blackbox infrastructure. Replace the simplistic yaw-PID-to-servo mapping with a coordinated **three-motor + tail-servo control allocator**, informed by measured tail angle, rotor speed, reaction torque, and actuator dynamics. Develop in testable stages; do not enable unvalidated corrections in flight.
@@ -25,6 +25,7 @@
 - [x] Flash/read back M1 `bd6a5d727`, restore and verify the current 2026.6.2 aircraft configuration, and remap `ADC_EXT` to PB0. Record servo feedback and one-motor-at-a-time 5–10% command tests with props removed. See [the bench record](tricopter_m1_bench_2026-11-06.md).
 - [x] Verify EDT and all three indexed RPM channels in low-power bench recordings. New logs expose ~121 ms startup reception gaps and a 1.336 s stale interval before the required EDT handshake; a zero invalid-packet statistic is not proof of freshness. No continuous in-flight reception claim is made.
 - [x] Flash/read back logging-only `TRI_GROUND` at `a15ed3065`, preserve configuration, and record three clamped unloaded servo cycles with raw PB0, raw PC0, and signed PB0−PC0. See [dual-ADC evidence](validation/tricopter-ground-2026-11-06/README.md).
+- [x] Implement and validate offline corrected-count servo prediction/replay, followed by a causal per-motor RPM observer. Keep angle calibration unavailable and leave the active controller unchanged. See [offline models and results](tricopter_offline_models.md).
 - [ ] Complete electrical loading/power-sequencing/fault checks and independent PWM pin-edge timing. ADC scan progress and non-rail counts do not guarantee wiper connection.
 - [ ] Port the standalone torque equations into a pure-C module with host unit tests; separately build a motor-speed/acceleration observer driven by command **and** RPM telemetry.
 - [ ] Make offline replay plots/tests for Blackbox logs 001, 004, and 005, keeping original logs immutable.
@@ -32,6 +33,13 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, signed PB0−PC0 position measurements and raw ADC diagnostics without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.8 (2026-11-07)
+
+- Added an allocation-free portable C servo predictor: monotonic command/count map, continuous play, command delay and bounded directional lag/slew. Fit only paired PB0−PC0 datasets, with complete units frozen for validation and one measured initialization per unit.
+- Held-out equal-unit RMS error is 4.765 corrected counts, versus 14.156 for a lag-only baseline and 52.531 for an instantaneous map. These are previously explored unloaded electrical recordings; joint fit parameters are not independently identified mechanical constants or angle calibration.
+- Added an offline causal RPM/acceleration observer with identity/time handling, bounded prediction, stale decay and reacquisition. Existing per-motor raw recordings are archived. Quantized-age replay is a compatibility test with explicit phase uncertainty; synthetic cases establish numerical correctness separately.
+- The focused suite passes 111 host tests and 19 Python/native-C harness tests. Strict/fast-math checks and Cortex-M4F compile checks pass. No active-flight source-list or actuator/scheduler/telemetry-path change, hardware access or flash operation is part of this stage.
 
 ### Revision notes — v0.7 (2026-11-06)
 
@@ -348,13 +356,15 @@ Design interfaces around SI units and explicit `dt`; avoid hidden global timing 
 
 ### M2 — Servo hardware and system identification
 
-**Execution status (2026-11-06): unloaded potentiometer-response characterization recorded; M2 acceptance remains open.** Both free and clamped-case measurements are archived. The early common-positive wiper transient survives clamping; first detectable excursion and first target-directed response are reported separately. Subsequent paired PB0/PC0 logging identifies a substantial shared ground-rise component and reduces the initial opposite peak on 1420→1700 by a median 75.6%. Verify residual signal and potentiometer excitation against independent position before treating early ADC response as angle. Physical angle zero/travel calibration and loaded response remain separate work. See [dual-ADC results](tricopter_dual_adc_logging.md).
+**Execution status (2026-11-07): unloaded corrected-count characterization, offline prediction and replay implemented; M2 acceptance remains open.** Both free and clamped-case measurements are archived. Paired PB0/PC0 logging identifies a substantial ground-rise component; subsequent corrected-only tests measure direction-dependent endpoints. The portable predictor gives 4.765-count held-out RMS error, with no post-initialization measurement correction. Physical angle zero/travel calibration, independent electrical interpretation and loaded response remain separate work. See [dual-ADC results](tricopter_dual_adc_logging.md) and [offline model evidence](tricopter_offline_models.md).
 
 **Implement:** Use the potentiometer wiper **directly wired to PB0**, replacing the earlier AirS/PC0 proposal, for the first bench recording. Confirm the existing 1.561/1.281/1.031 V wiper points at the ADC; check signal loading and supply sensitivity. **Do not delay this milestone for the analog-component shipment.** Add the TLV9001 only as an optional **unity-gain buffer** if measurements show benefit. Independently calibrate ADC counts ↔ actual rotor tilt angle (zero, sign, stops, travel curve); do not derive angle calibration from PWM commands alone. Measure steps/sweeps, unloaded and under representative force if practical; characterize response, deadband, overshoot and rate limits. Compare command-to-angle with historical command-to-yaw-acceleration observations.
 
 **Exit gate:** Direct-wiper voltage and ADC samples agree under documented supply conditions, with no detected impairment of the servo's own feedback loop; calibrated measured tail angle and bounded predicted angle; fault response tested; no unsafe voltage on PB0 during normal or planned test conditions. If the optional buffer is fitted, repeat the noise/loading/latency measurements.
 
 ### M3 — Rotor-state observer and reaction-torque model
+
+**Execution status (2026-11-07): offline RPM observer implemented and tested; reaction-torque identification and M3 acceptance remain open.** The pure C observer uses mechanical RPM, observation timestamps/identity, causal acceleration estimates and explicit stale/horizon behavior. Tests cover known synthetic trajectories and historical low-power compatibility; quantized-age logs are not ground-truth acceleration. No command/voltage model, `kQ`, `J`, `kT`, torque output or active firmware integration is introduced. See [offline model/observer results](tricopter_offline_models.md).
 
 **Implement:** Pure-C observer for three motor speeds/accelerations, voltage compensation and telemetry freshness. Separate **aerodynamic** and **inertial** signed torque proxies. Introduce calibrated coefficients `kQ`, `J`, and `kT` only when defensible. Use historical motor-command logs only for qualitative consistency and synthetic replay, **not** as ground-truth RPM. Fit new RPM-equipped data with held-out validation; account for delayed servo torque.
 

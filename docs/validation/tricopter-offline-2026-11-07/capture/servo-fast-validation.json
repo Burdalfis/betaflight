@@ -1,0 +1,34 @@
+{
+  "commands": [
+    [
+      "gcc",
+      "-std=c11",
+      "-O3",
+      "-ffast-math",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "src/main/flight/tricopter_servo_model.c",
+      "-o",
+      ".local-artifacts/tricopter/offline-models-2026-11-07/servo-fast.o"
+    ],
+    [
+      "g++",
+      "--coverage",
+      ".local-artifacts/tricopter/offline-models-2026-11-07/servo-fast.o",
+      "obj/test/tricopter_servo_model_unittest/tricopter_servo_model_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      ".local-artifacts/tricopter/offline-models-2026-11-07/servo-fast-tests"
+    ],
+    [
+      ".local-artifacts/tricopter/offline-models-2026-11-07/servo-fast-tests",
+      "--gtest_output=xml:.local-artifacts/tricopter/offline-models-2026-11-07/servo-fast-tests.xml"
+    ]
+  ],
+  "passed_tests": 16,
+  "source_sha256": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979"
+}

@@ -1,0 +1,306 @@
+{
+  "source_analysis_sha256": "97e61edfff2039bf8852dd4b7cfe6641ce2b8f0f133a1f5c5e5b7872d731dd6d",
+  "source_analysis_file": ".local-artifacts/tricopter/m1-bench-2026-11-06/combined-log-analysis.json",
+  "records": [
+    {
+      "record": 2,
+      "frames": 4297,
+      "first_fc_timestamp_us": 303328821,
+      "last_fc_timestamp_us": 307615240,
+      "duration_s": 4.286419,
+      "mean_recording_hz": 1002.2351991254237,
+      "frame_dt_us": {
+        "min": 993,
+        "median": 998.0,
+        "max": 1003,
+        "mean": 997.7697858472998,
+        "std": 0.5562657741532376
+      },
+      "loop_iteration_stride_values": [
+        4
+      ],
+      "reported_corrupt_frames": 0,
+      "clean_end": true,
+      "flight_mode_flags_values": [
+        0
+      ],
+      "servo_write_native_mismatches": 0,
+      "servo_command_min_us": 1419,
+      "servo_command_max_us": 1421,
+      "adc": {
+        "min": 1574,
+        "max": 1598,
+        "mean": 1586.826855946009,
+        "std": 3.2303245503996543,
+        "at_pwm1420_n": 4290,
+        "at_pwm1420_mean": 1586.825641025641,
+        "at_pwm1420_std": 3.2303044768765297
+      },
+      "status_flags_values": [
+        255
+      ],
+      "adc_scan_observation_age_max_us": 0,
+      "rpm_age_quantization_note": "Each age count is100us; reconstructed age is lower bound of that100us quantization bin. Seen flags255 do not imply freshness.",
+      "rpm_telemetry": [
+        {
+          "logical_motor": 0,
+          "max_observed_age_ms": 1335.6,
+          "at_recording_s": 4.286419,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 1121.2999999999997,
+            "99": 1292.74,
+            "100": 1335.6
+          },
+          "samples_age_over_10ms": 1329,
+          "intervals_age_over_10ms": [
+            {
+              "start_s": 2.96138,
+              "end_s": 4.286419,
+              "samples": 1329,
+              "max_age_ms": 1335.6
+            }
+          ],
+          "samples_age_over_100ms": 1239,
+          "nonzero_erpm_samples": 0
+        },
+        {
+          "logical_motor": 1,
+          "max_observed_age_ms": 0.1,
+          "at_recording_s": 0.0,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 0.1,
+            "99": 0.1,
+            "100": 0.1
+          },
+          "samples_age_over_10ms": 0,
+          "intervals_age_over_10ms": [],
+          "samples_age_over_100ms": 0,
+          "nonzero_erpm_samples": 0
+        },
+        {
+          "logical_motor": 2,
+          "max_observed_age_ms": 0.1,
+          "at_recording_s": 0.0,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 0.1,
+            "99": 0.1,
+            "100": 0.1
+          },
+          "samples_age_over_10ms": 0,
+          "intervals_age_over_10ms": [],
+          "samples_age_over_100ms": 0,
+          "nonzero_erpm_samples": 0
+        }
+      ],
+      "invalid_stat_values_0_01percent": [
+        0
+      ],
+      "native_erpm_max": [
+        0,
+        0,
+        0
+      ],
+      "mechanical_rpm_max_from_erpm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "record": 3,
+      "frames": 20208,
+      "first_fc_timestamp_us": 441022028,
+      "last_fc_timestamp_us": 461184261,
+      "duration_s": 20.162233,
+      "mean_recording_hz": 1002.2203393840355,
+      "frame_dt_us": {
+        "min": 992,
+        "median": 998.0,
+        "max": 1003,
+        "mean": 997.7845796011284,
+        "std": 0.5135504865419995
+      },
+      "loop_iteration_stride_values": [
+        4
+      ],
+      "reported_corrupt_frames": 0,
+      "clean_end": true,
+      "flight_mode_flags_values": [
+        0
+      ],
+      "servo_write_native_mismatches": 0,
+      "servo_command_min_us": 1410,
+      "servo_command_max_us": 1433,
+      "adc": {
+        "min": 1571,
+        "max": 1639,
+        "mean": 1588.9582343626287,
+        "std": 3.1998053759387477,
+        "at_pwm1420_n": 19955,
+        "at_pwm1420_mean": 1588.9485843147081,
+        "at_pwm1420_std": 3.1368618323403585
+      },
+      "status_flags_values": [
+        255
+      ],
+      "adc_scan_observation_age_max_us": 200,
+      "rpm_age_quantization_note": "Each age count is100us; reconstructed age is lower bound of that100us quantization bin. Seen flags255 do not imply freshness.",
+      "rpm_telemetry": [
+        {
+          "logical_motor": 0,
+          "max_observed_age_ms": 121.6,
+          "at_recording_s": 3.00233,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 0.6,
+            "99": 2.3,
+            "100": 121.6
+          },
+          "samples_age_over_10ms": 144,
+          "intervals_age_over_10ms": [
+            {
+              "start_s": 2.891576,
+              "end_s": 3.00233,
+              "samples": 112,
+              "max_age_ms": 121.6
+            },
+            {
+              "start_s": 3.013306,
+              "end_s": 3.037252,
+              "samples": 25,
+              "max_age_ms": 34.8
+            },
+            {
+              "start_s": 7.658987,
+              "end_s": 7.664975,
+              "samples": 7,
+              "max_age_ms": 16.1
+            }
+          ],
+          "samples_age_over_100ms": 22,
+          "nonzero_erpm_samples": 4673
+        },
+        {
+          "logical_motor": 1,
+          "max_observed_age_ms": 121.3,
+          "at_recording_s": 8.742581,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 0.6,
+            "99": 1.6,
+            "100": 121.3
+          },
+          "samples_age_over_10ms": 144,
+          "intervals_age_over_10ms": [
+            {
+              "start_s": 8.631827,
+              "end_s": 8.742581,
+              "samples": 112,
+              "max_age_ms": 121.3
+            },
+            {
+              "start_s": 8.753557,
+              "end_s": 8.777504,
+              "samples": 25,
+              "max_age_ms": 34.8
+            },
+            {
+              "start_s": 13.390262,
+              "end_s": 13.396249,
+              "samples": 7,
+              "max_age_ms": 16.1
+            }
+          ],
+          "samples_age_over_100ms": 22,
+          "nonzero_erpm_samples": 4664
+        },
+        {
+          "logical_motor": 2,
+          "max_observed_age_ms": 121.3,
+          "at_recording_s": 14.494812,
+          "age_percentiles_ms": {
+            "50": 0.1,
+            "95": 0.6,
+            "99": 2.6,
+            "100": 121.3
+          },
+          "samples_age_over_10ms": 149,
+          "intervals_age_over_10ms": [
+            {
+              "start_s": 14.384056,
+              "end_s": 14.494812,
+              "samples": 112,
+              "max_age_ms": 121.3
+            },
+            {
+              "start_s": 14.505786,
+              "end_s": 14.528735,
+              "samples": 24,
+              "max_age_ms": 33.7
+            },
+            {
+              "start_s": 19.157462,
+              "end_s": 19.160456,
+              "samples": 4,
+              "max_age_ms": 13.8
+            },
+            {
+              "start_s": 19.173427,
+              "end_s": 19.175422,
+              "samples": 3,
+              "max_age_ms": 12.1
+            },
+            {
+              "start_s": 19.198372,
+              "end_s": 19.20336,
+              "samples": 6,
+              "max_age_ms": 15.8
+            }
+          ],
+          "samples_age_over_100ms": 22,
+          "nonzero_erpm_samples": 4719
+        }
+      ],
+      "invalid_stat_values_0_01percent": [
+        0
+      ],
+      "native_erpm_max": [
+        132,
+        131,
+        128
+      ],
+      "mechanical_rpm_max_from_erpm": [
+        1885.7142857142858,
+        1871.4285714285713,
+        1828.5714285714287
+      ],
+      "maximum_simultaneously_nonzero_rpm_channels": 1,
+      "nonzero_rpm_intervals_s": {
+        "0": [
+          {
+            "start_s": 3.003328,
+            "end_s": 7.664975,
+            "samples": 4673
+          }
+        ],
+        "1": [
+          {
+            "start_s": 8.743579,
+            "end_s": 13.396249,
+            "samples": 4664
+          }
+        ],
+        "2": [
+          {
+            "start_s": 14.495809,
+            "end_s": 19.20336,
+            "samples": 4719
+          }
+        ]
+      }
+    }
+  ]
+}

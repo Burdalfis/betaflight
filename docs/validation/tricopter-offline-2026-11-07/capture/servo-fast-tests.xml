@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="16" failures="0" disabled="0" errors="0" time="0.001" timestamp="2026-11-07T00:37:54.126" name="AllTests">
+  <testsuite name="TricopterServoModel" tests="16" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2026-11-07T00:37:54.126">
+    <testcase name="ValidatesMapShapeAndParameterBounds" file="unit/tricopter_servo_model_unittest.cc" line="40" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.126" classname="TricopterServoModel" />
+    <testcase name="RejectsNonfiniteConfigurationEvenWithFastMathModelBuild" file="unit/tricopter_servo_model_unittest.cc" line="83" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="StaticPiecewiseMapKeepsSignedCorrectedCountsAndCopiesConfig" file="unit/tricopter_servo_model_unittest.cc" line="109" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="DelayedCommandActsAtExactBoundaryWithIrregularCalls" file="unit/tricopter_servo_model_unittest.cc" line="131" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="SolvesSlewLimitedLagAndExponentialTail" file="unit/tricopter_servo_model_unittest.cc" line="151" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="UnlimitedSlewLagAndSlewOnlyHaveDistinctLimits" file="unit/tricopter_servo_model_unittest.cc" line="169" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="DirectionParametersReferToPwmEvenWhenCountsDecrease" file="unit/tricopter_servo_model_unittest.cc" line="187" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="PlayMemoryCrossesReversalsWithoutInstantDirectionOffset" file="unit/tricopter_servo_model_unittest.cc" line="206" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="DelayPreservesOrderedZeroDtCommandsAndCoalescesRepeats" file="unit/tricopter_servo_model_unittest.cc" line="225" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="HistoryIsInvariantToExtraUnchangedPwmSamples" file="unit/tricopter_servo_model_unittest.cc" line="241" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="InvalidCommandLatchesFiniteOutputUntilExplicitReset" file="unit/tricopter_servo_model_unittest.cc" line="264" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="ResetRequiresValidInitialSamplePwmAndApproach" file="unit/tricopter_servo_model_unittest.cc" line="284" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="RejectsBackwardOverflowAndUnobservedCommandGaps" file="unit/tricopter_servo_model_unittest.cc" line="304" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="BoundedQueueCannotSilentlyDropCommandHistory" file="unit/tricopter_servo_model_unittest.cc" line="328" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="ExplicitResetCanReuseRetainedParametersAfterFault" file="unit/tricopter_servo_model_unittest.cc" line="344" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+    <testcase name="AcceptedNumericExtremesProduceFiniteBoundedPredictions" file="unit/tricopter_servo_model_unittest.cc" line="360" status="run" result="completed" time="0." timestamp="2026-11-07T00:37:54.127" classname="TricopterServoModel" />
+  </testsuite>
+</testsuites>

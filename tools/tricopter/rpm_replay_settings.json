@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Frozen illustrative offline filter settings; no motor dynamics fit or physical coefficients",
+  "parameters": {
+    "tracking_tau_s": 0.02,
+    "stale_acceleration_decay_tau_s": 0.03,
+    "max_rpm": 20000.0,
+    "max_acceleration_rpm_s": 100000.0,
+    "stale_after_us": 10000,
+    "max_prediction_us": 100000,
+    "max_call_gap_us": 1000000
+  },
+  "phase_allowance_sensitivity_us": [0, 250, 500],
+  "primary_display_phase_allowance_us": 250,
+  "phase_assumption": "Logger phase after Blackbox PID timestamp is assumed in [0, allowance]; this unmeasured bound is only a sensitivity convention",
+  "timestamp_proxy": "[tBB-(age+1)*100+1, tBB-age*100+allowance] integer microseconds",
+  "proxy_policy": "Equal-valued overlapping intervals retain one ambiguous cached identity with their intersection; disjoint/changed-valued feasible newer intervals create proxy identities. Earliest feasible timestamp is used. Exact packets are unknown.",
+  "mechanical_rpm_conversion": "native eRPM * 100 / (14/2)",
+  "freshness_policy": "Require DShot-enable bit4, per-motor seen bit5+i, finite nonnegative RPM and unsaturated age0..32766; effective fresh additionally requires native conservative age and observer fresh",
+  "real_data_validation_scope": "Compatibility, finite outputs, causality and stale handling. No exact packet count, true acceleration accuracy, command timing identification, loaded response or torque calibration. Raw PB0 is diagnostic only and unused."
+}

@@ -1,0 +1,30 @@
+{
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "numpy": "2.3.5",
+  "matplotlib": "3.10.7+dfsg1",
+  "host_compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "arm_compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "portable_arm_flags": [
+    "-std=c11",
+    "-O3",
+    "-ffast-math",
+    "-mcpu=cortex-m4",
+    "-mthumb",
+    "-mfpu=fpv4-sp-d16",
+    "-mfloat-abi=hard",
+    "-Wall",
+    "-Wextra",
+    "-Werror"
+  ],
+  "arm_objects_compile": true,
+  "hardware_accessed": false,
+  "cores_linked_into_active_flight_code": false,
+  "source_sha256": {
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f"
+  },
+  "host_checks_passed": 111,
+  "python_harness_checks_passed": 19
+}

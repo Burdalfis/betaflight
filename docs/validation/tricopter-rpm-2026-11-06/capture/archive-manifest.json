@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "purpose": "Immutable RPM telemetry compatibility and staleness replay inputs; no acceleration ground truth or torque calibration",
+  "capture_date": "2026-11-06",
+  "source_whole_file": {
+    "path": ".local-artifacts/tricopter/m1-bench-2026-11-06/bench-all.bbl",
+    "bytes": 1816576,
+    "sha256": "2749e0ca1a2affda8b2c354bd94bb784d948a6af031f25c2e2e6415087a8be6d",
+    "repeat_sha256": "2749e0ca1a2affda8b2c354bd94bb784d948a6af031f25c2e2e6415087a8be6d",
+    "two_downloads_identical": true,
+    "included_in_package": false
+  },
+  "raw_records": [
+    {
+      "file": "raw/record-02-aborted-motor.bbl",
+      "source_start_offset": 747520,
+      "source_end_offset_exclusive": 940032,
+      "bytes": 192512,
+      "sha256": "8cbda0e16ac03908e9d88b3af84a263378da400ac9d0544622c9fdf48f2a1567",
+      "slice_verified_byte_for_byte": true
+    },
+    {
+      "file": "raw/record-03-low-power-motors.bbl",
+      "source_start_offset": 940032,
+      "source_end_offset_exclusive": 1816576,
+      "bytes": 876544,
+      "sha256": "d4342dca03ba8e492cdf6307c23e8e3c8c3d4eff3c7f280b320df5143e86c327",
+      "slice_verified_byte_for_byte": true
+    }
+  ],
+  "firmware_header": {
+    "version": "2026.6.2",
+    "revision": "bd6a5d727",
+    "board": "MTKS MATEKF405TE",
+    "debug_mode": 102,
+    "debug_name": "TRI_SERVO",
+    "motor_poles": 14,
+    "pid_process_denom": 2,
+    "gyro_looptime_us": 125,
+    "P_interval": 4
+  },
+  "units": {
+    "native_eRPM": "100 electrical RPM/count",
+    "mechanical_rpm": "native_eRPM * 100 / (14/2)",
+    "debug4_5_6": "logical motor0/1/2 decoder-observation ages, floor(ageUs/100), -1 unseen, saturated32767"
+  },
+  "timestamp_limitations": {
+    "age_time_origin": "micros() in servosTricopterLog() after motor/servo mixing",
+    "blackbox_time_origin": "currentTimeUs passed into taskMainPidLoop() before within-loop operations",
+    "phase_offset_us": "unmeasured",
+    "sample_sequence_recorded": false,
+    "nominal_interval_proxy": "(tBB-(age+1)*100, tBB-age*100] excludes unknown within-loop phase offset; not an exact observation timestamp interval",
+    "offered_validation_scope": "compatibility, causality and staleness behavior with declared phase uncertainty/sensitivity; not observed acceleration truth"
+  },
+  "motor_test": {
+    "props_removed": true,
+    "motors": "one motor at a time",
+    "external_commands": [
+      1000,
+      1050,
+      1075,
+      1100
+    ],
+    "supply_setting_V": 7,
+    "supply_limit_A": 2,
+    "servo_linkage_load": "not a rotor torque calibration",
+    "host_command_time_is_fc_time": false,
+    "native_motor_field_caveat": "Values below armed idle can encode as158; do not reconstruct exact disarmed external commands from native motor[]"
+  },
+  "freshness_contract": {
+    "genuine_new_rpm": "new successfully decoded eRPM frame; repeated equal values and valid zero count as observations",
+    "not_fresh": "cached decode, missing/no-edge/invalid frames, EDT packets or enable handshake",
+    "live_metadata": "Current diagnostic metadata is tracked only in TRI_SERVO/TRI_GROUND. A future live observer in other modes needs an explicit reviewed tracking change."
+  },
+  "uncalibrated": [
+    "kT",
+    "kQ",
+    "rotor_inertia_J",
+    "motor command/voltage dynamic model",
+    "loaded acceleration/torque"
+  ]
+}

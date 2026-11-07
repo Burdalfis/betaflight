@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "tools/tricopter/rpm_observer_bridge.c": "734ad19d1cfbbff7ebbd22a30ed6c395c19418ccd10b7917f14d5e56e8577062"
+  },
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-fPIC",
+    "-shared",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/home/alex/betaflight/src/main",
+    "/home/alex/betaflight/src/main/flight/tricopter_rpm_observer.c",
+    "/home/alex/betaflight/tools/tricopter/rpm_observer_bridge.c",
+    "-lm",
+    "-o",
+    "/home/alex/betaflight/.local-artifacts/tricopter/offline-models-2026-11-07/rpm-replay/build/libtricopter_rpm.so"
+  ],
+  "binary_sha256": "8d0f9eda3778b54ab5186addbf40295211f2f63a2b4670a1450294a68f882923",
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

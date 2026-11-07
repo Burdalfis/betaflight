@@ -1,0 +1,39 @@
+Fitting only: ground:cycle:0, ground:cycle:1, hysteresis:approach:0, hysteresis:approach:1, hysteresis:staircase:0
+{
+  "static": {
+    "training": {
+      "n_units": 5,
+      "equal_unit_rmse_counts": 58.12724292827939,
+      "equal_unit_mae_counts": 22.691138659540922
+    },
+    "validation": {
+      "n_units": 3,
+      "equal_unit_rmse_counts": 52.53147393044813,
+      "equal_unit_mae_counts": 19.504635610267847
+    }
+  },
+  "lag": {
+    "training": {
+      "n_units": 5,
+      "equal_unit_rmse_counts": 15.58031269421058,
+      "equal_unit_mae_counts": 8.891866222675647
+    },
+    "validation": {
+      "n_units": 3,
+      "equal_unit_rmse_counts": 14.155746201240294,
+      "equal_unit_mae_counts": 8.40072223312112
+    }
+  },
+  "full": {
+    "training": {
+      "n_units": 5,
+      "equal_unit_rmse_counts": 4.519614674989458,
+      "equal_unit_mae_counts": 3.302726115825339
+    },
+    "validation": {
+      "n_units": 3,
+      "equal_unit_rmse_counts": 4.764864564396449,
+      "equal_unit_mae_counts": 3.558629200575005
+    }
+  }
+}

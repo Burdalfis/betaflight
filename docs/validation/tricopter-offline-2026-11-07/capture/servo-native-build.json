@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "tools/tricopter/servo_model_bridge.c": "43cc009b3a8e63bb6fbdb03ad937a4d7f0d0163a5b6eaaa04304f1926c2322d0"
+  },
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-fPIC",
+    "-shared",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/home/alex/betaflight/src/main",
+    "/home/alex/betaflight/src/main/flight/tricopter_servo_model.c",
+    "/home/alex/betaflight/tools/tricopter/servo_model_bridge.c",
+    "-lm",
+    "-o",
+    "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/build/libtricopter_servo.so"
+  ],
+  "binary_sha256": "d4da1f3894595d664409bfd548e0f08a0572241f113cc43b818be8c7b264a758",
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

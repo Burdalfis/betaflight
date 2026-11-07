@@ -1,0 +1,45 @@
+[
+  {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-ffast-math",
+      "-c",
+      "src/main/flight/tricopter_rpm_observer.c",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "g++",
+      "--coverage",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math.o",
+      "obj/test/tricopter_rpm_observer_unittest/tricopter_rpm_observer_unittest.o",
+      "obj/test/gtest_main.a",
+      "-pthread",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests",
+      "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/offline-rpm-observer-2026-11-07/fast-math-tests.xml"
+    ],
+    "returncode": 0,
+    "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 18 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 18 tests from TricopterRpmObserver\n[ RUN      ] TricopterRpmObserver.ValidatesSoftwareConfiguration\n[       OK ] TricopterRpmObserver.ValidatesSoftwareConfiguration (0 ms)\n[ RUN      ] TricopterRpmObserver.RejectsNonfiniteConfigurationUnderFastMath\n[       OK ] TricopterRpmObserver.RejectsNonfiniteConfigurationUnderFastMath (0 ms)\n[ RUN      ] TricopterRpmObserver.ResetStartsUnseenAndCopiesAliasedConfiguration\n[       OK ] TricopterRpmObserver.ResetStartsUnseenAndCopiesAliasedConfiguration (0 ms)\n[ RUN      ] TricopterRpmObserver.EqualAndZeroGenuineObservationsRefreshIdentity\n[       OK ] TricopterRpmObserver.EqualAndZeroGenuineObservationsRefreshIdentity (0 ms)\n[ RUN      ] TricopterRpmObserver.CachedSamplesAndMissingFramesNeverRefreshAge\n[       OK ] TricopterRpmObserver.CachedSamplesAndMissingFramesNeverRefreshAge (0 ms)\n[ RUN      ] TricopterRpmObserver.UsesObservationTimeRatherThanDeliveryTime\n[       OK ] TricopterRpmObserver.UsesObservationTimeRatherThanDeliveryTime (0 ms)\n[ RUN      ] TricopterRpmObserver.RepeatedQueriesCannotIntegrateTwice\n[       OK ] TricopterRpmObserver.RepeatedQueriesCannotIntegrateTwice (0 ms)\n[ RUN      ] TricopterRpmObserver.TracksAnalyticRampOnIrregularObservationIntervals\n[       OK ] TricopterRpmObserver.TracksAnalyticRampOnIrregularObservationIntervals (1 ms)\n[ RUN      ] TricopterRpmObserver.FiltersNoiseWithoutRawDifferentiation\n[       OK ] TricopterRpmObserver.FiltersNoiseWithoutRawDifferentiation (0 ms)\n[ RUN      ] TricopterRpmObserver.EstimatesAccelerationAndDecelerationSigns\n[       OK ] TricopterRpmObserver.EstimatesAccelerationAndDecelerationSigns (0 ms)\n[ RUN      ] TricopterRpmObserver.StalePredictionDecaysAndStopsAtHorizon\n[       OK ] TricopterRpmObserver.StalePredictionDecaysAndStopsAtHorizon (0 ms)\n[ RUN      ] TricopterRpmObserver.BoundsRemainFiniteAndRejectInvalidMeasurementsWithoutAgeRefresh\n[       OK ] TricopterRpmObserver.BoundsRemainFiniteAndRejectInvalidMeasurementsWithoutAgeRefresh (0 ms)\n[ RUN      ] TricopterRpmObserver.ClockAndSequenceWrapForward\n[       OK ] TricopterRpmObserver.ClockAndSequenceWrapForward (0 ms)\n[ RUN      ] TricopterRpmObserver.LongOutageCannotBecomeFreshAfterFullClockWrap\n[       OK ] TricopterRpmObserver.LongOutageCannotBecomeFreshAfterFullClockWrap (0 ms)\n[ RUN      ] TricopterRpmObserver.NewSameTimeObservationCoalescesWithoutDerivative\n[       OK ] TricopterRpmObserver.NewSameTimeObservationCoalescesWithoutDerivative (0 ms)\n[ RUN      ] TricopterRpmObserver.BadClockAndCallGapLatchUntilExplicitReset\n[       OK ] TricopterRpmObserver.BadClockAndCallGapLatchUntilExplicitReset (0 ms)\n[ RUN      ] TricopterRpmObserver.SequenceRollbackBackwardObservationAndMetadataMismatchLatch\n[       OK ] TricopterRpmObserver.SequenceRollbackBackwardObservationAndMetadataMismatchLatch (0 ms)\n[ RUN      ] TricopterRpmObserver.FutureAndTooOldObservationsAreRejectedWithoutPoisoningState\n[       OK ] TricopterRpmObserver.FutureAndTooOldObservationsAreRejectedWithoutPoisoningState (0 ms)\n[----------] 18 tests from TricopterRpmObserver (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 18 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 18 tests.\n",
+    "stderr": ""
+  }
+]

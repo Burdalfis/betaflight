@@ -1,0 +1,52 @@
+{
+  "supply_limit_A": 2,
+  "supply_setting_V": 7,
+  "maximum_external_motor_command": 1100,
+  "motor_test_only": true,
+  "original_servo5": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "initial_voltage_cV": 686,
+  "flash_before": [
+    3,
+    256,
+    16777216,
+    747520
+  ],
+  "final_motors": [
+    1000,
+    1000,
+    1000,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_rpm": [
+    0,
+    0,
+    0
+  ],
+  "flash_after": [
+    3,
+    256,
+    16777216,
+    940032
+  ],
+  "final_debug": [
+    1595,
+    1420,
+    0,
+    255,
+    1,
+    1,
+    1,
+    0
+  ]
+}

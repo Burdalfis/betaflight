@@ -1,0 +1,2684 @@
+{
+  "scope": "Offline command-driven count predictor; no angle calibration or flight outputs",
+  "frozen_protocol": {
+    "protocol": {
+      "version": 1,
+      "declared_before_fitting": true,
+      "position_source": "TRI_GROUND debug[3] only, signed PB0-PC0; counts and counts/s; angle calibration unavailable",
+      "datasets": {
+        "ground": {
+          "raw": "docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl",
+          "raw_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+          "events": "docs/validation/tricopter-ground-2026-11-06/capture/servo-ground-events.json",
+          "grouping": "Four large commands form each complete cycle; event cycle -1 is initial hold only",
+          "training_units": [
+            0,
+            1
+          ],
+          "validation_units": [
+            2
+          ]
+        },
+        "hysteresis": {
+          "raw": "docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl",
+          "raw_sha256": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+          "events": "docs/validation/tricopter-hysteresis-2026-11-06/capture/servo-hysteresis-events.json",
+          "approach_training_units": [
+            0,
+            1
+          ],
+          "approach_validation_units": [
+            2
+          ],
+          "staircase_training_units": [
+            0
+          ],
+          "staircase_validation_units": [
+            1
+          ]
+        }
+      },
+      "initialization": "Exactly once per declared complete cycle/repetition: first valid corrected sample, previous recorded command and command-only approach direction/history. Exclude pre-initialization unavailable rows. No observed-position correction or state reset at command edges. Initial observed sample excluded from error scoring.",
+      "prediction": "Every recorded timestamp and command advances the same portable C core. Stale/unavailable position targets are unscored, not interpolated; they do not stop model time or reset state.",
+      "valid_target": "Status bits0..3; raw0/2 within ADC range with no PB0 rail or PC0 ceiling, exact debug3=debug0-debug2. PC0 zero accepted and counted. Corrected -1 is valid; -32768 is unavailable. debug4 age retained explicitly, freshness from flagbit3.",
+      "fitting": "All parameters and static-map initialization use training units only. Deterministic bounded optimizer and fixed budget. Validation target arrays must never be passed to objective/initial guesses. Model selection reports all predefined baselines; no validation-driven retuning.",
+      "holdout_caveat": "All recordings were previously inspected for exploratory characterization. These units are held out from this fit/tuning, not a pristine prospective experiment; model architecture reflects that earlier knowledge.",
+      "baselines": [
+        "instantaneous static command map",
+        "static map plus first-order lag",
+        "full bounded servo model"
+      ],
+      "metrics": [
+        "fresh-row MAE/RMSE and95th absolute error in corrected counts",
+        "per-unit and equally weighted per-unit aggregate",
+        "first150ms transient and final100ms plateau subsets",
+        "validity/age/rail/floor diagnostics",
+        "training vs held-out parameter provenance"
+      ],
+      "limits": "Small single-fixture dataset and at most three held-out units; electrical proxy lacks independently measured angle, load, excitation/reference isolation and direct PWM-edge timing. Good replay does not authorize flight compensation or prove identified mechanical parameters."
+    },
+    "settings": {
+      "declared_before_fitting": true,
+      "objective": "Mean over complete training units of their fresh-row mean squared corrected-count error; exclude exactly the initialization row; no filtering or target interpolation.",
+      "optimizer": "Deterministic bounded Nelder-Mead in normalized coordinates, clipping candidates to declared bounds; one fixed engineering-prior start per baseline; no validation-driven restarts.",
+      "evaluation_budget": {
+        "static": 500,
+        "lag": 800,
+        "full": 1800
+      },
+      "map_knot_commands_us": [
+        1100,
+        1420,
+        1700
+      ],
+      "map_initialization": "Median fresh last100ms plateau samples at each knot across training units only; median fresh training samples nearest knot if no plateau.",
+      "map_bounds_counts_relative_training_median": [
+        -80,
+        80
+      ],
+      "bounds": {
+        "backlash_us": [
+          0,
+          30
+        ],
+        "delay_us": [
+          0,
+          40000
+        ],
+        "tau_s": [
+          0,
+          0.12
+        ],
+        "rate_counts_s": [
+          1200,
+          15000
+        ]
+      },
+      "fixed_prior_start": {
+        "backlash_us": 6,
+        "delay_us": 5000,
+        "tau_s": 0.02,
+        "rate_counts_s": 5000
+      },
+      "model_max_gap_us": 5000,
+      "full_parameters": [
+        "map1100_counts",
+        "map1420_counts",
+        "map1700_counts",
+        "backlash_us",
+        "delay_us",
+        "tau_increasing_pwm_s",
+        "tau_decreasing_pwm_s",
+        "rate_increasing_pwm_counts_s",
+        "rate_decreasing_pwm_counts_s"
+      ],
+      "baselines": {
+        "static": "Three optimized map knots, all dynamics/hysteresis disabled",
+        "lag": "Three optimized map knots plus one common tau, no delay/backlash/rate limit",
+        "full": "Three map knots, play backlash, common delay, directional tau and directional rate limits"
+      }
+    },
+    "protocol_sha256": "cbe0a39992dafc659a1e729a3564858b8445eba13f06ce50aaab44475fecae7d",
+    "settings_sha256": "c32269f990013d998441e76a2d6733a3b72af54ac3b9870df2f8748c3ef89354"
+  },
+  "input_provenance": {
+    "schema": "TRI_GROUND",
+    "protocol_sha256": "cbe0a39992dafc659a1e729a3564858b8445eba13f06ce50aaab44475fecae7d",
+    "decoder": {
+      "upstream": "https://github.com/betaflight/blackbox-tools.git",
+      "commit": "d89f96b983d0f5c8f053acf003ee2998b02b5b0f",
+      "binary": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+      "sha256": "0bdd56d60a95361b4f8224dad3bb465c98b4087b3e66a5cb9a7927474067bfa6",
+      "build_command": "make -j4 obj/blackbox_decode",
+      "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "notes": "Decoder built successfully and --help executes. Makefile emits pkg-config cairo-not-found warnings; decoder does not require renderer Cairo functionality.",
+      "adapted": true,
+      "adaptation": "Parse modern integer P interval as 1/N; upstream only parsed legacy ratio, incorrectly reporting intentional skipped loops as missing.",
+      "adaptation_patch": "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools-integer-p-interval.patch",
+      "adaptation_patch_sha256": "22cc5fe77ecc5755456e2a6ba6e03fe39bc7a2cb383d6de082a11c8a61350ab4",
+      "upstream_binary_sha256": "637dad9817490d54d9826b8059e6df0191e73bb75fc79aa2d2db381af2d24a6e"
+    },
+    "datasets": {
+      "ground": {
+        "raw": "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl",
+        "raw_sha256": "1596d8165add47cdadb929626c76efc033ae87df0c5d553f7c8c1fb09cba7701",
+        "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground/servo-ground.01.csv",
+        "csv_sha256": "963dfd07bf074f574b2805528667dc66ff926716ef294e83626a20bd113d3d00",
+        "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground/servo-ground.01.headers.csv",
+        "headers_sha256": "001dfb649a774ad1576ba536b0f92e4c5d00c88a6a164b3570c088b7b8be7423",
+        "events": "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/capture/servo-ground-events.json",
+        "events_sha256": "97f01ea55d243fd9c575321d1a596feb6bdd5ba4264e233bba040ce7f9dab88e",
+        "decoder_command": [
+          "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+          "--unit-vbat",
+          "raw",
+          "--unit-flags",
+          "raw",
+          "--save-headers",
+          "--output-dir",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/ground",
+          "/home/alex/betaflight/docs/validation/tricopter-ground-2026-11-06/raw/servo-ground.bbl"
+        ]
+      },
+      "hysteresis": {
+        "raw": "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl",
+        "raw_sha256": "2532d8ff189aba16e64ce4dc53008e358071585962496734eed55cce02ab7f3b",
+        "csv": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis/servo-hysteresis.01.csv",
+        "csv_sha256": "3fa4cc3b6bbd6c620838507950330c08cebce29fc78328894fa98d3c74cc153d",
+        "headers": "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis/servo-hysteresis.01.headers.csv",
+        "headers_sha256": "d4921bc478dd3d376f3a86972b874dc74b4fbf55215370a95417c9529cd269d3",
+        "events": "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/capture/servo-hysteresis-events.json",
+        "events_sha256": "676502414eca0008f877c671a0032c1dda12389490d1885e6a249c0a80b48cc1",
+        "decoder_command": [
+          "/home/alex/betaflight/.local-artifacts/tricopter/m1-bench-2026-11-06/tools/blackbox-tools/obj/blackbox_decode",
+          "--unit-vbat",
+          "raw",
+          "--unit-flags",
+          "raw",
+          "--save-headers",
+          "--output-dir",
+          "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/inputs/hysteresis",
+          "/home/alex/betaflight/docs/validation/tricopter-hysteresis-2026-11-06/raw/servo-hysteresis.bbl"
+        ]
+      }
+    }
+  },
+  "input_diagnostics": {
+    "ground": {
+      "frames": 17641,
+      "valid_frames": 17623,
+      "ground_floor_frames": 2374,
+      "ground_ceiling_frames": 0,
+      "wiper_rail_frames": 0,
+      "max_pair_observation_age_100us": 17.0,
+      "observation_age_is_conversion_age": false
+    },
+    "hysteresis": {
+      "frames": 38157,
+      "valid_frames": 38115,
+      "ground_floor_frames": 5156,
+      "ground_ceiling_frames": 0,
+      "wiper_rail_frames": 0,
+      "max_pair_observation_age_100us": 19.0,
+      "observation_age_is_conversion_age": false
+    }
+  },
+  "native": {
+    "sources": {
+      "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+      "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+      "tools/tricopter/servo_model_bridge.c": "43cc009b3a8e63bb6fbdb03ad937a4d7f0d0163a5b6eaaa04304f1926c2322d0"
+    },
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/home/alex/betaflight/src/main",
+      "/home/alex/betaflight/src/main/flight/tricopter_servo_model.c",
+      "/home/alex/betaflight/tools/tricopter/servo_model_bridge.c",
+      "-lm",
+      "-o",
+      "/home/alex/betaflight/.local-artifacts/tricopter/offline-servo-model-2026-11-07/build/libtricopter_servo.so"
+    ],
+    "binary_sha256": "d4da1f3894595d664409bfd548e0f08a0572241f113cc43b818be8c7b264a758",
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "python_sources": {
+    "servo_data.py": "167f4095b22160d6752c474e3da2e487fd246f073fbe4e2f0daa10294cca0988",
+    "servo_native.py": "786944ec38ae471c39331cdfea0bc64eb453e5cb445c6a681614b919dcd7e32d",
+    "servo_replay.py": "4bdde63c44db314418a811bdecf855ad755294d3cd3826c53bfff4ffdc6a54a0"
+  },
+  "models": [
+    {
+      "name": "static",
+      "parameters": {
+        "map1100_counts": 1911.281923344292,
+        "map1420_counts": 1587.7690523017413,
+        "map1700_counts": 1300.4708613226826,
+        "backlash_us": 0.0,
+        "delay_us": 0.0,
+        "tau_increasing_pwm_s": 0.0,
+        "tau_decreasing_pwm_s": 0.0,
+        "rate_increasing_pwm_counts_s": 0.0,
+        "rate_decreasing_pwm_counts_s": 0.0
+      },
+      "active_start": [
+        1939.0,
+        1586.0,
+        1277.0
+      ],
+      "active_lower_bounds": [
+        1859.0,
+        1506.0,
+        1197.0
+      ],
+      "active_upper_bounds": [
+        2019.0,
+        1666.0,
+        1357.0
+      ],
+      "training_units": [
+        "ground:cycle:0",
+        "ground:cycle:1",
+        "hysteresis:approach:0",
+        "hysteresis:approach:1",
+        "hysteresis:staircase:0"
+      ],
+      "optimization": {
+        "evaluations": 500,
+        "best_training_mse_counts2": 3378.776370443205,
+        "improvements": [
+          {
+            "evaluation": 1,
+            "training_mse_counts2": 3567.482221355044
+          },
+          {
+            "evaluation": 4,
+            "training_mse_counts2": 3510.701498427952
+          },
+          {
+            "evaluation": 5,
+            "training_mse_counts2": 3476.066340080141
+          },
+          {
+            "evaluation": 6,
+            "training_mse_counts2": 3464.935866050978
+          },
+          {
+            "evaluation": 7,
+            "training_mse_counts2": 3433.032005388075
+          },
+          {
+            "evaluation": 9,
+            "training_mse_counts2": 3387.487526108037
+          },
+          {
+            "evaluation": 14,
+            "training_mse_counts2": 3384.3585260985287
+          },
+          {
+            "evaluation": 20,
+            "training_mse_counts2": 3380.4076517905073
+          },
+          {
+            "evaluation": 22,
+            "training_mse_counts2": 3380.0396944362583
+          },
+          {
+            "evaluation": 26,
+            "training_mse_counts2": 3379.787958644468
+          },
+          {
+            "evaluation": 28,
+            "training_mse_counts2": 3378.977644784403
+          },
+          {
+            "evaluation": 36,
+            "training_mse_counts2": 3378.8694638015027
+          },
+          {
+            "evaluation": 39,
+            "training_mse_counts2": 3378.8382952615257
+          },
+          {
+            "evaluation": 41,
+            "training_mse_counts2": 3378.7939997708795
+          },
+          {
+            "evaluation": 44,
+            "training_mse_counts2": 3378.791881276155
+          },
+          {
+            "evaluation": 47,
+            "training_mse_counts2": 3378.790877504501
+          },
+          {
+            "evaluation": 49,
+            "training_mse_counts2": 3378.786304649122
+          },
+          {
+            "evaluation": 51,
+            "training_mse_counts2": 3378.7781674291095
+          },
+          {
+            "evaluation": 58,
+            "training_mse_counts2": 3378.777137637954
+          },
+          {
+            "evaluation": 62,
+            "training_mse_counts2": 3378.776951536312
+          },
+          {
+            "evaluation": 64,
+            "training_mse_counts2": 3378.776852806551
+          },
+          {
+            "evaluation": 67,
+            "training_mse_counts2": 3378.776498501649
+          },
+          {
+            "evaluation": 72,
+            "training_mse_counts2": 3378.7764366245583
+          },
+          {
+            "evaluation": 80,
+            "training_mse_counts2": 3378.7764065420415
+          },
+          {
+            "evaluation": 84,
+            "training_mse_counts2": 3378.776391573726
+          },
+          {
+            "evaluation": 86,
+            "training_mse_counts2": 3378.7763754370617
+          },
+          {
+            "evaluation": 124,
+            "training_mse_counts2": 3378.776375333705
+          },
+          {
+            "evaluation": 125,
+            "training_mse_counts2": 3378.776373669086
+          },
+          {
+            "evaluation": 130,
+            "training_mse_counts2": 3378.776370443205
+          }
+        ]
+      },
+      "angle_calibrated": false,
+      "position_units": "corrected ADC counts",
+      "velocity_units": "corrected ADC counts/s"
+    },
+    {
+      "name": "lag",
+      "parameters": {
+        "map1100_counts": 1945.4888139167495,
+        "map1420_counts": 1586.9688208150333,
+        "map1700_counts": 1271.4337208910272,
+        "backlash_us": 0.0,
+        "delay_us": 0.0,
+        "tau_increasing_pwm_s": 0.0686954066500177,
+        "tau_decreasing_pwm_s": 0.0686954066500177,
+        "rate_increasing_pwm_counts_s": 0.0,
+        "rate_decreasing_pwm_counts_s": 0.0
+      },
+      "active_start": [
+        1939.0,
+        1586.0,
+        1277.0,
+        0.02
+      ],
+      "active_lower_bounds": [
+        1859.0,
+        1506.0,
+        1197.0,
+        0.0
+      ],
+      "active_upper_bounds": [
+        2019.0,
+        1666.0,
+        1357.0,
+        0.12
+      ],
+      "training_units": [
+        "ground:cycle:0",
+        "ground:cycle:1",
+        "hysteresis:approach:0",
+        "hysteresis:approach:1",
+        "hysteresis:staircase:0"
+      ],
+      "optimization": {
+        "evaluations": 800,
+        "best_training_mse_counts2": 242.7461436493793,
+        "improvements": [
+          {
+            "evaluation": 1,
+            "training_mse_counts2": 1594.0707856022743
+          },
+          {
+            "evaluation": 4,
+            "training_mse_counts2": 1579.6871982070384
+          },
+          {
+            "evaluation": 5,
+            "training_mse_counts2": 1073.39360465024
+          },
+          {
+            "evaluation": 9,
+            "training_mse_counts2": 942.2383088927494
+          },
+          {
+            "evaluation": 10,
+            "training_mse_counts2": 856.4426873731472
+          },
+          {
+            "evaluation": 11,
+            "training_mse_counts2": 694.2363469006295
+          },
+          {
+            "evaluation": 12,
+            "training_mse_counts2": 530.7516370302825
+          },
+          {
+            "evaluation": 14,
+            "training_mse_counts2": 457.2451747449979
+          },
+          {
+            "evaluation": 15,
+            "training_mse_counts2": 436.0987005588392
+          },
+          {
+            "evaluation": 21,
+            "training_mse_counts2": 421.6044848267131
+          },
+          {
+            "evaluation": 24,
+            "training_mse_counts2": 385.260080590517
+          },
+          {
+            "evaluation": 26,
+            "training_mse_counts2": 380.4098853482457
+          },
+          {
+            "evaluation": 27,
+            "training_mse_counts2": 340.50305753134853
+          },
+          {
+            "evaluation": 34,
+            "training_mse_counts2": 322.5443536784805
+          },
+          {
+            "evaluation": 35,
+            "training_mse_counts2": 302.49718538126456
+          },
+          {
+            "evaluation": 39,
+            "training_mse_counts2": 270.8080103749206
+          },
+          {
+            "evaluation": 40,
+            "training_mse_counts2": 255.82872462936166
+          },
+          {
+            "evaluation": 45,
+            "training_mse_counts2": 251.421638618824
+          },
+          {
+            "evaluation": 47,
+            "training_mse_counts2": 245.81354453033904
+          },
+          {
+            "evaluation": 53,
+            "training_mse_counts2": 245.79332149190927
+          },
+          {
+            "evaluation": 56,
+            "training_mse_counts2": 243.54621233163456
+          },
+          {
+            "evaluation": 66,
+            "training_mse_counts2": 243.10273969369206
+          },
+          {
+            "evaluation": 68,
+            "training_mse_counts2": 243.10087028117078
+          },
+          {
+            "evaluation": 70,
+            "training_mse_counts2": 243.03750408757938
+          },
+          {
+            "evaluation": 71,
+            "training_mse_counts2": 243.02264501728186
+          },
+          {
+            "evaluation": 74,
+            "training_mse_counts2": 242.8973100126114
+          },
+          {
+            "evaluation": 77,
+            "training_mse_counts2": 242.81013291827236
+          },
+          {
+            "evaluation": 80,
+            "training_mse_counts2": 242.80348081071764
+          },
+          {
+            "evaluation": 86,
+            "training_mse_counts2": 242.79067895017093
+          },
+          {
+            "evaluation": 89,
+            "training_mse_counts2": 242.76145824536303
+          },
+          {
+            "evaluation": 91,
+            "training_mse_counts2": 242.75903374705064
+          },
+          {
+            "evaluation": 99,
+            "training_mse_counts2": 242.75569853107908
+          },
+          {
+            "evaluation": 102,
+            "training_mse_counts2": 242.75166515266255
+          },
+          {
+            "evaluation": 103,
+            "training_mse_counts2": 242.75031749322588
+          },
+          {
+            "evaluation": 108,
+            "training_mse_counts2": 242.74889852503398
+          },
+          {
+            "evaluation": 118,
+            "training_mse_counts2": 242.74836940908153
+          },
+          {
+            "evaluation": 119,
+            "training_mse_counts2": 242.74692527059224
+          },
+          {
+            "evaluation": 129,
+            "training_mse_counts2": 242.74686257909676
+          },
+          {
+            "evaluation": 137,
+            "training_mse_counts2": 242.7465738266646
+          },
+          {
+            "evaluation": 159,
+            "training_mse_counts2": 242.74632736198004
+          },
+          {
+            "evaluation": 183,
+            "training_mse_counts2": 242.74631174161624
+          },
+          {
+            "evaluation": 184,
+            "training_mse_counts2": 242.74614863902062
+          },
+          {
+            "evaluation": 224,
+            "training_mse_counts2": 242.7461477707311
+          },
+          {
+            "evaluation": 226,
+            "training_mse_counts2": 242.7461436493793
+          }
+        ]
+      },
+      "angle_calibrated": false,
+      "position_units": "corrected ADC counts",
+      "velocity_units": "corrected ADC counts/s"
+    },
+    {
+      "name": "full",
+      "parameters": {
+        "map1100_counts": 1943.0388704253892,
+        "map1420_counts": 1586.3305671439657,
+        "map1700_counts": 1273.1045089125846,
+        "backlash_us": 7.056359005182138,
+        "delay_us": 16408.69414018116,
+        "tau_increasing_pwm_s": 0.01913273177912924,
+        "tau_decreasing_pwm_s": 0.020883294904800464,
+        "rate_increasing_pwm_counts_s": 3587.32816623624,
+        "rate_decreasing_pwm_counts_s": 3781.7837147544715
+      },
+      "active_start": [
+        1939.0,
+        1586.0,
+        1277.0,
+        6.0,
+        5000.0,
+        0.02,
+        0.02,
+        5000.0,
+        5000.0
+      ],
+      "active_lower_bounds": [
+        1859.0,
+        1506.0,
+        1197.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1200.0,
+        1200.0
+      ],
+      "active_upper_bounds": [
+        2019.0,
+        1666.0,
+        1357.0,
+        30.0,
+        40000.0,
+        0.12,
+        0.12,
+        15000.0,
+        15000.0
+      ],
+      "training_units": [
+        "ground:cycle:0",
+        "ground:cycle:1",
+        "hysteresis:approach:0",
+        "hysteresis:approach:1",
+        "hysteresis:staircase:0"
+      ],
+      "optimization": {
+        "evaluations": 1800,
+        "best_training_mse_counts2": 20.42691681038006,
+        "improvements": [
+          {
+            "evaluation": 1,
+            "training_mse_counts2": 420.64008286934165
+          },
+          {
+            "evaluation": 2,
+            "training_mse_counts2": 415.969436557992
+          },
+          {
+            "evaluation": 6,
+            "training_mse_counts2": 334.18468756275075
+          },
+          {
+            "evaluation": 11,
+            "training_mse_counts2": 301.45238667240386
+          },
+          {
+            "evaluation": 12,
+            "training_mse_counts2": 241.1482889520501
+          },
+          {
+            "evaluation": 16,
+            "training_mse_counts2": 236.3874214319349
+          },
+          {
+            "evaluation": 17,
+            "training_mse_counts2": 169.05694048029235
+          },
+          {
+            "evaluation": 19,
+            "training_mse_counts2": 166.33383009989456
+          },
+          {
+            "evaluation": 20,
+            "training_mse_counts2": 130.01773411937353
+          },
+          {
+            "evaluation": 22,
+            "training_mse_counts2": 102.09920910704061
+          },
+          {
+            "evaluation": 30,
+            "training_mse_counts2": 48.95651568789277
+          },
+          {
+            "evaluation": 50,
+            "training_mse_counts2": 40.21925845000001
+          },
+          {
+            "evaluation": 57,
+            "training_mse_counts2": 38.551217435672264
+          },
+          {
+            "evaluation": 65,
+            "training_mse_counts2": 37.33698904195892
+          },
+          {
+            "evaluation": 67,
+            "training_mse_counts2": 35.22039545445353
+          },
+          {
+            "evaluation": 68,
+            "training_mse_counts2": 31.586692238274175
+          },
+          {
+            "evaluation": 81,
+            "training_mse_counts2": 31.06328789331539
+          },
+          {
+            "evaluation": 84,
+            "training_mse_counts2": 30.151214744536766
+          },
+          {
+            "evaluation": 94,
+            "training_mse_counts2": 29.665359042997796
+          },
+          {
+            "evaluation": 96,
+            "training_mse_counts2": 26.907165496626824
+          },
+          {
+            "evaluation": 114,
+            "training_mse_counts2": 26.417628656078602
+          },
+          {
+            "evaluation": 120,
+            "training_mse_counts2": 26.344130585773286
+          },
+          {
+            "evaluation": 122,
+            "training_mse_counts2": 25.400583705035196
+          },
+          {
+            "evaluation": 123,
+            "training_mse_counts2": 25.02636010134006
+          },
+          {
+            "evaluation": 131,
+            "training_mse_counts2": 24.265119820091467
+          },
+          {
+            "evaluation": 132,
+            "training_mse_counts2": 23.836244418034788
+          },
+          {
+            "evaluation": 137,
+            "training_mse_counts2": 23.732138621618184
+          },
+          {
+            "evaluation": 139,
+            "training_mse_counts2": 23.367136441033885
+          },
+          {
+            "evaluation": 141,
+            "training_mse_counts2": 23.0533859622624
+          },
+          {
+            "evaluation": 145,
+            "training_mse_counts2": 22.89252529151008
+          },
+          {
+            "evaluation": 159,
+            "training_mse_counts2": 22.701554930134915
+          },
+          {
+            "evaluation": 166,
+            "training_mse_counts2": 22.697646026113695
+          },
+          {
+            "evaluation": 169,
+            "training_mse_counts2": 22.635362543905153
+          },
+          {
+            "evaluation": 177,
+            "training_mse_counts2": 22.48722449926694
+          },
+          {
+            "evaluation": 185,
+            "training_mse_counts2": 22.449039780366082
+          },
+          {
+            "evaluation": 188,
+            "training_mse_counts2": 22.445584215654186
+          },
+          {
+            "evaluation": 196,
+            "training_mse_counts2": 22.445239891795886
+          },
+          {
+            "evaluation": 197,
+            "training_mse_counts2": 22.433924234862737
+          },
+          {
+            "evaluation": 199,
+            "training_mse_counts2": 22.29615697604148
+          },
+          {
+            "evaluation": 208,
+            "training_mse_counts2": 22.230429310206556
+          },
+          {
+            "evaluation": 209,
+            "training_mse_counts2": 22.201632746147467
+          },
+          {
+            "evaluation": 217,
+            "training_mse_counts2": 22.102684667740395
+          },
+          {
+            "evaluation": 218,
+            "training_mse_counts2": 22.044538338499702
+          },
+          {
+            "evaluation": 223,
+            "training_mse_counts2": 22.029809802867792
+          },
+          {
+            "evaluation": 225,
+            "training_mse_counts2": 22.019323245590055
+          },
+          {
+            "evaluation": 230,
+            "training_mse_counts2": 21.951396880694034
+          },
+          {
+            "evaluation": 233,
+            "training_mse_counts2": 21.884194658787266
+          },
+          {
+            "evaluation": 234,
+            "training_mse_counts2": 21.858585894737057
+          },
+          {
+            "evaluation": 239,
+            "training_mse_counts2": 21.792216052542763
+          },
+          {
+            "evaluation": 240,
+            "training_mse_counts2": 21.759866010899497
+          },
+          {
+            "evaluation": 243,
+            "training_mse_counts2": 21.66694025180877
+          },
+          {
+            "evaluation": 244,
+            "training_mse_counts2": 21.57810046196504
+          },
+          {
+            "evaluation": 254,
+            "training_mse_counts2": 21.573507682389994
+          },
+          {
+            "evaluation": 258,
+            "training_mse_counts2": 21.516696447269265
+          },
+          {
+            "evaluation": 261,
+            "training_mse_counts2": 21.45407500110825
+          },
+          {
+            "evaluation": 265,
+            "training_mse_counts2": 21.45021709777128
+          },
+          {
+            "evaluation": 269,
+            "training_mse_counts2": 21.426203931445777
+          },
+          {
+            "evaluation": 274,
+            "training_mse_counts2": 21.366862231416416
+          },
+          {
+            "evaluation": 278,
+            "training_mse_counts2": 21.33096311666757
+          },
+          {
+            "evaluation": 281,
+            "training_mse_counts2": 21.326316195847348
+          },
+          {
+            "evaluation": 285,
+            "training_mse_counts2": 21.292971520487555
+          },
+          {
+            "evaluation": 292,
+            "training_mse_counts2": 21.250814908729403
+          },
+          {
+            "evaluation": 298,
+            "training_mse_counts2": 21.212166212027576
+          },
+          {
+            "evaluation": 307,
+            "training_mse_counts2": 21.20399060193902
+          },
+          {
+            "evaluation": 310,
+            "training_mse_counts2": 21.18310205584437
+          },
+          {
+            "evaluation": 318,
+            "training_mse_counts2": 21.139396008051484
+          },
+          {
+            "evaluation": 319,
+            "training_mse_counts2": 21.11626789545482
+          },
+          {
+            "evaluation": 324,
+            "training_mse_counts2": 21.06843676249047
+          },
+          {
+            "evaluation": 325,
+            "training_mse_counts2": 21.03618680553819
+          },
+          {
+            "evaluation": 328,
+            "training_mse_counts2": 21.027909423132126
+          },
+          {
+            "evaluation": 330,
+            "training_mse_counts2": 21.01760181736838
+          },
+          {
+            "evaluation": 334,
+            "training_mse_counts2": 20.956997888465366
+          },
+          {
+            "evaluation": 335,
+            "training_mse_counts2": 20.954891663879057
+          },
+          {
+            "evaluation": 336,
+            "training_mse_counts2": 20.94918075713189
+          },
+          {
+            "evaluation": 338,
+            "training_mse_counts2": 20.92285115110418
+          },
+          {
+            "evaluation": 342,
+            "training_mse_counts2": 20.90055413564367
+          },
+          {
+            "evaluation": 344,
+            "training_mse_counts2": 20.864598540881726
+          },
+          {
+            "evaluation": 345,
+            "training_mse_counts2": 20.85583630259739
+          },
+          {
+            "evaluation": 347,
+            "training_mse_counts2": 20.78380528385839
+          },
+          {
+            "evaluation": 348,
+            "training_mse_counts2": 20.74275927360692
+          },
+          {
+            "evaluation": 354,
+            "training_mse_counts2": 20.70551780081677
+          },
+          {
+            "evaluation": 358,
+            "training_mse_counts2": 20.689874048264283
+          },
+          {
+            "evaluation": 360,
+            "training_mse_counts2": 20.68978416980376
+          },
+          {
+            "evaluation": 362,
+            "training_mse_counts2": 20.643809799644686
+          },
+          {
+            "evaluation": 366,
+            "training_mse_counts2": 20.596731149255856
+          },
+          {
+            "evaluation": 369,
+            "training_mse_counts2": 20.581301137861686
+          },
+          {
+            "evaluation": 376,
+            "training_mse_counts2": 20.575668012640328
+          },
+          {
+            "evaluation": 381,
+            "training_mse_counts2": 20.533840836517516
+          },
+          {
+            "evaluation": 387,
+            "training_mse_counts2": 20.52353727011573
+          },
+          {
+            "evaluation": 391,
+            "training_mse_counts2": 20.491322375470084
+          },
+          {
+            "evaluation": 397,
+            "training_mse_counts2": 20.480951208725052
+          },
+          {
+            "evaluation": 415,
+            "training_mse_counts2": 20.4762866517407
+          },
+          {
+            "evaluation": 419,
+            "training_mse_counts2": 20.470039603371767
+          },
+          {
+            "evaluation": 424,
+            "training_mse_counts2": 20.466344661085223
+          },
+          {
+            "evaluation": 429,
+            "training_mse_counts2": 20.460532888154066
+          },
+          {
+            "evaluation": 434,
+            "training_mse_counts2": 20.45970239426698
+          },
+          {
+            "evaluation": 436,
+            "training_mse_counts2": 20.45796854707813
+          },
+          {
+            "evaluation": 440,
+            "training_mse_counts2": 20.452596943404945
+          },
+          {
+            "evaluation": 448,
+            "training_mse_counts2": 20.449904425258087
+          },
+          {
+            "evaluation": 456,
+            "training_mse_counts2": 20.44886928341868
+          },
+          {
+            "evaluation": 458,
+            "training_mse_counts2": 20.44806076614029
+          },
+          {
+            "evaluation": 462,
+            "training_mse_counts2": 20.44369739889215
+          },
+          {
+            "evaluation": 477,
+            "training_mse_counts2": 20.4425829332485
+          },
+          {
+            "evaluation": 479,
+            "training_mse_counts2": 20.44255385018844
+          },
+          {
+            "evaluation": 484,
+            "training_mse_counts2": 20.439727717146006
+          },
+          {
+            "evaluation": 494,
+            "training_mse_counts2": 20.43923455247444
+          },
+          {
+            "evaluation": 511,
+            "training_mse_counts2": 20.438842476671148
+          },
+          {
+            "evaluation": 512,
+            "training_mse_counts2": 20.436790827584474
+          },
+          {
+            "evaluation": 513,
+            "training_mse_counts2": 20.436514910640845
+          },
+          {
+            "evaluation": 521,
+            "training_mse_counts2": 20.435349401341373
+          },
+          {
+            "evaluation": 522,
+            "training_mse_counts2": 20.43523938561617
+          },
+          {
+            "evaluation": 525,
+            "training_mse_counts2": 20.43418801728525
+          },
+          {
+            "evaluation": 526,
+            "training_mse_counts2": 20.433703209451284
+          },
+          {
+            "evaluation": 533,
+            "training_mse_counts2": 20.43342877757712
+          },
+          {
+            "evaluation": 539,
+            "training_mse_counts2": 20.432787250506493
+          },
+          {
+            "evaluation": 545,
+            "training_mse_counts2": 20.431904389355218
+          },
+          {
+            "evaluation": 547,
+            "training_mse_counts2": 20.431381719677713
+          },
+          {
+            "evaluation": 558,
+            "training_mse_counts2": 20.431007736379286
+          },
+          {
+            "evaluation": 571,
+            "training_mse_counts2": 20.430528003094484
+          },
+          {
+            "evaluation": 572,
+            "training_mse_counts2": 20.43036813216692
+          },
+          {
+            "evaluation": 581,
+            "training_mse_counts2": 20.430270602700162
+          },
+          {
+            "evaluation": 587,
+            "training_mse_counts2": 20.42945964769263
+          },
+          {
+            "evaluation": 588,
+            "training_mse_counts2": 20.429252109201833
+          },
+          {
+            "evaluation": 595,
+            "training_mse_counts2": 20.428962893051768
+          },
+          {
+            "evaluation": 598,
+            "training_mse_counts2": 20.428654196679467
+          },
+          {
+            "evaluation": 610,
+            "training_mse_counts2": 20.428398233035303
+          },
+          {
+            "evaluation": 611,
+            "training_mse_counts2": 20.428384422204307
+          },
+          {
+            "evaluation": 613,
+            "training_mse_counts2": 20.4282876486388
+          },
+          {
+            "evaluation": 617,
+            "training_mse_counts2": 20.428237615381345
+          },
+          {
+            "evaluation": 619,
+            "training_mse_counts2": 20.428154915181057
+          },
+          {
+            "evaluation": 621,
+            "training_mse_counts2": 20.428007555578255
+          },
+          {
+            "evaluation": 623,
+            "training_mse_counts2": 20.427891169143273
+          },
+          {
+            "evaluation": 626,
+            "training_mse_counts2": 20.42786234189312
+          },
+          {
+            "evaluation": 633,
+            "training_mse_counts2": 20.427552149725066
+          },
+          {
+            "evaluation": 634,
+            "training_mse_counts2": 20.427433043196135
+          },
+          {
+            "evaluation": 646,
+            "training_mse_counts2": 20.427345103534176
+          },
+          {
+            "evaluation": 650,
+            "training_mse_counts2": 20.42731948760637
+          },
+          {
+            "evaluation": 654,
+            "training_mse_counts2": 20.4273152918591
+          },
+          {
+            "evaluation": 660,
+            "training_mse_counts2": 20.42731237508894
+          },
+          {
+            "evaluation": 665,
+            "training_mse_counts2": 20.427279376076307
+          },
+          {
+            "evaluation": 666,
+            "training_mse_counts2": 20.427193623711187
+          },
+          {
+            "evaluation": 674,
+            "training_mse_counts2": 20.42717497761215
+          },
+          {
+            "evaluation": 675,
+            "training_mse_counts2": 20.427145984242486
+          },
+          {
+            "evaluation": 681,
+            "training_mse_counts2": 20.427137087933733
+          },
+          {
+            "evaluation": 697,
+            "training_mse_counts2": 20.427097886111397
+          },
+          {
+            "evaluation": 701,
+            "training_mse_counts2": 20.427085089885626
+          },
+          {
+            "evaluation": 703,
+            "training_mse_counts2": 20.427074056218263
+          },
+          {
+            "evaluation": 707,
+            "training_mse_counts2": 20.427045716411648
+          },
+          {
+            "evaluation": 712,
+            "training_mse_counts2": 20.427027406553133
+          },
+          {
+            "evaluation": 722,
+            "training_mse_counts2": 20.427027229761727
+          },
+          {
+            "evaluation": 734,
+            "training_mse_counts2": 20.426943503561194
+          },
+          {
+            "evaluation": 814,
+            "training_mse_counts2": 20.42691892399425
+          },
+          {
+            "evaluation": 850,
+            "training_mse_counts2": 20.426918264363316
+          },
+          {
+            "evaluation": 860,
+            "training_mse_counts2": 20.426917959008083
+          },
+          {
+            "evaluation": 871,
+            "training_mse_counts2": 20.426917651962153
+          },
+          {
+            "evaluation": 873,
+            "training_mse_counts2": 20.426917002479648
+          },
+          {
+            "evaluation": 887,
+            "training_mse_counts2": 20.42691681038006
+          }
+        ]
+      },
+      "angle_calibrated": false,
+      "position_units": "corrected ADC counts",
+      "velocity_units": "corrected ADC counts/s"
+    }
+  ],
+  "evaluation": [
+    {
+      "model": "static",
+      "aggregate": {
+        "training": {
+          "n_units": 5,
+          "equal_unit_rmse_counts": 58.12724292827939,
+          "equal_unit_mae_counts": 22.691138659540922
+        },
+        "validation": {
+          "n_units": 3,
+          "equal_unit_rmse_counts": 52.53147393044813,
+          "equal_unit_mae_counts": 19.504635610267847
+        }
+      },
+      "units": [
+        {
+          "unit": "ground:cycle:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 0,
+            "first_recorded_time_us": 55209127,
+            "segments": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "preceding_command_hold_us": 2887315.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4901,
+          "valid_measurement_rows": 4897,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4896,
+            "mae_counts": 29.402962154812283,
+            "rmse_counts": 64.55448521153625,
+            "p95_absolute_counts": 153.14727783203125,
+            "mean_signed_counts": -0.07873268376768025
+          },
+          "first150ms": {
+            "n": 602,
+            "mae_counts": 132.9846530039841,
+            "rmse_counts": 177.33626491945518,
+            "p95_absolute_counts": 321.23095703125,
+            "mean_signed_counts": -1.6231330542073297
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 14.650662841796875,
+            "rmse_counts": 18.468740790880396,
+            "p95_absolute_counts": 29.718017578125,
+            "mean_signed_counts": 0.092723388671875
+          }
+        },
+        {
+          "unit": "ground:cycle:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 1,
+            "first_recorded_time_us": 60098821,
+            "segments": [
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 1235146.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4912,
+          "valid_measurement_rows": 4907,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4906,
+            "mae_counts": 28.520144438092387,
+            "rmse_counts": 63.96377932818466,
+            "p95_absolute_counts": 150.45907592773438,
+            "mean_signed_counts": -1.212729987833775
+          },
+          "first150ms": {
+            "n": 603,
+            "mae_counts": 131.88673150361473,
+            "rmse_counts": 176.03225058599946,
+            "p95_absolute_counts": 325.2768798828125,
+            "mean_signed_counts": -4.445036576557317
+          },
+          "final100ms": {
+            "n": 399,
+            "mae_counts": 14.020119573836936,
+            "rmse_counts": 18.02302501153754,
+            "p95_absolute_counts": 29.718017578125,
+            "mean_signed_counts": -0.7227605757557958
+          }
+        },
+        {
+          "unit": "ground:cycle:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 2,
+            "first_recorded_time_us": 64999513,
+            "segments": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "preceding_command_hold_us": 1214200.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4934,
+          "valid_measurement_rows": 4928,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4927,
+            "mae_counts": 28.058419402772667,
+            "rmse_counts": 63.07471405887528,
+            "p95_absolute_counts": 146.1281005859374,
+            "mean_signed_counts": 0.010478944741665821
+          },
+          "first150ms": {
+            "n": 600,
+            "mae_counts": 131.24768676757813,
+            "rmse_counts": 174.87811850717176,
+            "p95_absolute_counts": 324.281982421875,
+            "mean_signed_counts": -3.5939432779947915
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 14.024447021484375,
+            "rmse_counts": 17.366202328792486,
+            "p95_absolute_counts": 29.718017578125,
+            "mean_signed_counts": 0.297723388671875
+          }
+        },
+        {
+          "unit": "hysteresis:approach:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 0,
+            "first_recorded_time_us": 118766011,
+            "segments": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 882050.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4598,
+          "valid_measurement_rows": 4590,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4589,
+            "mae_counts": 25.043955713348154,
+            "rmse_counts": 65.3459650398119,
+            "p95_absolute_counts": 172.0098876953118,
+            "mean_signed_counts": -0.019738761551059598
+          },
+          "first150ms": {
+            "n": 1204,
+            "mae_counts": 71.20059183824102,
+            "rmse_counts": 125.78389626792692,
+            "p95_absolute_counts": 302.6959838867187,
+            "mean_signed_counts": -1.9580233247573193
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 9.856834106445312,
+            "rmse_counts": 14.250303038014788,
+            "p95_absolute_counts": 33.718017578125,
+            "mean_signed_counts": 0.1306634521484375
+          }
+        },
+        {
+          "unit": "hysteresis:approach:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 1,
+            "first_recorded_time_us": 123353870,
+            "segments": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ],
+            "preceding_command_hold_us": 688479.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4589,
+          "valid_measurement_rows": 4587,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4586,
+            "mae_counts": 24.886846330245927,
+            "rmse_counts": 65.73233409851566,
+            "p95_absolute_counts": 175.531982421875,
+            "mean_signed_counts": 0.4122955681609109
+          },
+          "first150ms": {
+            "n": 1207,
+            "mae_counts": 71.30901983303775,
+            "rmse_counts": 126.52019821830623,
+            "p95_absolute_counts": 307.6076171875,
+            "mean_signed_counts": -0.808936497546862
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 9.304847412109375,
+            "rmse_counts": 13.49287665909528,
+            "p95_absolute_counts": 28.718017578125,
+            "mean_signed_counts": 0.4644134521484375
+          }
+        },
+        {
+          "unit": "hysteresis:approach:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 2,
+            "first_recorded_time_us": 127932754,
+            "segments": [
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "preceding_command_hold_us": 688478.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4599,
+          "valid_measurement_rows": 4592,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4591,
+            "mae_counts": 24.87474187353654,
+            "rmse_counts": 65.23989561388812,
+            "p95_absolute_counts": 174.5,
+            "mean_signed_counts": 0.5930546964339196
+          },
+          "first150ms": {
+            "n": 1206,
+            "mae_counts": 70.97181086753731,
+            "rmse_counts": 125.58164848407864,
+            "p95_absolute_counts": 306.115478515625,
+            "mean_signed_counts": -0.6091193203902363
+          },
+          "final100ms": {
+            "n": 797,
+            "mae_counts": 9.61873045649702,
+            "rmse_counts": 13.967197824779435,
+            "p95_absolute_counts": 29.718017578125,
+            "mean_signed_counts": 0.7641310554226788
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 0,
+            "first_recorded_time_us": 133140256,
+            "segments": [
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66
+            ],
+            "preceding_command_hold_us": 618635.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 11200,
+          "valid_measurement_rows": 11192,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 11191,
+            "mae_counts": 5.601784661205852,
+            "rmse_counts": 6.663357436132849,
+            "p95_absolute_counts": 11.85693359375,
+            "mean_signed_counts": 0.8907205641147183
+          },
+          "first150ms": {
+            "n": 6188,
+            "mae_counts": 5.990741929471608,
+            "rmse_counts": 7.106066813477235,
+            "p95_absolute_counts": 12.5084228515625,
+            "mean_signed_counts": 0.9208438925074236
+          },
+          "final100ms": {
+            "n": 4096,
+            "mae_counts": 5.064424991607666,
+            "rmse_counts": 6.007632073871736,
+            "p95_absolute_counts": 10.8787841796875,
+            "mean_signed_counts": 0.7988733053207397
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:1",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 1,
+            "first_recorded_time_us": 144315597,
+            "segments": [
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106
+            ],
+            "preceding_command_hold_us": 273397.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 10936,
+          "valid_measurement_rows": 10921,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 10920,
+            "mae_counts": 5.580745554494333,
+            "rmse_counts": 6.6335304775176835,
+            "p95_absolute_counts": 11.9227294921875,
+            "mean_signed_counts": 1.019239019037603
+          },
+          "first150ms": {
+            "n": 6034,
+            "mae_counts": 5.783317467294705,
+            "rmse_counts": 6.857523119577174,
+            "p95_absolute_counts": 12.14306640625,
+            "mean_signed_counts": 0.9801317517789816
+          },
+          "final100ms": {
+            "n": 3994,
+            "mae_counts": 5.278025039267886,
+            "rmse_counts": 6.287647856094033,
+            "p95_absolute_counts": 11.758093261718749,
+            "mean_signed_counts": 1.0306361947706717
+          }
+        }
+      ]
+    },
+    {
+      "model": "lag",
+      "aggregate": {
+        "training": {
+          "n_units": 5,
+          "equal_unit_rmse_counts": 15.58031269421058,
+          "equal_unit_mae_counts": 8.891866222675647
+        },
+        "validation": {
+          "n_units": 3,
+          "equal_unit_rmse_counts": 14.155746201240294,
+          "equal_unit_mae_counts": 8.40072223312112
+        }
+      },
+      "units": [
+        {
+          "unit": "ground:cycle:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 0,
+            "first_recorded_time_us": 55209127,
+            "segments": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "preceding_command_hold_us": 2887315.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4901,
+          "valid_measurement_rows": 4897,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4896,
+            "mae_counts": 9.8574907888774,
+            "rmse_counts": 16.987083928935782,
+            "p95_absolute_counts": 41.37689208984375,
+            "mean_signed_counts": 0.9071336634018842
+          },
+          "first150ms": {
+            "n": 602,
+            "mae_counts": 38.99155159883721,
+            "rmse_counts": 43.97484032771019,
+            "p95_absolute_counts": 76.26660766601562,
+            "mean_signed_counts": 0.17625979806893688
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 4.97233642578125,
+            "rmse_counts": 5.998545410731256,
+            "p95_absolute_counts": 10.582263183593732,
+            "mean_signed_counts": 0.985057373046875
+          }
+        },
+        {
+          "unit": "ground:cycle:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 1,
+            "first_recorded_time_us": 60098821,
+            "segments": [
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 1235146.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4912,
+          "valid_measurement_rows": 4907,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4906,
+            "mae_counts": 9.73213680374637,
+            "rmse_counts": 16.563126715102587,
+            "p95_absolute_counts": 40.02655029296875,
+            "mean_signed_counts": -0.30860621580239755
+          },
+          "first150ms": {
+            "n": 603,
+            "mae_counts": 37.90026592298922,
+            "rmse_counts": 42.493968568208224,
+            "p95_absolute_counts": 72.03948974609375,
+            "mean_signed_counts": -3.6127136129249586
+          },
+          "final100ms": {
+            "n": 399,
+            "mae_counts": 5.001027654585683,
+            "rmse_counts": 6.03229966939622,
+            "p95_absolute_counts": 11.484619140625,
+            "mean_signed_counts": 0.24457414287672305
+          }
+        },
+        {
+          "unit": "ground:cycle:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 2,
+            "first_recorded_time_us": 64999513,
+            "segments": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "preceding_command_hold_us": 1214200.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4934,
+          "valid_measurement_rows": 4928,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4927,
+            "mae_counts": 10.305581014055207,
+            "rmse_counts": 16.335144188450286,
+            "p95_absolute_counts": 38.826806640624994,
+            "mean_signed_counts": 1.0305267451669373
+          },
+          "first150ms": {
+            "n": 600,
+            "mae_counts": 36.28527323404948,
+            "rmse_counts": 40.91443662125082,
+            "p95_absolute_counts": 71.1973937988281,
+            "mean_signed_counts": -2.2224167887369792
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 6.1011654663085935,
+            "rmse_counts": 7.115279829865427,
+            "p95_absolute_counts": 12.5621337890625,
+            "mean_signed_counts": 1.1900576782226562
+          }
+        },
+        {
+          "unit": "hysteresis:approach:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 0,
+            "first_recorded_time_us": 118766011,
+            "segments": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 882050.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4598,
+          "valid_measurement_rows": 4590,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4589,
+            "mae_counts": 10.057310854591142,
+            "rmse_counts": 17.514363527566296,
+            "p95_absolute_counts": 41.842382812499984,
+            "mean_signed_counts": 0.022562126314284156
+          },
+          "first150ms": {
+            "n": 1204,
+            "mae_counts": 21.306501623007943,
+            "rmse_counts": 31.21249083260981,
+            "p95_absolute_counts": 68.59979858398435,
+            "mean_signed_counts": -1.6263941767999897
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 5.067930603027344,
+            "rmse_counts": 6.069984833865676,
+            "p95_absolute_counts": 11.178277587890623,
+            "mean_signed_counts": 0.19344207763671875
+          }
+        },
+        {
+          "unit": "hysteresis:approach:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 1,
+            "first_recorded_time_us": 123353870,
+            "segments": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ],
+            "preceding_command_hold_us": 688479.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4589,
+          "valid_measurement_rows": 4587,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4586,
+            "mae_counts": 9.682809875461663,
+            "rmse_counts": 17.5056145022603,
+            "p95_absolute_counts": 41.760406494140625,
+            "mean_signed_counts": 0.22847402100993514
+          },
+          "first150ms": {
+            "n": 1207,
+            "mae_counts": 21.536505293826377,
+            "rmse_counts": 31.674491641700723,
+            "p95_absolute_counts": 70.66909179687501,
+            "mean_signed_counts": -1.060549403382612
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 4.6091148376464846,
+            "rmse_counts": 5.553705143384693,
+            "p95_absolute_counts": 10.405468749999994,
+            "mean_signed_counts": 0.5184010314941406
+          }
+        },
+        {
+          "unit": "hysteresis:approach:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 2,
+            "first_recorded_time_us": 127932754,
+            "segments": [
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "preceding_command_hold_us": 688478.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4599,
+          "valid_measurement_rows": 4592,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4591,
+            "mae_counts": 9.493116574462944,
+            "rmse_counts": 17.127607836048075,
+            "p95_absolute_counts": 41.7220458984375,
+            "mean_signed_counts": 0.4096995033591538
+          },
+          "first150ms": {
+            "n": 1206,
+            "mae_counts": 21.1783072754716,
+            "rmse_counts": 30.95281390687572,
+            "p95_absolute_counts": 68.51434326171875,
+            "mean_signed_counts": -0.4271558062551824
+          },
+          "final100ms": {
+            "n": 797,
+            "mae_counts": 4.439474720877118,
+            "rmse_counts": 5.356765292297021,
+            "p95_absolute_counts": 10.043994140624994,
+            "mean_signed_counts": 0.7622246449086418
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 0,
+            "first_recorded_time_us": 133140256,
+            "segments": [
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66
+            ],
+            "preceding_command_hold_us": 618635.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 11200,
+          "valid_measurement_rows": 11192,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 11191,
+            "mae_counts": 5.129582790701652,
+            "rmse_counts": 6.134579234157186,
+            "p95_absolute_counts": 11.0277099609375,
+            "mean_signed_counts": 0.282505357524322
+          },
+          "first150ms": {
+            "n": 6188,
+            "mae_counts": 5.195230692374606,
+            "rmse_counts": 6.24847102139557,
+            "p95_absolute_counts": 11.174084472656247,
+            "mean_signed_counts": 0.3718885681901968
+          },
+          "final100ms": {
+            "n": 4096,
+            "mae_counts": 5.020569562911987,
+            "rmse_counts": 5.955736871768287,
+            "p95_absolute_counts": 10.607421875,
+            "mean_signed_counts": 0.11083078384399414
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:1",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 1,
+            "first_recorded_time_us": 144315597,
+            "segments": [
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106
+            ],
+            "preceding_command_hold_us": 273397.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 10936,
+          "valid_measurement_rows": 10921,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 10920,
+            "mae_counts": 5.40346911084521,
+            "rmse_counts": 6.400278564161917,
+            "p95_absolute_counts": 11.543621826171874,
+            "mean_signed_counts": 0.2482176728300996
+          },
+          "first150ms": {
+            "n": 6034,
+            "mae_counts": 5.3370278990343785,
+            "rmse_counts": 6.35668295284198,
+            "p95_absolute_counts": 11.504217529296874,
+            "mean_signed_counts": 0.19803529106547274
+          },
+          "final100ms": {
+            "n": 3994,
+            "mae_counts": 5.461113820388786,
+            "rmse_counts": 6.429652920323615,
+            "p95_absolute_counts": 11.634991455078124,
+            "mean_signed_counts": 0.2699812352806554
+          }
+        }
+      ]
+    },
+    {
+      "model": "full",
+      "aggregate": {
+        "training": {
+          "n_units": 5,
+          "equal_unit_rmse_counts": 4.519614674989458,
+          "equal_unit_mae_counts": 3.302726115825339
+        },
+        "validation": {
+          "n_units": 3,
+          "equal_unit_rmse_counts": 4.764864564396449,
+          "equal_unit_mae_counts": 3.558629200575005
+        }
+      },
+      "units": [
+        {
+          "unit": "ground:cycle:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 0,
+            "first_recorded_time_us": 55209127,
+            "segments": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "preceding_command_hold_us": 2887315.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4901,
+          "valid_measurement_rows": 4897,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4896,
+            "mae_counts": 3.1943298539305043,
+            "rmse_counts": 4.60724083953791,
+            "p95_absolute_counts": 8.3824462890625,
+            "mean_signed_counts": 0.7053708344503166
+          },
+          "first150ms": {
+            "n": 602,
+            "mae_counts": 6.779678902356728,
+            "rmse_counts": 9.367244492692672,
+            "p95_absolute_counts": 17.14202880859375,
+            "mean_signed_counts": 2.3000747832745017
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 2.5703302001953126,
+            "rmse_counts": 3.2762144121005914,
+            "p95_absolute_counts": 6.112609863281243,
+            "mean_signed_counts": 0.471019287109375
+          }
+        },
+        {
+          "unit": "ground:cycle:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 1,
+            "first_recorded_time_us": 60098821,
+            "segments": [
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 1235146.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4912,
+          "valid_measurement_rows": 4907,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4906,
+            "mae_counts": 3.221492974164289,
+            "rmse_counts": 4.396607998943034,
+            "p95_absolute_counts": 8.1046142578125,
+            "mean_signed_counts": -0.5148311199774511
+          },
+          "first150ms": {
+            "n": 603,
+            "mae_counts": 5.4226335364194655,
+            "rmse_counts": 7.773820599377218,
+            "p95_absolute_counts": 14.440698242187494,
+            "mean_signed_counts": -1.6921230841236525
+          },
+          "final100ms": {
+            "n": 399,
+            "mae_counts": 2.860645265507519,
+            "rmse_counts": 3.653497662945123,
+            "p95_absolute_counts": 7.2645263671875,
+            "mean_signed_counts": -0.28482399847274437
+          }
+        },
+        {
+          "unit": "ground:cycle:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "ground",
+            "kind": "cycle",
+            "index": 2,
+            "first_recorded_time_us": 64999513,
+            "segments": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "preceding_command_hold_us": 1214200.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4934,
+          "valid_measurement_rows": 4928,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4927,
+            "mae_counts": 4.096683924159922,
+            "rmse_counts": 5.411691053655673,
+            "p95_absolute_counts": 9.739794921874985,
+            "mean_signed_counts": 0.7366633662012254
+          },
+          "first150ms": {
+            "n": 600,
+            "mae_counts": 6.314564819335938,
+            "rmse_counts": 9.037677298746974,
+            "p95_absolute_counts": 16.868322753906245,
+            "mean_signed_counts": -0.4222955322265625
+          },
+          "final100ms": {
+            "n": 400,
+            "mae_counts": 3.602228698730469,
+            "rmse_counts": 4.464969875088661,
+            "p95_absolute_counts": 8.2645263671875,
+            "mean_signed_counts": 0.6760195922851563
+          }
+        },
+        {
+          "unit": "hysteresis:approach:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 0,
+            "first_recorded_time_us": 118766011,
+            "segments": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "preceding_command_hold_us": 882050.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4598,
+          "valid_measurement_rows": 4590,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4589,
+            "mae_counts": 3.752667165836443,
+            "rmse_counts": 5.148081562903866,
+            "p95_absolute_counts": 9.743432617187498,
+            "mean_signed_counts": -0.14388456197054098
+          },
+          "first150ms": {
+            "n": 1204,
+            "mae_counts": 4.881063974576931,
+            "rmse_counts": 7.15310203412561,
+            "p95_absolute_counts": 14.560180664062475,
+            "mean_signed_counts": -0.8387779666735881
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 3.4360870361328124,
+            "rmse_counts": 4.262140380857424,
+            "p95_absolute_counts": 8.2645263671875,
+            "mean_signed_counts": -0.3716253662109375
+          }
+        },
+        {
+          "unit": "hysteresis:approach:1",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 1,
+            "first_recorded_time_us": 123353870,
+            "segments": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ],
+            "preceding_command_hold_us": 688479.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4589,
+          "valid_measurement_rows": 4587,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4586,
+            "mae_counts": 3.1735148307178096,
+            "rmse_counts": 4.327324296894065,
+            "p95_absolute_counts": 8.103729248046875,
+            "mean_signed_counts": -0.1508362641565362
+          },
+          "first150ms": {
+            "n": 1207,
+            "mae_counts": 4.344238888061827,
+            "rmse_counts": 6.078931846686466,
+            "p95_absolute_counts": 11.446704101562505,
+            "mean_signed_counts": -0.660563420735812
+          },
+          "final100ms": {
+            "n": 800,
+            "mae_counts": 2.851102294921875,
+            "rmse_counts": 3.602510363835977,
+            "p95_absolute_counts": 7.2645263671875,
+            "mean_signed_counts": -0.0378753662109375
+          }
+        },
+        {
+          "unit": "hysteresis:approach:2",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "approach",
+            "index": 2,
+            "first_recorded_time_us": 127932754,
+            "segments": [
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "preceding_command_hold_us": 688478.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 4599,
+          "valid_measurement_rows": 4592,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 4591,
+            "mae_counts": 3.300297595244092,
+            "rmse_counts": 4.660421369070129,
+            "p95_absolute_counts": 8.74169921875,
+            "mean_signed_counts": -0.053865845284932476
+          },
+          "first150ms": {
+            "n": 1206,
+            "mae_counts": 4.987801977255649,
+            "rmse_counts": 7.065377694464562,
+            "p95_absolute_counts": 14.848297119140625,
+            "mean_signed_counts": -0.27970144800088104
+          },
+          "final100ms": {
+            "n": 797,
+            "mae_counts": 2.699975218348102,
+            "rmse_counts": 3.52519613548149,
+            "p95_absolute_counts": 7.3824462890625,
+            "mean_signed_counts": 0.22835526412523527
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:0",
+          "split": "training",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 0,
+            "first_recorded_time_us": 133140256,
+            "segments": [
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66
+            ],
+            "preceding_command_hold_us": 618635.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 11200,
+          "valid_measurement_rows": 11192,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 11191,
+            "mae_counts": 3.1716257544776494,
+            "rmse_counts": 4.0434236301955835,
+            "p95_absolute_counts": 7.84405517578125,
+            "mean_signed_counts": -0.03422355907509383
+          },
+          "first150ms": {
+            "n": 6188,
+            "mae_counts": 3.2061820051788743,
+            "rmse_counts": 4.1566531305664665,
+            "p95_absolute_counts": 7.9052734375,
+            "mean_signed_counts": 0.04368633721517453
+          },
+          "final100ms": {
+            "n": 4096,
+            "mae_counts": 3.11035293340683,
+            "rmse_counts": 3.8706647751051784,
+            "p95_absolute_counts": 7.4658203125,
+            "mean_signed_counts": -0.1916719675064087
+          }
+        },
+        {
+          "unit": "hysteresis:staircase:1",
+          "split": "validation",
+          "metadata": {
+            "dataset": "hysteresis",
+            "kind": "staircase",
+            "index": 1,
+            "first_recorded_time_us": 144315597,
+            "segments": [
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106
+            ],
+            "preceding_command_hold_us": 273397.0,
+            "initial_play_memory_assumption": "Prior command approached in last recorded PWM direction; no extra position history used",
+            "initialization_count": 1,
+            "skipped_initial_invalid_rows": 0
+          },
+          "recorded_rows": 10936,
+          "valid_measurement_rows": 10921,
+          "model_invalid_rows": 0,
+          "all": {
+            "n": 10920,
+            "mae_counts": 3.2789060823209994,
+            "rmse_counts": 4.135924993713081,
+            "p95_absolute_counts": 8.092407226562498,
+            "mean_signed_counts": -0.3582395784147493
+          },
+          "first150ms": {
+            "n": 6034,
+            "mae_counts": 3.287286573188132,
+            "rmse_counts": 4.179821943640748,
+            "p95_absolute_counts": 8.095196533203124,
+            "mean_signed_counts": -0.405916825327053
+          },
+          "final100ms": {
+            "n": 3994,
+            "mae_counts": 3.2699259766114013,
+            "rmse_counts": 4.0713478217275405,
+            "p95_absolute_counts": 7.9078369140625,
+            "mean_signed_counts": -0.3497872235599493
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Small single-fixture dataset and at most three held-out units; electrical proxy lacks independently measured angle, load, excitation/reference isolation and direct PWM-edge timing. Good replay does not authorize flight compensation or prove identified mechanical parameters.",
+    "All recordings were previously inspected for exploratory characterization. These units are held out from this fit/tuning, not a pristine prospective experiment; model architecture reflects that earlier knowledge.",
+    "Fitted lag, play and slew are descriptive joint parameters, not separately identified physical constants.",
+    "No measurement correction after unit initialization; future live observer would need a separately validated update law."
+  ]
+}
