@@ -1,0 +1,323 @@
+Processing teensylc (board: teensylc; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensylc.html
+PLATFORM: Teensy (6.0.0) > Teensy LC
+HARDWARE: MKL26Z64 48MHz, 8KB RAM, 62KB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensylc/src/main.cpp.o
+Compiling .pio/build/teensylc/libcc6/SPI/SPI.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/AudioStream.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/CrashReport.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/DMAChannel.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/EventResponder.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial1.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial2.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial3.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial4.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial5.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/HardwareSerial6.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/IPAddress.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/IntervalTimer.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/Print.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/Stream.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/Time.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/Tone.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/WMath.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/WString.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/analog.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/avr_emulation.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/eeprom.c.o
+Archiving .pio/build/teensylc/libcc6/libSPI.a
+Indexing .pio/build/teensylc/libcc6/libSPI.a
+Compiling .pio/build/teensylc/FrameworkArduino/keylayouts.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/main.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/math_helper.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/memcpy-armv7m.S.o
+Compiling .pio/build/teensylc/FrameworkArduino/memset.S.o
+Compiling .pio/build/teensylc/FrameworkArduino/mk20dx128.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/new.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/nonstd.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/pins_teensy.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/ser_print.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial1.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial2.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial3.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial4.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial5.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial6.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serial6_lpuart.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent1.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent2.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent3.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent4.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent5.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEvent6.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEventUSB1.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/serialEventUSB2.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/touch.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_audio.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_desc.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_dev.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_flightsim.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_inst.cpp.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_joystick.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_keyboard.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_mem.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_midi.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_mouse.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_mtp.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_rawhid.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_seremu.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_serial.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_serial2.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_serial3.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/usb_touch.c.o
+Compiling .pio/build/teensylc/FrameworkArduino/yield.cpp.o
+Archiving .pio/build/teensylc/libFrameworkArduino.a
+Indexing .pio/build/teensylc/libFrameworkArduino.a
+Linking .pio/build/teensylc/firmware.elf
+Checking size .pio/build/teensylc/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [====      ]  36.9% (used 3020 bytes from 8192 bytes)
+Flash: [==        ]  16.2% (used 10308 bytes from 63488 bytes)
+Building .pio/build/teensylc/firmware.hex
+========================= [SUCCESS] Took 1.55 seconds =========================
+
+Processing teensy36 (board: teensy36; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensy36.html
+PLATFORM: Teensy (6.0.0) > Teensy 3.6
+HARDWARE: MK66FX1M0 180MHz, 256KB RAM, 1MB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensy36/src/main.cpp.o
+Compiling .pio/build/teensy36/libcc6/SPI/SPI.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/AudioStream.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/CrashReport.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/DMAChannel.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/EventResponder.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial1.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial2.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial3.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial4.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial5.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/HardwareSerial6.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/IPAddress.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/IntervalTimer.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/Print.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/Stream.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/Time.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/Tone.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/WMath.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/WString.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/analog.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/avr_emulation.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/eeprom.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/keylayouts.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/main.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/math_helper.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/memcpy-armv7m.S.o
+Compiling .pio/build/teensy36/FrameworkArduino/memset.S.o
+Compiling .pio/build/teensy36/FrameworkArduino/mk20dx128.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/new.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/nonstd.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/pins_teensy.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/ser_print.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serial1.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serial2.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serial3.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serial4.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serial5.c.o
+Archiving .pio/build/teensy36/libcc6/libSPI.a
+Compiling .pio/build/teensy36/FrameworkArduino/serial6.c.o
+Indexing .pio/build/teensy36/libcc6/libSPI.a
+Compiling .pio/build/teensy36/FrameworkArduino/serial6_lpuart.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent1.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent2.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent3.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent4.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent5.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEvent6.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEventUSB1.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/serialEventUSB2.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/touch.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_audio.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_desc.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_dev.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_flightsim.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_inst.cpp.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_joystick.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_keyboard.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_mem.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_midi.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_mouse.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_mtp.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_rawhid.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_seremu.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_serial.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_serial2.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_serial3.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/usb_touch.c.o
+Compiling .pio/build/teensy36/FrameworkArduino/yield.cpp.o
+Archiving .pio/build/teensy36/libFrameworkArduino.a
+Indexing .pio/build/teensy36/libFrameworkArduino.a
+Linking .pio/build/teensy36/firmware.elf
+Checking size .pio/build/teensy36/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   1.6% (used 4316 bytes from 262144 bytes)
+Flash: [          ]   1.4% (used 14328 bytes from 1048576 bytes)
+Building .pio/build/teensy36/firmware.hex
+========================= [SUCCESS] Took 1.63 seconds =========================
+
+Processing teensy40 (board: teensy40; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensy40.html
+PLATFORM: Teensy (6.0.0) > Teensy 4.0
+HARDWARE: IMXRT1062 600MHz, 512KB RAM, 1.94MB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensy40/src/main.cpp.o
+Compiling .pio/build/teensy40/libcc6/SPI/SPI.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/AudioStream.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/CrashReport.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/DMAChannel.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/EventResponder.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial1.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial2.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial3.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial4.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial5.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial6.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial7.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/HardwareSerial8.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/IPAddress.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/IntervalTimer.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/MTP_Storage.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/MTP_Teensy.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/Print.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/Stream.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/Time.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/Tone.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/WMath.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/WString.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/analog.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/bootdata.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/clockspeed.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/debugprintf.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/delay.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/digital.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/eeprom.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/extmem.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/fuse.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/interrupt.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/keylayouts.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/main.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/memcpy-armv7m.S.o
+Compiling .pio/build/teensy40/FrameworkArduino/memset.S.o
+Compiling .pio/build/teensy40/FrameworkArduino/new.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/nonstd.c.o
+Archiving .pio/build/teensy40/libcc6/libSPI.a
+Compiling .pio/build/teensy40/FrameworkArduino/pwm.c.o
+Indexing .pio/build/teensy40/libcc6/libSPI.a
+Compiling .pio/build/teensy40/FrameworkArduino/rtc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent1.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent2.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent3.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent4.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent5.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent6.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent7.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEvent8.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEventUSB1.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/serialEventUSB2.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_alloc_valid.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_calloc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_free.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_hash.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_malloc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_malloc_stats.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_pool.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_realloc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_realloc_i.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_realloc_move.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_szalloc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_util.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/sm_zalloc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/startup.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/tempmon.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_audio.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_desc.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_flightsim.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_inst.cpp.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_joystick.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_keyboard.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_midi.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_mouse.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_mtp.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_rawhid.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_seremu.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_serial.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_serial2.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_serial3.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/usb_touch.c.o
+Compiling .pio/build/teensy40/FrameworkArduino/yield.cpp.o
+Archiving .pio/build/teensy40/libFrameworkArduino.a
+Indexing .pio/build/teensy40/libFrameworkArduino.a
+Linking .pio/build/teensy40/firmware.elf
+Calculating size .pio/build/teensy40/firmware.elf
+Checking size .pio/build/teensy40/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+teensy_size: Memory Usage on Teensy 4.0:
+teensy_size:   FLASH: code:14148, data:5304, headers:8192   free for files:2003972
+teensy_size:    RAM1: variables:6656, code:12432, padding:20336   free for local variables:484864
+teensy_size:    RAM2: variables:12416  free for malloc/new:511872
+Building .pio/build/teensy40/firmware.hex
+========================= [SUCCESS] Took 1.53 seconds =========================
+
+Environment    Status    Duration
+-------------  --------  ------------
+teensylc       SUCCESS   00:00:01.552
+teensy36       SUCCESS   00:00:01.631
+teensy40       SUCCESS   00:00:01.530
+========================= 3 succeeded in 00:00:04.713 =========================

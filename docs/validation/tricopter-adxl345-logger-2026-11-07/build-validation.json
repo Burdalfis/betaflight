@@ -1,0 +1,221 @@
+{
+  "passed": true,
+  "hardware_executed": false,
+  "flashed": false,
+  "command": [
+    "/home/alex/.platformio/penv/bin/platformio",
+    "run",
+    "--project-dir",
+    "tools/tricopter/adxl345_logger",
+    "-e",
+    "teensylc",
+    "-e",
+    "teensy36",
+    "-e",
+    "teensy40"
+  ],
+  "platformio_core_dir": "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-logger-2026-11-07/platformio",
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/test_capture.py": "6e4e0769b9a1dfe7fa9c4d8c3dd318d2011ae551f5600ce6f2735f93e14adedf",
+    "tools/tricopter/adxl345_logger/README.md": "ae6204df743f6fe27c3597cc5dd49ac8f846547f5ed7898648c041a149e63468",
+    "tools/tricopter/adxl345_logger/.gitignore": "f7bbe02ae38bfdcf6b9a362916854c02818d1d5d71d995bfdc4835036db4f099",
+    "tools/tricopter/adxl345_logger/requirements.txt": "95fdad543f34e4a191cd17219e1a73b4ab4b0b5ad9806a25c3b49e7b48ab8ca0",
+    "tools/tricopter/adxl345_logger/capture.py": "5937e3b97c3b78f63fe15af302dad1e9880d5a56d1855cf2d122fb1993315972",
+    "tools/tricopter/adxl345_logger/test_protocol.py": "b9a0ab4f1c799d98e22cf278f73a516d3d9e33f0ee7e3e5926b3f7c67b5c4223",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "89e09b9af60146535386512bd658b221dfe341b142c96aa0887517af1fa111a3",
+    "tools/tricopter/adxl345_logger/src/main.cpp": "a25b6194d1ce11a08e888276d459a24492161f605652d22a738c12ca88e3d552"
+  },
+  "artifacts": {
+    "tools/tricopter/adxl345_logger/.pio/build/teensylc/firmware.elf": {
+      "sha256": "0ee27e00ade2a11ab2e9502f80700af6685f4a191368d436944deff327d47d32",
+      "bytes": 32172
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensylc/firmware.hex": {
+      "sha256": "34944f42496afdd7c5cd800b39bab1e5f541de972f9eade92638c7011c8e170d",
+      "bytes": 29035
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy36/firmware.elf": {
+      "sha256": "c2d45e4fa3bcf0a7a1ce8d9863f5d35784f28373d3a0bebd55ede8dc0b22f439",
+      "bytes": 35256
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy36/firmware.hex": {
+      "sha256": "a03bfb3a0d6d5d414261d20add74eabe47ccd25f7cd43e0e7edecdcd3b5663b5",
+      "bytes": 40338
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy40/firmware.elf": {
+      "sha256": "0f44976345aad215eb46145b235feae6f55eeab48553873088961f61571e8e94",
+      "bytes": 54644
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy40/firmware.hex": {
+      "sha256": "57f3b37283a30470034dc36065357fdfc0aad4d9ce27634842a67ae7838d9e9b",
+      "bytes": 77837
+    }
+  },
+  "dependencies": {
+    "platformio/platforms/teensy/platform.json": {
+      "sha256": "1d5ade0e96103127671226544ccad1e431634e9849bcc96d8d75cbe1cb27bcbb",
+      "manifest": {
+        "name": "teensy",
+        "title": "Teensy",
+        "description": "Teensy is a complete USB-based microcontroller development system, in a very small footprint, capable of implementing many types of projects. All programming is done via the USB port. No special programmer is needed, only a standard USB cable and a PC or Macintosh with a USB port.",
+        "homepage": "https://www.pjrc.com/teensy",
+        "license": "Apache-2.0",
+        "keywords": [
+          "dev-platform",
+          "ARM",
+          "AVR",
+          "Cortex-M",
+          "NXP Semiconductors",
+          "Microchip"
+        ],
+        "engines": {
+          "platformio": "^6"
+        },
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/platformio/platform-teensy.git"
+        },
+        "version": "6.0.0",
+        "frameworks": {
+          "arduino": {
+            "package": "framework-arduinoteensy",
+            "script": "builder/frameworks/arduino.py"
+          },
+          "zephyr": {
+            "package": "framework-zephyr",
+            "script": "builder/frameworks/zephyr.py"
+          }
+        },
+        "packages": {
+          "toolchain-atmelavr": {
+            "type": "toolchain",
+            "optional": false,
+            "owner": "platformio",
+            "version": "~1.50400.0",
+            "optionalVersions": [
+              ">=1.60301.0,<1.80000.0"
+            ]
+          },
+          "toolchain-gccarmnoneeabi": {
+            "type": "toolchain",
+            "optional": true,
+            "owner": "platformio",
+            "version": "~1.80201.0"
+          },
+          "toolchain-gccarmnoneeabi-teensy": {
+            "type": "toolchain",
+            "optional": false,
+            "owner": "platformio",
+            "version": "~1.150201.0"
+          },
+          "framework-arduinoteensy": {
+            "type": "framework",
+            "optional": true,
+            "owner": "platformio",
+            "version": "~1.162.0"
+          },
+          "framework-zephyr": {
+            "type": "framework",
+            "optional": true,
+            "owner": "platformio",
+            "version": "~3.40402.0"
+          },
+          "tool-teensy": {
+            "type": "uploader",
+            "optional": true,
+            "owner": "platformio",
+            "version": "<2"
+          },
+          "tool-jlink": {
+            "type": "uploader",
+            "optional": true,
+            "owner": "platformio",
+            "version": "^1.63208.0"
+          },
+          "tool-cmake": {
+            "optional": true,
+            "owner": "platformio",
+            "version": "~3.21.0"
+          },
+          "tool-dtc": {
+            "optional": true,
+            "owner": "platformio",
+            "version": "~1.4.7"
+          },
+          "tool-ninja": {
+            "optional": true,
+            "owner": "platformio",
+            "version": "^1.7.0"
+          },
+          "tool-gperf": {
+            "optional": true,
+            "owner": "platformio",
+            "version": "^3.0.0"
+          }
+        }
+      }
+    },
+    "platformio/packages/framework-arduinoteensy/package.json": {
+      "sha256": "cffa8d247dffc9a056ca63b1fb02deb3882edffcfd6a6185f84665c5fd608ab1",
+      "manifest": {
+        "name": "framework-arduinoteensy",
+        "version": "1.162.0",
+        "description": "Arduino Wiring-based Framework for Teensy boards",
+        "keywords": [
+          "framework",
+          "arduino",
+          "teensy"
+        ],
+        "homepage": "https://www.arduino.cc/reference/en",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/PaulStoffregen/cores"
+        }
+      }
+    },
+    "platformio/packages/toolchain-gccarmnoneeabi-teensy/package.json": {
+      "sha256": "63f40d08e6d7b0c169393b0d350a447989ea393a11b5bcf0bf58bb4201ab3577",
+      "manifest": {
+        "name": "toolchain-gccarmnoneeabi-teensy",
+        "version": "1.150201.0",
+        "description": "GNU toolchain for Teensy boards based on Arm Cortex-M",
+        "keywords": [
+          "toolchain",
+          "build tools",
+          "compiler",
+          "assembler",
+          "linker",
+          "preprocessor",
+          "arm"
+        ],
+        "homepage": "https://www.pjrc.com/teensy/teensyduino.html",
+        "license": "GPL-2.0-or-later",
+        "repository": {
+          "type": "git",
+          "url": "https://gcc.gnu.org/git/gcc.git"
+        },
+        "system": [
+          "linux_x86_64"
+        ]
+      }
+    },
+    "platformio/packages/tool-teensy/package.json": {
+      "sha256": "189816cd32fec7079da13a445a220b21f3977d331ef694a7fd3b0db613a835ea",
+      "manifest": {
+        "name": "tool-teensy",
+        "version": "1.162.0",
+        "description": "Upload tools for Teensy boards",
+        "keywords": [
+          "tools",
+          "uploader",
+          "teensy"
+        ],
+        "homepage": "https://www.pjrc.com/teensy/loader.html",
+        "system": [
+          "linux_x86_64"
+        ]
+      }
+    }
+  }
+}

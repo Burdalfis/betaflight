@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "host_test_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tools/tricopter/adxl345_logger",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "host_tests_passed": 17,
+  "firmware_compile_environments": [
+    "teensylc",
+    "teensy36",
+    "teensy40"
+  ],
+  "lc_static_ram_bytes": 3020,
+  "lc_ram_bytes": 8192,
+  "lc_flash_bytes": 10308,
+  "lc_flash_capacity_bytes": 63488,
+  "hardware_executed": false,
+  "uploaded": false,
+  "active_FC_source_or_config_changed": false,
+  "base_commit": "3c96927b10fdd2b022ea81530878111b2c764513",
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/test_capture.py": "6e4e0769b9a1dfe7fa9c4d8c3dd318d2011ae551f5600ce6f2735f93e14adedf",
+    "tools/tricopter/adxl345_logger/README.md": "ae6204df743f6fe27c3597cc5dd49ac8f846547f5ed7898648c041a149e63468",
+    "tools/tricopter/adxl345_logger/.gitignore": "f7bbe02ae38bfdcf6b9a362916854c02818d1d5d71d995bfdc4835036db4f099",
+    "tools/tricopter/adxl345_logger/requirements.txt": "95fdad543f34e4a191cd17219e1a73b4ab4b0b5ad9806a25c3b49e7b48ab8ca0",
+    "tools/tricopter/adxl345_logger/capture.py": "5937e3b97c3b78f63fe15af302dad1e9880d5a56d1855cf2d122fb1993315972",
+    "tools/tricopter/adxl345_logger/test_protocol.py": "b9a0ab4f1c799d98e22cf278f73a516d3d9e33f0ee7e3e5926b3f7c67b5c4223",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "89e09b9af60146535386512bd658b221dfe341b142c96aa0887517af1fa111a3",
+    "tools/tricopter/adxl345_logger/src/main.cpp": "a25b6194d1ce11a08e888276d459a24492161f605652d22a738c12ca88e3d552"
+  },
+  "build_report_sha256": "9da6fd8a408482adbcdc1a629fe774512971d7e769d42a920965b7ac55efb3ba",
+  "tests_log_sha256": "1add923ba65745b924f0d77730e0aa617954cc8946718c286aa53f2c513c43a3",
+  "review": "Independent read-only hardware/firmware/host-capture review passed after read-completion deadline and causal PWM freshness fixes. Tests include actual C++ wire encoder to Python decoder, timing/PWM boundaries and CRC corruption/recovery.",
+  "scope": "Compile and host tests only. No sensor, electrical, timing, USB-throughput, lossless-acquisition or physical angle calibration result is claimed."
+}

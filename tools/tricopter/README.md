@@ -96,3 +96,7 @@ python3 tools/tricopter/dynamic_replay.py --output .local-artifacts/tricopter/dy
 The pinned protocol compares soft-weighted, vertical-heuristic and dynamic policies across synthetic airframes, faults and mismatch. Whole-wave metrics and predeclared transition windows are separate; pure-map static feasibility is checked per airframe. All actual rows are scored; dynamic use/fallback coverage is explicit. The guarantee concerns predicted horizon response over accepted sampled candidates, not every realized transient or a continuous servo optimum.
 
 Full-time traces retain compact dynamic summaries. Detailed candidate tables are archived only at predeclared audit times, with independent NumPy face/box certificates and an optional [MATLAB `lsqlin` cross-check](matlab/README.md). See [the algorithm, limits and results](../../docs/tricopter_dynamic_allocator.md).
+
+## External basket-angle calibration logger
+
+[The standalone ADXL345 PlatformIO project](adxl345_logger/README.md) targets Teensy LC, with optional 3.6/4.0 environments. It captures raw SPI acceleration and optional input-only servo PWM on one MCU clock, streams CRC-protected binary records, and preserves raw bytes, sample/status CSV and quality metadata on the PC. The guide includes wiring, build/upload and capture commands. It supports settled physical-angle calibration; acceleration during motion prevents treating its inferred tilt as independent dynamic-angle truth. The FC continues to use PB0−PC0 and its existing actuator paths.
