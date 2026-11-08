@@ -1,0 +1,15 @@
+{
+  "name": "TX16S ExpressLRS BLE joystick (PROVISIONAL: inspect and edit)",
+  "mapping_provisional": true,
+  "channel_order": "AETR1234",
+  "arm_channel": 4,
+  "low_throttle_max": 1050,
+  "channels": [
+    {"channel": 0, "name": "roll", "kind": "centered", "code": "ABS_X", "deadzone": 0.02},
+    {"channel": 1, "name": "pitch", "kind": "centered", "code": "ABS_Y", "deadzone": 0.02},
+    {"channel": 2, "name": "throttle", "kind": "throttle", "code": "ABS_Z", "deadzone": 0.01},
+    {"channel": 3, "name": "yaw", "kind": "centered", "code": "ABS_RX", "deadzone": 0.02, "invert": true},
+    {"channel": 4, "name": "ARM switch", "kind": "switch", "code": "ABS_RY", "levels": [1000, 2000]},
+    {"channel": 5, "name": "ANGLE switch", "kind": "switch", "code": "ABS_RZ", "levels": [1000, 2000]}
+  ]
+}

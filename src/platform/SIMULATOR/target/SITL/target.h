@@ -133,7 +133,9 @@
 #undef USE_STACK_CHECK // I think SITL don't need this
 #undef USE_DASHBOARD
 #undef USE_TELEMETRY_LTM
-#undef USE_ADC
+// The virtual backend supplies coherent ADC_EXTERNAL1/PB0 and ADC_RSSI/PC0
+// observations over localhost UDP; no physical GPIO/ADC driver is linked.
+#define USE_ADC
 #undef USE_VCP
 #undef USE_OSD
 #undef USE_RX_PPM

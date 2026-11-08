@@ -1,0 +1,163 @@
+{
+  "local_date": "2026-11-08",
+  "created_utc": "2026-11-08T05:53:48.067022+00:00",
+  "base_commit": "c9d57f5ad7aeccfff670b65ba6bc15dcf6fda5bf",
+  "stock_commit": "e0b7bb01b17b21351057e9ead2d1ab39dd44fa16",
+  "stock_git_blobs_verified": 4750,
+  "gazebo_installed": {
+    "gz-sim": "10.6.0",
+    "gz-plugin": "4.0.0",
+    "gz-math": "9.3.0",
+    "gz-msgs": "12.0.2",
+    "gz-physics": "9.6.1",
+    "gz-rendering": "10.1.0",
+    "gz-transport": "15.1.0",
+    "sdformat": "16.1.0"
+  },
+  "python_tests_passed": 30,
+  "native_adc_tests_passed": 9,
+  "native_gyro_tests_passed": 3,
+  "adc_fast_math_tests_passed": 9,
+  "gazebo_math_protocol_checks": 209,
+  "ctest_targets_passed": 2,
+  "actual_physics_flight": {
+    "stock": {
+      "pass": true,
+      "binary_sha256": "9f6fbae5b880e43f24e2383468801442173c2a01441fe5466610413472cfc325",
+      "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+      "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+      "firmware_config_sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971",
+      "metrics": {
+        "actual_takeoff_height_m": 1.176085750972,
+        "hover_samples": 146,
+        "hover_height_above_initial_m_range": [
+          1.032959022232,
+          1.044826669552
+        ],
+        "hover_max_abs_altitude_error_m": 0.0448266695520001,
+        "hover_max_horizontal_error_m": 0.23696326556490085,
+        "hover_max_abs_roll_pitch_deg": 1.22921451597,
+        "flight_max_abs_roll_pitch_deg": 1.67453866238,
+        "max_adc_quantization_error_counts": 0.49974086257361705,
+        "max_rear_thrust_reaction_axis_error": 1.878100408632098e-06,
+        "max_reaction_torque_formula_error_nm": 1.0001721673091879e-13,
+        "joint_angle_deg_range": [
+          -7.1044790329,
+          3.50046115712e-09
+        ],
+        "yaw_pulses": [
+          {
+            "phase": "yaw-positive",
+            "yaw_change_world_ccw_deg": 12.79310521970001,
+            "mean_sensor_frd_yaw_rate_rad_s": -0.32628933946966265,
+            "servo_pwm_us_range": [
+              1446.0,
+              1479.0
+            ]
+          },
+          {
+            "phase": "yaw-negative",
+            "yaw_change_world_ccw_deg": -11.633195952559987,
+            "mean_sensor_frd_yaw_rate_rad_s": 0.30046948282065533,
+            "servo_pwm_us_range": [
+              1477.0,
+              1510.0
+            ]
+          }
+        ]
+      },
+      "native_altitude_position_autopilot_modes_inactive": true,
+      "rc_max_send_gap_seconds": 0.023666395994951017,
+      "final_status": {
+        "armed": false,
+        "arming_disable_flags": 0,
+        "mode_mask": 2
+      },
+      "all_owned_processes_stopped": true
+    },
+    "modified": {
+      "pass": true,
+      "binary_sha256": "c91482ac35f27d9846f4c06fd6a5c9bce8c8a642334fa91eaec1e19ea34c592b",
+      "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+      "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+      "firmware_config_sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0",
+      "metrics": {
+        "actual_takeoff_height_m": 1.1788803616469998,
+        "hover_samples": 146,
+        "hover_height_above_initial_m_range": [
+          1.031524760937,
+          1.048862551247
+        ],
+        "hover_max_abs_altitude_error_m": 0.04886255124700001,
+        "hover_max_horizontal_error_m": 0.23622637332279392,
+        "hover_max_abs_roll_pitch_deg": 1.23435417667,
+        "flight_max_abs_roll_pitch_deg": 1.89169663752,
+        "max_adc_quantization_error_counts": 0.499881354480749,
+        "max_rear_thrust_reaction_axis_error": 2.5385095578018083e-06,
+        "max_reaction_torque_formula_error_nm": 1.0001721673091879e-13,
+        "joint_angle_deg_range": [
+          -7.33297811524,
+          0.209510237618
+        ],
+        "yaw_pulses": [
+          {
+            "phase": "yaw-positive",
+            "yaw_change_world_ccw_deg": 13.019043325310008,
+            "mean_sensor_frd_yaw_rate_rad_s": -0.33424911673259794,
+            "servo_pwm_us_range": [
+              1439.0,
+              1479.0
+            ]
+          },
+          {
+            "phase": "yaw-negative",
+            "yaw_change_world_ccw_deg": -12.950156990690004,
+            "mean_sensor_frd_yaw_rate_rad_s": 0.3286562098254726,
+            "servo_pwm_us_range": [
+              1478.0,
+              1517.0
+            ]
+          }
+        ]
+      },
+      "native_altitude_position_autopilot_modes_inactive": true,
+      "rc_max_send_gap_seconds": 0.025321426001028158,
+      "final_status": {
+        "armed": false,
+        "arming_disable_flags": 0,
+        "mode_mask": 2
+      },
+      "all_owned_processes_stopped": true
+    }
+  },
+  "modified_feedback": {
+    "modified_feedback_valid_fraction": 1.0,
+    "firmware_angle_vs_actual_joint_hover_rms_deg": 0.06437161829613014,
+    "firmware_angle_vs_actual_joint_hover_max_deg": 0.09022991320999996
+  },
+  "actual_plant_summary": {
+    "pass": true,
+    "normal": "/home/alex/betaflight/.local-artifacts/tricopter/gazebo-sitl/runs/20261108T054915-plant-normal-501741",
+    "reversed": "/home/alex/betaflight/.local-artifacts/tricopter/gazebo-sitl/runs/20261108T054922-plant-reversed-501741",
+    "opposite_reaction_same_thrust_and_joint_map": true
+  },
+  "gui": {
+    "compatible_engine": "ogre",
+    "qt_platform": "xcb",
+    "gpu": "Intel ARL Mesa",
+    "rendered_scene_png": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/gazebo-tricopter.png",
+    "auto_frame_follow_and_cleanup_run": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982",
+    "initial_renderer_cleanup_record": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/initial-renderer-cleanup.json"
+  },
+  "boundaries": {
+    "controller_hardware_tested": false,
+    "pairing_managed_by_user": true,
+    "synthetic_plant": true,
+    "external_ground_truth_rc_test_pilot": true,
+    "firmware_autopilot_used": false,
+    "physical_fc_accessed": false,
+    "performance_advantage_established": false
+  },
+  "flight_evidence": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891",
+  "protocol_evidence": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044"
+}

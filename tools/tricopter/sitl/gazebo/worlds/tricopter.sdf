@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<sdf version="1.10">
+  <world name="tricopter">
+    <physics name="physics" type="dart">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <gravity>0 0 -9.80665</gravity>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <scene><ambient>0.5 0.5 0.5 1</ambient><background>0.65 0.75 0.85 1</background></scene>
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose><cast_shadows>true</cast_shadows>
+      <diffuse>0.9 0.9 0.9 1</diffuse><specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.4 0.2 -1</direction>
+    </light>
+    <model name="ground">
+      <static>true</static>
+      <link name="ground_link">
+        <collision name="ground_collision"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry></collision>
+        <visual name="ground_visual"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material><ambient>0.25 0.3 0.25 1</ambient><diffuse>0.35 0.4 0.35 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Camera-only kinematic target: position and yaw follow the aircraft,
+         while roll / pitch stay zero. The separate world model has no geometry
+         or collisions and adds no mass or forces to the aircraft. -->
+    <model name="tricopter_camera_heading">
+      <static>false</static>
+      <pose>0 0 0.125 0 0 0</pose>
+      <link name="camera_anchor">
+        <kinematic>true</kinematic>
+        <gravity>false</gravity>
+      </link>
+    </model>
+
+    <!-- Approximate 500 g / 6S / 1800KV 2207 / GF51466 aircraft profile.
+         Geometry, inertia, drag and loaded servo response remain estimates.
+         Model frame: FLU (+X nose, +Y left, +Z up). Rotor order is logical BF
+         0 tail, 1 front-right, 2 front-left, independent of FC pin reordering. -->
+    <model name="tricopter">
+      <pose>0 0 0.125 0 0 0</pose>
+      <self_collide>false</self_collide>
+      <link name="base_link">
+        <!-- Remaining airframe/battery mass after three estimated 38 g motor/prop
+             assemblies. Body inertia scales with mass, preserving the previous
+             assumed radius of gyration; it is not a measured aircraft inertia. -->
+        <inertial><mass>0.386</mass><inertia><ixx>0.006948</ixx><iyy>0.008492</iyy><izz>0.01351</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <collision name="body_collision"><geometry><box><size>0.22 0.16 0.05</size></box></geometry></collision>
+        <visual name="body_visual"><geometry><box><size>0.22 0.16 0.05</size></box></geometry>
+          <material><ambient>0.1 0.1 0.15 1</ambient><diffuse>0.15 0.15 0.2 1</diffuse></material>
+        </visual>
+        <visual name="nose"><pose>0.125 0 0 0 0 0</pose><geometry><box><size>0.04 0.08 0.04</size></box></geometry>
+          <material><ambient>0.8 0.1 0.1 1</ambient><diffuse>0.9 0.1 0.1 1</diffuse></material>
+        </visual>
+        <visual name="tail_arm"><pose>-0.16 0 0 0 0 0</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
+        <visual name="right_arm"><pose>0.08 -0.1385 0 0 0 -1.0472</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
+        <visual name="left_arm"><pose>0.08 0.1385 0 0 0 1.0472</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
+        <collision name="foot_rear"><pose>-0.23 0 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
+        <collision name="foot_right"><pose>0.12 -0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
+        <collision name="foot_left"><pose>0.12 0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
+        <visual name="foot_rear_visual"><pose>-0.23 0 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
+        <visual name="foot_right_visual"><pose>0.12 -0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
+        <visual name="foot_left_visual"><pose>0.12 0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
+      </link>
+      <link name="right_motor">
+        <pose>0.16 -0.277 0.035 0 0 0</pose>
+        <inertial><mass>0.038</mass><inertia><ixx>0.000038</ixx><iyy>0.000038</iyy><izz>0.0000633333333333</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <visual name="right_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
+          <material><ambient>0.1 0.3 0.8 0.8</ambient><diffuse>0.1 0.3 0.9 0.8</diffuse></material>
+        </visual>
+      </link>
+      <joint name="right_fixed" type="fixed"><parent>base_link</parent><child>right_motor</child></joint>
+      <link name="left_motor">
+        <pose>0.16 0.277 0.035 0 0 0</pose>
+        <inertial><mass>0.038</mass><inertia><ixx>0.000038</ixx><iyy>0.000038</iyy><izz>0.0000633333333333</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <visual name="left_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
+          <material><ambient>0.1 0.8 0.3 0.8</ambient><diffuse>0.1 0.9 0.3 0.8</diffuse></material>
+        </visual>
+      </link>
+      <joint name="left_fixed" type="fixed"><parent>base_link</parent><child>left_motor</child></joint>
+      <link name="tail_motor">
+        <pose>-0.32 0 0.035 0 0 0</pose>
+        <inertial><mass>0.038</mass><inertia><ixx>0.000076</ixx><iyy>0.000076</iyy><izz>0.0001266666666667</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+        <visual name="tail_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
+          <material><ambient>0.8 0.5 0.1 0.8</ambient><diffuse>0.9 0.6 0.1 0.8</diffuse></material>
+        </visual>
+        <visual name="basket"><pose>0 0 -0.015 0 0 0</pose><geometry><box><size>0.06 0.06 0.03</size></box></geometry></visual>
+      </link>
+      <!-- The synthetic -X hinge makes +angle thrust toward FLU+Y and produce
+           clockwise BF+yaw. This does not prove the real aircraft yaw sign. -->
+      <joint name="tail_joint" type="revolute">
+        <parent>base_link</parent><child>tail_motor</child>
+        <axis><xyz>-1 0 0</xyz>
+          <limit><lower>-0.83426738245</lower><upper>0.37699111843</upper><effort>0.45</effort><velocity>20</velocity></limit>
+          <dynamics><damping>0.002</damping><friction>0</friction></dynamics>
+        </axis>
+      </joint>
+      <plugin filename="TricopterBridge" name="tricopter::TricopterBridge">
+        <camera_heading_model>tricopter_camera_heading</camera_heading_model>
+        <body_link>base_link</body_link><servo_joint>tail_joint</servo_joint>
+        <motor0_link>tail_motor</motor0_link><motor1_link>right_motor</motor1_link><motor2_link>left_motor</motor2_link>
+        <actuator_port>9001</actuator_port><fdm_port>9003</fdm_port><adc_port>9005</adc_port>
+        <pwm_knots_us>1100 1509 1700</pwm_knots_us><angle_knots_deg>-47.8 0 21.6</angle_knots_deg><adc_knots>1936 1490 1281</adc_knots>
+        <!-- iFlight XING2 2207 1855KV + GF51466 measured 1685 g at 24 V.
+             Approximation for 1800KV at fixed nominal 6S (22.2 V):
+             1.685*9.80665*(1800/1855)^2*(22.2/24)^2 = 13.31255 N.
+             KV/voltage-square scaling is an estimate, not this motor's test.
+             There is no dynamic battery sag model. See the Gazebo README. -->
+        <max_thrust_n>13.31255 13.31255 13.31255</max_thrust_n>
+        <!-- RPM lag estimate; comparable 5-inch racing hardware was identified
+             at 33 ms (NeuroBEM). Not measured for this motor/prop/ESC. -->
+        <motor_time_constant_s>0.03</motor_time_constant_s>
+        <reaction_ratio_m>0.02 0.02 0.02</reaction_ratio_m>
+        <!-- Rotor spin viewed from above: CCW+1, CW-1; torque on carrier is opposite. -->
+        <spin_sign>1 -1 1</spin_sign>
+        <rotor_inertia_kgm2>0 0 0</rotor_inertia_kgm2><max_rotor_speed_rad_s>2000</max_rotor_speed_rad_s>
+        <servo_time_constant_s>0.02</servo_time_constant_s><servo_speed_deg_s>362</servo_speed_deg_s>
+        <servo_kp_nm_rad>1.5</servo_kp_nm_rad><servo_kd_nm_s_rad>0.03</servo_kd_nm_s_rad><servo_max_torque_nm>0.45</servo_max_torque_nm>
+        <linear_drag_n_s_m>0.15</linear_drag_n_s_m><angular_drag_nm_s_rad>0.02</angular_drag_nm_s_rad>
+        <actuator_timeout_s>0.25</actuator_timeout_s><trace_rate_hz>100</trace_rate_hz>
+      </plugin>
+    </model>
+  </world>
+</sdf>

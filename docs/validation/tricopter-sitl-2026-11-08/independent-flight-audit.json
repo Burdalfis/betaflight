@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-11-08T05:53:22.952368+00:00",
+  "pass": true,
+  "method": "Independent read-only hash/Git-tree verification and standard-library raw CSV/JSON recomputation. No Gazebo, firmware, device ports or hardware opened.",
+  "flight_run": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891",
+  "flight_summary_sha256": "9891e0b2d55029b4ab77dbd477833addfbd0882715645c9e01d7edfbb29d54d4",
+  "stock_source": {
+    "commit": "e0b7bb01b17b21351057e9ead2d1ab39dd44fa16",
+    "git_tree": "1fa90f5e9c5949ed57ff8d3a8505ec894893eafd",
+    "verified_git_blobs": 4750,
+    "source_files_unchanged": true
+  },
+  "plugin": {
+    "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/libTricopterBridge.so",
+    "sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+    "compiled_source_hashes_match": true,
+    "compiled_source_sha256": {
+      "tools/tricopter/sitl/gazebo/CMakeLists.txt": "eb1be99da18be3753102a308f1a68ddf35fdae43a37421043c90585b1b71cb41",
+      "tools/tricopter/sitl/gazebo/TricopterBridge.cc": "7db48a54fc384994e260a3249d7d667ea5e8d26e5c4106eae6499952f2ecdcb9",
+      "tools/tricopter/sitl/gazebo/TricopterMath.hh": "817e77157b991f542c4b6e723a1d5d48bc337f3fff86a84ad81ddf941fef8dd2",
+      "tools/tricopter/sitl/gazebo/tests/math_test.cc": "60ea20f0d4611f612e2f11a8d60969da33c19efaf347a3f7a08161db574357a3",
+      "tools/tricopter/sitl/gazebo/worlds/tricopter.sdf": "db9cef37e6b503c9df2690b7991aa6d0bcb832f7ab456d7f41918a22380ff8c5"
+    }
+  },
+  "variants": [
+    {
+      "variant": "stock",
+      "bindings": {
+        "binary": ".local-artifacts/tricopter/gazebo-sitl/stock/betaflight_SITL.elf",
+        "binary_sha256": "9f6fbae5b880e43f24e2383468801442173c2a01441fe5466610413472cfc325",
+        "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+        "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+        "materialized_world_equals_current_source_structure": true,
+        "firmware_config_sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971",
+        "plant_trace_sha256": "6376a758925b1d9b0927d61da275a4660406ca60fb294659054f033f29c4c295",
+        "telemetry_sha256": "983809c6bd5bac510bfd3dfeff1aada8d47bed7aae1898f64aba8e9c45c2411e",
+        "rc_packets_sha256": "9ce16edf84016117e100c354ce16a8fea5964c09e54fb25d2d31b8b944981752"
+      },
+      "trace_checks": {
+        "rows": 2148,
+        "all_pc0_zero": true,
+        "actual_joint_to_adc_max_quantization_error_counts": 0.49984292327462754,
+        "command_derived_adc_max_difference_counts_all_rows_including_startup_disarmed": 35.0,
+        "command_derived_adc_max_difference_counts_when_total_thrust_above_1N": 28.156479217603874,
+        "actual_rear_axis_max_independent_rotation_formula_error": 1.8781004086320755e-06,
+        "aerodynamic_reaction_scalar_max_formula_error_nm": 1.0001721673091879e-13,
+        "final_height_m": 0.124999778851,
+        "final_motor_pwm_us": [
+          1000.0,
+          1000.0,
+          1000.0
+        ]
+      },
+      "telemetry_checks": {
+        "rows": 105,
+        "armed_rows": 100,
+        "armed_rows_have_no_arming_disable_flags": true,
+        "ANGLE_active": true,
+        "native_altitude_position_autopilot_modes_inactive": true,
+        "final_disarmed": true,
+        "rc_packets": 1189,
+        "max_actual_rc_send_gap_s": 0.023666395994951017
+      },
+      "common_firmware_config_prefix_identical": true,
+      "recorded_flight_metrics": {
+        "actual_takeoff_height_m": 1.176085750972,
+        "hover_samples": 146,
+        "hover_height_above_initial_m_range": [
+          1.032959022232,
+          1.044826669552
+        ],
+        "hover_max_abs_altitude_error_m": 0.0448266695520001,
+        "hover_max_horizontal_error_m": 0.23696326556490085,
+        "hover_max_abs_roll_pitch_deg": 1.22921451597,
+        "flight_max_abs_roll_pitch_deg": 1.67453866238,
+        "max_adc_quantization_error_counts": 0.49974086257361705,
+        "max_rear_thrust_reaction_axis_error": 1.878100408632098e-06,
+        "max_reaction_torque_formula_error_nm": 1.0001721673091879e-13,
+        "joint_angle_deg_range": [
+          -7.1044790329,
+          3.50046115712e-09
+        ],
+        "yaw_pulses": [
+          {
+            "phase": "yaw-positive",
+            "yaw_change_world_ccw_deg": 12.79310521970001,
+            "mean_sensor_frd_yaw_rate_rad_s": -0.32628933946966265,
+            "servo_pwm_us_range": [
+              1446.0,
+              1479.0
+            ]
+          },
+          {
+            "phase": "yaw-negative",
+            "yaw_change_world_ccw_deg": -11.633195952559987,
+            "mean_sensor_frd_yaw_rate_rad_s": 0.30046948282065533,
+            "servo_pwm_us_range": [
+              1477.0,
+              1510.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "modified",
+      "bindings": {
+        "binary": ".local-artifacts/tricopter/gazebo-sitl/modified/betaflight_SITL.elf",
+        "binary_sha256": "c91482ac35f27d9846f4c06fd6a5c9bce8c8a642334fa91eaec1e19ea34c592b",
+        "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+        "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+        "materialized_world_equals_current_source_structure": true,
+        "firmware_config_sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0",
+        "plant_trace_sha256": "078d23a27ffe25169ba4bbfdfd550e23d333324a17ea192806d95358b7227034",
+        "telemetry_sha256": "6c898b3bc8adf0ca6dafce079e4899d3011770d06dff1b55187a38eb6d4f14f0",
+        "rc_packets_sha256": "58913e6576ed779b42e33da70b572d846d167d47a1fda78291ddc18e03e186be"
+      },
+      "trace_checks": {
+        "rows": 2127,
+        "all_pc0_zero": true,
+        "actual_joint_to_adc_max_quantization_error_counts": 0.49994174395942537,
+        "command_derived_adc_max_difference_counts_all_rows_including_startup_disarmed": 297.7677261613692,
+        "command_derived_adc_max_difference_counts_when_total_thrust_above_1N": 297.7677261613692,
+        "actual_rear_axis_max_independent_rotation_formula_error": 2.8772458768342844e-06,
+        "aerodynamic_reaction_scalar_max_formula_error_nm": 1.0001721673091879e-13,
+        "final_height_m": 0.124999372988,
+        "final_motor_pwm_us": [
+          1000.0,
+          1000.0,
+          1000.0
+        ]
+      },
+      "telemetry_checks": {
+        "rows": 99,
+        "armed_rows": 95,
+        "armed_rows_have_no_arming_disable_flags": true,
+        "ANGLE_active": true,
+        "native_altitude_position_autopilot_modes_inactive": true,
+        "final_disarmed": true,
+        "rc_packets": 1195,
+        "max_actual_rc_send_gap_s": 0.025321426001028158
+      },
+      "common_firmware_config_prefix_identical": true,
+      "recorded_flight_metrics": {
+        "actual_takeoff_height_m": 1.1788803616469998,
+        "hover_samples": 146,
+        "hover_height_above_initial_m_range": [
+          1.031524760937,
+          1.048862551247
+        ],
+        "hover_max_abs_altitude_error_m": 0.04886255124700001,
+        "hover_max_horizontal_error_m": 0.23622637332279392,
+        "hover_max_abs_roll_pitch_deg": 1.23435417667,
+        "flight_max_abs_roll_pitch_deg": 1.89169663752,
+        "max_adc_quantization_error_counts": 0.499881354480749,
+        "max_rear_thrust_reaction_axis_error": 2.5385095578018083e-06,
+        "max_reaction_torque_formula_error_nm": 1.0001721673091879e-13,
+        "joint_angle_deg_range": [
+          -7.33297811524,
+          0.209510237618
+        ],
+        "yaw_pulses": [
+          {
+            "phase": "yaw-positive",
+            "yaw_change_world_ccw_deg": 13.019043325310008,
+            "mean_sensor_frd_yaw_rate_rad_s": -0.33424911673259794,
+            "servo_pwm_us_range": [
+              1439.0,
+              1479.0
+            ]
+          },
+          {
+            "phase": "yaw-negative",
+            "yaw_change_world_ccw_deg": -12.950156990690004,
+            "mean_sensor_frd_yaw_rate_rad_s": 0.3286562098254726,
+            "servo_pwm_us_range": [
+              1478.0,
+              1517.0
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "shared_comparison": {
+    "identical_world_and_placeholder_plant_parameters": true,
+    "identical_external_rc_pilot_configuration": true,
+    "common_configuration_sha256": "fc7c30cbe9791c8422f87d17660e7d4ef06d8023be7b71d9a2e5cbbf3a57edeb",
+    "common_PID_values_identical": true,
+    "native_firmware_autopilot_used": false,
+    "pilot_writes_only_normal_RC_channels": true,
+    "pilot_reads_simulation_ground_truth": true,
+    "pilot_bounds": {
+      "position_p_xy": 0.8,
+      "velocity_d_xy": 1.5,
+      "position_p_z": 3.0,
+      "velocity_d_z": 2.5,
+      "integral_z": 0.4,
+      "max_angle_deg": 5.0,
+      "max_vertical_acceleration_m_s2": 2.5,
+      "ascent_m_s": 0.4,
+      "descent_m_s": 0.3,
+      "throttle_slew_us_s": 500.0,
+      "height_above_initial_m": 1.0,
+      "rate_hz": 50.0
+    },
+    "additional_pilot_command_bounds": {
+      "throttle_us": [
+        1250,
+        1700
+      ],
+      "yaw_pulse_us": [
+        1425,
+        1575
+      ],
+      "roll_pitch_deg": [
+        -5,
+        5
+      ]
+    }
+  },
+  "source_scope": {
+    "current_task_native_flight_control_changes": false,
+    "current_task_STM32_hardware_path_changes": false,
+    "git_diff_head_paths": [
+      "docs/TRICOPTER_CONTROL_PLAN.md",
+      "src/platform/SIMULATOR/mk/SITL.mk",
+      "src/platform/SIMULATOR/target/SITL/target.h",
+      "src/test/Makefile"
+    ]
+  },
+  "boundaries": [
+    "Synthetic mass, geometry, thrust, drag, reaction and servo coefficients; not a physically identified aircraft.",
+    "Successful headless takeoff, controlled hover, bidirectional yaw, landing and disarm using identical external RC test pilots.",
+    "Actual Bluetooth transmitter flight is not established by these scripted-RC recordings.",
+    "CSV axis and scalar reaction checks are combined with reviewed plugin code applying both thrust and reaction torque along the actual rear-link axis.",
+    "This audit performs no new runtime or physical-hardware validation."
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-11-08T06:06:07.458954+00:00",
+  "pass": true,
+  "method": "Independent stdlib tar/gzip inventory/hash/current-byte audit; binary and final-flight CSV/JSON/SDF bindings read directly from archived bytes without extraction or runtime ports.",
+  "archive": {
+    "file": "evidence.tar.gz",
+    "bytes": 4358803,
+    "sha256": "8f0cb90667b723d35209f0430b1f9d18ade998447b39ef02272570df331de245",
+    "member_count": 172,
+    "uncompressed_file_bytes": 16930134,
+    "safe_unique_relative_regular_files_only": true,
+    "all_member_sizes_and_sha256_match_inventory": true,
+    "all_members_match_current_local_bytes": true,
+    "member_order_matches_inventory": true,
+    "globally_lexically_sorted": false,
+    "normalized_tar_metadata": true,
+    "gzip_mtime": 0
+  },
+  "current_source_binding": {
+    "files_checked": 30,
+    "all_source_sha256_match": true
+  },
+  "archived_binary_and_flight_binding": {
+    "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+    "plugin_build_manifest_matches": true,
+    "variants": [
+      {
+        "variant": "stock",
+        "binary_sha256": "9f6fbae5b880e43f24e2383468801442173c2a01441fe5466610413472cfc325",
+        "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+        "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+        "firmware_config_sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971",
+        "raw_trace_rows": 2148,
+        "archived_flight_report_pass": true,
+        "world_structure_equals_current_source": true,
+        "final_disarmed_and_motors1000": true
+      },
+      {
+        "variant": "modified",
+        "binary_sha256": "c91482ac35f27d9846f4c06fd6a5c9bce8c8a642334fa91eaec1e19ea34c592b",
+        "plugin_sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961",
+        "world_sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3",
+        "firmware_config_sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0",
+        "raw_trace_rows": 2127,
+        "archived_flight_report_pass": true,
+        "world_structure_equals_current_source": true,
+        "final_disarmed_and_motors1000": true
+      }
+    ],
+    "same_final_world_bytes": true,
+    "same_placeholder_plant_parameters": true,
+    "same_external_RC_pilot_parameters": true
+  },
+  "archived_independent_flight_audit": {
+    "sha256": "dcdc8d3cc7de98739978ec03cd049d788a21c4a60724b10588245708f5ba9361",
+    "pass": true,
+    "stock_git_blobs_verified": 4750,
+    "direct_tracked_copy_matches": true
+  },
+  "archived_initial_renderer_cleanup": {
+    "record_sha256": "56a7bbac3fc8bab37f0f67435356da9bb02a2cd02027ba27029af506f065946f",
+    "checked_from_host_proc": true,
+    "all_recorded_initial_clients_exited": false,
+    "recorded_legacy_clients": [
+      {
+        "pid": 480802,
+        "state": "R (running)",
+        "pending_signal_mask": "0000000000000100",
+        "kill_pending": true,
+        "windows_removed": true,
+        "exited": false
+      },
+      {
+        "pid": 482383,
+        "state": "D (disk sleep)",
+        "pending_signal_mask": "0000000000000100",
+        "kill_pending": true,
+        "windows_removed": true,
+        "exited": false
+      }
+    ],
+    "both_legacy_clients_have_SIGKILL_pending": true,
+    "subsequent_Ogre1_process_groups_closed_normally": true,
+    "recorded_windows_removed": true,
+    "supersedes_incorrect_namespaced_proc_exit_observation": true
+  },
+  "boundary": "Verifies archived bytes and recorded provenance/physics-flight bindings. Records two legacy Ogre2 processes still present with SIGKILL pending, not fully cleaned up. Performs no new GUI, Bluetooth-controller, Gazebo, firmware, device or physical-hardware runtime validation."
+}

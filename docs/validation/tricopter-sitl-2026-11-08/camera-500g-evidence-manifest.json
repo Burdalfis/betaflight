@@ -1,0 +1,682 @@
+{
+  "archive": "camera-500g-evidence.tar.gz",
+  "bytes": 5264143,
+  "sha256": "077896876bd15f0d5ed285055b6dbf8a37c3541ac311b0eba9af090af2e322bf",
+  "members": [
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/ctest.log",
+      "bytes": 480,
+      "sha256": "9008dc7d83af54956f0dd3f7643fcc7f7b29b6045da67f712b99db4d6dcddf9f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/native-tests.log",
+      "bytes": 3292,
+      "sha256": "5b1b7600ae073cdc58b3ea5d60126eff1175091388c982c06214f2fcbbd6a1a3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/python-tests.log",
+      "bytes": 176,
+      "sha256": "fa98e14cbc16c6d156ed90b5b5b32ceff296ea846f6fe8f4cbe4ff75b943bc21"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/validation.json",
+      "bytes": 4657,
+      "sha256": "8ab13bbaa7eb037cd4c2dfa1abdd37a8e18f33c6760f1aaa37d2941ba65a38eb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/camera_flight_check.py",
+      "bytes": 5767,
+      "sha256": "1b815ae217e97cb19801aef0155811ec6962737f8df73eacce95b26fc8b7d05d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/control-response-2026-11-08/angle-cap-provision.json",
+      "bytes": 354,
+      "sha256": "6fc9b69830da8d8da1b0800c7bdc0184dad387886d1f988498e39d4bb6d1975a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/control-response-2026-11-08/historical-rpm-shape-with-fit.json",
+      "bytes": 5655,
+      "sha256": "a2bdc60e6ebe89100fe52cdbe48ff9f86b97bf04bd09521dff5adfd04f82f9f0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/control-response-2026-11-08/historical-rpm-shape.json",
+      "bytes": 3138,
+      "sha256": "853c77dfc0421a109a42072d72d4ca7f470119d34f88b34c8117b99df582d35a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/build-manifest.json",
+      "bytes": 1793,
+      "sha256": "67c886707c1587bf9e5f49fe17e36d7f237fe0c249d8a0a9bc97a344505163d4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/build.log",
+      "bytes": 13509,
+      "sha256": "75b8b7ef6e3fbd2af3662051d655d2b66ee5d48d1ed1bc8feaff395e1ca8616a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/libTricopterBridge.so",
+      "bytes": 5088352,
+      "sha256": "31bc87fc37e0b57f89f185f26704e1dc67616c1efb0176c12f2bf117f60bb00b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/failed-CMakeCache.txt",
+      "bytes": 114326,
+      "sha256": "3740017db6f11310ca71ac7b4af5c39df50e60cd02b88baf29c07cf87b5a536d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/failed-build.log",
+      "bytes": 61637,
+      "sha256": "00b761f0962bbfbce701205e6db2161b99eefcb0f2f99c59b486c55bc8c96ff0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/failed-flags.make",
+      "bytes": 1671,
+      "sha256": "4cf238549a6afd4f3255e0003e8a4358000ddedcb3ca6bd8e21e9f1416e36818"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/failed-link.txt",
+      "bytes": 7455,
+      "sha256": "75d298ec879fac106a1a63dc03d37ad2d35197564265610a7643efd1e3292d79"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-CMakeCache.txt",
+      "bytes": 113286,
+      "sha256": "39ec199eaa5f769da5baad978d22b0fb51a1d502add9c68c757074c38ddf9c07"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-build-manifest.json",
+      "bytes": 1793,
+      "sha256": "9671e5899f106969e08797230845c06dad288143806aeec4485ed36a1c96edc8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-build.log",
+      "bytes": 13493,
+      "sha256": "5ba90b20bdac3507dcc55845f3f307b86968025aae5bdf48d2da13bb4103aefc"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-flags.make",
+      "bytes": 1613,
+      "sha256": "4b6f6e01d642bb2e12dc9ba04810ec458c459f52cacd6efcc2e2b3ef0495b710"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-ldd.txt",
+      "bytes": 6150,
+      "sha256": "97b2b465d3dd21ef1fc4d13b80bd8c1bb20c172aa21aedb89bb0435881b7740c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/fixed-link.txt",
+      "bytes": 2518,
+      "sha256": "e196020650cc0ecfcdd5a095387ace33c1c4025aeb8d2a02b9f4f22675a01fab"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/validation.json",
+      "bytes": 1518,
+      "sha256": "26b0687442105036f107165e6d84f32d27b30e5f5fe393d3eecae217a5aafa77"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/post-reboot-protobuf-fix/xbox-events.jsonl",
+      "bytes": 15849,
+      "sha256": "c9e7ef9ce9b28bf359fc155a4b7c7a9cc4b6bd9b0a9b18180ecf06c6894d531b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/camera-check.json",
+      "bytes": 20,
+      "sha256": "6e83115f016afa2d8c05b555eb6ee7d65ba2c5b103e671a133738aa9adab2605"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/camera-samples.json",
+      "bytes": 521721,
+      "sha256": "02b854fb58f43a6b7ac22ccd52449726911f309be67beed03293a5c9e5c1509c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/camera-status.json",
+      "bytes": 56292,
+      "sha256": "6233b0d3a3bd13463d05ae16a11339016937104b64915f817a8a8d9ca14d5868"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "4e129203587ee757b311fbd5f0aaab4b41ff5cce5b6699c24113925df2e778d2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/firmware.cli",
+      "bytes": 980,
+      "sha256": "7f435de20b579b65be90e760a87f8263327b10fba83a6f504d383dd0c113566c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/firmware.log",
+      "bytes": 1992,
+      "sha256": "4022fc04f72023e7dbe14630a970b428acb3418a88e1e70a63560d3a41a8529c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/flight-check.json",
+      "bytes": 2978,
+      "sha256": "36e9d2f32ea58d317aa4c1e227085a267595c52284adf7f0d2f5d786d36aba2b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/gazebo.log",
+      "bytes": 4772,
+      "sha256": "d96b954dc2b2d5388d547aa5de102a0e2243984c660674eeaf1e19f31a5647f1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/pilot.csv",
+      "bytes": 276843,
+      "sha256": "0abe78b855fa9c2663052c14efaa959e94625ee89f204ac76e4441eb3f3fc771"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/plant.csv",
+      "bytes": 654334,
+      "sha256": "22e6d177dbc96862cbe74aee70593bec18b6affb0d57bc8b7d7cb3422281183d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/provision.log",
+      "bytes": 137745,
+      "sha256": "37d6e10d5cd60d9f9e8fba2d0b88d75afc1325990e3fef22e475c6c1e6d348cd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/rc-packets.json",
+      "bytes": 196266,
+      "sha256": "43bfffda654f71d6075be36dc9931886e50ad3da22835011f43b76ff439f9216"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/screenshots/2026-11-08T04:13:16.186288380.png",
+      "bytes": 46630,
+      "sha256": "987b8adfbe1aaf649acae3dc7b491caf2be45d8c73549321250feebf4d07e32f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/telemetry.json",
+      "bytes": 172760,
+      "sha256": "13297f76e082803329e6fa050ba7529ecb830a0174ba4bfa74eec7b82d948d4a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/viewer-setup.json",
+      "bytes": 186,
+      "sha256": "ced581dc0a1acd7fe76957cd806188efdd0645c1eed2a40cf639eff499436c85"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/viewer-setup.log",
+      "bytes": 58,
+      "sha256": "626298d76fc46bc1a644742831f963a4043ad06a824b93efcf8e1deab38dab1c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081259-stock-camera-flight-31312/stock/world.sdf",
+      "bytes": 7297,
+      "sha256": "598b21aeca46ea5bc5e22485b9fb6a938881f708485d200e3ee313194c2f1845"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/camera-check.json",
+      "bytes": 6156,
+      "sha256": "d6a3b54de3b7189d7087004d15145b06ce54a14c3246260781607a8fa8d10d4e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/camera-samples.json",
+      "bytes": 865009,
+      "sha256": "2d1ef284143dd258b7520cc97e94b40a240d8a9c4197406231eb2a198517d425"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/camera-status.json",
+      "bytes": 94081,
+      "sha256": "5dedab4346479b124fb7b31010d869cef4d7beb407cf9802065baad3028a5da0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "4e129203587ee757b311fbd5f0aaab4b41ff5cce5b6699c24113925df2e778d2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/firmware.cli",
+      "bytes": 980,
+      "sha256": "7f435de20b579b65be90e760a87f8263327b10fba83a6f504d383dd0c113566c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/firmware.log",
+      "bytes": 2559,
+      "sha256": "90a7cfb50dbf5dbe19503f91d47293f88a9488fb8e0aec038d990d17f8606433"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/flight-check.json",
+      "bytes": 4855,
+      "sha256": "0a87099fff2c5468f7bdce1f5a7f0586bfcf533861b661d4282daabd98c51607"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/gazebo.log",
+      "bytes": 4772,
+      "sha256": "f933e013c4cef776811904f82f5e382221596c7cf747b28aa53afcfbb7aaffc9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/pilot.csv",
+      "bytes": 600759,
+      "sha256": "494e526726afeccf1edc6deee92ff0c5d1276c236603367e0a9121948bc5bc39"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/plant.csv",
+      "bytes": 1030478,
+      "sha256": "363ab5f93ad2a46479b4aa9a5d6dcae2f7912e783403cf830595e203884306fe"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/provision.log",
+      "bytes": 137745,
+      "sha256": "df32007a750dcf104a5b0277a1d7383d32c8ee3eea7c151a0580109ac0e2bac8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/rc-packets.json",
+      "bytes": 331137,
+      "sha256": "7425ee456d181256f2f36a111a6e4871a93d4698287373cfa411ebba67b8a0de"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/screenshots/2026-11-08T04:15:56.758437052.png",
+      "bytes": 46243,
+      "sha256": "757a3627c2e703fca2c7c69c873fa3fcee772e0ac00f00e2d7b77b03c58341ca"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/telemetry.json",
+      "bytes": 374258,
+      "sha256": "fccac279c6eacb991110272c54b1db8a6e3c7a134f23844813bb75b9240465cb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/viewer-setup.json",
+      "bytes": 186,
+      "sha256": "ced581dc0a1acd7fe76957cd806188efdd0645c1eed2a40cf639eff499436c85"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/viewer-setup.log",
+      "bytes": 58,
+      "sha256": "626298d76fc46bc1a644742831f963a4043ad06a824b93efcf8e1deab38dab1c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081539-stock-camera-flight-32476/stock/world.sdf",
+      "bytes": 7297,
+      "sha256": "598b21aeca46ea5bc5e22485b9fb6a938881f708485d200e3ee313194c2f1845"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/camera-check.json",
+      "bytes": 6183,
+      "sha256": "787ebf804c51d7b539501fda857d4c2c83242a50af0bd57d22fb80f92dee1da1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/camera-samples.json",
+      "bytes": 886584,
+      "sha256": "c07ebbd81e82c6993c8c68773ee8ad4505165d00108e5d9517b274bd8924cc25"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/camera-status.json",
+      "bytes": 96076,
+      "sha256": "2d534028c5553e17486bd99ced5316fc8e79b13d45808013972a11f9d1f5c544"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "4e129203587ee757b311fbd5f0aaab4b41ff5cce5b6699c24113925df2e778d2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/firmware.cli",
+      "bytes": 980,
+      "sha256": "7f435de20b579b65be90e760a87f8263327b10fba83a6f504d383dd0c113566c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/firmware.log",
+      "bytes": 2560,
+      "sha256": "736c74169fa9d3beb4e8fbee62d727298e31e46a3fe1669003dd93583f2a27a9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/flight-check.json",
+      "bytes": 4879,
+      "sha256": "103d2818defb5719ab220f0204bf26475e96c4f2ab7fe91902ee2bfdebc2feb4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/gazebo.log",
+      "bytes": 4772,
+      "sha256": "a30d46f44eaecd830186f4938afe20060a0037bb4c57c869e1a2cb956a5812b2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/pilot.csv",
+      "bytes": 602316,
+      "sha256": "85f1e6c772e977522f0c23443604e3e5281e78f59659043856bf0589123fcc8e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/plant.csv",
+      "bytes": 1035097,
+      "sha256": "15ec86240d08379c68805c9029731b5b828641f59dbe323896013e5d5fa25627"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/provision.log",
+      "bytes": 137745,
+      "sha256": "c9a9c0168a28d7831d06b1808fbd9d585c3eb5ef960f5e97f2a847bd2d1483e1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/rc-packets.json",
+      "bytes": 332418,
+      "sha256": "528d86f9eb93eb9fd5372fa7c1bafab948e7dfaafdb5c66fb166421946739dfe"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/screenshots/2026-11-08T04:19:53.650871807.png",
+      "bytes": 46711,
+      "sha256": "18f054fb9c491fb2ede8c6ee090f2e7add85ea272ae7c905b0df90eb1f2bb933"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/telemetry.json",
+      "bytes": 377874,
+      "sha256": "117ecb6445bb35e5c563cd90d39465d6f497c88ccad9684d2e4167e8ac89a409"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/viewer-setup.json",
+      "bytes": 186,
+      "sha256": "ced581dc0a1acd7fe76957cd806188efdd0645c1eed2a40cf639eff499436c85"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/viewer-setup.log",
+      "bytes": 58,
+      "sha256": "626298d76fc46bc1a644742831f963a4043ad06a824b93efcf8e1deab38dab1c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T081936-stock-camera-flight-34733/stock/world.sdf",
+      "bytes": 7297,
+      "sha256": "598b21aeca46ea5bc5e22485b9fb6a938881f708485d200e3ee313194c2f1845"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/camera-check.json",
+      "bytes": 6182,
+      "sha256": "3daf9fd731f0684dbd4b23803592cf0742f149a8bef9f8f5e1540160dfd68d08"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/camera-samples.json",
+      "bytes": 880658,
+      "sha256": "167a0ac25aaebc0bfac18169b63eff3034c7d4eb92c93c3137ea084a910d2692"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/camera-status.json",
+      "bytes": 96480,
+      "sha256": "0697610a25193b016e464450357ba3b8489bf654baf2b5b58141804c34ca5e3b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "4e129203587ee757b311fbd5f0aaab4b41ff5cce5b6699c24113925df2e778d2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/firmware.cli",
+      "bytes": 980,
+      "sha256": "7f435de20b579b65be90e760a87f8263327b10fba83a6f504d383dd0c113566c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/firmware.log",
+      "bytes": 2559,
+      "sha256": "71c137bd4a6e00312486115eb293d243108793112c8818b5466fc9e95f2dc420"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/flight-check.json",
+      "bytes": 4878,
+      "sha256": "bfbe6d81b5079d473b7b8c6ee9d88a9fec598be986bfc520d4ea3d9395ab705c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/gazebo.log",
+      "bytes": 4772,
+      "sha256": "2478031548afcb782ffc4a6be6a2fc6ef8da0440cb19b0a33011af51eb3dcc48"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/pilot.csv",
+      "bytes": 613073,
+      "sha256": "a9a003125937ad409fc3e90fc8749673e702eb3b28025e9336fae1d4da510b4b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/plant.csv",
+      "bytes": 1026480,
+      "sha256": "f9dce250eb15d4445489789140eba1e6ab5a180e4b2e1018883de883562aab18"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/provision.log",
+      "bytes": 137745,
+      "sha256": "167fe91c909ec3612f20e9a5671b5d399342d45a62ef3a987affdcb65d070c54"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/rc-packets.json",
+      "bytes": 335496,
+      "sha256": "94196a721ae6f642927294c8c39d5ce1d79feee192d054839db007a841875a47"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/screenshots/2026-11-08T04:23:10.486582095.png",
+      "bytes": 55551,
+      "sha256": "b45f73d9e835f721ae00c7dab9a3d6dc796d883a92f70597dbf15a90075f142f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/telemetry.json",
+      "bytes": 377839,
+      "sha256": "fbda3c4e46de0cb52a1d9805b68c4849403ac59179f57a497eec1525d650bd80"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/viewer-setup.json",
+      "bytes": 186,
+      "sha256": "ced581dc0a1acd7fe76957cd806188efdd0645c1eed2a40cf639eff499436c85"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/viewer-setup.log",
+      "bytes": 58,
+      "sha256": "626298d76fc46bc1a644742831f963a4043ad06a824b93efcf8e1deab38dab1c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321/stock/world.sdf",
+      "bytes": 7379,
+      "sha256": "e496350b4b14d6ade21b9422445403d4ed556974a156f10c651a5b33d9715f85"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "697ed089a97776f8b468b24ecc2aa17747028107ef5133c730cba7a0a7aaf160"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/firmware.cli",
+      "bytes": 1359,
+      "sha256": "702d0543ccedd985199a7dd4cbff7101d80235535870aee1eb2730682538785a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/firmware.log",
+      "bytes": 2474,
+      "sha256": "74bcc6cbfd97eb6e33ad765f4ed367002e5d00c6058600c0d07c447878c85e88"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/flight-check.json",
+      "bytes": 5039,
+      "sha256": "979ffee59cd4663a6e9d3f58c379d39bb4ce82103570f4d82318448665c249f4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/pilot.csv",
+      "bytes": 653563,
+      "sha256": "caae302d45856d2fadc9e15a8cea214fd5c56946a55b7c745e8ef4fb71635df9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/plant.csv",
+      "bytes": 965464,
+      "sha256": "ae64ee934b8110dcac7ba534bfa7ae9eedb019337d9d500d021d1d92a9577f96"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/provision.log",
+      "bytes": 140177,
+      "sha256": "c4e7ebc69a15afcfc01e5e12dbaddc526718c862f8fdec0438d98020698012cc"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/rc-packets.json",
+      "bytes": 307506,
+      "sha256": "e5bae2ae2318bc02e5a4ac84001e039d865315b37f1805e682fabc527faca34a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/telemetry.json",
+      "bytes": 366771,
+      "sha256": "060eac37f7d0b2bdf56218ad12c6ef8ce7cbc0b733234edd42f3bcd1a3e744f9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804/modified/world.sdf",
+      "bytes": 7379,
+      "sha256": "e496350b4b14d6ade21b9422445403d4ed556974a156f10c651a5b33d9715f85"
+    },
+    {
+      "path": "docs/TRICOPTER_CONTROL_PLAN.md",
+      "bytes": 74104,
+      "sha256": "823c41ff493b85a7ce9ed080d9af33f3212f2c82fabfad0e34691bfd7f05f600"
+    },
+    {
+      "path": "docs/TRICOPTER_SITL.md",
+      "bytes": 3782,
+      "sha256": "92c4d542a9860f3b5c13909fccf329d8e9bef56b92db2666297b94cde2a22373"
+    },
+    {
+      "path": "src/platform/SIMULATOR/adc_simulator.c",
+      "bytes": 3532,
+      "sha256": "c23af0d2d1a0d08ea4a32b43bfba08539bf72354069c3b06ab92ee97994f390f"
+    },
+    {
+      "path": "src/platform/SIMULATOR/mk/SITL.mk",
+      "bytes": 2040,
+      "sha256": "615a0c2166cb9cfcb153e0101af1261c565000ecd904f3ee6057e6d64bda36ae"
+    },
+    {
+      "path": "src/platform/SIMULATOR/sitl_adc.h",
+      "bytes": 3167,
+      "sha256": "b714f13c340f6fa4cb46f1afb88700012b55517119c05245a86a9d1bebdd548f"
+    },
+    {
+      "path": "src/platform/SIMULATOR/target/SITL/target.h",
+      "bytes": 7361,
+      "sha256": "5b094c97492dff4e8d578a94768bc05766794c6214366ab910418bfd6d17fdb4"
+    },
+    {
+      "path": "src/test/Makefile",
+      "bytes": 31607,
+      "sha256": "1ec6fc531d63ed0f993dbffc232dcf792a4e0a60a87189d2cea761dae08d8534"
+    },
+    {
+      "path": "src/test/unit/sitl_adc_unittest.cc",
+      "bytes": 5851,
+      "sha256": "402d30300322c396af6f3af8fa214ca78c1e0e0b6d2016d1e1a93daf6eb7a3cc"
+    },
+    {
+      "path": "tools/tricopter/sitl/RC_INPUT.md",
+      "bytes": 5869,
+      "sha256": "773b189c5bfb266c7ffcb1c102c686d16ceaed981999edb2f929815cb388e5cb"
+    },
+    {
+      "path": "tools/tricopter/sitl/README.md",
+      "bytes": 12614,
+      "sha256": "e6ac1d7f65b9524605748714f485f461a2bca9b42883fa7a6207efc5fc6aa536"
+    },
+    {
+      "path": "tools/tricopter/sitl/build.py",
+      "bytes": 5732,
+      "sha256": "125d561f02bed4231b5f0c0ff2e6442ea6ecd0aae47b646592123dd54bb02d62"
+    },
+    {
+      "path": "tools/tricopter/sitl/check_flight.py",
+      "bytes": 23408,
+      "sha256": "9b23612caf198a13f073e61e3b8a50fa252bbaca6e4faa53f3d5253197901cfc"
+    },
+    {
+      "path": "tools/tricopter/sitl/check_plant.py",
+      "bytes": 6559,
+      "sha256": "b92c6a068553862f30930776fe0b330456209cef7068b68c69d22e466084ed31"
+    },
+    {
+      "path": "tools/tricopter/sitl/check_protocol.py",
+      "bytes": 15263,
+      "sha256": "d373fa2df065e61b7af2070dd2e7542e65c9a728c78115946fcf0a05c1f10877"
+    },
+    {
+      "path": "tools/tricopter/sitl/configs/common.cli",
+      "bytes": 979,
+      "sha256": "2e83df399b18367382854b9918c59a891c44ef148ab33fb4837811903cd7f51a"
+    },
+    {
+      "path": "tools/tricopter/sitl/configs/modified.cli",
+      "bytes": 378,
+      "sha256": "f149a7d36d067f97fafee0107d77a5e7b802fb0457738224a3927ab4ade97dac"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/CMakeLists.txt",
+      "bytes": 1396,
+      "sha256": "eb1be99da18be3753102a308f1a68ddf35fdae43a37421043c90585b1b71cb41"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/README.md",
+      "bytes": 10116,
+      "sha256": "2bea283b07f9417885f2defe8b17e4093e74a43a2d644c48bd099feb7eef1af9"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/TricopterBridge.cc",
+      "bytes": 19305,
+      "sha256": "9c140bcf2bdd7c3d0fa161a65f1ee6e278488d3a00d0762bb6ae2d638ba9a03d"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/TricopterMath.hh",
+      "bytes": 9756,
+      "sha256": "817e77157b991f542c4b6e723a1d5d48bc337f3fff86a84ad81ddf941fef8dd2"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/tests/math_test.cc",
+      "bytes": 11203,
+      "sha256": "60ea20f0d4611f612e2f11a8d60969da33c19efaf347a3f7a08161db574357a3"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/tests/world_test.py",
+      "bytes": 2866,
+      "sha256": "ae9689e84e55d56377dc11f73467c3d17f5b323e88ac9a4e79ca6b0b6ab46afb"
+    },
+    {
+      "path": "tools/tricopter/sitl/gazebo/worlds/tricopter.sdf",
+      "bytes": 8869,
+      "sha256": "bd79af02b5ad77136566dd2e16746c6c0d58d81766bb9c1b4391b565328e87f8"
+    },
+    {
+      "path": "tools/tricopter/sitl/install_gazebo_jetty.sh",
+      "bytes": 1561,
+      "sha256": "5db3d9d737d2b7f5630a932b41b8ab2c041691d306b36593edac9f1eb656e68d"
+    },
+    {
+      "path": "tools/tricopter/sitl/profiles/elrs.json",
+      "bytes": 799,
+      "sha256": "8d7a81621a0f36f78f57ebb9b02f5711638ad477dacb742ea40b359547a33149"
+    },
+    {
+      "path": "tools/tricopter/sitl/profiles/xbox-usb.json",
+      "bytes": 948,
+      "sha256": "72f66f4a060b15ca117c3f723cb47890f5a7797f9e8af528fc81c4532e5d3ad0"
+    },
+    {
+      "path": "tools/tricopter/sitl/profiles/xbox.json",
+      "bytes": 954,
+      "sha256": "3b19c1e7027ea780351781254cf8d9cd8777b0af99731d247575630dd9748e11"
+    },
+    {
+      "path": "tools/tricopter/sitl/rc_input.py",
+      "bytes": 18207,
+      "sha256": "aa14ef64f115d11ef09e9349a8fd236645ed3d631733d5efc5e0f2cb6d01d380"
+    },
+    {
+      "path": "tools/tricopter/sitl/run.py",
+      "bytes": 16198,
+      "sha256": "ca8ea10d10a96840e32971f274d7a967bc7549fde809080f47e2d5a2aa9e2612"
+    },
+    {
+      "path": "tools/tricopter/sitl/runtime.py",
+      "bytes": 8065,
+      "sha256": "d752397b61f9a1faa4662a979c25d43913d5aeda25701e694750be97cf2e99ca"
+    },
+    {
+      "path": "tools/tricopter/sitl/test_launch.py",
+      "bytes": 4850,
+      "sha256": "660ac2f34a3c9335d72f8c17c0250f2a9013351a7ec28af32f8fe387b52af899"
+    },
+    {
+      "path": "tools/tricopter/sitl/test_process_cleanup.py",
+      "bytes": 1354,
+      "sha256": "c30fe33a20f886c9a4201ab0466c9f7bcb318e0b00b9bcb1e73a8fb675baf7b1"
+    },
+    {
+      "path": "tools/tricopter/sitl/test_rc_input.py",
+      "bytes": 18048,
+      "sha256": "2809c7c6e24b096c07adb2824ae4b2744cd96bd859a1ca0dcd84a93fb9cd7f5e"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "pass": true,
+  "original_aircraft_pid_gains_retained": true,
+  "angle_limit_deg": 30,
+  "mass_kg": 0.5,
+  "maximum_rotor_thrust_n": 13.31255,
+  "fixed_reference_battery_voltage_v": 22.2,
+  "motor_speed_time_constant_s": 0.03,
+  "thrust_is_estimated_not_exact_combination_measurement": true,
+  "camera_offset_m": [
+    -2.4,
+    0,
+    1
+  ],
+  "camera_offset_rms_error_m": 0.0024910862832113133,
+  "camera_max_roll_deg": 3.8678766751213157e-07,
+  "stock_session": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082253-stock-camera-flight-36321",
+  "modified_session": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T082404-modified-airframe-500g-final-36804",
+  "stock_metrics": {
+    "actual_takeoff_height_m": 1.134886140328,
+    "hover_samples": 150,
+    "hover_height_above_initial_m_range": [
+      1.011914304158,
+      1.025503049398
+    ],
+    "hover_max_abs_altitude_error_m": 0.025503049397999966,
+    "hover_max_horizontal_error_m": 0.23583697772683712,
+    "hover_max_abs_roll_pitch_deg": 1.21818775296,
+    "flight_max_abs_roll_pitch_deg": 2.31338758174,
+    "max_adc_quantization_error_counts": 0.49989519162932083,
+    "max_rear_thrust_reaction_axis_error": 3.0946603262729395e-06,
+    "max_reaction_torque_formula_error_nm": 1.0000333894311098e-13,
+    "joint_angle_deg_range": [
+      -7.28031980774,
+      6.19677045292e-10
+    ],
+    "yaw_pulses": [
+      {
+        "phase": "yaw-positive",
+        "yaw_change_world_ccw_deg": 10.94627277506001,
+        "mean_sensor_frd_yaw_rate_rad_s": -0.28327086036731797,
+        "servo_pwm_us_range": [
+          1445.0,
+          1479.0
+        ]
+      },
+      {
+        "phase": "yaw-negative",
+        "yaw_change_world_ccw_deg": -10.879174088110005,
+        "mean_sensor_frd_yaw_rate_rad_s": 0.2764009037362057,
+        "servo_pwm_us_range": [
+          1475.0,
+          1509.0
+        ]
+      }
+    ]
+  },
+  "modified_metrics": {
+    "actual_takeoff_height_m": 1.135859770315,
+    "hover_samples": 147,
+    "hover_height_above_initial_m_range": [
+      1.011736215095,
+      1.025821376135
+    ],
+    "hover_max_abs_altitude_error_m": 0.025821376134999907,
+    "hover_max_horizontal_error_m": 0.23517357121426025,
+    "hover_max_abs_roll_pitch_deg": 1.24007636595,
+    "flight_max_abs_roll_pitch_deg": 2.2826232337,
+    "max_adc_quantization_error_counts": 0.4995971726634707,
+    "max_rear_thrust_reaction_axis_error": 2.898263251667872e-06,
+    "max_reaction_torque_formula_error_nm": 1.0000333894311098e-13,
+    "joint_angle_deg_range": [
+      -8.93174920818,
+      1.8923264731
+    ],
+    "yaw_pulses": [
+      {
+        "phase": "yaw-positive",
+        "yaw_change_world_ccw_deg": 13.136013862970003,
+        "mean_sensor_frd_yaw_rate_rad_s": -0.33721413512710174,
+        "servo_pwm_us_range": [
+          1422.0,
+          1479.0
+        ]
+      },
+      {
+        "phase": "yaw-negative",
+        "yaw_change_world_ccw_deg": -13.486609156769987,
+        "mean_sensor_frd_yaw_rate_rad_s": 0.3382073122253217,
+        "servo_pwm_us_range": [
+          1478.0,
+          1536.0
+        ]
+      }
+    ]
+  },
+  "plugin_sha256": "31bc87fc37e0b57f89f185f26704e1dc67616c1efb0176c12f2bf117f60bb00b",
+  "python_tests_passed": 34,
+  "cpp_math_protocol_checks_passed": 209,
+  "ctest_tests_passed": 2,
+  "failed_attempts_preserved": [
+    "20261108T081259-stock-camera-flight-31312 (blocking screenshot request in local test)",
+    "20261108T081539-stock-camera-flight-32476 (static proxy failed GUI motion)",
+    "20261108T081936-stock-camera-flight-34733 (periodic-only static proxy failed GUI motion)"
+  ],
+  "source_sha256": {
+    "tools/tricopter/sitl/run.py": "ca8ea10d10a96840e32971f274d7a967bc7549fde809080f47e2d5a2aa9e2612",
+    "tools/tricopter/sitl/configs/common.cli": "2e83df399b18367382854b9918c59a891c44ef148ab33fb4837811903cd7f51a",
+    "tools/tricopter/sitl/gazebo/TricopterBridge.cc": "9c140bcf2bdd7c3d0fa161a65f1ee6e278488d3a00d0762bb6ae2d638ba9a03d",
+    "tools/tricopter/sitl/gazebo/worlds/tricopter.sdf": "bd79af02b5ad77136566dd2e16746c6c0d58d81766bb9c1b4391b565328e87f8",
+    "tools/tricopter/sitl/gazebo/tests/world_test.py": "ae9689e84e55d56377dc11f73467c3d17f5b323e88ac9a4e79ca6b0b6ab46afb",
+    "tools/tricopter/sitl/test_launch.py": "660ac2f34a3c9335d72f8c17c0250f2a9013351a7ec28af32f8fe387b52af899"
+  },
+  "source_pdfs": {
+    ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/xing2-2207-1855kv.pdf": "274ccdd415685fe86bbdd42e10f61dfb36e315b403d426e707fcf2c94cc13e88",
+    ".local-artifacts/tricopter/gazebo-sitl/airframe-500g-sources/xing-e-pro-2207-1800kv.pdf": "9c9b0e2523209d7f5a8bb7593c3c04b237d1ee7bac9a73c71424bf57b8c47072"
+  },
+  "manufacturer_sources": [
+    {
+      "url": "https://iflight-public.oss-cn-hongkong.aliyuncs.com/Support/lnstructions/XING2-MOTOR/XING2-2207-1855KV-EN.pdf",
+      "role": "Nearby motor with exact GF51466 prop; 1685 g at 24 V"
+    },
+    {
+      "url": "https://iflight-public.oss-cn-hongkong.aliyuncs.com/Support/lnstructions/XING-E-MOTOR/XING-E-Pro-2207-1800KV-EN-1.pdf",
+      "role": "1800 KV variant; different props"
+    },
+    {
+      "url": "https://rpg.ifi.uzh.ch/docs/RSS21_Bauersfeld.pdf",
+      "role": "Comparable-platform 33 ms RPM lag; not an identification of this aircraft"
+    }
+  ]
+}

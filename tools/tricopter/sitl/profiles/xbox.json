@@ -1,0 +1,16 @@
+{
+  "name": "Xbox Bluetooth HID (verified on the connected controller)",
+  "channel_order": "AETR1234",
+  "arm_channel": 4,
+  "low_throttle_max": 1050,
+  "disarm_button": "BTN_EAST",
+  "channels": [
+    {"channel": 0, "name": "roll/right stick X", "kind": "centered", "code": "ABS_Z", "deadzone": 0.05},
+    {"channel": 1, "name": "pitch/right stick Y", "kind": "centered", "code": "ABS_RZ", "deadzone": 0.05, "invert": true},
+    {"channel": 2, "name": "throttle/right trigger", "kind": "throttle", "code": "ABS_GAS", "deadzone": 0.02},
+    {"channel": 3, "name": "yaw/left stick X", "kind": "centered", "code": "ABS_X", "deadzone": 0.05, "invert": true},
+    {"channel": 4, "name": "ARM/A toggle", "kind": "toggle", "code": "BTN_SOUTH", "initial": false},
+    {"channel": 5, "name": "ANGLE/Y toggle", "kind": "toggle", "code": "BTN_WEST", "initial": true},
+    {"channel": 6, "name": "spare AUX3/left bumper", "kind": "button", "code": "BTN_TL"}
+  ]
+}

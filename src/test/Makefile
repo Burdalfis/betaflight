@@ -494,6 +494,11 @@ sitl_gyro_unittest_SRC := \
 sitl_gyro_unittest_INCLUDE_DIRS := \
 		$(ROOT)/src/platform/SIMULATOR
 
+sitl_adc_unittest_HEADER_ONLY := yes
+
+sitl_adc_unittest_INCLUDE_DIRS := \
+		$(ROOT)/src/platform/SIMULATOR
+
 telemetry_crsf_unittest_SRC := \
 		$(USER_DIR)/rx/crsf.c \
 		$(USER_DIR)/telemetry/crsf.c \

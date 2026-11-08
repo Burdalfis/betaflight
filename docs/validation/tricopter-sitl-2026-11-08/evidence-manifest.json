@@ -1,0 +1,870 @@
+{
+  "archive": "evidence.tar.gz",
+  "archive_sha256": "8f0cb90667b723d35209f0430b1f9d18ade998447b39ef02272570df331de245",
+  "archive_bytes": 4358803,
+  "member_count": 172,
+  "uncompressed_file_bytes": 16930134,
+  "members": [
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/Testing/Temporary/LastTest.log",
+      "bytes": 1632,
+      "sha256": "fcf068abac5bf93a469084370ea1fb07cbe50f8fcb3d90cbf9937a988d4834ac"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/build-manifest.json",
+      "bytes": 1671,
+      "sha256": "faba069304765634e76166a025f83a39e21c3c97b855eeb4285df9d91fa1cbc4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/build.log",
+      "bytes": 12174,
+      "sha256": "89721a4729f059a7c587a035d47138dc5665a6a31250592bf025b19176b63f2a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/libTricopterBridge.so",
+      "bytes": 3235952,
+      "sha256": "4037cf27cb1780e9e7718f5d9a257fbc9d74da5baa54fc22c9ae5c616649e961"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/plugin-build-report-pre-pacer.json",
+      "bytes": 1315,
+      "sha256": "17b7fd2f8fcba465591988b3892ad56319f5e1bceef13c1f0111f5abf426771f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/gazebo-build/plugin-build-report.json",
+      "bytes": 1498,
+      "sha256": "432f1fd71fc73ac816d8e58f811bb153cc5894418dd7128f2de83627e4d5feb3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/modified/betaflight_SITL.elf",
+      "bytes": 595712,
+      "sha256": "c91482ac35f27d9846f4c06fd6a5c9bce8c8a642334fa91eaec1e19ea34c592b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/modified/build-manifest.json",
+      "bytes": 11073,
+      "sha256": "8541cc293050a074e0b92b40358cf4fc3e163ce1dcb23511018159e08a6deb18"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/modified/build.log",
+      "bytes": 15504,
+      "sha256": "472b82a037a1b077720af32769f5456a302e9568f34057bfcfc3fcceb4bee7ad"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/plant-check-summary.json",
+      "bytes": 312,
+      "sha256": "55ce5b8e6d22aee11ec506096965fcfad3b29c76a0217596868324f82a3349e6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050200-both-protocol-3/protocol-summary.json",
+      "bytes": 143,
+      "sha256": "bd8b50bf2942d6a7841cac6b87e8f4285a4598d1b2b8278ac5430057e95555f5"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050200-both-protocol-3/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c35020473aed1b4642cd726cad727b63fff2824ad68cedd7ffb73c7cbd890479"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050200-both-protocol-3/stock/firmware.cli",
+      "bytes": 846,
+      "sha256": "b63e6b618a91c30ecc34665360f0f01869419aa84ac2a9be98a74ee3600b73d9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050200-both-protocol-3/stock/protocol-check.json",
+      "bytes": 1052,
+      "sha256": "e36c57a454b0b77cd20cf075ffa9119eda810d73c52e52b6cfa3cabf4c9523d0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050200-both-protocol-3/stock/provision.log",
+      "bytes": 62,
+      "sha256": "92ad76966fbfc0749b8d133e83a3578171902884d3a6b338f55dd7086c6e999b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050221-both-protocol-458065/protocol-summary.json",
+      "bytes": 143,
+      "sha256": "bd8b50bf2942d6a7841cac6b87e8f4285a4598d1b2b8278ac5430057e95555f5"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050221-both-protocol-458065/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "e4044ead47406b2033f71373e0091bd42facebfa240b05da865ed6f1a441fb09"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050221-both-protocol-458065/stock/firmware.cli",
+      "bytes": 846,
+      "sha256": "b63e6b618a91c30ecc34665360f0f01869419aa84ac2a9be98a74ee3600b73d9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050221-both-protocol-458065/stock/protocol-check.json",
+      "bytes": 1062,
+      "sha256": "db6234f880ebcdd9b43a74fc154b48a4a1934909f734502dc18bbc9dcb757b51"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050221-both-protocol-458065/stock/provision.log",
+      "bytes": 129006,
+      "sha256": "a882d4a4e7fe2118c119d6fbdb7a8698de6090efeb9ed20c1ed0d9c23eebd3ad"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/modified/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "90805f43f6d27b4d138cf84e2ff63373db2a2479872b69af6ffb96bc97876f21"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/modified/firmware.cli",
+      "bytes": 1222,
+      "sha256": "f1cc3f0d7f7fcb80de0baedd67f1c0b573e172e84572e253bddb877d85dc9e59"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/modified/firmware.log",
+      "bytes": 2610,
+      "sha256": "486a3b11d76f5d5f9b9089089b39a80021765d5beb324e358ac885c61135bc88"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/modified/protocol-check.json",
+      "bytes": 32856,
+      "sha256": "b12ddacac6848ab642760305eda837a1fffe7b6dfa434cac36ecafb0bc318253"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/modified/provision.log",
+      "bytes": 139945,
+      "sha256": "dbf7e2c689d32e20d59509012168032c58fd1a0ca23bdc7b3c6b399cb1e03023"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/protocol-summary.json",
+      "bytes": 67779,
+      "sha256": "34a2c5c35d97129876cf20b26bc361ddedc567cdfea9be86a28c88da36162faa"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "0181d08d9d8db06ce9b66437c17083be5f534a367d699cf96dd45274bf449533"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/stock/firmware.cli",
+      "bytes": 843,
+      "sha256": "cfac73c54983992587b216cb9596083e9e8ab0d0cf30cb5d55f7b7ab552b5f06"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/stock/firmware.log",
+      "bytes": 2487,
+      "sha256": "83039ae63c893c5475ad0cc29fe3c6b8091c47038c7f88267f33d8e772178f23"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/stock/protocol-check.json",
+      "bytes": 23701,
+      "sha256": "79b3acf212553b7290fa23ea86a0a449d9f52ccdd892659094e0ac4438741d61"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050431-both-protocol-463417/stock/provision.log",
+      "bytes": 137531,
+      "sha256": "032430f85fcda5642633534b42a92d87818e47af0238ec79d8124d91bff7fa2b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/modified/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "e534119d356f91308672e57423330e8b4e9669ca840afeb025b90c419d25e204"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/modified/firmware.cli",
+      "bytes": 1259,
+      "sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/modified/firmware.log",
+      "bytes": 2693,
+      "sha256": "ef6e8bab82318723a4c39626bf83ef30df962cdf69227c42f583faf569f5f2bb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/modified/protocol-check.json",
+      "bytes": 32935,
+      "sha256": "2805a5ac12990b09528dc7fe4f578dc7dbae8830fc0b5eee3f26452832767a71"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/modified/provision.log",
+      "bytes": 140022,
+      "sha256": "be2c97592aee69788059eb1a16886d005c1fa6a86630bcf1d1803c62a396fc7a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/protocol-summary.json",
+      "bytes": 67955,
+      "sha256": "21861d9a0a3ca99fc1da03ab0002d67761b203a636af3dcbebf8a9ccbadb513f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c2ce4f294a696e0f0dcba9330cd6f5d8173bfd811197edfa8ef06b3c5277c8c4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/stock/firmware.cli",
+      "bytes": 880,
+      "sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/stock/firmware.log",
+      "bytes": 2570,
+      "sha256": "dfb8834ccf339b34bb200f7b018cf2273febe01ba5253c086ead166b21e5d7bd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/stock/protocol-check.json",
+      "bytes": 23766,
+      "sha256": "3cd8763757e322b4e46df21a2ca562acd71287ed317a0d6727f8f92dd81888ce"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T050648-both-protocol-465044/stock/provision.log",
+      "bytes": 137608,
+      "sha256": "29e3f3677a8a948f9b2c89de1b6875c8430b991b3ed828ca9e76ddb344771444"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "e534119d356f91308672e57423330e8b4e9669ca840afeb025b90c419d25e204"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/firmware.cli",
+      "bytes": 1259,
+      "sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/firmware.log",
+      "bytes": 1377,
+      "sha256": "b378b527e5ba015cad1a6358e07a7d1882e7b862b8d984c29a393f189d1b1aae"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/flight.jsonl",
+      "bytes": 1863,
+      "sha256": "0669cff78f559df9b58945bd1751586a168462b06bfd904ee094f998fed531dd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/plant.csv",
+      "bytes": 185392,
+      "sha256": "087c70871947549753837636c5d46ea22547ccdbfea906ffca907f62922e5428"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/provision.log",
+      "bytes": 140018,
+      "sha256": "862728bd255e220d89b08643419d446b7105a8f72b7910e0e5636bb2002d8789"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/run.json",
+      "bytes": 763,
+      "sha256": "0f1a7fd424b0ad8422644e3e0f742ff4734c0b2f8ed2611cdc5a3f6405c8b788"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051811-modified-interactive-477101/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051925-plant-normal-478326/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051925-plant-normal-478326/plant.csv",
+      "bytes": 52985,
+      "sha256": "7fb8f275fe3d7955f270c625504df2937d8c11d8a85cae715383743836a691fd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T051925-plant-normal-478326/world.sdf",
+      "bytes": 7037,
+      "sha256": "4060e2913b4269fd86884f8f878cde4dee7808ed533051b11ab1f5652d0f6299"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052020-plant-normal-479021/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052020-plant-normal-479021/plant-check.json",
+      "bytes": 4783,
+      "sha256": "bf82addac3f764d1c532ecc65a481a64a9c47d753262f3005d44522bb8c13213"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052020-plant-normal-479021/plant.csv",
+      "bytes": 90766,
+      "sha256": "101bf2ef72fa64a4924de24e85ff521a38eeb14ef933a83e8b4bee56eab39800"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052020-plant-normal-479021/world.sdf",
+      "bytes": 7037,
+      "sha256": "4060e2913b4269fd86884f8f878cde4dee7808ed533051b11ab1f5652d0f6299"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052027-plant-reversed-479021/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052027-plant-reversed-479021/plant-check.json",
+      "bytes": 4771,
+      "sha256": "e7f5ede3c070e084f9a03e91012ed3dc77b071e48338a8257e3751e4d4a006ef"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052027-plant-reversed-479021/plant.csv",
+      "bytes": 90255,
+      "sha256": "05b8d08b8c1dd126be12d03b86a5591f9aa9cc8209b0d1766c0d7e6098fa17dd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052027-plant-reversed-479021/world.sdf",
+      "bytes": 7038,
+      "sha256": "507b261e080c1800f8239ae0df485025c0eddb21ad93d5698dfc1e7b52e1ec21"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c2ce4f294a696e0f0dcba9330cd6f5d8173bfd811197edfa8ef06b3c5277c8c4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/firmware.cli",
+      "bytes": 880,
+      "sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/firmware.log",
+      "bytes": 1312,
+      "sha256": "ec912b7aca00bb9512c3a9c593c3bf1b23858ab22cd37edf7e63bc2b8ca1c3b1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/flight.jsonl",
+      "bytes": 1475,
+      "sha256": "82406bc1c84625df18ab2f902e3f8eb9331deccd3707870062fe943ac3f78f31"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/gazebo.log",
+      "bytes": 5056,
+      "sha256": "f3e3585cd6fad4d08c095acbfa03de25e7b641c3f525356a41fe98794df59c71"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/plant.csv",
+      "bytes": 192574,
+      "sha256": "98ea346acf80b441915abb79560952c14f5e52d04f5f73b3f677020eabdfd97c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/provision.log",
+      "bytes": 137604,
+      "sha256": "bf259dc44cf2dd0076d47bb91b697a4771bb556e62c00b4ef3d27cd823d62824"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/run.json",
+      "bytes": 744,
+      "sha256": "ae34c55831e9789a66b73424ec9f0d67423ec1123ae4f5aab45e740be9ef66a4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052239-stock-interactive-480460/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/flight-summary.json",
+      "bytes": 294,
+      "sha256": "8b7b1d50e84126c095a159bb72a91bf674f0808fea9e2c1eb3fb881d67431e2e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c2ce4f294a696e0f0dcba9330cd6f5d8173bfd811197edfa8ef06b3c5277c8c4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/firmware.cli",
+      "bytes": 880,
+      "sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/firmware.log",
+      "bytes": 1721,
+      "sha256": "b4c143fbe3de832a549c03be891b0df39dee83d337936e3b4623558565153d5b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/flight-check.json",
+      "bytes": 2774,
+      "sha256": "2d9d917a46b4daf920e12b05630064f40d74ebcfd5ef4402f5a90a12cc96e613"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/pilot.csv",
+      "bytes": 322313,
+      "sha256": "b01d36e3b0904da9f8a0f787062213dcafc0afdd553d55acdb0766e175b91003"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/plant.csv",
+      "bytes": 468063,
+      "sha256": "ee5d8587638613dfe904b1b86f5b5b5157285bf29d2f5f188768c21b5a13ff7b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/provision.log",
+      "bytes": 137626,
+      "sha256": "32ec5c723ddd81ee37d9fbbdbe88cb03e9467009f0c3ffce174f23a19c68df37"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/telemetry.json",
+      "bytes": 161958,
+      "sha256": "0bc80db98226ccc9304a2db56d39161c7a8004a37d2d7a1bf42872b30bff2181"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T052738-both-flight-validation-484132/stock/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/flight-summary.json",
+      "bytes": 5624,
+      "sha256": "5e0ffde625eff5e8bd3e8b5b1cef4629021fc17c14e820a91efaa3afd9ad5ff3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c2ce4f294a696e0f0dcba9330cd6f5d8173bfd811197edfa8ef06b3c5277c8c4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/firmware.cli",
+      "bytes": 880,
+      "sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/firmware.log",
+      "bytes": 2615,
+      "sha256": "b081515339f9e0fd678db2ecf3df2288d298d11c327f05966a1b4405cb7399e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/flight-check.json",
+      "bytes": 4588,
+      "sha256": "2a5544bee5ba355e1abd1fc9e410431345005647d27c4f93593f407840f2ca9e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/pilot.csv",
+      "bytes": 664591,
+      "sha256": "febfaf39b82b5ec9cde56c3876f51297b6f042b587fac99bf7bece7ba4fc7a72"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/plant.csv",
+      "bytes": 970620,
+      "sha256": "d585103aeb732ab5857c0e4746dffbdb760fade32eb5190e8259f1438cfde795"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/provision.log",
+      "bytes": 137628,
+      "sha256": "1c6a140a0947a055359cd864d3da52b3461eb44c905294b0e864b71d1f11e74e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/rc-packets.json",
+      "bytes": 307405,
+      "sha256": "85cfe2c72c781e2e6b660e6d61c690a29d2a682186a67d0c8de8e5b3ca2f22e5"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/telemetry.json",
+      "bytes": 377947,
+      "sha256": "0d7113bbcccf7929cba15cb022d07be3df10643fba652a072fa36872cf5e768a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053102-stock-flight-validation-486921/stock/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/flight-summary.json",
+      "bytes": 11762,
+      "sha256": "9891e0b2d55029b4ab77dbd477833addfbd0882715645c9e01d7edfbb29d54d4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "e534119d356f91308672e57423330e8b4e9669ca840afeb025b90c419d25e204"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/firmware.cli",
+      "bytes": 1259,
+      "sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/firmware.log",
+      "bytes": 2470,
+      "sha256": "938b42e52eee90b36601b2819a0ad6ab64a1f7dba174eadd891f512a31e2ccf6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/flight-check.json",
+      "bytes": 5035,
+      "sha256": "ca73ecd25347e81e9192d77a4ec27dd60521dee07f8ae1ca0bb92d7b67f6b075"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/pilot.csv",
+      "bytes": 654900,
+      "sha256": "cc2a5a050dca0299cc42d8ec638df88e047bcbf707deca4fead796212d761c66"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/plant.csv",
+      "bytes": 969059,
+      "sha256": "078d23a27ffe25169ba4bbfdfd550e23d333324a17ea192806d95358b7227034"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/provision.log",
+      "bytes": 140040,
+      "sha256": "7b16966729d989d27753865495a021ec0b621d35e6698bd6af21a76cf9785d5b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/rc-packets.json",
+      "bytes": 308169,
+      "sha256": "58913e6576ed779b42e33da70b572d846d167d47a1fda78291ddc18e03e186be"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/telemetry.json",
+      "bytes": 367123,
+      "sha256": "6c898b3bc8adf0ca6dafce079e4899d3011770d06dff1b55187a38eb6d4f14f0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/modified/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "c2ce4f294a696e0f0dcba9330cd6f5d8173bfd811197edfa8ef06b3c5277c8c4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/firmware.cli",
+      "bytes": 880,
+      "sha256": "9e9d6a08900db302e2751bcdd1bdb9a5e0a35673cc44abf16243f8fcd1686971"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/firmware.log",
+      "bytes": 2457,
+      "sha256": "50c98df88d8708b81cb50d004043a6752b8c0b03953081c03af1c2d7554b25b0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/flight-check.json",
+      "bytes": 4842,
+      "sha256": "5086e00856bdc932e35d864e5450fa1e1f429ebe746506bbc22f53998f6bfde6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/pilot.csv",
+      "bytes": 659326,
+      "sha256": "5d9d958e42bbfb2cac52fa7cbcaee41e925aaba9decbf04fcf1202c650461c81"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/plant.csv",
+      "bytes": 975913,
+      "sha256": "6376a758925b1d9b0927d61da275a4660406ca60fb294659054f033f29c4c295"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/provision.log",
+      "bytes": 137626,
+      "sha256": "5018712cd96a719309afdf2b443d52928dccafff1ca81c38089f1ad9e13b3742"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/rc-packets.json",
+      "bytes": 306629,
+      "sha256": "9ce16edf84016117e100c354ce16a8fea5964c09e54fb25d2d31b8b944981752"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/telemetry.json",
+      "bytes": 378209,
+      "sha256": "983809c6bd5bac510bfd3dfeff1aada8d47bed7aae1898f64aba8e9c45c2411e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T053407-both-flight-validation-489891/stock/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/eeprom.bin",
+      "bytes": 32768,
+      "sha256": "e534119d356f91308672e57423330e8b4e9669ca840afeb025b90c419d25e204"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/firmware.cli",
+      "bytes": 1259,
+      "sha256": "6fb584b6e02d47c92e7e1b905b429cbacf3782821b194ce5f2d15bddc7aaa2a0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/firmware.log",
+      "bytes": 2370,
+      "sha256": "65911407088ace1e14feae98ec51f9ca98e9091d450b8e9a5b661315d56364d9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/flight.jsonl",
+      "bytes": 3518,
+      "sha256": "a308c6292b25ab98e79021c9b0bf5de3a3457691108f01803a8ef765b2dd47f9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/gazebo.log",
+      "bytes": 4772,
+      "sha256": "b9f0114b1380592aaf1fe6a1a2b54b3ac0f0337a4831c59bfa3b8d071c009df4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/plant.csv",
+      "bytes": 532244,
+      "sha256": "1fa573b62eb652c02656981368bca76baf18a6251cde1cb7de705e96077ebb8c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/provision.log",
+      "bytes": 140018,
+      "sha256": "7543865d7843ab250e801d135ca5e3c141d64a28d7a1e23c27b2a70baafe6802"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/run.json",
+      "bytes": 878,
+      "sha256": "9609516a9ac53d1b3c40a190a12dedd9145e1b93be931848950a34138b205fe1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/viewer-setup.json",
+      "bytes": 46,
+      "sha256": "6c3fc968446e7f4deeecad1cd9008da39af92d6c827059868d9e65988cab4f4c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/viewer-setup.log",
+      "bytes": 58,
+      "sha256": "626298d76fc46bc1a644742831f963a4043ad06a824b93efcf8e1deab38dab1c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054633-modified-interactive-499982/world.sdf",
+      "bytes": 6944,
+      "sha256": "76bea0a9cd708e52c7d3ef257f248b61d38fcef81a581345a15340bc1f4cb5e3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054915-plant-normal-501741/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054915-plant-normal-501741/plant-check.json",
+      "bytes": 5083,
+      "sha256": "1addd5da017d4d8f248142f38b89ca3d696d9e428bc52e6df848bb8fc27df60f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054915-plant-normal-501741/plant.csv",
+      "bytes": 88077,
+      "sha256": "dbcfa8f2c054fc2840df648fd7ca83f3a63d89cd1934af07a4d500825cd8a3ea"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054915-plant-normal-501741/world.sdf",
+      "bytes": 7037,
+      "sha256": "4060e2913b4269fd86884f8f878cde4dee7808ed533051b11ab1f5652d0f6299"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054922-plant-reversed-501741/gazebo.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054922-plant-reversed-501741/plant-check.json",
+      "bytes": 5076,
+      "sha256": "64bb039c4d2baeddc01388621b416b2c4f5bc3022e68896030b3f1307d2d64af"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054922-plant-reversed-501741/plant.csv",
+      "bytes": 87347,
+      "sha256": "0f24638b407849321174824de7e005e619744377b34113fb9f5d02513688f204"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/runs/20261108T054922-plant-reversed-501741/world.sdf",
+      "bytes": 7038,
+      "sha256": "507b261e080c1800f8239ae0df485025c0eddb21ad93d5698dfc1e7b52e1ec21"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/stock/betaflight_SITL.elf",
+      "bytes": 577456,
+      "sha256": "9f6fbae5b880e43f24e2383468801442173c2a01441fe5466610413472cfc325"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/stock/build-manifest.json",
+      "bytes": 8759,
+      "sha256": "935b09dba8c9352e99df34f06cc84961944546bb1789aa523fb48b92f8ede656"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl/stock/build.log",
+      "bytes": 15317,
+      "sha256": "66d1211ddaae27c1c2ec997faeea4c72539aeb9677af1398e7a4d7641952e30e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check/gazebo-gui.log",
+      "bytes": 17273,
+      "sha256": "faec9c248e286b2f2048fce94443f70a61a30a47fa1d65799a56fc8cc7d98df2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check/gui-check.json",
+      "bytes": 149,
+      "sha256": "374f6f46465aadf3a16e43c75c1d4e2e97629065b1440abb5859a39f9a884aba"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check/ogre2.log",
+      "bytes": 3160,
+      "sha256": "b92bb98c7090b4e6ae86766c9456d3cccbb0675dcb06e1158e837fa3ae1c8ece"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check/view-only.sdf",
+      "bytes": 5685,
+      "sha256": "935bab30cb341682ca99320fb51e74cd59bddc95edf3a87d24d3552c4e5033dd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check-ogre1/gazebo-gui.log",
+      "bytes": 17797,
+      "sha256": "51e5529fb0293aa30bae3f867f812e511d26a268244bde08512f77c17cadd911"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check-ogre1/gui-check.json",
+      "bytes": 152,
+      "sha256": "cb6982c19a3ad6aeb115936613376d12e62828aff497f565e17f32842f3a3488"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check-ogre1/ogre.log",
+      "bytes": 25560,
+      "sha256": "cae271d446f6adf94dc6b41ae169a09fba8fdfd556d485aef7ef56e2afb5aa6b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-check-ogre1/ogre2.log",
+      "bytes": 3160,
+      "sha256": "b92bb98c7090b4e6ae86766c9456d3cccbb0675dcb06e1158e837fa3ae1c8ece"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/2026-11-08T01:42:42.852859984.png",
+      "bytes": 60057,
+      "sha256": "41919b88c79bebb00eaf4abcc0d0e27d769e1efbf621cb00fe2b1e50d1702dcb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/gazebo-gui.log",
+      "bytes": 17965,
+      "sha256": "d7cd13ca198196c8a2b5d271be64d56955aed24d6aae5b94b3f460f53af96007"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/gazebo-tricopter.png",
+      "bytes": 60057,
+      "sha256": "41919b88c79bebb00eaf4abcc0d0e27d769e1efbf621cb00fe2b1e50d1702dcb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/move-camera.txt",
+      "bytes": 23,
+      "sha256": "ac13afc5d669ef3b6d100f4b2028013ff9d05a0dd2cdc6e07d7e98c0a1dcc624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/render-proof.json",
+      "bytes": 375,
+      "sha256": "aa69c38c0dd63be02216e0154a15a401ad54bde3a259a11e7930653c91dcd11c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/screenshot-service.log",
+      "bytes": 12,
+      "sha256": "46eeeedc969f106320d874ff0cb0c5c1ea169952665865f64b8f5318d626c8a3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-final/services.txt",
+      "bytes": 1793,
+      "sha256": "d67a24e6ca9a96bc25a57b6ccbf90afeb53d7ee0eea7b5f1a5222b2f0cdd709f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/2026-11-08T01:40:49.725304862.png",
+      "bytes": 23593,
+      "sha256": "08814888dd8ba675ef4446e94f0bf221ed1cc9422b33cab760935a9f957df2f8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/2026-11-08T01:40:49.912089755.png",
+      "bytes": 60057,
+      "sha256": "41919b88c79bebb00eaf4abcc0d0e27d769e1efbf621cb00fe2b1e50d1702dcb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/gazebo-gui.log",
+      "bytes": 17965,
+      "sha256": "7b692f90e158269f51006c64ae9c1f7a5949ea9f3ec141050c281119810d3db8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/gazebo-tricopter.png",
+      "bytes": 23593,
+      "sha256": "08814888dd8ba675ef4446e94f0bf221ed1cc9422b33cab760935a9f957df2f8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/render-proof.json",
+      "bytes": 466,
+      "sha256": "3a46069be7fff0ef8ed573c89a129e5ef7796e3bfe27f704fec3c6a007a7785d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/gui-render-proof/screenshot-service.log",
+      "bytes": 12,
+      "sha256": "46eeeedc969f106320d874ff0cb0c5c1ea169952665865f64b8f5318d626c8a3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/independent-flight-audit.json",
+      "bytes": 10272,
+      "sha256": "dcdc8d3cc7de98739978ec03cd049d788a21c4a60724b10588245708f5ba9361"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/initial-renderer-cleanup.json",
+      "bytes": 957,
+      "sha256": "56a7bbac3fc8bab37f0f67435356da9bb02a2cd02027ba27029af506f065946f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/installed-versions.json",
+      "bytes": 199,
+      "sha256": "639d969fd15d7aa488a9d05df69a3c1d7357cdd56e02980bfc1cbbd059f0bf57"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/math-build.log",
+      "bytes": 173,
+      "sha256": "5651f6f50fb39665fee60e243a8e5e03fd0b60ea8de3cadd09b583438650cfff"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/math-configure.log",
+      "bytes": 511,
+      "sha256": "f6e997bad7b9d7ec99d99ca5c2b3c32fb37987d9e9d045e8d6c1f9d73f4ace23"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/native-adc-fast-tests.log",
+      "bytes": 2874,
+      "sha256": "fbf679d7bdf9655f1b676c5e0a4b01e7d5ed24b86637fc58aaf2c52919d4b417"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/native-adc-gyro-tests.log",
+      "bytes": 3453,
+      "sha256": "1d44f6e2206f83af265351430985447a9d4a8c67e35fdd355d76b8e3e2d6660d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/osrf-resolute-amd64-Packages",
+      "bytes": 289797,
+      "sha256": "cea8d9d9ce44e198fdfacf1080d57dcaf8fd3332a17d1934db752794528b362f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/osrf-resolute-amd64-Packages.gz",
+      "bytes": 50388,
+      "sha256": "9c89f7630e71d3d1c4885155ae5746ef465031b999b53870b2044e15bf03b28d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/python-tests-final.log",
+      "bytes": 4699,
+      "sha256": "7f5e4c2ef29b2b68437b2898ad47f411a365bb5f99d85bf500f04b6ce48b801a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/python-tests.log",
+      "bytes": 3702,
+      "sha256": "0f7332af7b1ce238b9c12cd418cf0969c0578eef0377ae905f1160c991832186"
+    },
+    {
+      "path": ".local-artifacts/tricopter/gazebo-sitl-2026-11-08/validation-summary.json",
+      "bytes": 6380,
+      "sha256": "30b7dffecdad95584b353c236eaf612694ea3fd2e2b4415e779aba4b5a7b0d75"
+    }
+  ],
+  "excluded": "Exported stock source tree, object/build directories, native math test executables and Python caches. Firmware ELF/plugin retained. Superseded first packaging attempt is preserved separately in ignored .local-artifacts/tricopter/gazebo-sitl-packaging-2026-11-08/attempt-01/; its namespaced cleanup assertion is superseded by the archived host-level record."
+}

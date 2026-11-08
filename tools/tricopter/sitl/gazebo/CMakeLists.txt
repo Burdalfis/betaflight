@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(tricopter_gazebo LANGUAGES CXX)
+
+option(TRICOPTER_BUILD_PLUGIN "Build the Gazebo Jetty system plugin" ON)
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(tricopter_math_test tests/math_test.cc)
+  target_compile_features(tricopter_math_test PRIVATE cxx_std_17)
+  target_compile_options(tricopter_math_test PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  target_include_directories(tricopter_math_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(tricopter_math_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../../src/platform/SIMULATOR)
+  add_test(NAME tricopter_math_protocol COMMAND tricopter_math_test)
+  find_package(Python3 COMPONENTS Interpreter REQUIRED)
+  add_test(NAME tricopter_world_structure COMMAND ${Python3_EXECUTABLE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/world_test.py ${CMAKE_CURRENT_SOURCE_DIR}/worlds/tricopter.sdf)
+endif()
+
+if(TRICOPTER_BUILD_PLUGIN)
+  # Jetty removed numeric suffixes from its CMake packages / imported targets.
+  find_package(gz-sim 10 REQUIRED)
+  find_package(gz-plugin 4 REQUIRED COMPONENTS register)
+  add_library(TricopterBridge SHARED TricopterBridge.cc)
+  target_compile_features(TricopterBridge PRIVATE cxx_std_17)
+  target_compile_options(TricopterBridge PRIVATE -Wall -Wextra -Wpedantic)
+  target_link_libraries(TricopterBridge PRIVATE gz-sim::gz-sim gz-plugin::gz-plugin)
+endif()

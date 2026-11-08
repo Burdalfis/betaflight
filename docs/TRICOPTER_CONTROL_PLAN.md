@@ -6,7 +6,7 @@
 
 **Firmware baseline:** Betaflight `2026.6.2`, target `MATEKF405TE`
 
-**Document version:** 0.13 — 2026-11-07
+**Document version:** 0.15 — 2026-11-08
 
 **Status:** M0/M1 complete through their recorded bench scope; the first operational measured-position TRI controller is implemented, flashed and disarmed-bench-tested as the default TRI path, with three-point calibration and a bounded yaw allocator. Target build and 231 host tests pass. Advanced prediction/reaction/finite-horizon models remain offline. Loaded response, stabilizing aircraft yaw direction and flight validation remain open. See [operational setup and bench procedure](TRICOPTER_FEEDBACK_MIXER.md) and [bench evidence](validation/tricopter-feedback-operational-2026-11-07/README.md).
 
@@ -16,6 +16,8 @@
 ## Quick-start: where we are and what to do next
 
 **Current implementation:** `mixer TRI` replaces the old servo rule with PB0−PC0 measured-angle feedback. Servo5 min/middle/max supply the three PWM knots (currently 1100/1509/1700 µs), with configurable angle/ADC knots; the offline 58-knot table is not in the flight path. Current tail-vector compensation uses measured angle. The existing motor mapping, PID system and servo hardware remain in place. Disarmed endpoint/speed learning is optional. Independent yaw polarity and neutral trim accommodate later motor/propeller reversal without changing physical calibration. Historical milestones below retain their original evidence boundaries; their earlier “no flight-output change” statements describe those earlier stages.
+
+**SITL comparison:** [Gazebo tools and status](TRICOPTER_SITL.md) build genuine unchanged `2026.6.2` and modified SITL separately, use the native three-motor-plus-servo raw output, and supply coherent virtual PB0/PC0 to the modified measurement path. Gazebo Jetty 10.6.0 is installed. Actual articulated-plant tests and stock/modified takeoff, approximately 1 m hover, bidirectional yaw, landing and disarming pass with an identical external RC test pilot. Actual joint orientation determines thrust/reaction direction and sensor counts. The current world approximates a 500 g aircraft and nominal-6S 1800 KV 2207/GF51466 setup at 13.31255 N maximum thrust per rotor, scaled from nearby manufacturer data. Inertia, geometry and loaded dynamics remain estimates. Physical aircraft PID gains/rate curves are retained, with a 30° gamepad ANGLE cap. A centered third-person camera follows position and yaw with a level horizon. Xbox Bluetooth pairing, reported codes and live bridge startup are verified; ELRS mapping remains provisional.
 
 **Confirmed:** Hardware and motor directions are known; six historical Blackbox logs have been analyzed; Bluejay ESCs have been updated to **0.21**; the user's Betaflight `2026.6.2` checkout is on branch `feature/tricopter-feedback`. The user confirmed a working cloud build at `e0b7bb01b`, board config `3a406c5`, and correct physical motor/servo mapping. Two clean unchanged local builds produced identical HEX/BIN/ELF files. The servo potentiometer wiper has been measured at **1.561 V (1100 µs), 1.281 V (1420 µs), and 1.031 V (1700 µs)**. Its measured voltage is already within the FC's 0–3.3 V ADC range. **Current wiring:** the wiper is directly connected to **PB0** (`ADC_EXT 1 B00`); a separate servo PCB ground-sense wire is connected to **PC0** (`ADC_RSSI 1 C00`). `TRI_GROUND` logs both raw channels and signed PB0−PC0, with `RSSI_ADC` disabled. See [dual-ADC setup](tricopter_dual_adc_logging.md). The **TLV9001 unity-gain buffer remains optional later**. A preliminary standalone C torque-model/test harness exists but is **not calibrated or flight-ready**.
 
@@ -42,6 +44,20 @@
 **First major gate:** an instrumented Betaflight build that retains the proven legacy mixer and logs accurate per-motor RPM, servo command, signed PB0−PC0 position measurements and raw ADC diagnostics without changing aircraft behaviour. The direct-input signal must first be checked for ADC loading/noise and stable operation of the servo's original feedback loop.
 
 ---
+
+### Revision notes — v0.15 (2026-11-08)
+
+- Isolated native Gazebo dependency discovery from Anaconda libraries and refreshed contaminated CMake caches. Actual Xbox Bluetooth input exposed and corrected different stick, trigger and Y-button codes; the USB-layout profile remains available separately.
+- Replaced the diagonal, smoothed full-attitude follow camera with a centered yaw-only kinematic target and unity tracking gains. A real stock GUI flight verifies vertical tracking, heading following and a level horizon; failed static-target attempts remain preserved.
+- Set the default airframe mass to 500 g including motor links, corrected the rendered props to 5.1 inches, and estimated full-command thrust at 13.31255 N per rotor for nominal 22.2 V using iFlight's nearby GF51466 test. Scaled inertias remain explicit estimates, and no battery-sag model is claimed. Keep the 30 ms speed lag as a comparable-platform prior, not identified XING/prop dynamics.
+- Preserve the aircraft PID gains and rate curves; reduce only the gamepad ANGLE cap from 60° to 30°. Existing historical numerical results describe their original synthetic world and are not reassigned to this approximation. See the [model sources and assumptions](../tools/tricopter/sitl/gazebo/README.md#default-aircraft-approximation).
+
+### Revision notes — v0.14 (2026-11-08)
+
+- Added a Gazebo Jetty tricopter plant, raw three-motor/servo bridge, actual-angle ADC simulation and configurable reaction spin signs. Plant coefficients remain synthetic.
+- Export/build unchanged stock at `e0b7bb01b` with 4,750 Git blobs verified; enable servo support with the identical compile option in both stock and modified builds. Only the modified SIMULATOR platform gains an ADC backend; real hardware flight paths are untouched.
+- Added Xbox and provisional TX16S/ELRS HID input, startup/reconnect arming interlocks, native RX-loss behavior, separate Configurator/telemetry ports and fresh independent EEPROM sessions.
+- Real stock/modified UDP/MSP checks pass, including ±10° Mahony roll/pitch, three motors plus servo0, differential ADC knots, stale/sequence rejection and epoch recovery. Actual Gazebo compilation, articulated physics, rotation reversal and stock/modified takeoff/hover/yaw/landing tests pass. Both use the same plant and external ground-truth RC pilot; native autopilot remains off. Intel/Ogre1 viewing works; physical Bluetooth pairing/mapping remains unverified because the controller is unavailable.
 
 ### Revision notes — v0.13 (2026-11-07)
 

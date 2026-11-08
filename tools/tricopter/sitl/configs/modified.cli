@@ -1,0 +1,14 @@
+# New feedback settings only; never sent to the stock binary.
+set tri_angle_low = -478
+set tri_angle_mid = 0
+set tri_angle_high = 216
+set tri_adc_low = 1936
+set tri_adc_mid = 1490
+set tri_adc_high = 1281
+set tri_yaw_gain = 700
+set tri_servo_p = 20
+set tri_feedback_timeout = 20
+set tri_adc_margin = 32
+set tri_yaw_direction = 1
+set tri_yaw_trim = 0
+set debug_mode = TRI_CONTROL
