@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "supersedes": "physical-zero-plan.json external shaft-reference requirement",
+  "operator_statement": "Motor absent; ADXL mounted in its place. PCB X aligned vertical when basket flat; frame level in roll, pitched down slightly.",
+  "zero_definition": "Flat basket in drone roll plane, using projected sensor +X and measured hinge normal",
+  "source_position": "PB0-PC0 only",
+  "motor_present": false,
+  "linkage_connected": true,
+  "airframe_roll_level_operator_report": true,
+  "airframe_pitch_independently_verified": false,
+  "additional_manual_reference_required": false,
+  "test_authorization": "Existing full 1100-1700 us servo range authorization and latest zero-establishment request",
+  "temporary_configuration_only": true,
+  "flight_control_calibration_installed": false
+}

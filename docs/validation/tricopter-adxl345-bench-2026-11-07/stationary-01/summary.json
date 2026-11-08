@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "protocol_version": 1,
+  "frame_size": 64,
+  "started_utc": "2026-11-07T20:23:21.248480+00:00",
+  "finished_utc": "2026-11-07T20:23:36.257983+00:00",
+  "end_reason": "input_exhausted",
+  "raw_bytes": 736513,
+  "parser": {
+    "valid_frames": 11508,
+    "crc_errors": 0,
+    "unsupported_versions": 0,
+    "unsupported_types": 0,
+    "discarded_bytes": 0,
+    "truncated_tail_bytes": 1
+  },
+  "quality": {
+    "records": 11508,
+    "sample_rows": 11493,
+    "status_rows": 15,
+    "missing_record_sequences": 0,
+    "sequence_discontinuities": 0,
+    "timestamp_regressions": 0,
+    "usb_session_start_rows": 1,
+    "rows_with_unknown_flag_bits": 0,
+    "configured_sample_rows": 11493,
+    "qualified_sample_timestamps": 11478,
+    "fresh_pwm_sample_rows": 0,
+    "sensor_overrun_sample_rows": 1,
+    "service_gap_sample_rows": 15,
+    "poll_fallback_sample_rows": 0,
+    "status_fault_code_counts": {
+      "0": 15
+    },
+    "epochs": [
+      {
+        "epoch": 0,
+        "reason": "first_frame",
+        "first_record_seq": 0,
+        "first_time_us": 63945002,
+        "first_counters": {
+          "sensor_overrun_events": 3,
+          "service_gap_events": 42,
+          "queue_dropped_frames": 0
+        },
+        "records": 11508,
+        "last_record_seq": 11507,
+        "last_time_us": 78929721,
+        "last_counters": {
+          "sensor_overrun_events": 4,
+          "service_gap_events": 57,
+          "queue_dropped_frames": 0
+        }
+      }
+    ],
+    "loss_interpretation": "Sequence gaps are missing logger records; overrun/service-gap counters are events, not exact lost sensor sample counts. Counter snapshots are cumulative within an MCU boot, not summed across rows."
+  },
+  "source_sha256_at_start": {
+    "capture.py": "5937e3b97c3b78f63fe15af302dad1e9880d5a56d1855cf2d122fb1993315972",
+    "platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e",
+    "src/main.cpp": "a25b6194d1ce11a08e888276d459a24492161f605652d22a738c12ca88e3d552",
+    "include/logger_protocol.h": "89e09b9af60146535386512bd658b221dfe341b142c96aa0887517af1fa111a3"
+  },
+  "source_files_unchanged_during_capture": true,
+  "metadata": {
+    "argv": [
+      "--port",
+      "/dev/serial/by-id/usb-Teensyduino_USB_Serial_12696530-if00",
+      "--output",
+      ".local-artifacts/tricopter/adxl345-live-2026-11-07/stationary-01",
+      "--seconds",
+      "15"
+    ],
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+    "mode": "usb",
+    "port": "/dev/serial/by-id/usb-Teensyduino_USB_Serial_12696530-if00",
+    "input": null,
+    "seconds": 15.0
+  },
+  "files": {
+    "capture.bin": {
+      "sha256": "a90ef9d3566e12fe005be39ef1f93bb8d6e57917c912600ca43b6055a73d26d0",
+      "bytes": 736513
+    },
+    "records.csv": {
+      "sha256": "fa21571083b7d61675bdd43efdca2e68b054bb3cd606a8fd647d76417fc57f3e",
+      "bytes": 1562978
+    }
+  },
+  "measurement_contract": {
+    "raw_axes": "Signed uncalibrated ADXL345 counts, no angle or gravity correction",
+    "sample_time": "DRDY ISR time only with drdy_timestamp_qualified=1; otherwise SPI read-start time. Sensor internal delay and ISR latency remain uncalibrated.",
+    "host_time": "USB receive-chunk arrival only; absent during offline decoding",
+    "pwm": "Completed input pulse rise timestamp/width; use only with pwm_fresh=1",
+    "position_source": "FC continues logging PB0-PC0; this logger does not measure or replace that source",
+    "source_fingerprints": "Host source files at capture time; not proof that this firmware binary was flashed"
+  }
+}

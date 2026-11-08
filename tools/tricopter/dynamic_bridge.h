@@ -40,3 +40,19 @@ int tricopterDynamicSimulationReplay(const double *controller,const double *plan
     const uint64_t *timeUs,const float *requestedResponse,const uint8_t *modes,const uint8_t *dropGeneration,const uint8_t *outlierGeneration,
     double *numeric,uint32_t *integer,uint8_t *flags,double *dynamicNumeric,uint32_t *dynamicInteger,
     double *candidateNumeric,uint32_t *candidateInteger);
+
+/* Optional operator-referenced basket-angle map. Knots are interleaved
+ * [corrected PB0-PC0 counts, mean angle rad, half major-branch separation rad].
+ * Original transport and output columns remain unchanged. Separate angle
+ * diagnostics per row are [current half separation, selected-horizon half
+ * separation] and flags [current map available, selected map available].
+ */
+int tricopterMeasuredDynamicSimulationReplay(const double *controller, const double *plant,
+    const double *dynamic, const double *angleKnots, size_t knotCount, size_t count,
+    const uint64_t *timeUs, const float *request, const uint8_t *modes,
+    const uint8_t *drop, const uint8_t *outlier, double *numeric, uint32_t *integer,
+    uint8_t *flags, double *dynamicNumeric, uint32_t *dynamicInteger,
+    double *candidateNumeric, uint32_t *candidateInteger,
+    double *angleNumeric, uint8_t *angleFlags);
+int tricopterMeasuredAngleEvaluate(const double *angleKnots, size_t knotCount,
+    const float *counts, size_t count, float *angles, float *halfSeparation, uint8_t *valid);

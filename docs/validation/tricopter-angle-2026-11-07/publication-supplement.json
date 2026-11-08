@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "reason": "Publication adds a raw-session archive and a separate link note; the original README, manifest, measured data and model sources are unchanged.",
+  "original_manifest_sha256": "de8af5d39194b1f32d2e5cc767d87ae13c948e28ac9f8695674c1d34bda5271c",
+  "archive_note_sha256": "cf7d0696f241734633f5f2da3e2de281a5a5a2c2cc36a04934299713e4079ffa",
+  "raw_archive_manifest_sha256": "a63bcf40251301d28cc3fae3049cb4b67f8b348c67a17cb0e16b46ef94dc809a"
+}

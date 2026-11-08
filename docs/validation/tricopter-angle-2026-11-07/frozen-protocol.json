@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-08T01:48:56.007373+00:00",
+  "frozen_training_session": "basket-full-sweep-02",
+  "reference_session": "basket-roll-zero-check-01",
+  "prospective_validation": "basket-reversal-check-01",
+  "validation_used_for_fitting": false,
+  "position_source": "PB0-PC0 only",
+  "motor_present": false,
+  "regression_rule": "One equal-weight mean of increasing/decreasing settled angle per common PWM; no sample-count weighting; free intercept and physically zero-anchored alternatives reported separately",
+  "middle_reference_pwm_us": 1511.7464892228184,
+  "mean_map_rule": "Mean of both monotonic major-approach angle curves at common measured ADC counts only; descriptive half-separation, no instantaneous branch switching",
+  "provenance_sha256": {
+    "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/basket-full-sweep-02/analysis.json": "c077607f17a9fbf8bd29b3de4007b294269a896eadc06a7ebbe7070fcae186c5",
+    "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/basket-full-sweep-02/measured-angle-tables-roll-zero.json": "26c41dfcab618c17a6afdac34e3bd7ba43be6830502bb721f191661efb7dd0da",
+    "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/basket-roll-zero-check-01/roll-zero-result.json": "4e503bc0bdc761d0ecfcef187d8e9e41a5d0aa9e5f76f3dcec06c8af71711b8b",
+    "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/calibration-profile-v1.json": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+    "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/tilted-validation-summary-v2.json": "e2381ad8068d44d6b55e138cfc34d3444056983b674a923f7295d498cc9057ee"
+  }
+}

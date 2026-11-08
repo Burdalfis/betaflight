@@ -2,6 +2,8 @@
 
 This stage adds an opt-in finite-horizon allocator to the synthetic actuator/response simulation. It uses the current command-driven servo predictor and fresh RPM-observer state to estimate reachable response. The controller still needs a configurable virtual-tail effectiveness map, not CAD dimensions, CG or body inertia. All current maps, motor/servo parameters and direction relationships remain synthetic placeholders. No active flight-output path is connected.
 
+The later [measured-angle extension](tricopter_measured_angle.md) optionally replaces the synthetic count-to-direction conversion with a bounded measured PB0−PC0 map, including current and horizon forecasts. Default mode and the frozen synthetic evidence below remain unchanged. The extension does not physically identify the motor/servo dynamics, effectiveness or reaction coefficients.
+
 ## Priority means a separate optimization stage
 
 The four response axes are collective, roll, pitch and yaw. The first three form the protected primary group:

@@ -1,0 +1,1229 @@
+{
+  "schema_version": 1,
+  "status": "held-out settled reversal validation; fit unchanged",
+  "fit_updated": false,
+  "analysis_sha256": "28efe59d471681b98fb40ab11ee7fc3a1acc066afbcd34f599f5ebb76a7335c3",
+  "held_out_input_artifact_sha256": {
+    "run.json": "94ec7fd0de54f58be93cb2f9b589162afd4d848bfd8d47fdc9a90b7932123079",
+    "plan.json": "588bf8431933b4fb0183c2ac050f1d35f4d1c3434bc9c99557105eef4e38220e",
+    "fc-backup.json": "f6957c0617d9d8a5d8ed7239ee5c1433c2eb5b12e66f7951779b7169ab0ab015",
+    "fc-run.json": "737e619de4cba84dd759fde906efb227366ca12446528f8030c199a8520e64f6",
+    "fc-events.json": "19a35ff335651f6be5be9f8105795facbe62d4f8e067a4467b0da5e40b8ee1a3",
+    "original-servo-table.bin": "1705a044cf2a31bf68212a698c87efda210e8c5e3f3f2520e26da8e1cc18c3ca",
+    "fc-samples.csv": "7f352a68577f971620f0cabdacb4d9b5e8f3bb212612e728129bfb2830dfab1b",
+    "calibration-profile.json": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+    "static-validation-report.json": "e2381ad8068d44d6b55e138cfc34d3444056983b674a923f7295d498cc9057ee",
+    "adxl/capture.bin": "57ef041264690b8c9489f3648c1394cb9259f5a3f2819b7700d4992a540fdd25",
+    "adxl/records.csv": "71614e9c0e776608600316b366f25dacd316f87d9aeeddca0566e047d93246d7",
+    "adxl/summary.json": "3b9da8384e9772daeb9b6e995f1a9c3a36e8e08192107c89ae1fbc3872fba23c"
+  },
+  "source_mode": "recorded raw input-artifact hashes reverified",
+  "source_position": "fresh signed PB0-PC0 only",
+  "points": [
+    {
+      "plateau_id": 0,
+      "command_us": 1420,
+      "approach": "initial",
+      "previous_command_us": null,
+      "context": "initial",
+      "corrected_counts": 1584.911111111111,
+      "measured_basket_roll_deg": -7.992373072489941,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -10.312735729674245,
+        "decreasing_pwm": -8.619366882551128
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -9.921998284235144,
+      "count_line_error_deg": -1.9296252117452033,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -10.20456568488751,
+        "forced_physical_zero": -10.456970793279819
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -2.21219261239757,
+        "forced_physical_zero": -2.464597720789878
+      },
+      "mean_map_prediction_deg": -9.466051306112687,
+      "error_deg": -1.4736782336227465,
+      "descriptive_half_branch_separation_deg": 0.846684423561559,
+      "major_branch_hull_deg": [
+        -10.312735729674245,
+        -8.619366882551128
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.6269938100611876
+    },
+    {
+      "plateau_id": 1,
+      "command_us": 1440,
+      "approach": "increasing",
+      "previous_command_us": 1420,
+      "context": "initial",
+      "corrected_counts": 1567.2222222222222,
+      "measured_basket_roll_deg": -7.018322920135458,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -8.208299704923693,
+        "decreasing_pwm": -6.777954971901515
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -8.074812484243154,
+      "count_line_error_deg": -1.0564895641076957,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -7.9063723018708085,
+        "forced_physical_zero": -8.177434893462726
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.8880493817353505,
+        "forced_physical_zero": -1.159111973327268
+      },
+      "mean_map_prediction_deg": -7.493127338412603,
+      "error_deg": -0.47480441827714515,
+      "descriptive_half_branch_separation_deg": 0.7151723665110888,
+      "major_branch_hull_deg": [
+        -8.208299704923693,
+        -6.777954971901515
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 2,
+      "command_us": 1460,
+      "approach": "increasing",
+      "previous_command_us": 1440,
+      "context": "continuation",
+      "corrected_counts": 1548.6444444444444,
+      "measured_basket_roll_deg": -5.499597124141277,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -6.390971139504643,
+        "decreasing_pwm": -5.072297916687928
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -6.134803277216406,
+      "count_line_error_deg": -0.6352061530751287,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -5.608178918854104,
+        "forced_physical_zero": -5.897898993645635
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.10858179471282625,
+        "forced_physical_zero": -0.3983018695043574
+      },
+      "mean_map_prediction_deg": -5.7316345280962855,
+      "error_deg": -0.23203740395500816,
+      "descriptive_half_branch_separation_deg": 0.6593366114083574,
+      "major_branch_hull_deg": [
+        -6.390971139504643,
+        -5.072297916687928
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 3,
+      "command_us": 1480,
+      "approach": "increasing",
+      "previous_command_us": 1460,
+      "context": "continuation",
+      "corrected_counts": 1528.4444444444443,
+      "measured_basket_roll_deg": -3.549185198458004,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -4.229863543645919,
+        "decreasing_pwm": -3.3033290811544544
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -4.025391352351164,
+      "count_line_error_deg": -0.47620615389316034,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -3.3099855358374004,
+        "forced_physical_zero": -3.6183630938285427
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.23919966262060344,
+        "forced_physical_zero": -0.06917789537053887
+      },
+      "mean_map_prediction_deg": -3.7665963124001873,
+      "error_deg": -0.2174111139421835,
+      "descriptive_half_branch_separation_deg": 0.4632672312457326,
+      "major_branch_hull_deg": [
+        -4.229863543645919,
+        -3.3033290811544544
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 4,
+      "command_us": 1500,
+      "approach": "increasing",
+      "previous_command_us": 1480,
+      "context": "continuation",
+      "corrected_counts": 1509.7333333333333,
+      "measured_basket_roll_deg": -2.0376148027814476,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -2.5208438930935535,
+        "decreasing_pwm": -1.6279459652139265
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -2.07145863426922,
+      "count_line_error_deg": -0.03384383148777248,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -1.0117921528206966,
+        "forced_physical_zero": -1.3388271940114504
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 1.025822649960751,
+        "forced_physical_zero": 0.6987876087699971
+      },
+      "mean_map_prediction_deg": -2.07439492915374,
+      "error_deg": -0.03678012637229244,
+      "descriptive_half_branch_separation_deg": 0.4464489639398136,
+      "major_branch_hull_deg": [
+        -2.5208438930935535,
+        -1.6279459652139265
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 5,
+      "command_us": 1520,
+      "approach": "increasing",
+      "previous_command_us": 1500,
+      "context": "continuation",
+      "corrected_counts": 1486.7777777777778,
+      "measured_basket_roll_deg": 0.3644702221322649,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 0.05871890181254807,
+        "decreasing_pwm": 0.6720924303985405
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 0.32570585240381433,
+      "count_line_error_deg": -0.03876436972845054,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 1.286401230196007,
+        "forced_physical_zero": 0.9407087058056415
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.9219310080637422,
+        "forced_physical_zero": 0.5762384836733766
+      },
+      "mean_map_prediction_deg": 0.36540566610554437,
+      "error_deg": 0.0009354439732794928,
+      "descriptive_half_branch_separation_deg": 0.30668676429299624,
+      "major_branch_hull_deg": [
+        0.05871890181254807,
+        0.6720924303985405
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 6,
+      "command_us": 1540,
+      "approach": "increasing",
+      "previous_command_us": 1520,
+      "context": "continuation",
+      "corrected_counts": 1463.6666666666667,
+      "measured_basket_roll_deg": 2.6382274496987907,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 2.39618210891872,
+        "decreasing_pwm": 2.8840083958189986
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 2.739114435307897,
+      "count_line_error_deg": 0.10088698560910636,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 3.584594613212711,
+        "forced_physical_zero": 3.2202446056227334
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.9463671635139201,
+        "forced_physical_zero": 0.5820171559239427
+      },
+      "mean_map_prediction_deg": 2.6400952523688592,
+      "error_deg": 0.0018678026700684747,
+      "descriptive_half_branch_separation_deg": 0.24391314345013929,
+      "major_branch_hull_deg": [
+        2.39618210891872,
+        2.8840083958189986
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 7,
+      "command_us": 1560,
+      "approach": "increasing",
+      "previous_command_us": 1540,
+      "context": "continuation",
+      "corrected_counts": 1442.4666666666667,
+      "measured_basket_roll_deg": 4.695516617510905,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 4.362519083452707,
+        "decreasing_pwm": 4.897219717667767
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 4.952952693087241,
+      "count_line_error_deg": 0.25743607557633563,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 5.882787996229414,
+        "forced_physical_zero": 5.499780505439825
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 1.187271378718509,
+        "forced_physical_zero": 0.8042638879289203
+      },
+      "mean_map_prediction_deg": 4.629869400560237,
+      "error_deg": -0.06564721695066833,
+      "descriptive_half_branch_separation_deg": 0.2673503171075302,
+      "major_branch_hull_deg": [
+        4.362519083452707,
+        4.897219717667767
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 8,
+      "command_us": 1580,
+      "approach": "increasing",
+      "previous_command_us": 1560,
+      "context": "continuation",
+      "corrected_counts": 1418.2888888888888,
+      "measured_basket_roll_deg": 6.964201736782089,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 6.567677128687869,
+        "decreasing_pwm": 7.334542140260467
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 7.477749364433095,
+      "count_line_error_deg": 0.5135476276510058,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 8.180981379246118,
+        "forced_physical_zero": 7.7793164052569175
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 1.2167796424640294,
+        "forced_physical_zero": 0.8151146684748287
+      },
+      "mean_map_prediction_deg": 6.951109634474169,
+      "error_deg": -0.013092102307919795,
+      "descriptive_half_branch_separation_deg": 0.38343250578629917,
+      "major_branch_hull_deg": [
+        6.567677128687869,
+        7.334542140260467
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 9,
+      "command_us": 1600,
+      "approach": "increasing",
+      "previous_command_us": 1580,
+      "context": "continuation",
+      "corrected_counts": 1395.6222222222223,
+      "measured_basket_roll_deg": 9.448895350484719,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 9.161108531618392,
+        "decreasing_pwm": 9.824453653218333
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 9.844746243819799,
+      "count_line_error_deg": 0.39585089333507995,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 10.479174762262822,
+        "forced_physical_zero": 10.058852305074009
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 1.0302794117781033,
+        "forced_physical_zero": 0.6099569545892898
+      },
+      "mean_map_prediction_deg": 9.492781092418362,
+      "error_deg": 0.04388574193364292,
+      "descriptive_half_branch_separation_deg": 0.33167256079997,
+      "major_branch_hull_deg": [
+        9.161108531618392,
+        9.824453653218333
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 10,
+      "command_us": 1620,
+      "approach": "increasing",
+      "previous_command_us": 1600,
+      "context": "continuation",
+      "corrected_counts": 1372.590909090909,
+      "measured_basket_roll_deg": 12.597384975963404,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 12.0823384680237,
+        "decreasing_pwm": 12.494541154250337
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 12.249821816319667,
+      "count_line_error_deg": -0.3475631596437374,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 12.777368145279526,
+        "forced_physical_zero": 12.338388204891102
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.17998316931612202,
+        "forced_physical_zero": -0.2589967710723027
+      },
+      "mean_map_prediction_deg": 12.288439811137017,
+      "error_deg": -0.3089451648263868,
+      "descriptive_half_branch_separation_deg": 0.20610134311331837,
+      "major_branch_hull_deg": [
+        12.0823384680237,
+        12.494541154250337
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.10284382171306738
+    },
+    {
+      "plateau_id": 11,
+      "command_us": 1640,
+      "approach": "increasing",
+      "previous_command_us": 1620,
+      "context": "continuation",
+      "corrected_counts": 1348.8,
+      "measured_basket_roll_deg": 14.84048507670554,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 14.662608497382962,
+        "decreasing_pwm": 14.80674703162549
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 14.734219209376477,
+      "count_line_error_deg": -0.10626586732906418,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 15.075561528296229,
+        "forced_physical_zero": 14.617924104708193
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.2350764515906878,
+        "forced_physical_zero": -0.22256097199734803
+      },
+      "mean_map_prediction_deg": 14.734677764504223,
+      "error_deg": -0.10580731220131767,
+      "descriptive_half_branch_separation_deg": 0.07206926712126359,
+      "major_branch_hull_deg": [
+        14.662608497382962,
+        14.80674703162549
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.03373804508005129
+    },
+    {
+      "plateau_id": 12,
+      "command_us": 1650,
+      "approach": "increasing",
+      "previous_command_us": 1640,
+      "context": "continuation",
+      "corrected_counts": 1340.4222222222222,
+      "measured_basket_roll_deg": 15.495672534407117,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 15.387890455539013,
+        "decreasing_pwm": 15.683926773809171
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 15.609079820679227,
+      "count_line_error_deg": 0.1134072862721105,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 16.22465821980458,
+        "forced_physical_zero": 15.75769205461674
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.7289856853974648,
+        "forced_physical_zero": 0.2620195202096234
+      },
+      "mean_map_prediction_deg": 15.53590861467409,
+      "error_deg": 0.04023608026697367,
+      "descriptive_half_branch_separation_deg": 0.14801815913507943,
+      "major_branch_hull_deg": [
+        15.387890455539013,
+        15.683926773809171
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 13,
+      "command_us": 1640,
+      "approach": "decreasing",
+      "previous_command_us": 1650,
+      "context": "direction_reversal",
+      "corrected_counts": 1342.088888888889,
+      "measured_basket_roll_deg": 15.565571493984125,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 15.243603593836875,
+        "decreasing_pwm": 15.509421520059094
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 15.435035932489,
+      "count_line_error_deg": -0.13053556149512424,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 15.075561528296229,
+        "forced_physical_zero": 14.617924104708193
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.49000996568789645,
+        "forced_physical_zero": -0.9476473892759323
+      },
+      "mean_map_prediction_deg": 15.376512556947983,
+      "error_deg": -0.18905893703614218,
+      "descriptive_half_branch_separation_deg": 0.13290896311110997,
+      "major_branch_hull_deg": [
+        15.243603593836875,
+        15.509421520059094
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.05614997392503085
+    },
+    {
+      "plateau_id": 14,
+      "command_us": 1650,
+      "approach": "increasing",
+      "previous_command_us": 1640,
+      "context": "direction_reversal",
+      "corrected_counts": 1342.0222222222221,
+      "measured_basket_roll_deg": 15.479293039186517,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 15.249375068304975,
+        "decreasing_pwm": 15.516401730209115
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 15.441997688016642,
+      "count_line_error_deg": -0.0372953511698757,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 16.22465821980458,
+        "forced_physical_zero": 15.75769205461674
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.7453651806180641,
+        "forced_physical_zero": 0.2783990154302227
+      },
+      "mean_map_prediction_deg": 15.382888399257041,
+      "error_deg": -0.09640463992947623,
+      "descriptive_half_branch_separation_deg": 0.13351333095207024,
+      "major_branch_hull_deg": [
+        15.249375068304975,
+        15.516401730209115
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 15,
+      "command_us": 1660,
+      "approach": "increasing",
+      "previous_command_us": 1650,
+      "context": "continuation",
+      "corrected_counts": 1328.2888888888888,
+      "measured_basket_roll_deg": 16.59556093738158,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 16.43829880873055,
+        "decreasing_pwm": 16.77413129741428
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 16.8761193267039,
+      "count_line_error_deg": 0.28055838932231936,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 17.373754911312936,
+        "forced_physical_zero": 16.897460004525286
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": 0.778193973931355,
+        "forced_physical_zero": 0.3018990671437045
+      },
+      "mean_map_prediction_deg": 16.606215053072415,
+      "error_deg": 0.010654115690833521,
+      "descriptive_half_branch_separation_deg": 0.16791624434186467,
+      "major_branch_hull_deg": [
+        16.43829880873055,
+        16.77413129741428
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 16,
+      "command_us": 1650,
+      "approach": "decreasing",
+      "previous_command_us": 1660,
+      "context": "direction_reversal",
+      "corrected_counts": 1328.9555555555555,
+      "measured_basket_roll_deg": 16.66587765675791,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 16.38058406404969,
+        "decreasing_pwm": 16.71538164641531
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 16.806501771427804,
+      "count_line_error_deg": 0.14062411466989388,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 16.22465821980458,
+        "forced_physical_zero": 15.75769205461674
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.4412194369533289,
+        "forced_physical_zero": -0.9081856021411703
+      },
+      "mean_map_prediction_deg": 16.547982855232497,
+      "error_deg": -0.11789480152541287,
+      "descriptive_half_branch_separation_deg": 0.16739879118280904,
+      "major_branch_hull_deg": [
+        16.38058406404969,
+        16.71538164641531
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 17,
+      "command_us": 1630,
+      "approach": "decreasing",
+      "previous_command_us": 1650,
+      "context": "continuation",
+      "corrected_counts": 1352.0666666666666,
+      "measured_basket_roll_deg": 14.726942741416329,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 14.335561197305674,
+        "decreasing_pwm": 14.464716734275353
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 14.393093188523693,
+      "count_line_error_deg": -0.3338495528926355,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 13.926464836787877,
+        "forced_physical_zero": 13.478156154799647
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.8004779046284511,
+        "forced_physical_zero": -1.2487865866166814
+      },
+      "mean_map_prediction_deg": 14.40013896579051,
+      "error_deg": -0.32680377562581775,
+      "descriptive_half_branch_separation_deg": 0.0645777684848402,
+      "major_branch_hull_deg": [
+        14.335561197305674,
+        14.464716734275353
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.2622260071409759
+    },
+    {
+      "plateau_id": 18,
+      "command_us": 1610,
+      "approach": "decreasing",
+      "previous_command_us": 1630,
+      "context": "continuation",
+      "corrected_counts": 1373.3333333333333,
+      "measured_basket_roll_deg": 12.654463810786911,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 11.987916972126106,
+        "decreasing_pwm": 12.427218058855615
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 12.172293175216765,
+      "count_line_error_deg": -0.48217063557014583,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 11.628271453771173,
+        "forced_physical_zero": 11.198620254982556
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -1.0261923570157379,
+        "forced_physical_zero": -1.4558435558043552
+      },
+      "mean_map_prediction_deg": 12.207567515490862,
+      "error_deg": -0.4468962952960496,
+      "descriptive_half_branch_separation_deg": 0.21965054336475437,
+      "major_branch_hull_deg": [
+        11.987916972126106,
+        12.427218058855615
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.22724575193129581
+    },
+    {
+      "plateau_id": 19,
+      "command_us": 1590,
+      "approach": "decreasing",
+      "previous_command_us": 1610,
+      "context": "continuation",
+      "corrected_counts": 1394.0666666666666,
+      "measured_basket_roll_deg": 9.830382126916039,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 9.351052176488057,
+        "decreasing_pwm": 10.035438885164238
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 10.007187206130652,
+      "count_line_error_deg": 0.17680507921461341,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 9.33007807075447,
+        "forced_physical_zero": 8.919084355165463
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.5003040561615695,
+        "forced_physical_zero": -0.9112977717505757
+      },
+      "mean_map_prediction_deg": 9.693245530826147,
+      "error_deg": -0.13713659608989204,
+      "descriptive_half_branch_separation_deg": 0.342193354338091,
+      "major_branch_hull_deg": [
+        9.351052176488057,
+        10.035438885164238
+      ],
+      "within_major_branch_hull": true,
+      "distance_outside_major_branch_hull_deg": 0.0
+    },
+    {
+      "plateau_id": 20,
+      "command_us": 1570,
+      "approach": "decreasing",
+      "previous_command_us": 1590,
+      "context": "continuation",
+      "corrected_counts": 1418.5555555555557,
+      "measured_basket_roll_deg": 7.387806977893064,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 6.543355532600697,
+        "decreasing_pwm": 7.310507043853043
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 7.449902342322645,
+      "count_line_error_deg": 0.06209536442958097,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 7.031884687737766,
+        "forced_physical_zero": 6.639548455348371
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.35592229015529764,
+        "forced_physical_zero": -0.7482585225446927
+      },
+      "mean_map_prediction_deg": 6.9269312882268705,
+      "error_deg": -0.4608756896661932,
+      "descriptive_half_branch_separation_deg": 0.38357575562617285,
+      "major_branch_hull_deg": [
+        6.543355532600697,
+        7.310507043853043
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.07729993404002045
+    },
+    {
+      "plateau_id": 21,
+      "command_us": 1550,
+      "approach": "decreasing",
+      "previous_command_us": 1570,
+      "context": "continuation",
+      "corrected_counts": 1442.2888888888888,
+      "measured_basket_roll_deg": 5.057487837548419,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 4.378733480844154,
+        "decreasing_pwm": 4.916878221159771
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 4.971517374494226,
+      "count_line_error_deg": -0.08597046305419287,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 4.733691304721063,
+        "forced_physical_zero": 4.360012555531279
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.3237965328273562,
+        "forced_physical_zero": -0.6974752820171402
+      },
+      "mean_map_prediction_deg": 4.647805851001962,
+      "error_deg": -0.40968198654645693,
+      "descriptive_half_branch_separation_deg": 0.2690723701578083,
+      "major_branch_hull_deg": [
+        4.378733480844154,
+        4.916878221159771
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.1406096163886481
+    },
+    {
+      "plateau_id": 22,
+      "command_us": 1530,
+      "approach": "decreasing",
+      "previous_command_us": 1550,
+      "context": "continuation",
+      "corrected_counts": 1465.3333333333333,
+      "measured_basket_roll_deg": 3.156820331548214,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": 2.233765108948267,
+        "decreasing_pwm": 2.7466030161723927
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 2.5650705471177275,
+      "count_line_error_deg": -0.5917497844304864,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 2.435497921704359,
+        "forced_physical_zero": 2.0804766557141874
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.7213224098438551,
+        "forced_physical_zero": -1.0763436758340266
+      },
+      "mean_map_prediction_deg": 2.4901840625603295,
+      "error_deg": -0.6666362689878844,
+      "descriptive_half_branch_separation_deg": 0.2564189536120625,
+      "major_branch_hull_deg": [
+        2.233765108948267,
+        2.7466030161723927
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.4102173153758213
+    },
+    {
+      "plateau_id": 23,
+      "command_us": 1510,
+      "approach": "decreasing",
+      "previous_command_us": 1530,
+      "context": "continuation",
+      "corrected_counts": 1487.8636363636363,
+      "measured_basket_roll_deg": 0.970217916879594,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -0.06532538263792681,
+        "decreasing_pwm": 0.5572136498085898
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": 0.21231362221928407,
+      "count_line_error_deg": -0.75790429466031,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": 0.13730453868765516,
+        "forced_physical_zero": -0.19905924410290457
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.8329133781919389,
+        "forced_physical_zero": -1.1692771609824986
+      },
+      "mean_map_prediction_deg": 0.24594413358533154,
+      "error_deg": -0.7242737832942625,
+      "descriptive_half_branch_separation_deg": 0.3112695162232584,
+      "major_branch_hull_deg": [
+        -0.06532538263792681,
+        0.5572136498085898
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.41300426707100424
+    },
+    {
+      "plateau_id": 24,
+      "command_us": 1490,
+      "approach": "decreasing",
+      "previous_command_us": 1510,
+      "context": "continuation",
+      "corrected_counts": 1511.3333333333333,
+      "measured_basket_roll_deg": -1.3586726147846093,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -2.6652862825055355,
+        "decreasing_pwm": -1.7797669136640748
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -2.238540766931777,
+      "count_line_error_deg": -0.8798681521471678,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -2.1608888443290484,
+        "forced_physical_zero": -2.4785951439199967
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -0.802216229544439,
+        "forced_physical_zero": -1.1199225291353874
+      },
+      "mean_map_prediction_deg": -2.2225265980848055,
+      "error_deg": -0.8638539833001961,
+      "descriptive_half_branch_separation_deg": 0.44275968442073044,
+      "major_branch_hull_deg": [
+        -2.6652862825055355,
+        -1.7797669136640748
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.4210942988794655
+    },
+    {
+      "plateau_id": 25,
+      "command_us": 1470,
+      "approach": "decreasing",
+      "previous_command_us": 1490,
+      "context": "continuation",
+      "corrected_counts": 1529.5777777777778,
+      "measured_basket_roll_deg": -3.0033388521723547,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -4.351456022045204,
+        "decreasing_pwm": -3.4009124415347456
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -4.143741196320519,
+      "count_line_error_deg": -1.1404023441481645,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -4.459082227345752,
+        "forced_physical_zero": -4.758131043737088
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -1.4557433751733977,
+        "forced_physical_zero": -1.7547921915647335
+      },
+      "mean_map_prediction_deg": -3.876184231789976,
+      "error_deg": -0.8728453796176212,
+      "descriptive_half_branch_separation_deg": 0.47527179025522936,
+      "major_branch_hull_deg": [
+        -4.351456022045204,
+        -3.4009124415347456
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.39757358936239084
+    },
+    {
+      "plateau_id": 26,
+      "command_us": 1450,
+      "approach": "decreasing",
+      "previous_command_us": 1470,
+      "context": "continuation",
+      "corrected_counts": 1550.9777777777779,
+      "measured_basket_roll_deg": -5.043479880880913,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -6.619224129180496,
+        "decreasing_pwm": -5.281267650076397
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -6.3784647206827,
+      "count_line_error_deg": -1.3349848398017876,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -6.757275610362456,
+        "forced_physical_zero": -7.03766694355418
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -1.713795729481543,
+        "forced_physical_zero": -1.9941870626732676
+      },
+      "mean_map_prediction_deg": -5.950245889628446,
+      "error_deg": -0.9067660087475335,
+      "descriptive_half_branch_separation_deg": 0.6689782395520492,
+      "major_branch_hull_deg": [
+        -6.619224129180496,
+        -5.281267650076397
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.23778776919548417
+    },
+    {
+      "plateau_id": 27,
+      "command_us": 1430,
+      "approach": "decreasing",
+      "previous_command_us": 1450,
+      "context": "continuation",
+      "corrected_counts": 1574.6,
+      "measured_basket_roll_deg": -7.119958267561775,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -9.045409780846644,
+        "decreasing_pwm": -7.513818988788616
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -8.845246762631774,
+      "count_line_error_deg": -1.7252884950699992,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -9.05546899337916,
+        "forced_physical_zero": -9.317202843371273
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -1.9355107258173847,
+        "forced_physical_zero": -2.1972445758094983
+      },
+      "mean_map_prediction_deg": -8.27961438481763,
+      "error_deg": -1.1596561172558557,
+      "descriptive_half_branch_separation_deg": 0.7657953960290138,
+      "major_branch_hull_deg": [
+        -9.045409780846644,
+        -7.513818988788616
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.393860721226841
+    },
+    {
+      "plateau_id": 28,
+      "command_us": 1420,
+      "approach": "decreasing",
+      "previous_command_us": 1430,
+      "context": "continuation",
+      "corrected_counts": 1581.7555555555555,
+      "measured_basket_roll_deg": -7.763487988078015,
+      "in_common_count_domain": true,
+      "qualified_for_scoring": true,
+      "excluded_reasons": [],
+      "errors_diagnostic_only": false,
+      "major_branch_predictions_deg": {
+        "increasing_pwm": -9.924890288438212,
+        "decreasing_pwm": -8.227518426853822
+      },
+      "count_regression_in_training_domain": true,
+      "count_line_prediction_deg": -9.592475189261705,
+      "count_line_error_deg": -1.8289872011836898,
+      "command_regression_in_training_domain": true,
+      "command_predictions_deg": {
+        "free_intercept": -10.20456568488751,
+        "forced_physical_zero": -10.456970793279819
+      },
+      "command_prediction_errors_deg": {
+        "free_intercept": -2.4410776968094954,
+        "forced_physical_zero": -2.6934828052018034
+      },
+      "mean_map_prediction_deg": -9.076204357646017,
+      "error_deg": -1.312716369568001,
+      "descriptive_half_branch_separation_deg": 0.8486859307921958,
+      "major_branch_hull_deg": [
+        -9.924890288438212,
+        -8.227518426853822
+      ],
+      "within_major_branch_hull": false,
+      "distance_outside_major_branch_hull_deg": 0.4640304387758061
+    }
+  ],
+  "input_points": 29,
+  "qualified_points": 29,
+  "qualified_mask": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "excluded_unqualified_plateau_ids": [],
+  "covered_points": 29,
+  "out_of_domain_points": 0,
+  "unqualified_points": 0,
+  "mean_map_error_deg": {
+    "count": 29,
+    "mean": -0.3973146393244022,
+    "rms": 0.5797220023858227,
+    "max_abs": 1.4736782336227465,
+    "p95_abs": 1.2514922686431427
+  },
+  "count_line_error_deg": {
+    "count": 29,
+    "mean": -0.4107503162259913,
+    "rms": 0.7817091368518033,
+    "max_abs": 1.9296252117452033,
+    "p95_abs": 1.7875077187382133
+  },
+  "matched_model_comparison": {
+    "points": 29,
+    "selection": "Only held-out points inside both the common count domain and the paired-command training domain; no extrapolation",
+    "measured_count_map_error_deg": {
+      "count": 29,
+      "mean": -0.3973146393244022,
+      "rms": 0.5797220023858227,
+      "max_abs": 1.4736782336227465,
+      "p95_abs": 1.2514922686431427
+    },
+    "free_intercept_command_error_deg": {
+      "count": 29,
+      "mean": -0.2694507068677271,
+      "rms": 1.074959231422218,
+      "max_abs": 2.4410776968094954,
+      "p95_abs": 2.101519857765495
+    },
+    "forced_physical_zero_command_error_deg": {
+      "count": 29,
+      "mean": -0.6402343293541224,
+      "rms": 1.1886663158735529,
+      "max_abs": 2.6934828052018034,
+      "p95_abs": 2.3576564627977254
+    },
+    "command_is_measured_position": false
+  },
+  "by_context": {
+    "initial": {
+      "count": 2,
+      "mean": -0.9742413259499458,
+      "rms": 1.09479833117085,
+      "max_abs": 1.4736782336227465,
+      "p95_abs": 1.4237345428554664
+    },
+    "continuation": {
+      "count": 24,
+      "mean": -0.3820951462506976,
+      "rms": 0.5511407604946825,
+      "max_abs": 1.312716369568001,
+      "p95_abs": 1.1217226009796069
+    },
+    "direction_reversal": {
+      "count": 3,
+      "mean": -0.13445279283034375,
+      "rms": 0.14016219235809685,
+      "max_abs": 0.18905893703614218,
+      "p95_abs": 0.18194252348506926
+    }
+  },
+  "major_branch_hull_coverage_fraction": 0.4827586206896552,
+  "interpretation": "No held-out data are pooled into fitting and no branch is instantaneously selected on command reversal. Errors describe these settled unloaded holds only; hull membership is descriptive, not a confidence or absolute-accuracy statement.",
+  "frozen_mean_map_sha256": "1fe02b4b02628e02af772688e582ad2cf81a72fb89de1265b083071ba09c9c75"
+}

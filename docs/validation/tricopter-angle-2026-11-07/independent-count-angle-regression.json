@@ -1,0 +1,14 @@
+{
+  "pair_count": 29,
+  "slope_deg_per_corrected_count": -0.10442633291411985,
+  "zero_corrected_counts": 1489.8967789273408,
+  "intercept_deg": 155.5844570439413,
+  "pearson_r": -0.9997710435684273,
+  "r_squared": 0.9995421395579022,
+  "rmse_deg": 0.41154908376971666,
+  "max_abs_residual_deg": 1.013298643100022,
+  "counts_domain": [
+    1299.311403508772,
+    1919.2894736842104
+  ]
+}

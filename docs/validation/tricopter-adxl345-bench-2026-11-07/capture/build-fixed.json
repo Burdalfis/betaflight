@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "command": [
+    "/home/alex/.platformio/penv/bin/platformio",
+    "run",
+    "-d",
+    "tools/tricopter/adxl345_logger",
+    "-e",
+    "teensylc",
+    "-e",
+    "teensy36",
+    "-e",
+    "teensy40"
+  ],
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/src/main.cpp": "1c433950e0be87764eb1c4d2cd234dbd78ba3933912130514c2d9cf3c0881768",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "f2814fec8cde5ef87d27c1fd5a96c99fd93a219460ff09f084b7564756084750",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e"
+  },
+  "hex_files": {
+    "tools/tricopter/adxl345_logger/.pio/build/teensylc/firmware.hex": {
+      "sha256": "a901ddc3336514cba128eefe5881d5e566f2ad276e334c27821a47d6b38e97c0",
+      "bytes": 29170
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy36/firmware.hex": {
+      "sha256": "ca0e1a27dceb761e7498afb0b5fb43089e7760204619d9182554cb9169dd612d",
+      "bytes": 40772
+    },
+    "tools/tricopter/adxl345_logger/.pio/build/teensy40/firmware.hex": {
+      "sha256": "9f5d37d7b16152d3a5cf1287c8c5951d5c13534faa4f0a7675df833cc5655ea1",
+      "bytes": 80717
+    }
+  }
+}

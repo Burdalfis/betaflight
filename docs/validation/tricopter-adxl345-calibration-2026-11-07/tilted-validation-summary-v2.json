@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "profile": "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/calibration-profile-v1.json",
+  "profile_sha256": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+  "independent_static_validation_pass": true,
+  "policy_version": 2,
+  "stationarity_policy": "static-mean-v2",
+  "required_tilted_poses": 4,
+  "captures": [
+    {
+      "pose_id": "tilt-yz-positive-01",
+      "capture_sha256": "32c767596d406d8b3439b92d762304078bdc7da7a442c31255a515d2fb1f192e",
+      "pose_sha256": "4ca38082ce9f03595c9af9af8482242dca29a0fb5ee6b1b00cbdf72a23dc0862",
+      "validation_pass": true,
+      "corrected_mean_g": [
+        -0.009260905385812415,
+        0.6602433223441457,
+        0.7746674931721598
+      ],
+      "norm_residual_g": 0.01789819434275386
+    },
+    {
+      "pose_id": "tilt-yz-negative-02",
+      "capture_sha256": "2b7591432a7a710eded4ddc67f5b33a0107d1bbbc70f38f7c6bcf6b199a21f98",
+      "pose_sha256": "c2ece1f0703a36e938e24dcc85b2b283038c5c3dd69ce3afedb4176c838fbd88",
+      "validation_pass": true,
+      "corrected_mean_g": [
+        -0.048728702190177456,
+        -0.7269375815435736,
+        -0.6685864967387158
+      ],
+      "norm_residual_g": -0.01115186327782991
+    },
+    {
+      "pose_id": "tilt-xy-mixed-positive-01",
+      "capture_sha256": "ecc6b28b9d1703642896a83ba32e19ff95894793d342a5178a51074dcb3c4fbf",
+      "pose_sha256": "ca68d7b48f40c93cb5954225c851bf28ce45baffc7b4a56ff7b834906fe2edba",
+      "validation_pass": true,
+      "corrected_mean_g": [
+        0.6728110579682969,
+        -0.736782129746944,
+        -0.0005429578769486624
+      ],
+      "norm_residual_g": -0.002241050532686195
+    },
+    {
+      "pose_id": "tilt-xy-mixed-negative-01",
+      "capture_sha256": "3fab0adc981ca0810eac00e66cf2bba8639ba202ff24181ef25bac138f38fcd1",
+      "pose_sha256": "96577984a200bc35ff6e2accf17e1f1f3cd4ace19f689f473cf77de0d0ec4ea5",
+      "validation_pass": true,
+      "corrected_mean_g": [
+        -0.6774053352945003,
+        0.7507783474824653,
+        0.039623127321627434
+      ],
+      "norm_residual_g": 0.01198621905276065
+    }
+  ],
+  "screening_criteria": {
+    "mean_gravity_norm_abs_error_g": 0.03,
+    "every_complete_one_second_mean_norm_abs_error_g": 0.03,
+    "stationarity": "All original binary/configuration/coherence/counter gates and axis 1s-mean span<3counts. Raw per-axis std is reported; original <5-count failures remain visible and are not decisive for averaged static validation.",
+    "coverage": "Intended two corrected components have expected signs and |component|>=0.35g; remaining |component|<=0.35g",
+    "scope": "Practical session consistency screen for static means, not absolute angle accuracy. Same frozen fit; no held-out refitting.",
+    "change_rationale": "User requests practical +/-2deg settled relative angles. Two repeated -Y/-Z holds show stable 1s means/norms despite raw Z scatter just above the earlier conservative 5-count heuristic. Apply v2 consistently to every tilted recording."
+  },
+  "maximum_absolute_tilt_norm_residual_g": 0.01789819434275386,
+  "reference_repeat_norms_g": {
+    "z-positive-repeat-01": 1.0202953003576585,
+    "z-positive-unmoved-01": 1.0140462473024479
+  },
+  "physical_angle_accuracy_qualified": false,
+  "interpretation": "Practical static sensor consistency screening only. Reference drift remains visible; no refitting of held-out poses, device offsets, FC position source or flight-control outputs."
+}

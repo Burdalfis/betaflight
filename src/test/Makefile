@@ -53,6 +53,9 @@ althold_unittest_DEFINES := \
 tricopter_diagnostics_unittest_SRC := \
 		$(USER_DIR)/flight/servos_tricopter.c
 
+tricopter_angle_calibration_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_angle_calibration.c
+
 tricopter_servo_model_unittest_SRC := \
 		$(USER_DIR)/flight/tricopter_servo_model.c
 
@@ -68,6 +71,7 @@ tricopter_allocator_unittest_SRC := \
 tricopter_simulation_unittest_SRC := \
 		$(USER_DIR)/flight/tricopter_simulation.c \
 		$(USER_DIR)/flight/tricopter_dynamic_allocator.c \
+		$(USER_DIR)/flight/tricopter_angle_calibration.c \
 		$(USER_DIR)/flight/tricopter_servo_model.c \
 		$(USER_DIR)/flight/tricopter_rpm_observer.c \
 		$(USER_DIR)/flight/tricopter_reaction_torque.c \
@@ -75,6 +79,7 @@ tricopter_simulation_unittest_SRC := \
 
 tricopter_dynamic_allocator_unittest_SRC := \
 		$(USER_DIR)/flight/tricopter_dynamic_allocator.c \
+		$(USER_DIR)/flight/tricopter_angle_calibration.c \
 		$(USER_DIR)/flight/tricopter_allocator.c \
 		$(USER_DIR)/flight/tricopter_servo_model.c
 

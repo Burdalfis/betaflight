@@ -1,0 +1,44 @@
+Processing teensylc (board: teensylc; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensylc.html
+PLATFORM: Teensy (6.0.0) > Teensy LC
+HARDWARE: MKL26Z64 48MHz, 8KB RAM, 62KB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Linking .pio/build/teensylc/firmware.elf
+Checking size .pio/build/teensylc/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [====      ]  37.0% (used 3028 bytes from 8192 bytes)
+Flash: [==        ]  16.3% (used 10356 bytes from 63488 bytes)
+Building .pio/build/teensylc/firmware.hex
+Configuring upload protocol...
+AVAILABLE: jlink, teensy-cli, teensy-gui
+CURRENT: upload_protocol = teensy-cli
+Rebooting...
+Uploading .pio/build/teensylc/firmware.hex
+Teensy Loader, Command Line, Version 2.2
+Read ".pio/build/teensylc/firmware.hex": 10360 bytes, 16.3% usage
+Error opening USB device: Resource temporarily unavailable
+Waiting for Teensy device...
+ (hint: press the reset button)
+Found HalfKay Bootloader
+Read ".pio/build/teensylc/firmware.hex": 10360 bytes, 16.3% usage
+Programming.....................
+Booting
+========================= [SUCCESS] Took 2.28 seconds =========================
+
+Environment    Status    Duration
+-------------  --------  ------------
+teensylc       SUCCESS   00:00:02.281
+========================= 1 succeeded in 00:00:02.281 =========================

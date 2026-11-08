@@ -9,6 +9,10 @@ typedef struct dynamicContext_s {
     tricopterDynamicAllocatorParams_t params;
     double *numeric,*candidates;
     uint32_t *integer,*candidateInteger;
+    bool measuredAngleConfigured;
+    tricopterAngleCalibration_t angle;
+    double *angleNumeric;
+    uint8_t *angleFlags;
 } dynamicContext_t;
 
 static bool readDynamic(const double *v,tricopterDynamicAllocatorParams_t *p)
@@ -27,6 +31,7 @@ static bool resetPolicy(void *context,const tricopterSimulationParams_t *base,co
 {
     dynamicContext_t *c=context;tricopterSimulationParams_t params=*base;
     params.dynamicConfigured=true;params.dynamic=c->params;
+    if (c->measuredAngleConfigured) { params.measuredAngleConfigured=true; params.measuredAngle=c->angle; }
     return tricopterSimulationReset(&c->state,&params,initial);
 }
 static tricopterSimulationOutput_t tickPolicy(void *context,uint64_t now,const tricopterSimulationInput_t *input)
@@ -45,6 +50,12 @@ static void candidateValues(double *f,uint32_t *u,const tricopterDynamicAllocato
 static void recordPolicy(void *context,size_t row,const tricopterSimulationOutput_t *output)
 {
     dynamicContext_t *c=context;const tricopterDynamicAllocatorOutput_t *v=&output->dynamicAllocation;
+    if (c->measuredAngleConfigured) {
+        c->angleNumeric[2*row]=output->angleHalfBranchSeparationRad;
+        c->angleNumeric[2*row+1]=v->selected.angleHalfBranchSeparationRad;
+        c->angleFlags[2*row]=output->measuredAngleAvailable;
+        c->angleFlags[2*row+1]=v->valid && v->selected.measuredAngleAvailable;
+    }
     double *f=c->numeric+row*DYNAMIC_NUMERIC_COLUMNS;uint32_t *u=c->integer+row*DYNAMIC_INTEGER_COLUMNS;
     memset(f,0,DYNAMIC_NUMERIC_COLUMNS*sizeof(*f));memset(u,0,DYNAMIC_INTEGER_COLUMNS*sizeof(*u));
     f[DYN_PWM]=v->selected.pwmUs;f[DYN_DIRECTION_H]=v->selected.horizonDirectionRad;
@@ -74,5 +85,43 @@ int tricopterDynamicSimulationReplay(const double *controller,const double *plan
     dynamicContext_t context={.numeric=dynamicNumeric,.integer=dynamicInteger,.candidates=candidateNumeric,.candidateInteger=candidateInteger};
     if(!readDynamic(dynamic,&context.params))return 0;
     const simulationReplayPolicy_t policy={.context=&context,.reset=resetPolicy,.tick=tickPolicy,.record=recordPolicy};
+    return tricopterSimulationReplayWithPolicy(controller,plant,count,timeUs,request,modes,drop,outlier,numeric,integer,flags,&policy);
+}
+
+static bool readAngle(const double *knots, size_t count, tricopterAngleCalibration_t *angle)
+{
+    if (!knots || count < 2 || count > TRICOPTER_ANGLE_CALIBRATION_MAX_KNOTS) return false;
+    memset(angle,0,sizeof(*angle)); angle->knotCount=(uint8_t)count; angle->operatorDefinedReference=true;
+    for (size_t i=0;i<count;++i) {
+        for (unsigned j=0;j<3;++j) if (!isfinite(knots[3*i+j]) || fabs(knots[3*i+j])>FLT_MAX) return false;
+        angle->correctedCounts[i]=(float)knots[3*i]; angle->angleRad[i]=(float)knots[3*i+1];
+        angle->halfBranchSeparationRad[i]=(float)knots[3*i+2];
+    }
+    return tricopterAngleCalibrationValidate(angle);
+}
+int tricopterMeasuredAngleEvaluate(const double *knots, size_t knotCount,
+    const float *counts, size_t count, float *angles, float *halfSeparation, uint8_t *valid)
+{
+    tricopterAngleCalibration_t map;
+    if (!readAngle(knots,knotCount,&map) || !counts || !count || !angles || !halfSeparation || !valid) return 0;
+    for (size_t i=0;i<count;++i) {
+        const tricopterAngleCalibrationOutput_t out=tricopterAngleCalibrationEvaluate(&map,counts[i]);
+        angles[i]=out.angleRad;halfSeparation[i]=out.halfBranchSeparationRad;valid[i]=out.valid;
+    }
+    return 1;
+}
+int tricopterMeasuredDynamicSimulationReplay(const double *controller,const double *plant,
+    const double *dynamic,const double *knots,size_t knotCount,size_t count,
+    const uint64_t *timeUs,const float *request,const uint8_t *modes,const uint8_t *drop,const uint8_t *outlier,
+    double *numeric,uint32_t *integer,uint8_t *flags,double *dynamicNumeric,uint32_t *dynamicInteger,
+    double *candidateNumeric,uint32_t *candidateInteger,double *angleNumeric,uint8_t *angleFlags)
+{
+    if(!dynamic||!dynamicNumeric||!dynamicInteger||!candidateNumeric||!candidateInteger||!angleNumeric||!angleFlags
+        ||count>SIZE_MAX/(DYNAMIC_MAX_CANDIDATES*DYNAMIC_CANDIDATE_COLUMNS))return 0;
+    dynamicContext_t context={.numeric=dynamicNumeric,.integer=dynamicInteger,.candidates=candidateNumeric,
+        .candidateInteger=candidateInteger,.measuredAngleConfigured=true,.angleNumeric=angleNumeric,.angleFlags=angleFlags};
+    if(!readDynamic(dynamic,&context.params)||!readAngle(knots,knotCount,&context.angle))return 0;
+    const simulationReplayPolicy_t policy={.context=&context,.reset=resetPolicy,.tick=tickPolicy,.record=recordPolicy,
+        .plantAngleMap=&context.angle};
     return tricopterSimulationReplayWithPolicy(controller,plant,count,timeUs,request,modes,drop,outlier,numeric,integer,flags,&policy);
 }

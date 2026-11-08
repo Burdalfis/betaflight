@@ -1,0 +1,309 @@
+{
+  "bias_counts": [
+    -158.1418960347204,
+    133.5643738050345,
+    -49.556553389825545
+  ],
+  "counts_per_g": [
+    239.7801407204947,
+    239.37650250659584,
+    246.50225247651858
+  ],
+  "diagnostics": {
+    "rank": 6,
+    "normalized_design_condition": 1.750034673550736,
+    "maximum_allowed_condition": 1000000.0,
+    "normalization_center_counts": [
+      -157.183005465782,
+      137.3760795783768,
+      -51.88298210933158
+    ],
+    "normalization_scale_counts": [
+      138.2918166044573,
+      138.25947024025604,
+      142.33384903253537
+    ],
+    "normalized_quadratic_coefficients": [
+      0.33275325815873447,
+      0.3337202170211157,
+      0.3335265248201496
+    ],
+    "normalized_linear_coefficients": [
+      0.004614502417660066,
+      0.018400812265372768,
+      -0.010902897537482789
+    ],
+    "training_norm_residual_g": [
+      -2.220446049250313e-16,
+      -4.440892098500626e-16,
+      2.220446049250313e-16,
+      0.0,
+      -2.220446049250313e-16,
+      -2.220446049250313e-16
+    ],
+    "equal_weight_per_pose": true
+  },
+  "schema_version": 1,
+  "created_utc": "2026-11-07T22:33:39.574769+00:00",
+  "status": "provisional; independent tilted validation pending",
+  "correction": "a_g=(raw_counts-bias_counts)/counts_per_g",
+  "model": "Constant 3-axis bias plus positive diagonal counts/g; no cross-axis or mounting rotation fit",
+  "sensor_register_tuple_devid_bw_format_fault": [
+    229,
+    13,
+    8,
+    0
+  ],
+  "device_writes": false,
+  "physical_angle_accuracy_qualified": false,
+  "training": {
+    "pose_metrics": [
+      {
+        "pose": "z-positive-02",
+        "sample_count": 11014,
+        "mean_counts": [
+          -157.31968403849646,
+          135.2330670056292,
+          196.93826039585983
+        ],
+        "corrected_mean_g": [
+          0.0034290245795724934,
+          0.006970998335764904,
+          0.9999698230309928
+        ],
+        "corrected_mean_norm_g": 0.9999999999999998,
+        "norm_residual_g": -2.220446049250313e-16,
+        "one_second_norm_residual_range_g": [
+          -0.004592650798429854,
+          0.003556807825962016
+        ],
+        "input_sha256": {
+          "capture.bin": "aa2f7378208ad7fbe183d1b61d45f624d57ff45221d2a6c7c04e85fff082ac9e",
+          "records.csv": "9f48dce1433179c32c840d05041a32a5489940e3ede37e5a4469a4fdb708495a",
+          "summary.json": "4ecca77a1df12374ead19a36adf656c3052cd80879907de2e5a62a333fc8020f"
+        }
+      },
+      {
+        "pose": "z-negative-03",
+        "sample_count": 11010,
+        "mean_counts": [
+          -158.23542234332425,
+          136.3231607629428,
+          -296.04241598546776
+        ],
+        "corrected_mean_g": [
+          -0.0003900502698965263,
+          0.011524886231606081,
+          -0.9999335102186219
+        ],
+        "corrected_mean_norm_g": 0.9999999999999996,
+        "norm_residual_g": -4.440892098500626e-16,
+        "one_second_norm_residual_range_g": [
+          -0.0033839638757842128,
+          0.005147692029006556
+        ],
+        "input_sha256": {
+          "capture.bin": "104f710109cda059e15d5ed52ffd6b478ddb928eb903d2ace22849a2c4700b7b",
+          "records.csv": "cbe05a6def187484177c1a8bc968a470d45a94fc56c7ecbd3f1ccfe396e12301",
+          "summary.json": "558ac066a89886f8f957d415f585f3731a65127ab99b49ae5778d3278a159375"
+        }
+      },
+      {
+        "pose": "y-positive-01",
+        "sample_count": 11028,
+        "mean_counts": [
+          -159.55984766050054,
+          372.92673195502357,
+          -51.8050417120058
+        ],
+        "corrected_mean_g": [
+          -0.0059135490600658895,
+          0.9999409116748775,
+          -0.009121573127995839
+        ],
+        "corrected_mean_norm_g": 1.0000000000000002,
+        "norm_residual_g": 2.220446049250313e-16,
+        "one_second_norm_residual_range_g": [
+          -0.000596979028536615,
+          0.0006853365260435229
+        ],
+        "input_sha256": {
+          "capture.bin": "840e4f451fa8c064856aeebf8416fdbd292b703a68bfdc25af2306d7e9c918bc",
+          "records.csv": "2f2ae872b433deb12114834d51d8edd1f12d79dcff2ca47d15f9c9b2eaac6e7c",
+          "summary.json": "00dfec6ddb390f970af0ba6cfd281bf941639ddfb0f544c66b574c0491df9a03"
+        }
+      },
+      {
+        "pose": "y-negative-01",
+        "sample_count": 10982,
+        "mean_counts": [
+          -151.11518849025677,
+          -105.6115461664542,
+          -56.599799672190855
+        ],
+        "corrected_mean_g": [
+          0.029304793647003755,
+          -0.9991620625541491,
+          -0.02857274613762906
+        ],
+        "corrected_mean_norm_g": 1.0,
+        "norm_residual_g": 0.0,
+        "one_second_norm_residual_range_g": [
+          -0.0007073268955010148,
+          0.0009036381266007698
+        ],
+        "input_sha256": {
+          "capture.bin": "c2eaf47f10c1f69532f6c1b97b6af87633a3e9d6051486e1190870577d014ff4",
+          "records.csv": "3c6902bb44e73c64dfe9d9991aa8eb0c74d2af50d4576a4e6ab168e5d1d3af33",
+          "summary.json": "d5ea19a1b2c9b6e5a633f7f2074553cf4c2ef3f07e558bcbb3ade749304486de"
+        }
+      },
+      {
+        "pose": "x-positive-01",
+        "sample_count": 10976,
+        "mean_counts": [
+          81.04573615160349,
+          149.92993804664724,
+          -53.54564504373178
+        ],
+        "corrected_mean_g": [
+          0.9975289507613497,
+          0.06836746326495347,
+          -0.01618277972647017
+        ],
+        "corrected_mean_norm_g": 0.9999999999999998,
+        "norm_residual_g": -2.220446049250313e-16,
+        "one_second_norm_residual_range_g": [
+          -0.0005831705196088777,
+          0.0007085519721894418
+        ],
+        "input_sha256": {
+          "capture.bin": "306ce369bbb9783b33f4395870a287d77138e1d25433460fc61dce7e93e71629",
+          "records.csv": "06550e9a7610cf48169e1ecb8fa5781424c7b95db0e3eed47025b2c7dee2ec2f",
+          "summary.json": "f5ce9fd8ae010bf8d5ec77392bf7096b539a36e93b3b06a77840681caed2c438"
+        }
+      },
+      {
+        "pose": "x-negative-01",
+        "sample_count": 10964,
+        "mean_counts": [
+          -397.9136264137176,
+          135.4551258664721,
+          -50.24325063845312
+        ],
+        "corrected_mean_g": [
+          -0.9999649247787069,
+          0.00789865355053169,
+          -0.0027857645994248587
+        ],
+        "corrected_mean_norm_g": 0.9999999999999998,
+        "norm_residual_g": -2.220446049250313e-16,
+        "one_second_norm_residual_range_g": [
+          -0.0012434808711361267,
+          0.000929768921804186
+        ],
+        "input_sha256": {
+          "capture.bin": "2c0e851be6163e13c892ac1fb0b47a59ab1c784671226bfedf09b04bce8b9c1c",
+          "records.csv": "3db23035ac063c947f318e82428b44a5a83a0f369124c4db05136bb77e5ec237",
+          "summary.json": "7e020cdaf6a7ae54df78202d01f3b3fe1a4fd467bba297c076147bd3a02f3438"
+        }
+      }
+    ],
+    "warning": "Six pose means determine six parameters; near-zero training residual is not independent validation."
+  },
+  "validation": {
+    "reference_pose_metrics": [
+      {
+        "pose": "z-positive-repeat-01",
+        "sample_count": 10976,
+        "mean_counts": [
+          -158.47130102040816,
+          135.38420189504373,
+          201.94132653061226
+        ],
+        "corrected_mean_g": [
+          -0.0013737792658640234,
+          0.007602367278964986,
+          1.020266051907153
+        ],
+        "corrected_mean_norm_g": 1.0202953003576585,
+        "norm_residual_g": 0.020295300357658475,
+        "one_second_norm_residual_range_g": [
+          0.014195434073069668,
+          0.023743774358338854
+        ],
+        "input_sha256": {
+          "capture.bin": "382dd2a946b0e2b10229f54e0d417a87c6c4572759a866e279594c0abc90aa4e",
+          "records.csv": "0d897cbb2973f33a66a2d082f86e8a2c0abfd3253849dfaff5cd6d754834eaf7",
+          "summary.json": "4381387811e24efb123b410502d7e2f328db114d8212e164d1b07560aa7cb1a5"
+        }
+      },
+      {
+        "pose": "z-positive-unmoved-01",
+        "sample_count": 10986,
+        "mean_counts": [
+          -158.46641179683232,
+          135.3497178226834,
+          200.4011469142545
+        ],
+        "corrected_mean_g": [
+          -0.0013533888216798085,
+          0.007458309395257799,
+          1.014017915831786
+        ],
+        "corrected_mean_norm_g": 1.0140462473024479,
+        "norm_residual_g": 0.014046247302447856,
+        "one_second_norm_residual_range_g": [
+          0.009622513471075678,
+          0.017035653916970928
+        ],
+        "input_sha256": {
+          "capture.bin": "8b951fab75ea3c16a5de90d78896918b50df1bdbdd5e979f0ef65f90cd6cbc54",
+          "records.csv": "7990e074ea270436e0bde9fcd26c9dd22a092fcc365bd520dc5931b90d737bc5",
+          "summary.json": "cab45146f304f0d9c3cf1cb084067ca5a075c97313930f7376698fc530851cc2"
+        }
+      }
+    ],
+    "warning": "Reference repeats remain independent of fitting; between-run drift is not removed or pooled away. Gravity-norm agreement alone does not establish absolute angular accuracy."
+  },
+  "provenance": {
+    "session": "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/fit-session-snapshot.json",
+    "session_sha256": "41558e2646d72c407e610f18e832379345622c8efa00fc7825179fa5a74d0c13",
+    "tool_sha256": "a7b8e8bde867c6e540d94a89d26862bbaeba2b4fd0e822d485730620f9409ae7",
+    "decoder_sha256": "4e7dead117351c4571d0475d87b0931bd1eef2d93179cae884b851ac0efa6854",
+    "numpy_version": "2.3.5",
+    "fit_pose_sha256": {
+      "z-positive-02/pose.json": "14d9f1af2bd07837b70999402b4d06dbdf8a2fc5763f69b12f2de5482319486a",
+      "z-negative-03/pose.json": "d1e9001c7b942f402bc0ca9d1bcfc65a5b7e78640ab64490949879384f50cbe8",
+      "y-positive-01/pose.json": "d1a0088138cc9233d4017c81b14374e0a325b848ab2e62f26478fce3de6c0cb2",
+      "y-negative-01/pose.json": "cf011bf94205a69ee341d2e4200f61b1b5ee728911b366b3e5d8c8e5252443a6",
+      "x-positive-01/pose.json": "2feca227d74698bab8c37d2d845a4594bf9d638ed861d27e85a365b87aad99be",
+      "x-negative-01/pose.json": "e90425323d3d7b27ea34660a69506de10f95a5240afbdf824eefe47669bd5c82"
+    },
+    "trust_boundary": "Replayed raw binary agrees with CSV; artifact hashes and host source fingerprints do not independently prove flashed firmware or physical calibration accuracy."
+  },
+  "window_substitution_sensitivity": {
+    "method": "Replace one pose mean at a time with each complete 1s window mean, refit with all other pose means fixed. Ranges are sensitivity diagnostics, not confidence intervals or bounds on handling/time drift.",
+    "refits": 84,
+    "bias_counts_min": [
+      -158.25318210050122,
+      133.45614568105358,
+      -50.19104636963602
+    ],
+    "bias_counts_max": [
+      -157.99306479343866,
+      133.6490860500479,
+      -49.118179324002675
+    ],
+    "counts_per_g_min": [
+      239.63076773921497,
+      239.29177315577272,
+      245.93612029693816
+    ],
+    "counts_per_g_max": [
+      239.89183144137542,
+      239.484752501787,
+      247.13673674522406
+    ]
+  }
+}

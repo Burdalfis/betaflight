@@ -52,3 +52,7 @@ docs/validation/tricopter-simulation-2026-11-07/capture/*.log -text -whitespace
 docs/validation/tricopter-dynamic-2026-11-07/**/*.csv -text -whitespace
 docs/validation/tricopter-dynamic-2026-11-07/capture/*.log -text -whitespace
 docs/validation/tricopter-adxl345-logger-2026-11-07/*.log -text -whitespace
+docs/validation/tricopter-adxl345-bench-2026-11-07/**/*.csv -text -whitespace
+docs/validation/tricopter-adxl345-bench-2026-11-07/capture/*.log -text -whitespace
+docs/validation/tricopter-adxl345-bench-2026-11-07/capture/*.patch -text -whitespace
+docs/validation/tricopter-angle-2026-11-07/*.log -text -whitespace

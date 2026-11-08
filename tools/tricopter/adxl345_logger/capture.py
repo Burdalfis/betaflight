@@ -5,6 +5,10 @@ Sample time_us is a Teensy DRDY ISR timestamp only when flag 1 is set.  Otherwis
 it is the SPI read-start time, not an independently known measurement time.
 USB arrival times are host diagnostics, not sensor capture timestamps.  PWM
 fields always retain the wire values; pwm_fresh must qualify their use.
+Type-3 diagnostics reuse wire slots for interrupt/register state.  They are
+decoded into diagnostic_* columns, never into acceleration or PWM columns.
+FIFO-coherent samples have a coherent XYZ tuple but no qualified DRDY time:
+their time_us is SPI read start and the sensor sample's queue age is unknown.
 
 Only the standard library is needed for --input.  --port additionally needs
 pyserial.  This program sends no commands, never resets the board, and does not
@@ -34,6 +38,7 @@ assert PAYLOAD.size == 60
 
 SAMPLE = 1
 STATUS = 2
+DIAGNOSTIC = 3
 SENSOR_CONFIGURED = 1 << 0
 DRDY_QUALIFIED = 1 << 1
 PWM_FRESH = 1 << 2
@@ -41,12 +46,14 @@ SENSOR_OVERRUN = 1 << 3
 SERVICE_GAP = 1 << 4
 POLL_FALLBACK = 1 << 5
 USB_SESSION_START = 1 << 6
+FIFO_COHERENT = 1 << 7
 FAULT_CODES = {
     0: "OK",
     1: "BAD_DEVICE_ID",
     2: "CONFIG_READBACK_MISMATCH",
     3: "NO_SAMPLE_TIMEOUT",
     4: "DRDY_FALLBACK",
+    5: "FIFO_DISCARD",
 }
 
 FIELDS = [
@@ -58,6 +65,14 @@ FIELDS = [
     "sensor_overrun", "service_gap", "poll_fallback", "usb_session_start",
     "read_latency_us", "pwm_width_us", "pwm_seq", "pwm_rise_time_us",
     "sensor_overrun_events", "service_gap_events", "queue_dropped_frames",
+    "diagnostic_bits", "diagnostic_pin2_level", "diagnostic_pre_xyz_pin2_level",
+    "diagnostic_post_xyz_pin2_level", "diagnostic_drdy_pending",
+    "diagnostic_lc_nvic_enabled", "diagnostic_lc_nvic_pending", "diagnostic_primask",
+    "diagnostic_lc_raw_state_available", "diagnostic_post_int_source_valid",
+    "diagnostic_int_enable", "diagnostic_int_map", "diagnostic_pre_int_source",
+    "diagnostic_post_int_source", "diagnostic_drdy_isr_sequence",
+    "diagnostic_pin2_pcr", "diagnostic_portd_isfr", "diagnostic_last_isr_micros_low32",
+    "fifo_coherent", "fifo_depth_before_read", "sample_time_source",
 ]
 COUNTER_FIELDS = ("sensor_overrun_events", "service_gap_events", "queue_dropped_frames")
 
@@ -109,7 +124,7 @@ class Decoder:
             if values[1] != VERSION:
                 self.stats["unsupported_versions"] += 1
                 continue
-            if values[2] not in (SAMPLE, STATUS):
+            if values[2] not in (SAMPLE, STATUS, DIAGNOSTIC):
                 self.stats["unsupported_types"] += 1
                 continue
             keys = ("magic", "version", "record_type", "flags", "record_seq", "time_us",
@@ -145,7 +160,15 @@ class Tracker:
     def row(self, record, host_monotonic_ns=None, host_unix_ns=None):
         flags = record["flags"]
         sample = record["record_type"] == SAMPLE
-        session_start = bool(flags & USB_SESSION_START)
+        status = record["record_type"] == STATUS
+        diagnostic = record["record_type"] == DIAGNOSTIC
+        fifo = sample and bool(flags & FIFO_COHERENT)
+        fifo_depth = (record["aux"] >> 8) & 0xFF
+        fifo_bad_depth = fifo and not 1 <= fifo_depth <= 31
+        fifo_time_conflict = fifo and bool(flags & DRDY_QUALIFIED)
+        fifo_coherent = fifo and not fifo_bad_depth and not fifo_time_conflict
+        drdy_qualified = bool(flags & DRDY_QUALIFIED) and not fifo
+        session_start = not diagnostic and bool(flags & USB_SESSION_START)
         gap, discontinuity, regression = 0, False, False
         reason = ""
         if self.previous is None:
@@ -172,57 +195,92 @@ class Tracker:
         epoch["last_time_us"] = record["time_us"]
         epoch["last_counters"] = {k: record[k] for k in COUNTER_FIELDS}
         self.counts["records"] += 1
-        self.counts["sample_rows" if sample else "status_rows"] += 1
+        self.counts[{SAMPLE: "sample_rows", STATUS: "status_rows", DIAGNOSTIC: "diagnostic_rows"}[record["record_type"]]] += 1
         self.counts["missing_record_sequences"] += gap
         self.counts["sequence_discontinuities"] += int(discontinuity)
         self.counts["timestamp_regressions"] += int(regression)
         self.counts["usb_session_start_rows"] += int(session_start)
-        if flags & ~0x7F:
+        if flags & ~0xFF:
             self.counts["rows_with_unknown_flag_bits"] += 1
         if sample:
+            self.counts["qualified_sample_timestamps"] += int(drdy_qualified)
+            self.counts["fifo_sample_rows"] += int(fifo)
+            self.counts["fifo_coherent_sample_rows"] += int(fifo_coherent)
+            self.counts["fifo_invalid_depth_rows"] += int(fifo_bad_depth)
+            self.counts["fifo_timestamp_conflict_rows"] += int(fifo_time_conflict)
             for name, mask in [("configured_sample_rows", SENSOR_CONFIGURED),
-                               ("qualified_sample_timestamps", DRDY_QUALIFIED),
                                ("fresh_pwm_sample_rows", PWM_FRESH),
                                ("sensor_overrun_sample_rows", SENSOR_OVERRUN),
                                ("service_gap_sample_rows", SERVICE_GAP),
                                ("poll_fallback_sample_rows", POLL_FALLBACK)]:
                 self.counts[name] += int(bool(flags & mask))
-        else:
+        elif status:
             self.faults[str(record["aux"])] += 1
         row = {key: "" for key in FIELDS}
         row.update(
             host_rx_monotonic_ns="" if host_monotonic_ns is None else host_monotonic_ns,
             host_rx_unix_ns="" if host_unix_ns is None else host_unix_ns,
             stream_epoch=epoch["epoch"], epoch_reason=reason,
-            type="sample" if sample else "status", record_seq=record["record_seq"],
+            type={SAMPLE: "sample", STATUS: "status", DIAGNOSTIC: "diagnostic"}[record["record_type"]],
+            record_seq=record["record_seq"],
             seq_gap_before=gap, seq_discontinuity=int(discontinuity), time_regression=int(regression),
             time_us=record["time_us"],
-            time_source=("drdy_edge" if flags & DRDY_QUALIFIED else "spi_read_start") if sample else "status_clock",
-            flags=f"0x{flags:04x}", read_latency_us=record["read_latency_us"],
-            pwm_width_us=record["pwm_width_us"], pwm_seq=record["pwm_seq"],
-            pwm_rise_time_us=record["pwm_rise_time_us"],
+            time_source=("fifo_spi_read_start" if fifo else "drdy_edge" if drdy_qualified else "spi_read_start") if sample
+                        else ("status_clock" if status else "diagnostic_clock"),
+            flags=f"0x{flags:04x}",
             **{key: record[key] for key in COUNTER_FIELDS},
         )
         for key, mask in [("sensor_configured", SENSOR_CONFIGURED), ("drdy_timestamp_qualified", DRDY_QUALIFIED),
                           ("pwm_fresh", PWM_FRESH), ("sensor_overrun", SENSOR_OVERRUN),
                           ("service_gap", SERVICE_GAP), ("poll_fallback", POLL_FALLBACK),
                           ("usb_session_start", USB_SESSION_START)]:
-            row[key] = int(bool(flags & mask))
+            if not diagnostic or key == "sensor_configured":
+                row[key] = int(bool(flags & mask))
+        if not diagnostic:
+            row.update(read_latency_us=record["read_latency_us"], pwm_width_us=record["pwm_width_us"],
+                       pwm_seq=record["pwm_seq"], pwm_rise_time_us=record["pwm_rise_time_us"])
         if sample:
             row.update(raw_x=record["wire_x"], raw_y=record["wire_y"], raw_z=record["wire_z"],
-                       int_source=f"0x{record['aux']:04x}")
-        else:
+                       int_source=f"0x{record['aux'] & (0xFF if fifo else 0xFFFF):04x}",
+                       drdy_timestamp_qualified=int(drdy_qualified), fifo_coherent=int(fifo_coherent),
+                       fifo_depth_before_read=fifo_depth if fifo else "",
+                       sample_time_source=row["time_source"])
+        elif status:
             row.update(devid=record["wire_x"], bw_rate=record["wire_y"], data_format=record["wire_z"],
                        fault_code=record["aux"], fault_name=FAULT_CODES.get(record["aux"], "UNKNOWN"))
+        else:
+            bits = record["wire_x"] & 0xFFFF
+            row.update(diagnostic_bits=f"0x{bits:04x}",
+                       diagnostic_lc_raw_state_available=int(bool(bits & (1 << 7))),
+                       diagnostic_post_int_source_valid=int(bool(bits & (1 << 8))),
+                       diagnostic_int_enable=f"0x{record['wire_y']:02x}",
+                       diagnostic_int_map=f"0x{record['wire_z']:02x}",
+                       diagnostic_pre_int_source=f"0x{record['aux'] & 0xFF:02x}",
+                       diagnostic_drdy_isr_sequence=record["read_latency_us"],
+                       diagnostic_last_isr_micros_low32=record["pwm_rise_time_us"])
+            for key, bit in [("diagnostic_pin2_level", 0), ("diagnostic_pre_xyz_pin2_level", 1),
+                             ("diagnostic_post_xyz_pin2_level", 2), ("diagnostic_drdy_pending", 3),
+                             ("diagnostic_primask", 6)]:
+                row[key] = int(bool(bits & (1 << bit)))
+            # Raw LC registers and NVIC state are unavailable on other MCUs;
+            # zero in an unqualified wire slot must not become a known value.
+            if bits & (1 << 7):
+                row.update(diagnostic_lc_nvic_enabled=int(bool(bits & (1 << 4))),
+                           diagnostic_lc_nvic_pending=int(bool(bits & (1 << 5))),
+                           diagnostic_pin2_pcr=f"0x{record['pwm_width_us']:08x}",
+                           diagnostic_portd_isfr=f"0x{record['pwm_seq']:08x}")
+            if bits & (1 << 8):
+                row["diagnostic_post_int_source"] = f"0x{(record['aux'] >> 8) & 0xFF:02x}"
         self.previous = record
         return row
 
     def summary(self):
-        keys = ["records", "sample_rows", "status_rows", "missing_record_sequences",
+        keys = ["records", "sample_rows", "status_rows", "diagnostic_rows", "missing_record_sequences",
                 "sequence_discontinuities", "timestamp_regressions", "usb_session_start_rows",
                 "rows_with_unknown_flag_bits", "configured_sample_rows", "qualified_sample_timestamps",
                 "fresh_pwm_sample_rows", "sensor_overrun_sample_rows", "service_gap_sample_rows",
-                "poll_fallback_sample_rows"]
+                "poll_fallback_sample_rows", "fifo_sample_rows", "fifo_coherent_sample_rows",
+                "fifo_invalid_depth_rows", "fifo_timestamp_conflict_rows"]
         return {**{key: self.counts[key] for key in keys}, "status_fault_code_counts": dict(self.faults),
                 "epochs": self.epochs,
                 "loss_interpretation": "Sequence gaps are missing logger records; overrun/service-gap counters are events, not exact lost sensor sample counts. Counter snapshots are cumulative within an MCU boot, not summed across rows."}
@@ -265,6 +323,11 @@ def record_stream(chunks, output, metadata=None):
             try:
                 for data, mono, unix in chunks:
                     raw.write(data)
+                    # The basket health monitor reads this file while the
+                    # capture is active. Expose each received chunk rather
+                    # than waiting for Python's potentially large file buffer.
+                    # This is visibility to readers, not an fsync guarantee.
+                    raw.flush()
                     raw_bytes += len(data)
                     for record in decoder.feed(data):
                         writer.writerow(tracker.row(record, mono, unix))
@@ -291,11 +354,13 @@ def record_stream(chunks, output, metadata=None):
                       for name, path in paths.items() if name != "summary.json" and path.exists()},
             "measurement_contract": {
                 "raw_axes": "Signed uncalibrated ADXL345 counts, no angle or gravity correction",
-                "sample_time": "DRDY ISR time only with drdy_timestamp_qualified=1; otherwise SPI read-start time. Sensor internal delay and ISR latency remain uncalibrated.",
+                "sample_time": "DRDY ISR time only with drdy_timestamp_qualified=1; otherwise SPI read-start time. FIFO samples use fifo_spi_read_start and have unmeasured queue/sample age. Coherent XYZ does not establish a precise measurement timestamp. Sensor internal delay and ISR latency remain uncalibrated.",
+                "fifo_coherence": "fifo_coherent requires sample flag 7, depth 1..31 and no qualified-DRDY flag. Depth 0/full32/out-of-range or simultaneous FIFO/DRDY claims are retained but rejected as coherent; their quality counters are explicit. Other quality flags remain separate. FIFO aux low byte is INT_SOURCE and high byte is FIFO depth before the pop.",
                 "host_time": "USB receive-chunk arrival only; absent during offline decoding",
                 "pwm": "Completed input pulse rise timestamp/width; use only with pwm_fresh=1",
                 "position_source": "FC continues logging PB0-PC0; this logger does not measure or replace that source",
                 "source_fingerprints": "Host source files at capture time; not proof that this firmware binary was flashed",
+                "diagnostics": "Type 3 carries interrupt/register snapshots in diagnostic_* columns only; these are not acceleration or PWM observations. LC raw register/NVIC columns require diagnostic_lc_raw_state_available=1; post-XYZ INT_SOURCE requires diagnostic_post_int_source_valid=1.",
             },
         }
         with paths["summary.json"].open("x") as handle:

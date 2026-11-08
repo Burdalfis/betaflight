@@ -1,0 +1,42 @@
+{
+  "reviewer": "adxl_fit_independent",
+  "frozen_plan_exact_events": 75,
+  "CRC_valid_frames": 177240,
+  "coherent_samples": 176754,
+  "status_frames": 243,
+  "diagnostic_frames": 243,
+  "record_counters_constant": [
+    0,
+    0,
+    25
+  ],
+  "raw_csv_fields_sequence_clock_and_hash_audit_pass": true,
+  "FC_rows": 2775,
+  "stale_FC_rows_retained": 1,
+  "all_FC_rows_exact_signed_PB0_minus_PC0": true,
+  "original_96byte_servo_table_restored": true,
+  "original_fields": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "all_formal_statistics_independently_reproduced": true,
+  "qualified_windows": 74,
+  "failed_window_ids": [
+    61
+  ],
+  "middle_1512_us_repeated_holds": 9,
+  "middle_angle_span_deg": 1.44303,
+  "middle_count_span": 10.8801,
+  "measured_PWM_median_1512_1517_1512_us": [
+    1509,
+    1514,
+    1509
+  ],
+  "reverse_return_5_us_angle_change_deg": 0.04331,
+  "reverse_return_10_us_angle_change_deg": -0.05771,
+  "interpretation": "Small5\u201310us return reversals show little resolved motion;20us returns clearly move in this test. These are settled observations, not a universal deadband or specific gear-lash diagnosis."
+}

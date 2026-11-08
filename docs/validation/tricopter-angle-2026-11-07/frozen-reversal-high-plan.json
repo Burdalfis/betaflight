@@ -1,0 +1,255 @@
+{
+  "plan": {
+    "kind": "reversal-high-check",
+    "execution_supported": true,
+    "settle_s": 2,
+    "measure_s": 4,
+    "sample_hz": 20,
+    "plateaus": [
+      {
+        "plateau_id": 0,
+        "target_us": 1420,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 1,
+        "target_us": 1440,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 2,
+        "target_us": 1460,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 3,
+        "target_us": 1480,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 4,
+        "target_us": 1500,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 5,
+        "target_us": 1520,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 6,
+        "target_us": 1540,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 7,
+        "target_us": 1560,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 8,
+        "target_us": 1580,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 9,
+        "target_us": 1600,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 10,
+        "target_us": 1620,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 11,
+        "target_us": 1640,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 12,
+        "target_us": 1650,
+        "block": "travel-to-1650",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": null,
+        "measurement_role": "center-arrival"
+      },
+      {
+        "plateau_id": 13,
+        "target_us": 1640,
+        "block": "high-minus-10",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": -10,
+        "measurement_role": "loop-extreme"
+      },
+      {
+        "plateau_id": 14,
+        "target_us": 1650,
+        "block": "high-minus-10",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": -10,
+        "measurement_role": "center-return"
+      },
+      {
+        "plateau_id": 15,
+        "target_us": 1660,
+        "block": "high-plus-10",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": 10,
+        "measurement_role": "loop-extreme"
+      },
+      {
+        "plateau_id": 16,
+        "target_us": 1650,
+        "block": "high-plus-10",
+        "nominal_center_us": 1650,
+        "signed_excursion_us": 10,
+        "measurement_role": "center-return"
+      },
+      {
+        "plateau_id": 17,
+        "target_us": 1630,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 18,
+        "target_us": 1610,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 19,
+        "target_us": 1590,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 20,
+        "target_us": 1570,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 21,
+        "target_us": 1550,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 22,
+        "target_us": 1530,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 23,
+        "target_us": 1510,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 24,
+        "target_us": 1490,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 25,
+        "target_us": 1470,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 26,
+        "target_us": 1450,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 27,
+        "target_us": 1430,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "travel"
+      },
+      {
+        "plateau_id": 28,
+        "target_us": 1420,
+        "block": "return-to-1420",
+        "nominal_center_us": 1420,
+        "signed_excursion_us": null,
+        "measurement_role": "center-arrival"
+      }
+    ],
+    "position_source": "signed TRI_GROUND debug[3] = PB0-PC0 only",
+    "timing": "Host monotonic association of settled plateaus; no exact FC/Teensy clock synchronization or dynamic timing claim",
+    "temporary_configuration": "Selected servo middle=target, rate=0; preserve all other raw fields and restore the exact original record in finally",
+    "physical_setup": "Actual execution requires physical setup confirmation outside this tool",
+    "dataset_role": "held-out-reversal-validation",
+    "calibration_refit_allowed": false,
+    "approach_history": "Retain all preceding travel and loop commands; do not reset state at reversals",
+    "servo_index": 5
+  },
+  "plan_sha256": "126bf1cb13898b5ca628bf794249a88a8ca35aa3c9a28134115286b8c3277fa1",
+  "capture_tool_sha256": "efc54c016c300804849e6e0b9a0d0e7ff51e88b0fb97a261c5151bb8825406a4",
+  "logger_test_log_sha256": "e7eb8fd45772555cdca21cbb6cff2ef05c7b179b03f5ed2f9819c9d8150a6b4e",
+  "reason": "Targeted repeat of high-angle loop after original1660 hold failed frozen stationarity screen; original held-out input and exclusion retained"
+}

@@ -4,6 +4,24 @@
 
 #include "logger_protocol.h"
 
+#ifndef LOGGER_ADXL_INT_MAP
+#define LOGGER_ADXL_INT_MAP 0
+#endif
+static_assert(LOGGER_ADXL_INT_MAP == 0 || LOGGER_ADXL_INT_MAP == 0x80,
+    "LOGGER_ADXL_INT_MAP must select DATA_READY on INT1 (0) or INT2 (0x80)");
+
+#ifndef LOGGER_DRDY_PULLUP
+#define LOGGER_DRDY_PULLUP 0
+#endif
+static_assert(LOGGER_DRDY_PULLUP == 0 || LOGGER_DRDY_PULLUP == 1,
+    "LOGGER_DRDY_PULLUP must select weak pulldown (0) or weak pullup (1)");
+
+#ifndef LOGGER_STATIC_FIFO
+#define LOGGER_STATIC_FIFO 0
+#endif
+static_assert(LOGGER_STATIC_FIFO == 0 || LOGGER_STATIC_FIFO == 1,
+    "LOGGER_STATIC_FIFO must be 0 or 1");
+
 namespace {
 
 using namespace adxl_logger;
@@ -15,7 +33,12 @@ constexpr uint8_t kDeviceId = 0xe5;
 constexpr uint8_t kBwRate = 0x0d; // Normal-power 800 Hz, 400 Hz bandwidth.
 constexpr uint8_t kDataFormat = 0x08; // Full-resolution, +/-2 g, 4-wire SPI.
 constexpr uint8_t kPowerControl = 0x08;
-constexpr uint8_t kInterruptEnable = 0x80; // DATA_READY on INT1, active high.
+constexpr bool kStaticFifo = LOGGER_STATIC_FIFO;
+constexpr uint8_t kInterruptEnable = kStaticFifo ? 0 : 0x80;
+constexpr uint8_t kInterruptMap = LOGGER_ADXL_INT_MAP;
+constexpr uint8_t kFifoControl = kStaticFifo ? 0x80 : 0;
+constexpr uint32_t kFifoPollIntervalUs = 1000;
+constexpr uint8_t kFifoDrainLimit = 4;
 constexpr uint32_t kPollingIntervalUs = 2 * kSamplePeriodUs;
 constexpr uint32_t kNoSampleTimeoutUs = 100000;
 constexpr uint64_t kRetryIntervalUs = 1000000;
@@ -35,7 +58,28 @@ enum Register : uint8_t {
     DataFormat = 0x31,
     DataX0 = 0x32,
     FifoControl = 0x38,
+    FifoStatus = 0x39,
 };
+
+struct RegisterExpectation {
+    uint8_t address;
+    uint8_t expected;
+};
+
+constexpr RegisterExpectation kConfigurationRegisters[] = {
+    {DeviceId, kDeviceId},
+    {BwRate, kBwRate},
+    {DataFormat, kDataFormat},
+    {OffsetX, 0},
+    {OffsetY, 0},
+    {OffsetZ, 0},
+    {PowerControl, kPowerControl},
+    {InterruptEnable, kInterruptEnable},
+    {InterruptMap, kInterruptMap},
+    {FifoControl, kFifoControl},
+};
+constexpr uint8_t kConfigurationRegisterCount = sizeof(kConfigurationRegisters)
+    / sizeof(kConfigurationRegisters[0]);
 
 class InterruptGuard {
 public:
@@ -56,6 +100,7 @@ volatile uint32_t pwmSequence = 0;
 volatile bool pwmValid = false;
 
 MicrosClock clockUs;
+PeriodicRegisterScan configurationScan;
 uint8_t frameQueue[kQueueCapacity][kFrameSize];
 uint8_t queueHead = 0;
 uint8_t queueCount = 0;
@@ -71,9 +116,15 @@ uint16_t sensorFault = BadDeviceId;
 uint8_t observedDeviceId = 0;
 uint8_t observedBwRate = 0;
 uint8_t observedDataFormat = 0;
+uint8_t observedInterruptEnable = 0;
+uint8_t observedInterruptMap = 0;
+bool lastPreXyzPinHigh = false;
+bool lastPostXyzPinHigh = false;
+bool lastPostSourceValid = false;
+uint8_t lastPreXyzSource = 0;
+uint8_t lastPostXyzSource = 0;
 uint64_t lastSampleReadUs = 0;
 uint64_t nextRetryUs = 0;
-uint64_t nextConfigCheckUs = 0;
 uint64_t nextStatusUs = 0;
 uint64_t lastPollUs = 0;
 
@@ -142,23 +193,27 @@ void readAxes(int16_t *x, int16_t *y, int16_t *z)
     *z = static_cast<int16_t>(static_cast<uint16_t>(bytes[4]) | static_cast<uint16_t>(bytes[5]) << 8);
 }
 
-bool checkConfiguration()
+bool checkConfigurationRegister(const RegisterExpectation &check)
 {
-    observedDeviceId = readRegister(DeviceId);
-    observedBwRate = readRegister(BwRate);
-    observedDataFormat = readRegister(DataFormat);
-    if (observedDeviceId != kDeviceId) {
-        sensorFault = BadDeviceId;
+    const uint8_t value = readRegister(check.address);
+    if (check.address == DeviceId) observedDeviceId = value;
+    else if (check.address == BwRate) observedBwRate = value;
+    else if (check.address == DataFormat) observedDataFormat = value;
+    else if (check.address == InterruptEnable) observedInterruptEnable = value;
+    else if (check.address == InterruptMap) observedInterruptMap = value;
+    if (value != check.expected) {
+        sensorFault = check.address == DeviceId ? BadDeviceId : ConfigReadbackMismatch;
         return false;
     }
-    if (observedBwRate != kBwRate || observedDataFormat != kDataFormat
-        || readRegister(OffsetX) != 0 || readRegister(OffsetY) != 0
-        || readRegister(OffsetZ) != 0
-        || readRegister(PowerControl) != kPowerControl
-        || readRegister(InterruptEnable) != kInterruptEnable
-        || readRegister(InterruptMap) != 0 || readRegister(FifoControl) != 0) {
-        sensorFault = ConfigReadbackMismatch;
-        return false;
+    return true;
+}
+
+bool checkConfiguration()
+{
+    // Full startup readback; periodic audits below use the same expectations
+    // but return to foreground sampling between each individual register.
+    for (const RegisterExpectation &check : kConfigurationRegisters) {
+        if (!checkConfigurationRegister(check)) return false;
     }
     return true;
 }
@@ -170,6 +225,21 @@ void invalidateSensor(uint16_t fault, uint64_t time)
     ++serviceGaps;
     nextRetryUs = time + kRetryIntervalUs;
     nextStatusUs = 0;
+}
+
+void serviceConfigurationCheck(uint64_t time)
+{
+    bool samplePending;
+    {
+        InterruptGuard guard;
+        samplePending = drdyPending;
+    }
+    if (!configurationScan.ready(time, samplePending)) return;
+    if (!checkConfigurationRegister(kConfigurationRegisters[configurationScan.index()])) {
+        invalidateSensor(sensorFault, nowUs());
+        return;
+    }
+    configurationScan.accept(nowUs(), kConfigurationRegisterCount, kStatusIntervalUs);
 }
 
 bool initializeSensor()
@@ -191,16 +261,26 @@ bool initializeSensor()
     writeRegister(OffsetZ, 0);
     writeRegister(DataFormat, kDataFormat);
     writeRegister(BwRate, kBwRate);
-    writeRegister(InterruptMap, 0);
+    writeRegister(InterruptMap, kInterruptMap);
+    if (!kStaticFifo) {
+        attachInterrupt(digitalPinToInterrupt(kDataReadyPin), dataReadyInterrupt, RISING);
+    }
+    // Wake and settle with interrupt output disabled, discard startup data,
+    // then expose only subsequent conversions to the configured INT output.
+    // This bounded delay occurs only during initialization/retry.
+    writeRegister(PowerControl, kPowerControl);
+    delay(5);
     int16_t discardX, discardY, discardZ;
     readAxes(&discardX, &discardY, &discardZ);
+    if (kStaticFifo) {
+        delayMicroseconds(5);
+        writeRegister(FifoControl, kFifoControl); // Start with an empty FIFO.
+    }
     {
         InterruptGuard guard;
         drdyPending = false;
     }
-    attachInterrupt(digitalPinToInterrupt(kDataReadyPin), dataReadyInterrupt, RISING);
     writeRegister(InterruptEnable, kInterruptEnable);
-    writeRegister(PowerControl, kPowerControl);
     if (!checkConfiguration()) return false;
     sensorFault = Ok;
     return true;
@@ -249,6 +329,45 @@ void enqueue(Fields fields)
     ++queueCount;
 }
 
+void enqueueDiagnostic(uint64_t time)
+{
+    Fields fields = {};
+    fields.type = kDiagnosticFrame;
+    fields.flags = sensorConfigured ? SensorConfigured : 0;
+    fields.timeUs = time;
+    uint16_t state = 0;
+    const uint32_t maskBeforeGuard = __get_primask();
+    {
+        InterruptGuard guard;
+        if (digitalReadFast(kDataReadyPin)) state |= 1U << 0;
+        if (lastPreXyzPinHigh) state |= 1U << 1;
+        if (lastPostXyzPinHigh) state |= 1U << 2;
+        if (drdyPending) state |= 1U << 3;
+        if (maskBeforeGuard) state |= 1U << 6;
+        if (lastPostSourceValid) state |= 1U << 8;
+        fields.readLatencyUs = drdySequence;
+        // Diagnostic raw tick, zero-extended, deliberately not expanded.
+        fields.pwmRiseTimeUs = drdyTimeUs;
+#if defined(KINETISL)
+        constexpr uint32_t irqMask = UINT32_C(1) << IRQ_PORTCD;
+        if (NVIC_ISER0 & irqMask) state |= 1U << 4;
+        if (NVIC_IS_PENDING(IRQ_PORTCD)) state |= 1U << 5;
+        state |= 1U << 7;
+        fields.pwmWidthUs = CORE_PIN2_CONFIG;
+        fields.pwmSequence = PORTD_ISFR;
+#endif
+    }
+    fields.x = state;
+    fields.y = observedInterruptEnable;
+    fields.z = observedInterruptMap;
+    fields.auxiliary = static_cast<uint16_t>(lastPreXyzSource)
+        | static_cast<uint16_t>(lastPostXyzSource) << 8;
+    fields.sensorOverruns = sensorOverruns;
+    fields.serviceGaps = serviceGaps;
+    fields.queueDroppedFrames = queueDroppedFrames;
+    enqueue(fields);
+}
+
 void enqueueStatus(uint64_t time, bool sessionStart = false)
 {
     Fields fields = commonFields(kStatusFrame, time);
@@ -258,6 +377,7 @@ void enqueueStatus(uint64_t time, bool sessionStart = false)
     fields.auxiliary = sensorFault;
     if (sessionStart) fields.flags |= UsbSessionStart;
     enqueue(fields);
+    enqueueDiagnostic(nowUs());
     nextStatusUs = time + kStatusIntervalUs;
 }
 
@@ -282,8 +402,76 @@ void serviceUsb(uint64_t time)
     }
 }
 
+void discardFifo(uint8_t depth, uint8_t source)
+{
+    if (fifoOverrunEvidence(depth, source)) ++sensorOverruns;
+    ++serviceGaps;
+    sensorFault = FifoDiscard;
+    writeRegister(FifoControl, 0);
+    int16_t discardX, discardY, discardZ;
+    readAxes(&discardX, &discardY, &discardZ);
+    delayMicroseconds(5);
+    writeRegister(FifoControl, kFifoControl);
+    if (usbConnected) enqueueStatus(nowUs());
+}
+
+void serviceFifoSample(uint64_t time)
+{
+    if (time - lastPollUs < kFifoPollIntervalUs) return;
+    lastPollUs = time;
+    for (uint8_t drained = 0; drained < kFifoDrainLimit; ++drained) {
+        const uint64_t observationStart = nowUs();
+        const uint8_t depth = readRegister(FifoStatus) & 0x3f;
+        const uint8_t source = readRegister(InterruptSource);
+        const FifoDecision decision = fifoDecision(depth, source);
+        if (decision == FifoDecision::Discard) {
+            lastPreXyzSource = source;
+            lastPostSourceValid = false;
+            discardFifo(depth, source);
+            return;
+        }
+        if (decision == FifoDecision::Empty) return;
+        int16_t x, y, z;
+        const uint64_t readStart = nowUs();
+        lastPreXyzPinHigh = digitalReadFast(kDataReadyPin);
+        readAxes(&x, &y, &z);
+        lastPostXyzPinHigh = digitalReadFast(kDataReadyPin);
+        const uint64_t readEnd = nowUs();
+        // ADXL345 requires >=5 us after popping XYZ before another FIFO or
+        // status access. This also separates consecutive XYZ pop bursts.
+        delayMicroseconds(5);
+        const uint8_t depthAfter = readRegister(FifoStatus) & 0x3f;
+        const uint8_t sourceAfter = readRegister(InterruptSource);
+        lastPreXyzSource = source;
+        lastPostXyzSource = sourceAfter;
+        lastPostSourceValid = true;
+        if (!fifoPopAccepted(depth, source, depthAfter, sourceAfter,
+            readEnd - observationStart)) {
+            const bool overrun = fifoOverrunEvidence(depth, source)
+                || fifoOverrunEvidence(depthAfter, sourceAfter);
+            discardFifo(overrun ? 32 : depthAfter, sourceAfter);
+            return;
+        }
+        lastSampleReadUs = readEnd;
+        sensorFault = Ok;
+        Fields fields = commonFields(kSampleFrame, readStart);
+        fields.flags |= FifoCoherent;
+        fields.x = x;
+        fields.y = y;
+        fields.z = z;
+        fields.auxiliary = static_cast<uint16_t>(depth) << 8 | source;
+        // timeUs is this SPI pop's read-start time. Sample age is unknown;
+        // never substitute it for a DRDY/conversion timestamp.
+        enqueue(fields);
+    }
+}
+
 void serviceSample(uint64_t time)
 {
+    if (kStaticFifo) {
+        serviceFifoSample(time);
+        return;
+    }
     bool hasEdge;
     uint32_t edgeTime, edgeSequence;
     {
@@ -303,17 +491,26 @@ void serviceSample(uint64_t time)
         return;
     }
     int16_t x, y, z;
+    const bool pinBeforeXyz = digitalReadFast(kDataReadyPin);
     readAxes(&x, &y, &z);
+    const bool pinAfterXyz = digitalReadFast(kDataReadyPin);
     uint32_t sequenceAfterRead;
     {
         InterruptGuard guard;
         sequenceAfterRead = drdySequence;
     }
     const uint64_t readEnd = nowUs();
+    lastPreXyzPinHigh = pinBeforeXyz;
+    lastPostXyzPinHigh = pinAfterXyz;
+    lastPreXyzSource = source;
+    lastPostSourceValid = !hasEdge;
+    // Only inspect post-read source in already-unqualified fallback. Do not
+    // add an SPI transaction to the healthy DRDY sampling path.
+    lastPostXyzSource = lastPostSourceValid ? readRegister(InterruptSource) : 0;
     const bool overrun = source & 1;
     const bool edgeChanged = sequenceAfterRead != edgeSequence;
     const bool qualified = qualifiedTime(hasEdge, edgeAge, overrun,
-        edgeChanged, readEnd - readStart);
+        edgeChanged, readEnd - readStart, pinBeforeXyz);
     const bool gap = !qualified || (readStart - lastSampleReadUs > 2 * kSamplePeriodUs);
     if (overrun) ++sensorOverruns; // Each flag means at least one overwrite.
     if (gap) ++serviceGaps; // Service events, not exact missed-sample counts.
@@ -340,7 +537,7 @@ void setup()
     // Teensy initializes USB. Serial.begin() on LC can wait for a host.
     pinMode(kChipSelectPin, OUTPUT);
     digitalWriteFast(kChipSelectPin, HIGH);
-    pinMode(kDataReadyPin, INPUT_PULLDOWN);
+    pinMode(kDataReadyPin, LOGGER_DRDY_PULLUP ? INPUT_PULLUP : INPUT_PULLDOWN);
     pinMode(kPwmMonitorPin, INPUT_PULLDOWN);
     SPI.begin();
     attachInterrupt(digitalPinToInterrupt(kPwmMonitorPin), pwmInterrupt, CHANGE);
@@ -357,7 +554,7 @@ void loop()
         sensorConfigured = initializeSensor();
         time = nowUs();
         nextRetryUs = time + kRetryIntervalUs;
-        nextConfigCheckUs = time + kStatusIntervalUs;
+        configurationScan.restart(time, kStatusIntervalUs);
         lastSampleReadUs = lastPollUs = time;
         if (!sensorConfigured) ++serviceGaps;
         nextStatusUs = 0;
@@ -367,10 +564,7 @@ void loop()
         time = nowUs();
         if (time - lastSampleReadUs > kNoSampleTimeoutUs) {
             invalidateSensor(NoSampleTimeout, time);
-        } else if (time >= nextConfigCheckUs) {
-            if (!checkConfiguration()) invalidateSensor(sensorFault, time);
-            nextConfigCheckUs = time + kStatusIntervalUs;
-        }
+        } else serviceConfigurationCheck(time);
     }
     time = nowUs();
     if (usbConnected && time >= nextStatusUs) enqueueStatus(time);

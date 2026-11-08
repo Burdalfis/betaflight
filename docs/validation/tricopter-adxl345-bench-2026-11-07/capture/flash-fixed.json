@@ -1,0 +1,26 @@
+{
+  "started_utc": "2026-11-07T20:31:00.816040+00:00",
+  "finished_utc": "2026-11-07T20:31:03.493356+00:00",
+  "device": "/dev/ttyACM0",
+  "usb_serial": "12696530",
+  "board": "Teensy LC",
+  "command": [
+    "/home/alex/.platformio/penv/bin/platformio",
+    "run",
+    "-d",
+    "tools/tricopter/adxl345_logger",
+    "-e",
+    "teensylc",
+    "-t",
+    "upload"
+  ],
+  "hex_file": "tools/tricopter/adxl345_logger/.pio/build/teensylc/firmware.hex",
+  "hex_sha256": "a901ddc3336514cba128eefe5881d5e566f2ad276e334c27821a47d6b38e97c0",
+  "returncode": 0,
+  "success": true,
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/src/main.cpp": "1c433950e0be87764eb1c4d2cd234dbd78ba3933912130514c2d9cf3c0881768",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "f2814fec8cde5ef87d27c1fd5a96c99fd93a219460ff09f084b7564756084750",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e"
+  }
+}

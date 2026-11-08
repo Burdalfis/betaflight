@@ -9,6 +9,7 @@
 #include "tricopter_rpm_observer.h"
 #include "tricopter_servo_model.h"
 #include "tricopter_dynamic_allocator.h"
+#include "tricopter_angle_calibration.h"
 
 typedef enum tricopterSimulationMode_e {
     TRICOPTER_SIMULATION_BASELINE = 0,
@@ -25,8 +26,9 @@ typedef struct tricopterSimulationParams_s {
     tricopterReactionTorqueParams_t reaction;
     // Explicit synthetic effort/(rad/s)^2; not physical thrust calibration.
     float effortPerOmegaSquared[3];
-    // Synthetic linear corrected-count <-> mathematical virtual direction.
+    // Legacy synthetic linear corrected-count <-> mathematical virtual direction.
     // Endpoints correspond to allocator direction min/max; either count sign.
+    // Ignored by the opt-in measured map after configuration validation.
     float correctedCountsAtDirectionMin;
     float correctedCountsAtDirectionMax;
     // Synthetic additive yaw disturbance, independent of virtual direction.
@@ -37,6 +39,8 @@ typedef struct tricopterSimulationParams_s {
     bool effectivenessExcludesReaction; // Must be explicitly true.
     bool dynamicConfigured; // False preserves all existing offline modes.
     tricopterDynamicAllocatorParams_t dynamic;
+    bool measuredAngleConfigured; // Opt-in; false preserves synthetic mapping.
+    tricopterAngleCalibration_t measuredAngle;
 } tricopterSimulationParams_t;
 
 typedef struct tricopterSimulationInitialState_s {
@@ -111,6 +115,8 @@ typedef struct tricopterSimulationOutput_s {
     bool forFlight; // Always false.
     tricopterDynamicAllocatorOutput_t dynamicAllocation;
     bool dynamicAllocationUsed; // False on explicit static nominal fallback.
+    bool measuredAngleAvailable; // Current prediction converted by measured map.
+    float angleHalfBranchSeparationRad; // Descriptive major-loop envelope only.
 } tricopterSimulationOutput_t;
 
 typedef struct tricopterSimulationState_s {

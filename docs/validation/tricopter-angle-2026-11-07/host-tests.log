@@ -1,0 +1,533 @@
+Makefile:849: warning: gcc/g++ support is experimental. For normal testing, clang is recommended
+CC version: gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0 Copyright (C) 2025 Free Software Foundation, Inc. This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+CXX version: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0 Copyright (C) 2025 Free Software Foundation, Inc. This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 21 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 21 tests from TricopterDiagnostics
+[ RUN      ] TricopterDiagnostics.LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode
+[       OK ] TricopterDiagnostics.LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode (0 ms)
+[ RUN      ] TricopterDiagnostics.LogsWrittenPulseIncludingDisarmedZeroWithoutChangingActuators
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 20 tests from 1 test suite.
+[----------] Global test environment set-up.
+[       OK ] TricopterDiagnostics.LogsWrittenPulseIncludingDisarmedZeroWithoutChangingActuators (0 ms)
+[ RUN      ] TricopterDiagnostics.EncodesLogicalMotorAgesAndWorstPacketError
+[----------] 20 tests from TricopterDebugModes/DshotTelemetryTest
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/0
+[       OK ] TricopterDiagnostics.EncodesLogicalMotorAgesAndWorstPacketError (0 ms)
+[ RUN      ] TricopterDiagnostics.MissingSamplesRemainUnavailableAndOldSamplesSaturate
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 16 tests from 1 test suite.
+[       OK ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/0 (0 ms)
+[       OK ] TricopterDiagnostics.MissingSamplesRemainUnavailableAndOldSamplesSaturate (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/1
+[ RUN      ] TricopterDiagnostics.RailsAndStoppedAcquisitionDoNotLookReadyAndPlausible
+[       OK ] TricopterDebugModes/DshotTelemetryTest.UnseenAndOutOfRangeAreExplicitlyUnknown/1 (0 ms)
+[----------] 16 tests from TricopterServoModel
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/0
+[ RUN      ] TricopterServoModel.ValidatesMapShapeAndParameterBounds
+[       OK ] TricopterDiagnostics.RailsAndStoppedAcquisitionDoNotLookReadyAndPlausible (0 ms)
+[ RUN      ] TricopterDiagnostics.UnsupportedOrDisabledInputsAreExplicit
+[       OK ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/1
+[       OK ] TricopterServoModel.ValidatesMapShapeAndParameterBounds (0 ms)
+[       OK ] TricopterDiagnostics.UnsupportedOrDisabledInputsAreExplicit (0 ms)
+[ RUN      ] TricopterServoModel.RejectsNonfiniteConfigurationEvenWithFastMathModelBuild
+[       OK ] TricopterDebugModes/DshotTelemetryTest.NewlyReceivedEqualFramesRefreshButCachedDecodingDoesNot/1 (0 ms)
+[ RUN      ] TricopterDiagnostics.LeavingLogModeResetsAdcObservationSessionOnce
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/0
+[       OK ] TricopterDiagnostics.LeavingLogModeResetsAdcObservationSessionOnce (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeLogsBothRawValuesAndSignedDifference
+[       OK ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/1
+[       OK ] TricopterDiagnostics.GroundModeLogsBothRawValuesAndSignedDifference (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeCancelsCommonOffsetWithoutChangingRawData
+[       OK ] TricopterServoModel.RejectsNonfiniteConfigurationEvenWithFastMathModelBuild (0 ms)
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[ RUN      ] TricopterServoModel.StaticPiecewiseMapKeepsSignedCorrectedCountsAndCopiesConfig
+[       OK ] TricopterDebugModes/DshotTelemetryTest.MissingInvalidAbortedAndHandshakeCyclesDoNotRefresh/1 (0 ms)
+[       OK ] TricopterDiagnostics.GroundModeCancelsCommonOffsetWithoutChangingRawData (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/0
+[ RUN      ] TricopterDiagnostics.GroundModeAllowsZeroGroundAndSignedNegativeOne
+[       OK ] TricopterServoModel.StaticPiecewiseMapKeepsSignedCorrectedCountsAndCopiesConfig (0 ms)
+[ RUN      ] TricopterServoModel.DelayedCommandActsAtExactBoundaryWithIrregularCalls
+[----------] 5 tests from TricopterAngleCalibration
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/0 (0 ms)
+[ RUN      ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/1
+[       OK ] TricopterServoModel.DelayedCommandActsAtExactBoundaryWithIrregularCalls (0 ms)
+[       OK ] TricopterDiagnostics.GroundModeAllowsZeroGroundAndSignedNegativeOne (0 ms)
+[ RUN      ] TricopterServoModel.SolvesSlewLimitedLagAndExponentialTail
+[ RUN      ] TricopterDiagnostics.GroundModeDoesNotInventValuesBeforeFirstCoherentPair
+[       OK ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope (0 ms)
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ExtendedTelemetryDoesNotBecomeAnRpmObservation/1 (0 ms)
+[ RUN      ] TricopterAngleCalibration.EndpointsAndInverseBothSigns
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/0
+[       OK ] TricopterServoModel.SolvesSlewLimitedLagAndExponentialTail (0 ms)
+[       OK ] TricopterDiagnostics.GroundModeDoesNotInventValuesBeforeFirstCoherentPair (0 ms)
+[ RUN      ] TricopterServoModel.UnlimitedSlewLagAndSlewOnlyHaveDistinctLimits
+[ RUN      ] TricopterDiagnostics.GroundModeAgesCachedPairsAndClearsFreshness
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/1
+[       OK ] TricopterAngleCalibration.EndpointsAndInverseBothSigns (0 ms)
+[ RUN      ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse
+[       OK ] TricopterServoModel.UnlimitedSlewLagAndSlewOnlyHaveDistinctLimits (0 ms)
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ZeroSpeedIsAValidFreshRpmSample/1 (0 ms)
+[       OK ] TricopterDiagnostics.GroundModeAgesCachedPairsAndClearsFreshness (0 ms)
+[ RUN      ] TricopterServoModel.DirectionParametersReferToPwmEvenWhenCountsDecrease
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/0
+[ RUN      ] TricopterDiagnostics.GroundModeRequiresAllMotorSamplesForWorstRpmAge
+[       OK ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse (0 ms)
+[ RUN      ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail
+[       OK ] TricopterServoModel.DirectionParametersReferToPwmEvenWhenCountsDecrease (0 ms)
+[       OK ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/0 (0 ms)
+[ RUN      ] TricopterServoModel.PlayMemoryCrossesReversalsWithoutInstantDirectionOffset
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/1
+[       OK ] TricopterDiagnostics.GroundModeRequiresAllMotorSamplesForWorstRpmAge (0 ms)
+[       OK ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail (0 ms)
+[ RUN      ] TricopterDiagnostics.SwitchingDiagnosticSchemasResetsAdcSession
+[ RUN      ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches
+[       OK ] TricopterDebugModes/DshotTelemetryTest.InvalidDecodedPeriodAndSentinelsDoNotRefresh/1 (0 ms)
+[       OK ] TricopterServoModel.PlayMemoryCrossesReversalsWithoutInstantDirectionOffset (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/0
+[       OK ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches (0 ms)
+[ RUN      ] TricopterServoModel.DelayPreservesOrderedZeroDtCommandsAndCoalescesRepeats
+[       OK ] TricopterDiagnostics.SwitchingDiagnosticSchemasResetsAdcSession (0 ms)
+[ RUN      ] TricopterDiagnostics.GroundModeLogsSuppressedPulseWithoutWritingActuators
+[----------] 5 tests from TricopterAngleCalibration (0 ms total)
+
+[       OK ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/0 (0 ms)
+[----------] Global test environment tear-down
+[       OK ] TricopterServoModel.DelayPreservesOrderedZeroDtCommandsAndCoalescesRepeats (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/1
+[ RUN      ] TricopterServoModel.HistoryIsInvariantToExtraUnchangedPwmSamples
+[       OK ] TricopterDiagnostics.GroundModeLogsSuppressedPulseWithoutWritingActuators (0 ms)
+[ RUN      ] TricopterDiagnostics.CanonicalPositionUsesOnlyCorrectedCoherentPair
+[       OK ] TricopterDebugModes/DshotTelemetryTest.PerMotorAgesRemainIndependentAndWrapSafely/1 (0 ms)
+[==========] 5 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 5 tests.
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/0
+[       OK ] TricopterDiagnostics.CanonicalPositionUsesOnlyCorrectedCoherentPair (0 ms)
+[ RUN      ] TricopterDiagnostics.CanonicalPositionNeverFallsBackToRawWiper
+[       OK ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/0 (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/1
+[       OK ] TricopterServoModel.HistoryIsInvariantToExtraUnchangedPwmSamples (0 ms)
+[       OK ] TricopterDiagnostics.CanonicalPositionNeverFallsBackToRawWiper (0 ms)
+[ RUN      ] TricopterServoModel.InvalidCommandLatchesFiniteOutputUntilExplicitReset
+[       OK ] TricopterDebugModes/DshotTelemetryTest.DisabledDiagnosticsPreserveRpmAndAvoidTimerReads/1 (0 ms)
+[ RUN      ] TricopterDiagnostics.CanonicalPositionKeepsSignedCorrectionIncludingZeroGround
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/0
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/0 (0 ms)
+[       OK ] TricopterDiagnostics.CanonicalPositionKeepsSignedCorrectionIncludingZeroGround (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/1
+[ RUN      ] TricopterDiagnostics.CanonicalPositionSeparatesCachedCorrectionFromFreshMeasurement
+[       OK ] TricopterServoModel.InvalidCommandLatchesFiniteOutputUntilExplicitReset (0 ms)
+[ RUN      ] TricopterServoModel.ResetRequiresValidInitialSamplePwmAndApproach
+[       OK ] TricopterDebugModes/DshotTelemetryTest.ProcessedBatchAndCleanCannotCreatePhantomSamples/1 (0 ms)
+[       OK ] TricopterDiagnostics.CanonicalPositionSeparatesCachedCorrectionFromFreshMeasurement (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/0
+[ RUN      ] TricopterDiagnostics.CanonicalPositionRejectsNonTwelveBitRangeWithoutRawFallback
+[       OK ] TricopterServoModel.ResetRequiresValidInitialSamplePwmAndApproach (0 ms)
+[ RUN      ] TricopterServoModel.RejectsBackwardOverflowAndUnobservedCommandGaps
+[       OK ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/0 (0 ms)
+[       OK ] TricopterDiagnostics.CanonicalPositionRejectsNonTwelveBitRangeWithoutRawFallback (0 ms)
+[ RUN      ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/1
+[ RUN      ] TricopterDiagnostics.GroundLoggerReportsCanonicalPositionAndFreshness
+[       OK ] TricopterServoModel.RejectsBackwardOverflowAndUnobservedCommandGaps (0 ms)
+[       OK ] TricopterDebugModes/DshotTelemetryTest.SwitchingDiagnosticModesDoesNotFreshenCachedRpm/1 (0 ms)
+[ RUN      ] TricopterServoModel.BoundedQueueCannotSilentlyDropCommandHistory
+[       OK ] TricopterDiagnostics.GroundLoggerReportsCanonicalPositionAndFreshness (0 ms)
+[----------] 20 tests from TricopterDebugModes/DshotTelemetryTest (1 ms total)
+
+[----------] Global test environment tear-down
+[----------] 21 tests from TricopterDiagnostics (1 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] TricopterServoModel.BoundedQueueCannotSilentlyDropCommandHistory (0 ms)
+[ RUN      ] TricopterServoModel.ExplicitResetCanReuseRetainedParametersAfterFault
+[==========] 20 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 20 tests.
+[       OK ] TricopterServoModel.ExplicitResetCanReuseRetainedParametersAfterFault (0 ms)
+[ RUN      ] TricopterServoModel.AcceptedNumericExtremesProduceFiniteBoundedPredictions
+[==========] 21 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 21 tests.
+[       OK ] TricopterServoModel.AcceptedNumericExtremesProduceFiniteBoundedPredictions (0 ms)
+[----------] 16 tests from TricopterServoModel (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 16 tests.
+running test_tricopter_angle_calibration_unittest: PASS
+running test_tricopter_diagnostics_unittest: PASS
+running test_tricopter_servo_model_unittest: PASS
+running test_dshot_telemetry_unittest: PASS
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 18 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 18 tests from TricopterRpmObserver
+[ RUN      ] TricopterRpmObserver.ValidatesSoftwareConfiguration
+[       OK ] TricopterRpmObserver.ValidatesSoftwareConfiguration (0 ms)
+[ RUN      ] TricopterRpmObserver.RejectsNonfiniteConfigurationUnderFastMath
+[       OK ] TricopterRpmObserver.RejectsNonfiniteConfigurationUnderFastMath (0 ms)
+[ RUN      ] TricopterRpmObserver.ResetStartsUnseenAndCopiesAliasedConfiguration
+[       OK ] TricopterRpmObserver.ResetStartsUnseenAndCopiesAliasedConfiguration (0 ms)
+[ RUN      ] TricopterRpmObserver.EqualAndZeroGenuineObservationsRefreshIdentity
+[       OK ] TricopterRpmObserver.EqualAndZeroGenuineObservationsRefreshIdentity (0 ms)
+[ RUN      ] TricopterRpmObserver.CachedSamplesAndMissingFramesNeverRefreshAge
+[       OK ] TricopterRpmObserver.CachedSamplesAndMissingFramesNeverRefreshAge (0 ms)
+[ RUN      ] TricopterRpmObserver.UsesObservationTimeRatherThanDeliveryTime
+[       OK ] TricopterRpmObserver.UsesObservationTimeRatherThanDeliveryTime (0 ms)
+[ RUN      ] TricopterRpmObserver.RepeatedQueriesCannotIntegrateTwice
+[       OK ] TricopterRpmObserver.RepeatedQueriesCannotIntegrateTwice (0 ms)
+[ RUN      ] TricopterRpmObserver.TracksAnalyticRampOnIrregularObservationIntervals
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 18 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 18 tests from TricopterReactionTorque
+[ RUN      ] TricopterReactionTorque.RequiresExplicitSyntheticProvenanceAndValidSoftwareGuards
+compiling ../main/flight/tricopter_simulation.c 
+[       OK ] TricopterReactionTorque.RequiresExplicitSyntheticProvenanceAndValidSoftwareGuards (0 ms)
+[ RUN      ] TricopterReactionTorque.RejectsNonfiniteCoefficientsAndBoundsWithFastMath
+[       OK ] TricopterReactionTorque.RejectsNonfiniteCoefficientsAndBoundsWithFastMath (0 ms)
+[ RUN      ] TricopterReactionTorque.KnownStoppedRotorsGiveValidZeroWithoutFlightClaim
+[       OK ] TricopterReactionTorque.KnownStoppedRotorsGiveValidZeroWithoutFlightClaim (0 ms)
+[ RUN      ] TricopterReactionTorque.ConvertsMechanicalRpmWithoutPoleCountMultiplication
+[       OK ] TricopterReactionTorque.ConvertsMechanicalRpmWithoutPoleCountMultiplication (0 ms)
+[ RUN      ] TricopterReactionTorque.EqualSymmetricThreeRotorsDoNotCancel
+[       OK ] TricopterReactionTorque.EqualSymmetricThreeRotorsDoNotCancel (0 ms)
+[ RUN      ] TricopterReactionTorque.EveryLogicalMotorUsesItsExplicitReactionSign
+[       OK ] TricopterReactionTorque.EveryLogicalMotorUsesItsExplicitReactionSign (0 ms)
+[ RUN      ] TricopterReactionTorque.MotorPermutationPreservesSummedTorque
+[       OK ] TricopterReactionTorque.MotorPermutationPreservesSummedTorque (0 ms)
+[ RUN      ] TricopterReactionTorque.IsolatedInertiaChangesSignOnDeceleration
+[       OK ] TricopterReactionTorque.IsolatedInertiaChangesSignOnDeceleration (0 ms)
+[ RUN      ] TricopterReactionTorque.IntegratedInertialImpulseMatchesAngularMomentumChange
+[       OK ] TricopterRpmObserver.TracksAnalyticRampOnIrregularObservationIntervals (1 ms)
+[ RUN      ] TricopterRpmObserver.FiltersNoiseWithoutRawDifferentiation
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 16 tests from 1 test suite.
+[       OK ] TricopterReactionTorque.IntegratedInertialImpulseMatchesAngularMomentumChange (0 ms)
+[----------] Global test environment set-up.
+[ RUN      ] TricopterReactionTorque.CoastingCancelsMountTorqueAndStrongerBrakingReversesIt
+[----------] 16 tests from TricopterAllocator
+[       OK ] TricopterReactionTorque.CoastingCancelsMountTorqueAndStrongerBrakingReversesIt (0 ms)
+[ RUN      ] TricopterAllocator.ExactAsymmetricGeometryReconstructsFeasibleWrenches
+[ RUN      ] TricopterReactionTorque.AerodynamicQuadraticAndCoefficientLinearScaling
+[       OK ] TricopterReactionTorque.AerodynamicQuadraticAndCoefficientLinearScaling (0 ms)
+[ RUN      ] TricopterReactionTorque.PositiveRotorSqrtTwoSpeedCancelsTwoEqualOpposingRotors
+[       OK ] TricopterReactionTorque.PositiveRotorSqrtTwoSpeedCancelsTwoEqualOpposingRotors (0 ms)
+[ RUN      ] TricopterReactionTorque.AnyUnavailableMotorSuppressesAllTermsWithoutPartialSum
+[       OK ] TricopterReactionTorque.AnyUnavailableMotorSuppressesAllTermsWithoutPartialSum (0 ms)
+[ RUN      ] TricopterReactionTorque.UnknownAccelerationInvalidEvenWithZeroInertia
+[       OK ] TricopterReactionTorque.UnknownAccelerationInvalidEvenWithZeroInertia (0 ms)
+[ RUN      ] TricopterReactionTorque.NumericalInputAndSoftwareRangeGuardsAreFinite
+[       OK ] TricopterRpmObserver.FiltersNoiseWithoutRawDifferentiation (1 ms)
+[ RUN      ] TricopterRpmObserver.EstimatesAccelerationAndDecelerationSigns
+[       OK ] TricopterAllocator.ExactAsymmetricGeometryReconstructsFeasibleWrenches (0 ms)
+[ RUN      ] TricopterAllocator.ForwardUsesActualAngleIncludingCgHeightAndLateralForce
+[       OK ] TricopterReactionTorque.NumericalInputAndSoftwareRangeGuardsAreFinite (0 ms)
+[ RUN      ] TricopterReactionTorque.FreshnessBoundaryIsInclusiveAndSentinelAgeRejected
+[       OK ] TricopterAllocator.ForwardUsesActualAngleIncludingCgHeightAndLateralForce (0 ms)
+[ RUN      ] TricopterAllocator.KnownReactionOffsetIsRemovedBeforeSolveAndAddedToAchieved
+[       OK ] TricopterReactionTorque.FreshnessBoundaryIsInclusiveAndSentinelAgeRejected (0 ms)
+[ RUN      ] TricopterReactionTorque.HugeFiniteCoefficientsCannotOverflowOrHideBehindCancellation
+[       OK ] TricopterAllocator.KnownReactionOffsetIsRemovedBeforeSolveAndAddedToAchieved (0 ms)
+[       OK ] TricopterReactionTorque.HugeFiniteCoefficientsCannotOverflowOrHideBehindCancellation (0 ms)
+[ RUN      ] TricopterAllocator.ZeroAndLowTailPolicyPreservesFiniteMeaningfulDiagnostics
+[ RUN      ] TricopterReactionTorque.ComponentPerMotorAndGrandSumsEachRespectTorqueGuard
+[       OK ] TricopterAllocator.ZeroAndLowTailPolicyPreservesFiniteMeaningfulDiagnostics (0 ms)
+[ RUN      ] TricopterAllocator.ExplicitKtOnlyConvertsSiThrustToMechanicalSpeed
+[       OK ] TricopterReactionTorque.ComponentPerMotorAndGrandSumsEachRespectTorqueGuard (0 ms)
+[       OK ] TricopterRpmObserver.EstimatesAccelerationAndDecelerationSigns (0 ms)
+[ RUN      ] TricopterRpmObserver.StalePredictionDecaysAndStopsAtHorizon
+[----------] 18 tests from TricopterReactionTorque (3 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] TricopterAllocator.ExplicitKtOnlyConvertsSiThrustToMechanicalSpeed (0 ms)
+[ RUN      ] TricopterAllocator.SaturationRemainsFeasibleAndBeatsObviousFeasibleControls
+[       OK ] TricopterRpmObserver.StalePredictionDecaysAndStopsAtHorizon (0 ms)
+[ RUN      ] TricopterRpmObserver.BoundsRemainFiniteAndRejectInvalidMeasurementsWithoutAgeRefresh
+[==========] 18 tests from 1 test suite ran. (3 ms total)
+[  PASSED  ] 18 tests.
+[       OK ] TricopterAllocator.SaturationRemainsFeasibleAndBeatsObviousFeasibleControls (0 ms)
+[ RUN      ] TricopterAllocator.ConeProjectionPrecedesRadialCap
+[       OK ] TricopterAllocator.ConeProjectionPrecedesRadialCap (0 ms)
+[ RUN      ] TricopterAllocator.VirtualMapRequiresNeitherGeometryNorPhysicalCoefficients
+[       OK ] TricopterRpmObserver.BoundsRemainFiniteAndRejectInvalidMeasurementsWithoutAgeRefresh (0 ms)
+[ RUN      ] TricopterRpmObserver.ClockAndSequenceWrapForward
+[       OK ] TricopterAllocator.VirtualMapRequiresNeitherGeometryNorPhysicalCoefficients (0 ms)
+[ RUN      ] TricopterAllocator.FullyCoupledMapAndResponseUnitScalingPreserveAllocation
+[       OK ] TricopterRpmObserver.ClockAndSequenceWrapForward (0 ms)
+[ RUN      ] TricopterRpmObserver.LongOutageCannotBecomeFreshAfterFullClockWrap
+[       OK ] TricopterRpmObserver.LongOutageCannotBecomeFreshAfterFullClockWrap (0 ms)
+[ RUN      ] TricopterRpmObserver.NewSameTimeObservationCoalescesWithoutDerivative
+[       OK ] TricopterRpmObserver.NewSameTimeObservationCoalescesWithoutDerivative (0 ms)
+[ RUN      ] TricopterRpmObserver.BadClockAndCallGapLatchUntilExplicitReset
+[       OK ] TricopterAllocator.FullyCoupledMapAndResponseUnitScalingPreserveAllocation (0 ms)
+[ RUN      ] TricopterAllocator.EffortUnitChangePreservesResponseAndDirection
+[       OK ] TricopterRpmObserver.BadClockAndCallGapLatchUntilExplicitReset (0 ms)
+[ RUN      ] TricopterRpmObserver.SequenceRollbackBackwardObservationAndMetadataMismatchLatch
+[       OK ] TricopterRpmObserver.SequenceRollbackBackwardObservationAndMetadataMismatchLatch (0 ms)
+[ RUN      ] TricopterRpmObserver.FutureAndTooOldObservationsAreRejectedWithoutPoisoningState
+[       OK ] TricopterRpmObserver.FutureAndTooOldObservationsAreRejectedWithoutPoisoningState (0 ms)
+[       OK ] TricopterAllocator.EffortUnitChangePreservesResponseAndDirection (0 ms)
+[ RUN      ] TricopterAllocator.BoundedIterationsExposeUnconvergedFeasibleResult
+[----------] 18 tests from TricopterRpmObserver (5 ms total)
+
+[----------] Global test environment tear-down
+[       OK ] TricopterAllocator.BoundedIterationsExposeUnconvergedFeasibleResult (0 ms)
+[ RUN      ] TricopterAllocator.ZeroWidthDirectionSectorAndFrontBoundsRemainConvex
+[==========] 18 tests from 1 test suite ran. (5 ms total)
+[  PASSED  ] 18 tests.
+[       OK ] TricopterAllocator.ZeroWidthDirectionSectorAndFrontBoundsRemainConvex (0 ms)
+[ RUN      ] TricopterAllocator.FloatUnderflowedTailEffortHasZeroUndefinedDirection
+[       OK ] TricopterAllocator.FloatUnderflowedTailEffortHasZeroUndefinedDirection (0 ms)
+[ RUN      ] TricopterAllocator.RejectsDegenerateAndIllConditionedGeometryAndTinyWeightedMap
+[       OK ] TricopterAllocator.RejectsDegenerateAndIllConditionedGeometryAndTinyWeightedMap (0 ms)
+[ RUN      ] TricopterAllocator.PhysicalAndGenericParameterGuardsSurviveFastMath
+[       OK ] TricopterAllocator.PhysicalAndGenericParameterGuardsSurviveFastMath (0 ms)
+[ RUN      ] TricopterAllocator.InvalidInputsAndForwardBoundsClearEveryNumericOutput
+[       OK ] TricopterAllocator.InvalidInputsAndForwardBoundsClearEveryNumericOutput (0 ms)
+[----------] 16 tests from TricopterAllocator (3 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 1 test suite ran. (3 ms total)
+[  PASSED  ] 16 tests.
+running test_tricopter_reaction_torque_unittest: PASS
+compiling ../main/flight/tricopter_dynamic_allocator.c 
+running test_tricopter_rpm_observer_unittest: PASS
+compiling unit/tricopter_simulation_unittest.cc 
+running test_tricopter_allocator_unittest: PASS
+compiling ../main/flight/tricopter_dynamic_allocator.c 
+compiling unit/tricopter_dynamic_allocator_unittest.cc 
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MotorOutputUnittest
+[ RUN      ] MotorOutputUnittest.TestFixMotorOutputReordering
+[       OK ] MotorOutputUnittest.TestFixMotorOutputReordering (0 ms)
+[----------] 1 test from MotorOutputUnittest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from AdcPairSnapshot
+[ RUN      ] AdcPairSnapshot.LastTwoRanksUseOnlyEarlierUnrelatedConversions
+[       OK ] AdcPairSnapshot.LastTwoRanksUseOnlyEarlierUnrelatedConversions (0 ms)
+[ RUN      ] AdcPairSnapshot.ConfigurationsWithoutGuardedPrefixAreUnavailable
+[       OK ] AdcPairSnapshot.ConfigurationsWithoutGuardedPrefixAreUnavailable (0 ms)
+[ RUN      ] AdcPairSnapshot.DmaProgressDuringCopyRejectsPublication
+[       OK ] AdcPairSnapshot.DmaProgressDuringCopyRejectsPublication (0 ms)
+[ RUN      ] AdcPairSnapshot.InterruptOrFullDmaWrapCannotMasqueradeAsStableCount
+[       OK ] AdcPairSnapshot.InterruptOrFullDmaWrapCannotMasqueradeAsStableCount (0 ms)
+[ RUN      ] AdcPairSnapshot.CopyClockWrapUsesUnsignedElapsedTime
+[       OK ] AdcPairSnapshot.CopyClockWrapUsesUnsignedElapsedTime (0 ms)
+[ RUN      ] AdcPairSnapshot.UnseenCacheAndRealZeroReferenceRemainDistinct
+[       OK ] AdcPairSnapshot.UnseenCacheAndRealZeroReferenceRemainDistinct (0 ms)
+[ RUN      ] AdcPairSnapshot.RejectedCopyPreservesPreviousPairAndItsAge
+[       OK ] AdcPairSnapshot.RejectedCopyPreservesPreviousPairAndItsAge (0 ms)
+[ RUN      ] AdcPairSnapshot.CachedAgeWrapIsIndependentOfPairValues
+[       OK ] AdcPairSnapshot.CachedAgeWrapIsIndependentOfPairValues (0 ms)
+[----------] 8 tests from AdcPairSnapshot (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 8 tests.
+running test_motor_output_unittest: PASS
+running test_adc_pair_snapshot_unittest: PASS
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 4 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from BlackboxEncodingTest
+[ RUN      ] BlackboxEncodingTest.TestWriteUnsignedVB
+[       OK ] BlackboxEncodingTest.TestWriteUnsignedVB (0 ms)
+[----------] 1 test from BlackboxEncodingTest (0 ms total)
+
+[----------] 3 tests from BlackboxTest
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS2
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS2 (0 ms)
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS554
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS554 (0 ms)
+[ RUN      ] BlackboxTest.TestWriteTag2_3SVariable_BITS887
+[       OK ] BlackboxTest.TestWriteTag2_3SVariable_BITS887 (0 ms)
+[----------] 3 tests from BlackboxTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 4 tests.
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from BlackboxTest
+[ RUN      ] BlackboxTest.TestInitIntervals
+[       OK ] BlackboxTest.TestInitIntervals (0 ms)
+[ RUN      ] BlackboxTest.Test_500Hz
+[       OK ] BlackboxTest.Test_500Hz (0 ms)
+[ RUN      ] BlackboxTest.Test_1kHz
+[       OK ] BlackboxTest.Test_1kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_2kHz
+[       OK ] BlackboxTest.Test_2kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_8kHz
+[       OK ] BlackboxTest.Test_8kHz (0 ms)
+[ RUN      ] BlackboxTest.Test_zero_p_interval
+[       OK ] BlackboxTest.Test_zero_p_interval (0 ms)
+[ RUN      ] BlackboxTest.Test_CalculatePDenom
+[       OK ] BlackboxTest.Test_CalculatePDenom (0 ms)
+[ RUN      ] BlackboxTest.Test_CalculateRates
+[       OK ] BlackboxTest.Test_CalculateRates (0 ms)
+[----------] 8 tests from BlackboxTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 8 tests.
+running test_blackbox_encoding_unittest: PASS
+running test_blackbox_unittest: PASS
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 15 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 15 tests from pidControllerTest
+[ RUN      ] pidControllerTest.testInitialisation
+[       OK ] pidControllerTest.testInitialisation (0 ms)
+[ RUN      ] pidControllerTest.testStabilisationDisabled
+[       OK ] pidControllerTest.testStabilisationDisabled (0 ms)
+[ RUN      ] pidControllerTest.testPidLoop
+[       OK ] pidControllerTest.testPidLoop (0 ms)
+[ RUN      ] pidControllerTest.testPidLevel
+[       OK ] pidControllerTest.testPidLevel (0 ms)
+[ RUN      ] pidControllerTest.testPidHorizon
+[       OK ] pidControllerTest.testPidHorizon (0 ms)
+[ RUN      ] pidControllerTest.testMixerSaturation
+[       OK ] pidControllerTest.testMixerSaturation (0 ms)
+[ RUN      ] pidControllerTest.testiTermWindup
+[       OK ] pidControllerTest.testiTermWindup (0 ms)
+[ RUN      ] pidControllerTest.testCrashRecoveryMode
+[       OK ] pidControllerTest.testCrashRecoveryMode (0 ms)
+[ RUN      ] pidControllerTest.testFeedForward
+[       OK ] pidControllerTest.testFeedForward (0 ms)
+[ RUN      ] pidControllerTest.testItermRelax
+[       OK ] pidControllerTest.testItermRelax (0 ms)
+[ RUN      ] pidControllerTest.testDtermFiltering
+[       OK ] pidControllerTest.testDtermFiltering (0 ms)
+[ RUN      ] pidControllerTest.testItermRotationHandling
+[       OK ] pidControllerTest.testItermRotationHandling (0 ms)
+[ RUN      ] pidControllerTest.testLaunchControl
+[       OK ] pidControllerTest.testLaunchControl (0 ms)
+[ RUN      ] pidControllerTest.testTpaClassic
+[       OK ] pidControllerTest.testTpaClassic (0 ms)
+[ RUN      ] pidControllerTest.testTpaHyperbolic
+[       OK ] pidControllerTest.testTpaHyperbolic (0 ms)
+[----------] 15 tests from pidControllerTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 15 tests from 1 test suite ran. (2 ms total)
+[  PASSED  ] 15 tests.
+running test_pid_unittest: PASS
+linking ../../obj/test/tricopter_dynamic_allocator_unittest/tricopter_dynamic_allocator_unittest 
+linking ../../obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest 
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 16 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 16 tests from TricopterDynamicAllocator
+[ RUN      ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon
+[       OK ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon (0 ms)
+[ RUN      ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup
+[       OK ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup (0 ms)
+[ RUN      ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering
+[       OK ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering (0 ms)
+[ RUN      ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands
+[       OK ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands (0 ms)
+[ RUN      ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor
+[       OK ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor (0 ms)
+[ RUN      ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm
+[       OK ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm (0 ms)
+[ RUN      ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite
+[       OK ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite (0 ms)
+[ RUN      ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap
+[       OK ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap (0 ms)
+[ RUN      ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets
+[       OK ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets (0 ms)
+[ RUN      ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval
+[       OK ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval (0 ms)
+[ RUN      ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions
+[       OK ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions (0 ms)
+[ RUN      ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit
+[       OK ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit (0 ms)
+[ RUN      ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed
+[       OK ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed (0 ms)
+[ RUN      ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath
+[       OK ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath (0 ms)
+[ RUN      ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority
+[       OK ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority (0 ms)
+[ RUN      ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds
+[       OK ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds (0 ms)
+[----------] 16 tests from TricopterDynamicAllocator (4 ms total)
+
+[----------] Global test environment tear-down
+[==========] 16 tests from 1 test suite ran. (4 ms total)
+[  PASSED  ] 16 tests.
+running test_tricopter_dynamic_allocator_unittest: PASS
+Running main() from ../../lib/test/gtest/src/gtest_main.cc
+[==========] Running 20 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 20 tests from TricopterSimulation
+[ RUN      ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired
+[       OK ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired (0 ms)
+[ RUN      ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct
+[       OK ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct (0 ms)
+[ RUN      ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay
+[       OK ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay (0 ms)
+[ RUN      ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction
+[       OK ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction (0 ms)
+[ RUN      ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap
+[       OK ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap (0 ms)
+[ RUN      ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration
+[       OK ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration (0 ms)
+[ RUN      ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand
+[       OK ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand (0 ms)
+[ RUN      ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw
+[       OK ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw (0 ms)
+[ RUN      ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand
+[       OK ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand (0 ms)
+[ RUN      ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits
+[       OK ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits (0 ms)
+[ RUN      ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions
+[       OK ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions (0 ms)
+[ RUN      ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse
+[       OK ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse (0 ms)
+[ RUN      ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair
+[       OK ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair (0 ms)
+[ RUN      ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset
+[       OK ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset (0 ms)
+[ RUN      ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath
+[       OK ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath (0 ms)
+[ RUN      ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture
+[       OK ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture (0 ms)
+[ RUN      ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim
+[       OK ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim (0 ms)
+[ RUN      ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode
+[       OK ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode (5 ms)
+[ RUN      ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration
+[       OK ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration (0 ms)
+[ RUN      ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap
+[       OK ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap (0 ms)
+[----------] 20 tests from TricopterSimulation (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 20 tests from 1 test suite ran. (9 ms total)
+[  PASSED  ] 20 tests.
+running test_tricopter_simulation_unittest: PASS
+docs/tricopter_dump.txt: OK
+docs/tricopter_diff.txt: OK
+docs/btfl_001.bbl: OK
+docs/btfl_002.bbl: OK
+docs/btfl_003.bbl: OK
+docs/btfl_004.bbl: OK
+docs/btfl_005.bbl: OK
+docs/btfl_006.bbl: OK

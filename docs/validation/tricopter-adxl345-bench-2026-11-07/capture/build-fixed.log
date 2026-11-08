@@ -1,0 +1,90 @@
+Processing teensylc (board: teensylc; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensylc.html
+PLATFORM: Teensy (6.0.0) > Teensy LC
+HARDWARE: MKL26Z64 48MHz, 8KB RAM, 62KB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensylc/src/main.cpp.o
+Linking .pio/build/teensylc/firmware.elf
+Checking size .pio/build/teensylc/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [====      ]  37.0% (used 3028 bytes from 8192 bytes)
+Flash: [==        ]  16.3% (used 10356 bytes from 63488 bytes)
+Building .pio/build/teensylc/firmware.hex
+========================= [SUCCESS] Took 1.53 seconds =========================
+
+Processing teensy36 (board: teensy36; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensy36.html
+PLATFORM: Teensy (6.0.0) > Teensy 3.6
+HARDWARE: MK66FX1M0 180MHz, 256KB RAM, 1MB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensy36/src/main.cpp.o
+Linking .pio/build/teensy36/firmware.elf
+Checking size .pio/build/teensy36/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   1.7% (used 4348 bytes from 262144 bytes)
+Flash: [          ]   1.4% (used 14480 bytes from 1048576 bytes)
+Building .pio/build/teensy36/firmware.hex
+========================= [SUCCESS] Took 1.55 seconds =========================
+
+Processing teensy40 (board: teensy40; platform: teensy@6.0.0; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/teensy/teensy40.html
+PLATFORM: Teensy (6.0.0) > Teensy 4.0
+HARDWARE: IMXRT1062 600MHz, 512KB RAM, 1.94MB Flash
+DEBUG: Current (jlink) External (jlink)
+PACKAGES: 
+ - framework-arduinoteensy @ 1.162.0 (1.62) 
+ - tool-teensy @ 1.162.0 (1.62) 
+ - toolchain-gccarmnoneeabi-teensy @ 1.150201.0 (15.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 92 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- SPI @ 1.0
+Building in release mode
+Compiling .pio/build/teensy40/src/main.cpp.o
+Linking .pio/build/teensy40/firmware.elf
+Calculating size .pio/build/teensy40/firmware.elf
+Checking size .pio/build/teensy40/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+teensy_size: Memory Usage on Teensy 4.0:
+teensy_size:   FLASH: code:14276, data:5304, headers:9088   free for files:2002948
+teensy_size:    RAM1: variables:6656, code:12560, padding:20208   free for local variables:484864
+teensy_size:    RAM2: variables:12416  free for malloc/new:511872
+Building .pio/build/teensy40/firmware.hex
+========================= [SUCCESS] Took 1.52 seconds =========================
+
+Environment    Status    Duration
+-------------  --------  ------------
+teensylc       SUCCESS   00:00:01.527
+teensy36       SUCCESS   00:00:01.550
+teensy40       SUCCESS   00:00:01.523
+========================= 3 succeeded in 00:00:04.600 =========================

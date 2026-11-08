@@ -6,18 +6,22 @@
 
 #include "tricopter_allocator.h"
 #include "tricopter_servo_model.h"
+#include "tricopter_angle_calibration.h"
 
 #define TRICOPTER_DYNAMIC_ALLOCATOR_MAX_GRID 17U
 #define TRICOPTER_DYNAMIC_ALLOCATOR_MAX_CANDIDATES 19U
 #define TRICOPTER_DYNAMIC_ALLOCATOR_MAX_SERVO_STEPS 256U
 
 // Shared model inputs, inherited from the offline coordinator: no duplicate
-// geometry/airframe config, physical angle, or newly inferred coefficients.
+// geometry/airframe config or newly inferred motor coefficients. The optional
+// measured angle map changes only corrected-count/direction conversion.
 typedef struct tricopterDynamicAllocatorModel_s {
     tricopterAllocatorVirtualParams_t allocator;
     float correctedCountsAtDirectionMin;
     float correctedCountsAtDirectionMax;
     float effortPerOmegaSquared[3];
+    bool measuredAngleConfigured;
+    tricopterAngleCalibration_t measuredAngle;
 } tricopterDynamicAllocatorModel_t;
 
 typedef struct tricopterDynamicAllocatorParams_s {
@@ -85,6 +89,8 @@ typedef struct tricopterDynamicAllocatorCandidate_s {
     uint32_t status;
     uint8_t evaluatedFaces;
     bool valid;
+    bool measuredAngleAvailable;
+    float angleHalfBranchSeparationRad;
 } tricopterDynamicAllocatorCandidate_t;
 
 typedef struct tricopterDynamicAllocatorOutput_s {

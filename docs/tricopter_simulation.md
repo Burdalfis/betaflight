@@ -4,6 +4,8 @@ This experiment connects the existing C servo predictor, RPM observer, reaction-
 
 The subsequent [opt-in dynamic allocator](tricopter_dynamic_allocator.md) uses predicted servo/motor state and explicit collective/roll/pitch group priority over yaw. The original simulation modes and evidence below remain preserved.
 
+The later [measured basket-angle extension](tricopter_measured_angle.md) makes measured count-to-angle conversion available as a separate explicit option. It preserves the original synthetic default and command-only predictor. Real angle mapping does not make the synthetic actuator dynamics, effectiveness or torque parameters physically calibrated.
+
 ## Controller and plant boundary
 
 The coordinator receives requested collective/roll/pitch/yaw response proxies and timestamped mechanical-RPM observations. Reset is its only corrected-position measurement input. Its servo predictor subsequently advances from commands alone. It has no access to plant direction, position, motor acceleration, future packets or plant parameters.

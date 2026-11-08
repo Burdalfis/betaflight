@@ -367,3 +367,33 @@ TEST(TricopterSimulation, ConfiguredDynamicModuleDoesNotChangeAnyExistingMode)
         }
     }
 }
+
+static void measuredMap(tricopterSimulationParams_t *p)
+{
+    p->measuredAngleConfigured=true; auto &a=p->measuredAngle; a.knotCount=3; a.operatorDefinedReference=true;
+    a.correctedCounts[0]=1000; a.correctedCounts[1]=1500; a.correctedCounts[2]=2000;
+    a.angleRad[0]=.6f; a.angleRad[1]=.2f; a.angleRad[2]=-.6f;
+    a.halfBranchSeparationRad[0]=.01f; a.halfBranchSeparationRad[1]=.03f; a.halfBranchSeparationRad[2]=.02f;
+}
+TEST(TricopterSimulation, MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration)
+{
+    auto p=parameters(); measuredMap(&p); const auto start=initial(); tricopterSimulationState_t state={};
+    ASSERT_TRUE(tricopterSimulationReset(&state,&p,&start));
+    auto in=input(0,1); in.requestedResponse[3]=0;
+    const auto out=tricopterSimulationTick(&state,0,&in); expectCommands(p,out);
+    EXPECT_TRUE(out.measuredAngleAvailable); EXPECT_EQ(out.predictedDirectionRad,.2f);
+    EXPECT_EQ(out.angleHalfBranchSeparationRad,.03f); EXPECT_FALSE(out.servo.angleCalibrated);
+    float counts; ASSERT_TRUE(tricopterAngleCalibrationInverse(&p.measuredAngle,out.targetDirectionRad,&counts));
+    EXPECT_NEAR(out.pwmCommandUs,1100+(2000-counts)*.6f,1e-3);
+}
+TEST(TricopterSimulation, MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap)
+{
+    auto p=parameters(); measuredMap(&p); p.allocator.tailDirectionMaxRad=.7f;
+    EXPECT_FALSE(tricopterSimulationValidateParams(&p));
+    p=parameters(); p.measuredAngle.knotCount=65;
+    EXPECT_TRUE(tricopterSimulationValidateParams(&p));
+    measuredMap(&p); p.measuredAngle.correctedCounts[0]=1100;
+    EXPECT_TRUE(tricopterSimulationValidateParams(&p));
+    p.allocator.tailDirectionMaxRad=.61f;
+    EXPECT_FALSE(tricopterSimulationValidateParams(&p));
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-08T02:15:59.458125+00:00",
+  "archive_sha256": "ee709b5784fd9718df1f69fffc47936efd1998753e9ecfb1743a44019c99cfd4",
+  "archive_bytes": 47018981,
+  "manifest_sha256": "a63bcf40251301d28cc3fae3049cb4b67f8b348c67a17cb0e16b46ef94dc809a",
+  "all_member_hashes_verified": true,
+  "regular_files_verified": 467,
+  "uncompressed_member_bytes": 263425003,
+  "missing_or_extra_members": [],
+  "unsafe_paths_or_links": [],
+  "safe_manual_extraction": true,
+  "extraction_directory": "/tmp/tricopter-raw-archive-audit-nfa89th8",
+  "current_calibrate_tool_sha256": "e09ece662acfc8d04ab4b769eaf9fa6e8d9939a952dbe8dd8b420573f49e4d0e",
+  "sensor_profile_sha256": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+  "sensor_bias_numeric_exact_match": true,
+  "sensor_scale_numeric_exact_match": true,
+  "bias_counts": [
+    -158.1418960347204,
+    133.5643738050345,
+    -49.556553389825545
+  ],
+  "counts_per_g": [
+    239.7801407204947,
+    239.37650250659584,
+    246.50225247651858
+  ],
+  "full_sweep_raw_artifact_hash_checks_pass": true,
+  "full_sweep_settled_windows_pass": true,
+  "angle_profile_sha256": "1fe02b4b02628e02af772688e582ad2cf81a72fb89de1265b083071ba09c9c75",
+  "reversal_replay": {
+    "qualified": 74,
+    "excluded_ids": [
+      61
+    ],
+    "mean_map_error_deg": {
+      "count": 74,
+      "mean": -0.37158092396347797,
+      "rms": 0.7513193104909048,
+      "max_abs": 2.088758525053887,
+      "p95_abs": 1.6971693485046877
+    }
+  },
+  "longer_reversal_replay": {
+    "qualified": 29,
+    "mean_map_error_deg": {
+      "count": 29,
+      "mean": -0.3973146393244022,
+      "rms": 0.5797220023858227,
+      "max_abs": 1.4736782336227465,
+      "p95_abs": 1.2514922686431427
+    }
+  },
+  "scope": "Independent archive SHA/member-size/member-SHA checks, safe extraction, current-tool numeric accelerometer fit replay and raw-artifact-bound basket validation. Original artifacts, Git state and hardware were not modified."
+}

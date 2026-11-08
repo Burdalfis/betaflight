@@ -1,0 +1,93 @@
+{
+  "status": "Six principal-axis poses accepted; +Z repeat and unmoved control complete, both within-run checks pass but between-run Z variation is visible; calibration not fitted/applied",
+  "usb_serial": "12696530",
+  "known_orientation_reference": "z-positive-02",
+  "fitting_plan": "Bias plus diagonal per-axis counts/g using full 3D gravity magnitude; rough +/-Z,+/-Y,+/-X poses, followed by independent tilted validation poses. Do not assume approximate poses are exact axis vectors. Check rank/conditioning, positive scales and held-out residuals. Cross-axis coupling and full mounting rotation are outside this model.",
+  "pose_manifest": [
+    "z-positive-02/pose.json",
+    "z-negative-03/pose.json",
+    "y-positive-01/pose.json",
+    "y-negative-01/pose.json",
+    "x-positive-01/pose.json",
+    "x-negative-01/pose.json"
+  ],
+  "next_requested_pose": "No further movement needed for completed reference checks. Candidate bias/diagonal-scale fit and independent tilted validation remain pending.",
+  "rejected_pose_attempts": [
+    "z-negative-01/pose.json"
+  ],
+  "rejected_pose_attempt_sha256": {
+    "z-negative-01/pose.json": "225083be9b3f273d95adeef921b297b231fc174e9548c4aee72f2ad1917502ad"
+  },
+  "diagnostic_attempts": [
+    "diagnostics/after-current-injection-01/summary.json",
+    "diagnostics/after-powercycle-01/summary.json",
+    "diagnostics/enable-after-wake-01/summary.json",
+    "diagnostics/fresh-boot-01/summary.json",
+    "diagnostics/route-int2-01/summary.json",
+    "diagnostics/route-int2-after-powercycle/summary.json",
+    "interrupt-recheck-01/summary.json",
+    "diagnostics/int2-wired-01/diagnosis.json",
+    "diagnostics/noisy-power-off-01/diagnosis.json",
+    "diagnostics/int2-weak-pullup-01/diagnosis.json",
+    "diagnostics/static-fifo-01/analysis.json"
+  ],
+  "current_logger_routing": {
+    "INT_ENABLE": "0x00",
+    "INT_MAP": "0x80",
+    "logical_data_ready_output": "disabled in static FIFO profile",
+    "Teensy_input_pin": 2,
+    "physical_wire_user_reported": "INT2 to Teensy pin2; user confirmed powered and steady",
+    "last_upload_record": "diagnostics/static-fifo-01-flash.json",
+    "acquisition_profile": "teensylc_static_fifo; FIFO_CTL0x80; sample pop times unqualified for precise timing",
+    "flash_hex_sha256": "50e53c5e83c096ab3a6234fa97505424d93d733c43b2fad40a1f6f8fe255d3e0"
+  },
+  "user_reported_electrical_measurements": {
+    "sensor_rail_V": 3.294,
+    "breakout_VIN_V": 5.0,
+    "INT1_DC_V": 0,
+    "INT1_high_impedance_test": {
+      "current_limit_uA": 10,
+      "voltage_compliance_V": 3.5,
+      "reached_compliance": true
+    },
+    "INT1_pad_to_Teensy_pin2_ohm": 0,
+    "INT2_average_DC_V_with_INT_MAP80": 2.4,
+    "injection_disconnected": true,
+    "common_ground_and_signal_resistance_ohm_less_than": 0.1,
+    "nearby_power_electronics": "disconnected/powered down",
+    "oscilloscope_available": false
+  },
+  "provisional_pose_attempts": [
+    "z-negative-02/pose.json"
+  ],
+  "calibration_cohort_note": "Original z-axis-01 reference is historical and excluded from current fit due persistent raw offset shift. No offsets, gains or angle calibration fitted.",
+  "historical_pose_manifest": [
+    "z-axis-01/pose.json"
+  ],
+  "historical_pose_manifest_sha256": "b1146d37b6f0c9188d086e821878c814a29c9e36af324051cc78ce28af12e052",
+  "pose_file_sha256": {
+    "z-positive-02/pose.json": "14d9f1af2bd07837b70999402b4d06dbdf8a2fc5763f69b12f2de5482319486a",
+    "z-negative-03/pose.json": "d1e9001c7b942f402bc0ca9d1bcfc65a5b7e78640ab64490949879384f50cbe8",
+    "y-positive-01/pose.json": "d1a0088138cc9233d4017c81b14374e0a325b848ab2e62f26478fce3de6c0cb2",
+    "y-negative-01/pose.json": "cf011bf94205a69ee341d2e4200f61b1b5ee728911b366b3e5d8c8e5252443a6",
+    "x-positive-01/pose.json": "2feca227d74698bab8c37d2d845a4594bf9d638ed861d27e85a365b87aad99be",
+    "x-negative-01/pose.json": "e90425323d3d7b27ea34660a69506de10f95a5240afbdf824eefe47669bd5c82"
+  },
+  "current_calibration_cohort": "final-wiring-static-fifo",
+  "user_reported_mounting": {
+    "method": "Double-sided adhesive; board peeled from surfaces between steady poses",
+    "potential_stress": "User suspects peeling force may have flexed PCB and caused offset shift",
+    "current_state": "Adhesive has weakened; user expects lower peeling force",
+    "cause_confirmed": false
+  },
+  "repeatability_plan": "Repeat accurately level +Z after remaining calibration poses, and verify again in final basket mounting; do not assume changing mechanical stress leaves bias fixed.",
+  "six_principal_axis_captures_complete": true,
+  "reference_repeat_pose_manifest": [
+    "z-positive-repeat-01/pose.json",
+    "z-positive-unmoved-01/pose.json"
+  ],
+  "reference_repeat_pose_sha256": {
+    "z-positive-repeat-01/pose.json": "bf589a39bcf1a5d67e1f16e2eb395d482806d0ce0ad77552151588219ccda8e8",
+    "z-positive-unmoved-01/pose.json": "2f32500334584881c783c49edd73adcc5fcc7030326967cc3bdf24b43662b8ae"
+  }
+}

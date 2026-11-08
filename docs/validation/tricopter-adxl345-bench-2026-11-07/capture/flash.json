@@ -1,0 +1,32 @@
+{
+  "started_utc": "2026-11-07T20:22:14.832105+00:00",
+  "finished_utc": "2026-11-07T20:22:17.507938+00:00",
+  "device": "/dev/ttyACM0",
+  "usb_serial": "12696530",
+  "board_identified_by_pjrc_ports": "Teensy LC",
+  "command": [
+    "/home/alex/.platformio/penv/bin/platformio",
+    "run",
+    "-d",
+    "tools/tricopter/adxl345_logger",
+    "-e",
+    "teensylc",
+    "-t",
+    "upload"
+  ],
+  "hex_file": "tools/tricopter/adxl345_logger/.pio/build/teensylc/firmware.hex",
+  "hex_sha256": "34944f42496afdd7c5cd800b39bab1e5f541de972f9eade92638c7011c8e170d",
+  "returncode": 0,
+  "success": true,
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/test_capture.py": "6e4e0769b9a1dfe7fa9c4d8c3dd318d2011ae551f5600ce6f2735f93e14adedf",
+    "tools/tricopter/adxl345_logger/README.md": "ae6204df743f6fe27c3597cc5dd49ac8f846547f5ed7898648c041a149e63468",
+    "tools/tricopter/adxl345_logger/.gitignore": "f7bbe02ae38bfdcf6b9a362916854c02818d1d5d71d995bfdc4835036db4f099",
+    "tools/tricopter/adxl345_logger/requirements.txt": "95fdad543f34e4a191cd17219e1a73b4ab4b0b5ad9806a25c3b49e7b48ab8ca0",
+    "tools/tricopter/adxl345_logger/capture.py": "5937e3b97c3b78f63fe15af302dad1e9880d5a56d1855cf2d122fb1993315972",
+    "tools/tricopter/adxl345_logger/test_protocol.py": "b9a0ab4f1c799d98e22cf278f73a516d3d9e33f0ee7e3e5926b3f7c67b5c4223",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "89e09b9af60146535386512bd658b221dfe341b142c96aa0887517af1fa111a3",
+    "tools/tricopter/adxl345_logger/src/main.cpp": "a25b6194d1ce11a08e888276d459a24492161f605652d22a738c12ca88e3d552"
+  }
+}

@@ -33,9 +33,18 @@ static double inverseCounts(const tricopterServoModelParams_t *s, double counts)
     }
     return s->pwmUs[s->knotCount - 1];
 }
+static bool directionCounts(const tricopterDynamicAllocatorModel_t *m, float *a, float *b)
+{
+    *a = m->correctedCountsAtDirectionMin; *b = m->correctedCountsAtDirectionMax;
+    if (!m->measuredAngleConfigured) return true;
+    return tricopterAngleCalibrationInverse(&m->measuredAngle, m->allocator.tailDirectionMinRad, a)
+        && tricopterAngleCalibrationInverse(&m->measuredAngle, m->allocator.tailDirectionMaxRad, b);
+}
 static bool pwmBounds(const tricopterDynamicAllocatorModel_t *m, const tricopterServoModelParams_t *s, float *lower, float *upper)
 {
-    const double a = inverseCounts(s, m->correctedCountsAtDirectionMin), b = inverseCounts(s, m->correctedCountsAtDirectionMax);
+    float ca, cb;
+    if (!directionCounts(m, &ca, &cb)) return false;
+    const double a = inverseCounts(s, ca), b = inverseCounts(s, cb);
     const double lo = fmin(a,b), hi = fmax(a,b);
     *lower = (float)lo; *upper = (float)hi;
     if (*lower < lo) *lower = nextafterf(*lower, INFINITY);
@@ -47,9 +56,9 @@ bool tricopterDynamicAllocatorValidateParams(const tricopterDynamicAllocatorMode
     const tricopterDynamicAllocatorParams_t *p, const tricopterServoModelParams_t *s)
 {
     if (!m || !p || !s || !tricopterAllocatorVirtualValidateParams(&m->allocator) || !tricopterServoModelValidateParams(s)
-        || !finiteFloat(m->correctedCountsAtDirectionMin) || !finiteFloat(m->correctedCountsAtDirectionMax)
-        || fabsf(m->correctedCountsAtDirectionMin) > 4095 || fabsf(m->correctedCountsAtDirectionMax) > 4095
-        || fabsf(m->correctedCountsAtDirectionMax - m->correctedCountsAtDirectionMin) < 1
+        || (!m->measuredAngleConfigured && (!finiteFloat(m->correctedCountsAtDirectionMin) || !finiteFloat(m->correctedCountsAtDirectionMax)
+            || fabsf(m->correctedCountsAtDirectionMin) > 4095 || fabsf(m->correctedCountsAtDirectionMax) > 4095
+            || fabsf(m->correctedCountsAtDirectionMax - m->correctedCountsAtDirectionMin) < 1))
         || m->allocator.tailDirectionMinRad >= m->allocator.tailDirectionMaxRad
         || !p->horizonUs || p->horizonUs > 1000000 || p->horizonUs <= s->delayUs
         || ((uint64_t)p->horizonUs + s->maxGapUs - 1) / s->maxGapUs > TRICOPTER_DYNAMIC_ALLOCATOR_MAX_SERVO_STEPS
@@ -59,8 +68,8 @@ bool tricopterDynamicAllocatorValidateParams(const tricopterDynamicAllocatorMode
         || !toleranceValid(p->highCostTolerance) || !toleranceValid(p->yawCostTolerance) || !toleranceValid(p->movementCostTolerance)) return false;
     const double first = s->positionCounts[0], last = s->positionCounts[s->knotCount - 1];
     const double lo = fmin(first,last), hi = fmax(first,last);
-    if (m->correctedCountsAtDirectionMin < lo || m->correctedCountsAtDirectionMin > hi
-        || m->correctedCountsAtDirectionMax < lo || m->correctedCountsAtDirectionMax > hi) return false;
+    float ca, cb;
+    if (!directionCounts(m, &ca, &cb) || ca < lo || ca > hi || cb < lo || cb > hi) return false;
     float pwmLo, pwmHi;
     if (!pwmBounds(m,s,&pwmLo,&pwmHi)) return false;
     const double rounding = 4 * FLT_EPSILON * fmax(1, pwmHi);
@@ -192,7 +201,7 @@ static bool servoStateValid(const tricopterServoModelState_t *s, uint64_t now)
 }
 
 static bool predictDirection(const tricopterDynamicAllocatorModel_t *m, const tricopterDynamicAllocatorParams_t *p,
-    const tricopterServoModelState_t *current, uint64_t now, float pwm, float *counts, float *direction)
+    const tricopterServoModelState_t *current, uint64_t now, float pwm, float *counts, float *direction, float *envelope)
 {
     tricopterServoModelState_t copy = *current;
     tricopterServoModelOutput_t out = tricopterServoModelStep(&copy, now, pwm);
@@ -202,6 +211,12 @@ static bool predictDirection(const tricopterDynamicAllocatorModel_t *m, const tr
         out = tricopterServoModelStep(&copy, copy.timeUs + step, pwm);
     }
     if (!out.valid) return false;
+    if (m->measuredAngleConfigured) {
+        const tricopterAngleCalibrationOutput_t angle = tricopterAngleCalibrationEvaluate(&m->measuredAngle, out.positionCounts);
+        if (!angle.valid || angle.angleRad < m->allocator.tailDirectionMinRad || angle.angleRad > m->allocator.tailDirectionMaxRad) return false;
+        *counts = out.positionCounts; *direction = angle.angleRad; *envelope = angle.halfBranchSeparationRad;
+        return true;
+    }
     const double fraction = ((double)out.positionCounts - m->correctedCountsAtDirectionMin)
         / ((double)m->correctedCountsAtDirectionMax - m->correctedCountsAtDirectionMin);
     if (fraction < 0 || fraction > 1) return false;
@@ -293,9 +308,10 @@ tricopterDynamicAllocatorOutput_t tricopterDynamicAllocatorAllocate(
         bool duplicate = false; for (unsigned k = 0; k < out.candidateCount; ++k) if (out.candidates[k].pwmUs == pwm) duplicate = true;
         if (duplicate) continue;
         tricopterDynamicAllocatorCandidate_t *candidate = &out.candidates[out.candidateCount++]; candidate->pwmUs = pwm;
-        if (!predictDirection(m,p,servo,input->nowUs,pwm,&candidate->horizonCorrectedCounts,&candidate->horizonDirectionRad)) {
+        if (!predictDirection(m,p,servo,input->nowUs,pwm,&candidate->horizonCorrectedCounts,&candidate->horizonDirectionRad,&candidate->angleHalfBranchSeparationRad)) {
             candidate->status = TRICOPTER_DYNAMIC_ALLOCATOR_SERVO_PREDICTION_UNAVAILABLE; out.status |= candidate->status; continue;
         }
+        candidate->measuredAngleAvailable = m->measuredAngleConfigured;
         evaluateCandidate(m,p,input,lower,upper,commandMax,(double)out.maximumPwmUs - out.minimumPwmUs,candidate);
         out.status |= candidate->status;
         if (candidate->valid) ++out.validCandidateCount;

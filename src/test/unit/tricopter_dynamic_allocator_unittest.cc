@@ -284,3 +284,38 @@ TEST(TricopterDynamicAllocator, ParameterAndInputNonfiniteGuardsSurviveFastMath)
         expectUnavailable(tricopterDynamicAllocatorAllocate(&m,&p,&s,&in));
     }
 }
+
+static void measuredMap(tricopterDynamicAllocatorModel_t *m)
+{
+    m->measuredAngleConfigured=true; auto &a=m->measuredAngle; a.knotCount=3; a.operatorDefinedReference=true;
+    a.correctedCounts[0]=1000; a.correctedCounts[1]=1500; a.correctedCounts[2]=2000;
+    a.angleRad[0]=.6f; a.angleRad[1]=.2f; a.angleRad[2]=-.6f;
+    a.halfBranchSeparationRad[0]=.01f; a.halfBranchSeparationRad[1]=.03f; a.halfBranchSeparationRad[2]=.02f;
+}
+TEST(TricopterDynamicAllocator, MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority)
+{
+    auto m=model(); measuredMap(&m); const auto p=parameters(); const auto s=servoState(); auto in=input();
+    in.requestedResponse[0]=14; in.requestedResponse[3]=100;
+    const auto out=tricopterDynamicAllocatorAllocate(&m,&p,&s,&in); expectValid(out);
+    bool differs=false;
+    for(const auto &c : out.candidates) if(c.valid) {
+        const auto a=tricopterAngleCalibrationEvaluate(&m.measuredAngle,c.horizonCorrectedCounts);
+        EXPECT_TRUE(c.measuredAngleAvailable); EXPECT_EQ(c.horizonDirectionRad,a.angleRad);
+        EXPECT_EQ(c.angleHalfBranchSeparationRad,a.halfBranchSeparationRad);
+        const float old=.6f-(c.horizonCorrectedCounts-1000)*1.2f/1000;
+        if(fabs(old-c.horizonDirectionRad)>.01)differs=true;
+        EXPECT_LE(out.minimumHighCost,c.highCost);
+    }
+    EXPECT_TRUE(differs); EXPECT_LE(out.selected.highCost,out.minimumHighCost+p.highCostTolerance);
+}
+TEST(TricopterDynamicAllocator, MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds)
+{
+    auto m=model(); measuredMap(&m); auto p=parameters(); const auto s=servoState();
+    m.allocator.tailDirectionMaxRad=.7f;
+    EXPECT_FALSE(tricopterDynamicAllocatorValidateParams(&m,&p,&s.params));
+    m.allocator.tailDirectionMaxRad=.4f; m.allocator.tailDirectionMinRad=-.2f;
+    p.gridCount=0;
+    ASSERT_TRUE(tricopterDynamicAllocatorValidateParams(&m,&p,&s.params));
+    const auto in=input(); const auto out=tricopterDynamicAllocatorAllocate(&m,&p,&s,&in); expectValid(out);
+    EXPECT_NEAR(out.minimumPwmUs,1250,1e-3); EXPECT_NEAR(out.maximumPwmUs,1550,1e-3);
+}

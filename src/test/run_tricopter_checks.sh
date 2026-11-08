@@ -10,6 +10,7 @@ if [[ -n "${CXX:-}" ]]; then compiler_args+=("CXX=$CXX"); fi
 make -j"${TRICOPTER_TEST_JOBS:-4}" "${compiler_args[@]}" \
     test_dshot_telemetry_unittest test_tricopter_diagnostics_unittest \
     test_tricopter_servo_model_unittest \
+    test_tricopter_angle_calibration_unittest \
     test_tricopter_rpm_observer_unittest \
     test_tricopter_reaction_torque_unittest \
     test_tricopter_allocator_unittest \

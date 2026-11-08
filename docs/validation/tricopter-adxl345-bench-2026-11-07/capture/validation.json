@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "hardware_executed": true,
+  "board": "Teensy LC",
+  "usb_serial": "12696530",
+  "sensor": "ADXL345",
+  "sensor_mount_user_reported": {
+    "X": "up",
+    "Y": "right side of drone",
+    "center": "roughly at basket pivot"
+  },
+  "FC_connected_to_PC": false,
+  "FC_or_actuators_accessed": false,
+  "offsets_fitted": false,
+  "angle_calibrated": false,
+  "source_base_commit": "92de378bdfeee4f051d52313b8745f9148b5e8c6",
+  "source_modified_from_base": true,
+  "source_sha256": {
+    "tools/tricopter/adxl345_logger/src/main.cpp": "1c433950e0be87764eb1c4d2cd234dbd78ba3933912130514c2d9cf3c0881768",
+    "tools/tricopter/adxl345_logger/include/logger_protocol.h": "f2814fec8cde5ef87d27c1fd5a96c99fd93a219460ff09f084b7564756084750",
+    "tools/tricopter/adxl345_logger/platformio.ini": "ba9f16d6a99df56a8fab5771bc0c7e975b084093ff1917eab61907cbea1b9f9e",
+    "tools/tricopter/adxl345_logger/capture.py": "5937e3b97c3b78f63fe15af302dad1e9880d5a56d1855cf2d122fb1993315972",
+    "tools/tricopter/adxl345_logger/test_protocol.py": "ff48909c149e70f89e7d6c1f19f59ca91cc5da2dfd2dcecd97f94591ac0ce0ff",
+    "tools/tricopter/adxl345_logger/test_capture.py": "6e4e0769b9a1dfe7fa9c4d8c3dd318d2011ae551f5600ce6f2735f93e14adedf"
+  },
+  "source_patch_sha256": "36be73b26599773090f870d0157f1fe31021bd1e889a408028cc3c719f4d56b5",
+  "deployed_hex_sha256": "a901ddc3336514cba128eefe5881d5e566f2ad276e334c27821a47d6b38e97c0",
+  "flash_upload_success": true,
+  "independent_flash_readback": false,
+  "host_tests_passed": 18,
+  "compiled_environments": [
+    "teensylc",
+    "teensy36",
+    "teensy40"
+  ],
+  "independent_review": "Code audit and independent raw re-decode/CSV/statistics checks passed. Periodic readback stalls are removed in the follow-up recording.",
+  "baseline_samples": 11493,
+  "baseline_qualified_samples": 11478,
+  "followup_samples": 23018,
+  "followup_qualified_samples": 23018,
+  "limitations": "One stationary pose. Unknown physical bias, sensitivity and mounting tilt; nominal g scaling only. Actual cadence is measured, not assumed equal to configured800Hz. Sensor internal/filter/ISR latency and electrical voltages were not independently measured. PWM capture untested with FC absent."
+}

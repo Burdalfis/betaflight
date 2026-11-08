@@ -11,6 +11,7 @@ constexpr size_t kFrameSize = 64;
 constexpr uint8_t kProtocolVersion = 1;
 constexpr uint8_t kSampleFrame = 1;
 constexpr uint8_t kStatusFrame = 2;
+constexpr uint8_t kDiagnosticFrame = 3;
 constexpr uint32_t kSamplePeriodUs = 1250; // 800 Hz.
 constexpr uint32_t kMaximumQualifiedLatencyUs = 625;
 constexpr uint32_t kPwmFreshnessUs = 100000;
@@ -23,6 +24,7 @@ enum Flag : uint16_t {
     ServiceGap = 1U << 4,
     PolledWithoutEdge = 1U << 5,
     UsbSessionStart = 1U << 6,
+    FifoCoherent = 1U << 7,
 };
 
 enum Fault : uint16_t {
@@ -31,6 +33,7 @@ enum Fault : uint16_t {
     ConfigReadbackMismatch = 2,
     NoSampleTimeout = 3,
     DrdyFallback = 4,
+    FifoDiscard = 5,
 };
 
 struct Fields {
@@ -115,6 +118,40 @@ struct MicrosClock {
     }
 };
 
+// Spread a periodic register audit over foreground iterations. Sampling can
+// defer a check without skipping that register or moving the next deadline.
+// The caller performs at most one hardware read after ready(), then calls
+// accept() only for a successful readback. Startup validation is separate.
+class PeriodicRegisterScan {
+public:
+    void restart(uint64_t nowUs, uint64_t intervalUs)
+    {
+        dueUs_ = nowUs + intervalUs;
+        index_ = 0;
+        active_ = false;
+    }
+
+    bool ready(uint64_t nowUs, bool samplePending)
+    {
+        if (samplePending) return false;
+        if (!active_ && nowUs >= dueUs_) active_ = true;
+        return active_;
+    }
+
+    uint8_t index() const { return index_; }
+
+    void accept(uint64_t nowUs, uint8_t registerCount, uint64_t intervalUs)
+    {
+        if (!active_) return;
+        if (++index_ >= registerCount) restart(nowUs, intervalUs);
+    }
+
+private:
+    uint64_t dueUs_ = 0;
+    uint8_t index_ = 0;
+    bool active_ = false;
+};
+
 // Expand a recent ISR timestamp after its snapshot and a current clock read.
 // A timestamp older than one micros() wrap cannot be reconstructed.
 inline uint64_t expandRecent(uint64_t nowUs, uint32_t capturedUs)
@@ -136,12 +173,38 @@ inline bool freshPwmAt(bool valid, uint32_t sequence, uint64_t timeUs,
         && timeUs - riseUs <= kPwmFreshnessUs;
 }
 
+// Active-high ADXL DATA_READY stays asserted until XYZ is read. A fresh GPIO
+// edge plus unread data alone cannot authenticate a foreign/noise edge.
 inline bool qualifiedTime(bool hasEdge, uint32_t edgeAgeUs,
-    bool overrun, bool edgeChangedDuringRead, uint64_t readDurationUs = 0)
+    bool overrun, bool edgeChangedDuringRead, uint64_t readDurationUs = 0,
+    bool pinAsserted = true)
 {
-    return hasEdge && edgeAgeUs <= kMaximumQualifiedLatencyUs
+    return hasEdge && pinAsserted && edgeAgeUs <= kMaximumQualifiedLatencyUs
         && readDurationUs <= kMaximumQualifiedLatencyUs - edgeAgeUs
         && !overrun && !edgeChangedDuringRead;
+}
+
+enum class FifoDecision : uint8_t { Empty, Read, Discard };
+
+inline FifoDecision fifoDecision(uint8_t depth, uint8_t source)
+{
+    // Reserve one slot: a full/overrun condition during XYZ read could be
+    // cleared by that same pop and disappear before a post-read check.
+    if (depth >= 31 || (source & 1U)) return FifoDecision::Discard;
+    return depth ? FifoDecision::Read : FifoDecision::Empty;
+}
+
+inline bool fifoOverrunEvidence(uint8_t depth, uint8_t source)
+{
+    return depth == 32 || (source & 1U);
+}
+
+inline bool fifoPopAccepted(uint8_t depthBefore, uint8_t sourceBefore,
+    uint8_t depthAfter, uint8_t sourceAfter, uint64_t observationToReadEndUs)
+{
+    return fifoDecision(depthBefore, sourceBefore) == FifoDecision::Read
+        && fifoDecision(depthAfter, sourceAfter) != FifoDecision::Discard
+        && observationToReadEndUs <= kSamplePeriodUs / 2;
 }
 
 } // namespace adxl_logger

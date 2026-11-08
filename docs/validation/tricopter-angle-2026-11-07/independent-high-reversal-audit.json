@@ -1,0 +1,47 @@
+{
+  "reviewer": "adxl_fit_independent",
+  "frozen_plan_exact_events": 29,
+  "CRC_valid_frames": 132058,
+  "coherent_samples": 131696,
+  "status_frames": 181,
+  "diagnostic_frames": 181,
+  "counters_constant": [
+    0,
+    0,
+    27
+  ],
+  "raw_csv_sequence_clock_and_quality_audit_pass": true,
+  "FC_rows": 2162,
+  "stale_FC_rows_retained": 3,
+  "all_FC_rows_exact_signed_PB0_minus_PC0": true,
+  "all_29_formal_window_statistics_independently_reproduced": true,
+  "original_96byte_servo_table_restored": true,
+  "original_fields": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "motor_outputs": [
+    1000,
+    1000,
+    1000
+  ],
+  "target1660_plateau15": {
+    "basket_roll_deg": 16.59556094,
+    "corrected_counts": 1328.28888889,
+    "norm_g": 0.98766841,
+    "quarter_raw_span_counts": [
+      0.67709,
+      1.08617,
+      0.94872
+    ],
+    "observed_PWM_median_us": 1657
+  },
+  "frozen_map_rms_deg": 0.5797220024,
+  "frozen_map_max_error_deg": 1.4736782336,
+  "original_failed61_remains_excluded": true,
+  "held_out_fit_updated": false
+}

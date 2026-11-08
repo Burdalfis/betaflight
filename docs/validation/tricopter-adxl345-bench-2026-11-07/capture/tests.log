@@ -1,0 +1,23 @@
+test_actual_firmware_encoder_is_decoded_with_exact_fields (test_capture.ArtifactTests.test_actual_firmware_encoder_is_decoded_with_exact_fields) ... ok
+test_cli_rejects_invalid_duration_and_input_overwrite (test_capture.ArtifactTests.test_cli_rejects_invalid_duration_and_input_overwrite) ... ok
+test_offline_decode_retains_every_byte_and_valid_row_with_hashes (test_capture.ArtifactTests.test_offline_decode_retains_every_byte_and_valid_row_with_hashes) ... ok
+test_read_failure_preserves_partial_capture_and_reports_failure (test_capture.ArtifactTests.test_read_failure_preserves_partial_capture_and_reports_failure) ... ok
+test_embedded_magic_in_payload_is_not_an_extra_record (test_capture.DecoderTests.test_embedded_magic_in_payload_is_not_an_extra_record) ... ok
+test_fragmentation_at_every_byte_preserves_signed_and_64_bit_fields (test_capture.DecoderTests.test_fragmentation_at_every_byte_preserves_signed_and_64_bit_fields) ... ok
+test_noise_crc_failure_and_chunk_boundary_resynchronize (test_capture.DecoderTests.test_noise_crc_failure_and_chunk_boundary_resynchronize) ... ok
+test_supported_framing_does_not_decode_unknown_version_or_type (test_capture.DecoderTests.test_supported_framing_does_not_decode_unknown_version_or_type) ... ok
+test_trailing_garbage_is_distinct_from_truncated_magic_prefix (test_capture.DecoderTests.test_trailing_garbage_is_distinct_from_truncated_magic_prefix) ... ok
+test_truncated_tail_is_reported_and_never_a_sample (test_capture.DecoderTests.test_truncated_tail_is_reported_and_never_a_sample) ... ok
+test_counters_are_not_summed_or_presented_as_exact_lost_samples (test_capture.TrackingTests.test_counters_are_not_summed_or_presented_as_exact_lost_samples) ... ok
+test_explicit_usb_session_separates_epochs_without_inventing_gap (test_capture.TrackingTests.test_explicit_usb_session_separates_epochs_without_inventing_gap) ... ok
+test_fault_rows_remain_visible_and_unknown_faults_are_retained (test_capture.TrackingTests.test_fault_rows_remain_visible_and_unknown_faults_are_retained) ... ok
+test_reset_and_clock_regression_are_separately_visible (test_capture.TrackingTests.test_reset_and_clock_regression_are_separately_visible) ... ok
+test_sequence_wrap_is_contiguous_and_forward_gap_counts_records (test_capture.TrackingTests.test_sequence_wrap_is_contiguous_and_forward_gap_counts_records) ... ok
+test_unqualified_time_and_stale_pwm_are_not_promoted_to_measurements (test_capture.TrackingTests.test_unqualified_time_and_stale_pwm_are_not_promoted_to_measurements) ... ok
+test_actual_cpp_timing_and_pwm_guards (test_protocol.TimingHelpers.test_actual_cpp_timing_and_pwm_guards) ... ok
+test_periodic_readback_yields_without_skipping_registers (test_protocol.TimingHelpers.test_periodic_readback_yields_without_skipping_registers) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.465s
+
+OK

@@ -1,0 +1,337 @@
+{
+  "input_sha256": {
+    "capture.bin": "a90ef9d3566e12fe005be39ef1f93bb8d6e57917c912600ca43b6055a73d26d0",
+    "records.csv": "fa21571083b7d61675bdd43efdca2e68b054bb3cd606a8fd647d76417fc57f3e",
+    "summary.json": "3a526ffa61fc2e7273da3b1d363665ae7eb8f7725245c897c5aa59d9806c1d77"
+  },
+  "analysis_sha256": "dcb8542de624fc55bec9a8954a3064495c4b4404f4183ae8522bd34aa1058dde",
+  "software": {
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.7+dfsg1"
+  },
+  "samples": 11493,
+  "status_rows": 15,
+  "qualified_samples": 11478,
+  "qualified_fraction": 0.9986948577394936,
+  "statistics_mask": "configured and qualified DRDY timestamp; all rows retained in raw/CSV",
+  "qualified_axis_counts": {
+    "x": {
+      "count": 11478,
+      "mean": 277.99843178254054,
+      "std_population": 1.516074403566602,
+      "min": 272.0,
+      "median": 278.0,
+      "p95": 280.0,
+      "p99": 281.0,
+      "max": 284.0
+    },
+    "y": {
+      "count": 11478,
+      "mean": 13.181390486147412,
+      "std_population": 1.539635629424158,
+      "min": 8.0,
+      "median": 13.0,
+      "p95": 16.0,
+      "p99": 17.0,
+      "max": 18.0
+    },
+    "z": {
+      "count": 11478,
+      "mean": -44.0027879421502,
+      "std_population": 2.0516911028252696,
+      "min": -54.0,
+      "median": -44.0,
+      "p95": -41.0,
+      "p99": -39.0,
+      "max": -36.0
+    }
+  },
+  "all_axis_counts": {
+    "x": {
+      "count": 11493,
+      "mean": 277.99912990515963,
+      "std_population": 1.5182978999278758,
+      "min": 272.0,
+      "median": 278.0,
+      "p95": 280.0,
+      "p99": 282.0,
+      "max": 284.0
+    },
+    "y": {
+      "count": 11493,
+      "mean": 13.182458888018793,
+      "std_population": 1.5424722746250579,
+      "min": 8.0,
+      "median": 13.0,
+      "p95": 16.0,
+      "p99": 17.0,
+      "max": 21.0
+    },
+    "z": {
+      "count": 11493,
+      "mean": -44.001740189680675,
+      "std_population": 2.0538297781696864,
+      "min": -54.0,
+      "median": -44.0,
+      "p95": -41.0,
+      "p99": -39.0,
+      "max": -36.0
+    }
+  },
+  "qualified_mean_nominal_g": [
+    1.085931374150549,
+    0.05148980658651333,
+    -0.17188589039902422
+  ],
+  "qualified_mean_vector_norm_nominal_g": 1.1006556722540803,
+  "qualified_sample_norm_nominal_g": {
+    "count": 11478,
+    "mean": 1.100701503276365,
+    "std_population": 0.005880741425999567,
+    "min": 1.0777003239682403,
+    "median": 1.1008142405453791,
+    "p95": 1.1100418880222775,
+    "p99": 1.1144867376853627,
+    "max": 1.125284794681162
+  },
+  "sample_span_mcu_us": 14984350,
+  "sample_span_host_ns": 14983996111,
+  "all_row_effective_rate_mcu_hz": 766.9335006189791,
+  "all_row_effective_rate_host_hz": 766.9516138998149,
+  "normal_qualified_adjacent_interval_us": {
+    "count": 11462,
+    "mean": 1303.5488570930029,
+    "std_population": 0.7452601360478014,
+    "min": 1253.0,
+    "median": 1304.0,
+    "p95": 1304.0,
+    "p99": 1305.0,
+    "max": 1307.0
+  },
+  "normal_qualified_cadence_hz": 767.1365707228372,
+  "all_read_start_latency_us": {
+    "count": 11493,
+    "mean": 15.42721656660576,
+    "std_population": 32.027106067693,
+    "min": 4.0,
+    "median": 14.0,
+    "p95": 23.0,
+    "p99": 23.0,
+    "max": 1196.0
+  },
+  "qualified_read_start_latency_us": {
+    "count": 11478,
+    "mean": 14.343526746820004,
+    "std_population": 7.377910700462427,
+    "min": 4.0,
+    "median": 14.0,
+    "p95": 23.0,
+    "p99": 23.0,
+    "max": 241.0
+  },
+  "status_register_tuples_devid_bw_format_fault": [
+    [
+      229,
+      13,
+      8,
+      0
+    ]
+  ],
+  "all_status_healthy": true,
+  "counter_snapshots": {
+    "sensor_overrun_events": {
+      "first": 3,
+      "last": 4,
+      "delta_modulo_uint32": 1
+    },
+    "service_gap_events": {
+      "first": 42,
+      "last": 57,
+      "delta_modulo_uint32": 15
+    },
+    "queue_dropped_frames": {
+      "first": 0,
+      "last": 0,
+      "delta_modulo_uint32": 0
+    }
+  },
+  "unqualified_times_us": [
+    64308705,
+    65308713,
+    66308720,
+    67308739,
+    68309226,
+    69309210,
+    70309210,
+    71309210,
+    72309211,
+    73309604,
+    74309584,
+    75309588,
+    76309592,
+    77310071,
+    78310050
+  ],
+  "unqualified_row_flags": [
+    {
+      "time_us": "64308705",
+      "read_latency_us": "913",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "65308713",
+      "read_latency_us": "941",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "66308720",
+      "read_latency_us": "1052",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "67308739",
+      "read_latency_us": "1196",
+      "sensor_overrun": "1",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "68309226",
+      "read_latency_us": "500",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "69309210",
+      "read_latency_us": "635",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "70309210",
+      "read_latency_us": "797",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "71309210",
+      "read_latency_us": "980",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "72309211",
+      "read_latency_us": "1177",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "73309604",
+      "read_latency_us": "498",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "74309584",
+      "read_latency_us": "694",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "75309588",
+      "read_latency_us": "912",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "76309592",
+      "read_latency_us": "1142",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "77310071",
+      "read_latency_us": "512",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    },
+    {
+      "time_us": "78310050",
+      "read_latency_us": "721",
+      "sensor_overrun": "0",
+      "service_gap": "1",
+      "poll_fallback": "0"
+    }
+  ],
+  "parser": {
+    "valid_frames": 11508,
+    "crc_errors": 0,
+    "unsupported_versions": 0,
+    "unsupported_types": 0,
+    "discarded_bytes": 0,
+    "truncated_tail_bytes": 1
+  },
+  "quality": {
+    "records": 11508,
+    "sample_rows": 11493,
+    "status_rows": 15,
+    "missing_record_sequences": 0,
+    "sequence_discontinuities": 0,
+    "timestamp_regressions": 0,
+    "usb_session_start_rows": 1,
+    "rows_with_unknown_flag_bits": 0,
+    "configured_sample_rows": 11493,
+    "qualified_sample_timestamps": 11478,
+    "fresh_pwm_sample_rows": 0,
+    "sensor_overrun_sample_rows": 1,
+    "service_gap_sample_rows": 15,
+    "poll_fallback_sample_rows": 0,
+    "status_fault_code_counts": {
+      "0": 15
+    },
+    "epochs": [
+      {
+        "epoch": 0,
+        "reason": "first_frame",
+        "first_record_seq": 0,
+        "first_time_us": 63945002,
+        "first_counters": {
+          "sensor_overrun_events": 3,
+          "service_gap_events": 42,
+          "queue_dropped_frames": 0
+        },
+        "records": 11508,
+        "last_record_seq": 11507,
+        "last_time_us": 78929721,
+        "last_counters": {
+          "sensor_overrun_events": 4,
+          "service_gap_events": 57,
+          "queue_dropped_frames": 0
+        }
+      }
+    ],
+    "loss_interpretation": "Sequence gaps are missing logger records; overrun/service-gap counters are events, not exact lost sensor sample counts. Counter snapshots are cumulative within an MCU boot, not summed across rows."
+  },
+  "unexpected_fresh_pwm_rows": 0,
+  "maximum_pwm_sequence": 0,
+  "angle_calibrated": false,
+  "offsets_fitted": false,
+  "interpretation": "Uncalibrated counts at nominal 256 counts/g. One stationary pose cannot separate bias, sensitivity and mounting tilt. The measured cadence is distinct from configured nominal 800 Hz. ISR/sample/filter latency and electrical rail integrity are not independently measured."
+}

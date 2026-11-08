@@ -95,6 +95,7 @@ typedef struct simulationReplayPolicy_s {
     tricopterSimulationOutput_t (*tick)(void *context, uint64_t nowUs,
         const tricopterSimulationInput_t *input);
     void (*record)(void *context, size_t row, const tricopterSimulationOutput_t *output);
+    const tricopterAngleCalibration_t *plantAngleMap; // Optional tools-only plant count conversion.
 } simulationReplayPolicy_t;
 
 int tricopterSimulationReplayWithPolicy(const double *controller, const double *plant, size_t count,

@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-08T00:38:03.372810+00:00",
+  "zero_definition": "Basket flat in airframe roll plane; operator-aligned PCB +X is up, frame level in roll; motor absent and ADXL mounted in its place",
+  "operator_alignment_reference": true,
+  "external_motor_shaft_vertical_verified": false,
+  "absolute_angle_accuracy_independently_proven": false,
+  "position_source": "fresh signed PB0-PC0 only",
+  "sign_convention": "Mechanical basket rotation about fitted +normal = negative gravity-vector phase; airframe yaw/lean sign unassigned",
+  "projection": {
+    "normal_sensor_axes": [
+      0.0017455312457723526,
+      -0.025252231920170204,
+      0.9996795876198133
+    ],
+    "projected_positive_x": [
+      0.9999984765591745,
+      4.407862699332695e-05,
+      -0.0017449746143167713
+    ],
+    "in_plane_quadrature": [
+      6.776263578034403e-21,
+      0.9996811105748296,
+      0.02525227039050985
+    ],
+    "formula": "-atan2(dot(g,cross(n,projected_X)),dot(g,projected_X)) in degrees; reject small perpendicular gravity",
+    "hinge_parallel_component_excluded_from_roll": true
+  },
+  "branches": {
+    "increasing_pwm": {
+      "bracket_plateau_ids": [
+        5,
+        6
+      ],
+      "bracket_command_us": [
+        1510,
+        1519
+      ],
+      "bracket_roll_deg": [
+        -1.0416998143029206,
+        0.16890020876240183
+      ],
+      "interpolated_command_us": 1517.7443401206845,
+      "interpolated_pb0_minus_pc0_counts": 1488.9986147274708,
+      "method": "linear interpolation between adjacent same-approach settled observations; no extrapolation"
+    },
+    "decreasing_pwm": {
+      "bracket_plateau_ids": [
+        12,
+        13
+      ],
+      "bracket_command_us": [
+        1510,
+        1504
+      ],
+      "bracket_roll_deg": [
+        0.42641956279286547,
+        -0.17539170905770307
+      ],
+      "interpolated_command_us": 1505.7486383249523,
+      "interpolated_pb0_minus_pc0_counts": 1492.0765919715623,
+      "method": "linear interpolation between adjacent same-approach settled observations; no extrapolation"
+    }
+  },
+  "points": [
+    {
+      "plateau_id": 0,
+      "command_us": 1420,
+      "approach": "initial",
+      "corrected_pb0_minus_pc0_counts": 1586.2631578947369,
+      "basket_roll_deg": -8.911954463779445,
+      "hinge_parallel_gravity_g": -0.010871569384038632,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 1,
+      "command_us": 1440,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1568.8947368421052,
+      "basket_roll_deg": -7.879033843492046,
+      "hinge_parallel_gravity_g": -0.011691065206728295,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 2,
+      "command_us": 1460,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1550.2,
+      "basket_roll_deg": -6.18095612705701,
+      "hinge_parallel_gravity_g": -0.01192646280324637,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 3,
+      "command_us": 1480,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1527.0555555555557,
+      "basket_roll_deg": -3.942388043389329,
+      "hinge_parallel_gravity_g": -0.012200431340224426,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 4,
+      "command_us": 1500,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1507.7777777777778,
+      "basket_roll_deg": -2.0919159524935234,
+      "hinge_parallel_gravity_g": -0.012923795656055512,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 5,
+      "command_us": 1510,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1497.1052631578948,
+      "basket_roll_deg": -1.0416998143029206,
+      "hinge_parallel_gravity_g": -0.012926686663413723,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 6,
+      "command_us": 1519,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1487.6842105263158,
+      "basket_roll_deg": 0.16890020876240183,
+      "hinge_parallel_gravity_g": -0.013122852983103365,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 7,
+      "command_us": 1525,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1480.111111111111,
+      "basket_roll_deg": 0.8615213875751517,
+      "hinge_parallel_gravity_g": -0.012516157560817674,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 8,
+      "command_us": 1545,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1454.842105263158,
+      "basket_roll_deg": 2.8642705495187086,
+      "hinge_parallel_gravity_g": -0.013262398129236895,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 9,
+      "command_us": 1560,
+      "approach": "increasing",
+      "corrected_pb0_minus_pc0_counts": 1442.7,
+      "basket_roll_deg": 4.522435547464887,
+      "hinge_parallel_gravity_g": -0.012569299604571071,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 10,
+      "command_us": 1540,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1453.421052631579,
+      "basket_roll_deg": 3.276407523526806,
+      "hinge_parallel_gravity_g": -0.012769770475422413,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 11,
+      "command_us": 1520,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1475.5263157894738,
+      "basket_roll_deg": 1.4633074501591934,
+      "hinge_parallel_gravity_g": -0.011124548127247403,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 12,
+      "command_us": 1510,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1485.7368421052631,
+      "basket_roll_deg": 0.42641956279286547,
+      "hinge_parallel_gravity_g": -0.013075221346128148,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 13,
+      "command_us": 1504,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1494.6842105263158,
+      "basket_roll_deg": -0.17539170905770307,
+      "hinge_parallel_gravity_g": -0.01042298766653869,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 14,
+      "command_us": 1495,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1504.0,
+      "basket_roll_deg": -1.0856822309918042,
+      "hinge_parallel_gravity_g": -0.0113854273090899,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 15,
+      "command_us": 1480,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1516.842105263158,
+      "basket_roll_deg": -2.3131326215553245,
+      "hinge_parallel_gravity_g": -0.009623907813159204,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 16,
+      "command_us": 1460,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1541.578947368421,
+      "basket_roll_deg": -4.26902910940041,
+      "hinge_parallel_gravity_g": -0.010648053564918734,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 17,
+      "command_us": 1440,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1561.7222222222222,
+      "basket_roll_deg": -6.42415246268411,
+      "hinge_parallel_gravity_g": -0.01063131660210122,
+      "settled_window_pass": true
+    },
+    {
+      "plateau_id": 18,
+      "command_us": 1420,
+      "approach": "decreasing",
+      "corrected_pb0_minus_pc0_counts": 1584.8947368421052,
+      "basket_roll_deg": -8.292873263949465,
+      "hinge_parallel_gravity_g": -0.00867192909392807,
+      "settled_window_pass": true
+    }
+  ],
+  "initial_final_same_command_roll_difference_deg": 0.6190811998299797,
+  "mean_hinge_parallel_gravity_g": -0.011703362175261568,
+  "apparent_hinge_inclination_deg": -0.6792016271270653,
+  "inclination_limitation": "Diagnostic apparent hinge tilt only; sensor mounting, cross-axis error and Z baseline drift limit interpretation as airframe pitch",
+  "configuration_restored_exact": true,
+  "flight_control_calibration_installed": false,
+  "provenance": {
+    "analysis_sha256": "c5a4a57f97cd8a2a6e2c2cf419cb57635e31feedfbc517aee18f0691d2d4d8b5",
+    "hinge_analysis_sha256": "c077607f17a9fbf8bd29b3de4007b294269a896eadc06a7ebbe7070fcae186c5",
+    "analysis_script_sha256": "f35b4d94347ab85465fb821fcf073c8eb1667a818c7edb1872e5f2c761d0bfa8",
+    "mounting_reference": "Latest operator clarification in this chat"
+  }
+}

@@ -1,0 +1,618 @@
+{
+  "compile_only_arm": true,
+  "hardware_executed": false,
+  "commands": [
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_angle_calibration.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_dynamic_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_simulation.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_servo_model.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_servo_model.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_rpm_observer.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_rpm_observer.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_reaction_torque.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_reaction_torque.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_angle_calibration_unittest/tricopter_angle_calibration_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 5 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 5 tests from TricopterAngleCalibration\n[ RUN      ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope\n[       OK ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope (0 ms)\n[ RUN      ] TricopterAngleCalibration.EndpointsAndInverseBothSigns\n[       OK ] TricopterAngleCalibration.EndpointsAndInverseBothSigns (0 ms)\n[ RUN      ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse\n[       OK ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse (0 ms)\n[ RUN      ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail\n[       OK ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail (0 ms)\n[ RUN      ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches\n[       OK ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches (0 ms)\n[----------] 5 tests from TricopterAngleCalibration (0 ms total)\n\n[----------] Global test environment tear-down\n[==========] 5 tests from 1 test suite ran. (0 ms total)\n[  PASSED  ] 5 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_dynamic_allocator_unittest/tricopter_dynamic_allocator_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 16 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 16 tests from TricopterDynamicAllocator\n[ RUN      ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon\n[       OK ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup\n[       OK ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup (0 ms)\n[ RUN      ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering\n[       OK ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands\n[       OK ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor\n[       OK ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm\n[       OK ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm (0 ms)\n[ RUN      ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite\n[       OK ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap\n[       OK ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets\n[       OK ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval\n[       OK ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions\n[       OK ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit\n[       OK ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed\n[       OK ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed (0 ms)\n[ RUN      ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath\n[       OK ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority\n[       OK ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds\n[       OK ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds (0 ms)\n[----------] 16 tests from TricopterDynamicAllocator (1 ms total)\n\n[----------] Global test environment tear-down\n[==========] 16 tests from 1 test suite ran. (1 ms total)\n[  PASSED  ] 16 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/strict-tricopter_simulation.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 20 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 20 tests from TricopterSimulation\n[ RUN      ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired\n[       OK ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired (0 ms)\n[ RUN      ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct\n[       OK ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct (0 ms)\n[ RUN      ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay\n[       OK ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay (0 ms)\n[ RUN      ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction\n[       OK ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction (0 ms)\n[ RUN      ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap\n[       OK ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap (0 ms)\n[ RUN      ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration\n[       OK ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration (0 ms)\n[ RUN      ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand\n[       OK ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand (0 ms)\n[ RUN      ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw\n[       OK ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw (0 ms)\n[ RUN      ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand\n[       OK ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand (0 ms)\n[ RUN      ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits\n[       OK ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits (0 ms)\n[ RUN      ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions\n[       OK ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions (0 ms)\n[ RUN      ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse\n[       OK ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse (0 ms)\n[ RUN      ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair\n[       OK ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair (0 ms)\n[ RUN      ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset\n[       OK ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset (0 ms)\n[ RUN      ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath\n[       OK ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath (0 ms)\n[ RUN      ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture\n[       OK ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture (0 ms)\n[ RUN      ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim\n[       OK ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim (0 ms)\n[ RUN      ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode\n[       OK ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode (1 ms)\n[ RUN      ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration\n[       OK ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration (0 ms)\n[ RUN      ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap\n[       OK ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap (0 ms)\n[----------] 20 tests from TricopterSimulation (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 20 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 20 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_angle_calibration.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_dynamic_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_simulation.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_servo_model.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_servo_model.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_rpm_observer.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_rpm_observer.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_reaction_torque.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_reaction_torque.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-ffast-math",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_angle_calibration_unittest/tricopter_angle_calibration_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 5 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 5 tests from TricopterAngleCalibration\n[ RUN      ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope\n[       OK ] TricopterAngleCalibration.IndependentPiecewiseValuesAndEnvelope (0 ms)\n[ RUN      ] TricopterAngleCalibration.EndpointsAndInverseBothSigns\n[       OK ] TricopterAngleCalibration.EndpointsAndInverseBothSigns (0 ms)\n[ RUN      ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse\n[       OK ] TricopterAngleCalibration.UnsupportedCountsAndAnglesNeverExtrapolateOrMutateInverse (0 ms)\n[ RUN      ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail\n[       OK ] TricopterAngleCalibration.MalformedAndUnreferencedMapsFail (0 ms)\n[ RUN      ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches\n[       OK ] TricopterAngleCalibration.DirectionChangesDoNotSwitchOrJumpMajorBranches (0 ms)\n[----------] 5 tests from TricopterAngleCalibration (0 ms total)\n\n[----------] Global test environment tear-down\n[==========] 5 tests from 1 test suite ran. (0 ms total)\n[  PASSED  ] 5 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_dynamic_allocator_unittest/tricopter_dynamic_allocator_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 16 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 16 tests from TricopterDynamicAllocator\n[ RUN      ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon\n[       OK ] TricopterDynamicAllocator.PredictsServoAndMotorReachabilityAtDeclaredHorizon (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup\n[       OK ] TricopterDynamicAllocator.HugeYawDemandCannotBuyWorseCollectiveRollPitchGroup (0 ms)\n[ RUN      ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering\n[       OK ] TricopterDynamicAllocator.GlobalToleranceBandsDoNotDriftWithCandidateOrdering (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands\n[       OK ] TricopterDynamicAllocator.CostsAreForwardEvaluatedFromPublishedRpmCommands (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor\n[       OK ] TricopterDynamicAllocator.CopiesPendingServoHistoryWithoutMutatingLivePredictor (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm\n[       OK ] TricopterDynamicAllocator.SlewBoundedReachableIntervalsUseActualCurrentRpm (0 ms)\n[ RUN      ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite\n[       OK ] TricopterDynamicAllocator.DegenerateReachableIntervalAndZeroStateStayFinite (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap\n[       OK ] TricopterDynamicAllocator.RankDeficientHighGroupIsSkippedDespiteFullRankVirtualMap (0 ms)\n[ RUN      ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets\n[       OK ] TricopterDynamicAllocator.CurrentMotorQualityNeverComesFromCommandTargets (0 ms)\n[ RUN      ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval\n[       OK ] TricopterDynamicAllocator.RestrictsTargetsToInverseCountDirectionPwmInterval (0 ms)\n[ RUN      ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions\n[       OK ] TricopterDynamicAllocator.SignedCorrectedCountMappingPreservesPredictions (0 ms)\n[ RUN      ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit\n[       OK ] TricopterDynamicAllocator.HorizonAndNoObservableDirectionAuthorityAreExplicit (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed\n[       OK ] TricopterDynamicAllocator.MalformedPredictorHistoryAndTimeCannotBeIndexed (0 ms)\n[ RUN      ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath\n[       OK ] TricopterDynamicAllocator.ParameterAndInputNonfiniteGuardsSurviveFastMath (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority\n[       OK ] TricopterDynamicAllocator.MeasuredMapForecastsUseNonlinearCountsConversionAndPreservePriority (0 ms)\n[ RUN      ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds\n[       OK ] TricopterDynamicAllocator.MeasuredMapRejectsUnsupportedLimitsAndRestrictsPwmBounds (0 ms)\n[----------] 16 tests from TricopterDynamicAllocator (1 ms total)\n\n[----------] Global test environment tear-down\n[==========] 16 tests from 1 test suite ran. (1 ms total)\n[  PASSED  ] 16 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "--coverage",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_angle_calibration.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_dynamic_allocator.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_servo_model.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_rpm_observer.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_reaction_torque.o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_allocator.o",
+        "/home/alex/betaflight/obj/test/tricopter_simulation_unittest/tricopter_simulation_unittest.o",
+        "/home/alex/betaflight/obj/test/gtest_main.a",
+        "-pthread",
+        "-lm",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation_unittest"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation_unittest",
+        "--gtest_output=xml:/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/fast-math-tricopter_simulation.xml"
+      ],
+      "returncode": 0,
+      "stdout": "Running main() from ../../lib/test/gtest/src/gtest_main.cc\n[==========] Running 20 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 20 tests from TricopterSimulation\n[ RUN      ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired\n[       OK ] TricopterSimulation.ExplicitSyntheticMapAndInitialCorrectedPositionAreRequired (0 ms)\n[ RUN      ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct\n[       OK ] TricopterSimulation.CommandedTargetsAndCurrentRpmPredictionStayDistinct (0 ms)\n[ RUN      ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay\n[       OK ] TricopterSimulation.FirstMotionPredictionUsesPreviousCommandAndDeclaredDelay (0 ms)\n[ RUN      ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction\n[       OK ] TricopterSimulation.NewRequestCannotRetroactivelyChangeCapturedPrediction (0 ms)\n[ RUN      ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap\n[       OK ] TricopterSimulation.AccelerationRequiresFreshDistinctPairAfterEveryStaleGap (0 ms)\n[ RUN      ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration\n[       OK ] TricopterSimulation.CoalescedTimeAndLongReacquisitionCannotInventKnownZeroAcceleration (0 ms)\n[ RUN      ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand\n[       OK ] TricopterSimulation.ReactionModeSubtractsExactlyOneBoundedScalarAndBaselineLeavesDemand (0 ms)\n[ RUN      ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw\n[       OK ] TricopterSimulation.VirtualVerticalCoordinationPreservesThatCoordinateNotInstantYaw (0 ms)\n[ RUN      ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand\n[       OK ] TricopterSimulation.PublishedReactionCorrectionCannotExceedBoundAtLargeDemand (0 ms)\n[ RUN      ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits\n[       OK ] TricopterSimulation.CosineAndEffortGuardsExposeCoordinationLimits (0 ms)\n[ RUN      ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions\n[       OK ] TricopterSimulation.OutboundCurrentEffortAndRejectedPacketsDoNotBecomeClippedPredictions (0 ms)\n[ RUN      ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse\n[       OK ] TricopterSimulation.SyntheticCountMappingSupportsSignedCountsAndPiecewisePwmInverse (0 ms)\n[ RUN      ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair\n[       OK ] TricopterSimulation.ClockAndSequenceWrapPreserveCausalFreshPair (0 ms)\n[ RUN      ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset\n[       OK ] TricopterSimulation.InvalidInputAndClockLatchUntilExplicitReset (0 ms)\n[ RUN      ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath\n[       OK ] TricopterSimulation.InvalidMappingAndNumericParametersRejectWithFastMath (0 ms)\n[ RUN      ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture\n[       OK ] TricopterSimulation.DynamicModePublishesChosenCommandsWithoutAdvancingLiveServoToFuture (0 ms)\n[ RUN      ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim\n[       OK ] TricopterSimulation.DynamicUnavailableStateFallsBackExplicitlyWithoutPriorityClaim (0 ms)\n[ RUN      ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode\n[       OK ] TricopterSimulation.ConfiguredDynamicModuleDoesNotChangeAnyExistingMode (1 ms)\n[ RUN      ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration\n[       OK ] TricopterSimulation.MeasuredMapConvertsCurrentPredictionAndInverseGoalWithoutClaimingFlightCalibration (0 ms)\n[ RUN      ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap\n[       OK ] TricopterSimulation.MeasuredMapCoverageIsRequiredAndDefaultIgnoresUnusedMap (0 ms)\n[----------] 20 tests from TricopterSimulation (2 ms total)\n\n[----------] Global test environment tear-down\n[==========] 20 tests from 1 test suite ran. (2 ms total)\n[  PASSED  ] 20 tests.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_angle_calibration.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_angle_calibration.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_dynamic_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_dynamic_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_simulation.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_simulation.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_servo_model.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_servo_model.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_rpm_observer.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_rpm_observer.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_reaction_torque.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_reaction_torque.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/alex/betaflight/tools/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "-std=c11",
+        "-O3",
+        "-ffast-math",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Isrc/main",
+        "-c",
+        "/home/alex/betaflight/src/main/flight/tricopter_allocator.c",
+        "-o",
+        "/home/alex/betaflight/.local-artifacts/tricopter/adxl345-calibration-2026-11-07/measured-angle-core-checks/arm-tricopter_allocator.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "src/main/flight/tricopter_angle_calibration.c": "b1da5d7fc81a4e9c6f23bae25aa549d20652655b7c9c3824993388ab513d964b",
+    "src/main/flight/tricopter_angle_calibration.h": "a186104eb9765a3357839c47417582ae2a134bdf5078f212c8244f01f4bf899b",
+    "src/main/flight/tricopter_dynamic_allocator.c": "d6b679b772ad763b566021cf06b2960ff9b4d948ff00382099750ffdfae1de2e",
+    "src/main/flight/tricopter_dynamic_allocator.h": "00dec27727661d91ff6bab84885bac7cacb946e9a34f759e198b6aca415843bd",
+    "src/main/flight/tricopter_simulation.c": "bae4b63b1ddb17767afdd9472385101ac6a3776fe0795e3afd41e8135ba97e8c",
+    "src/main/flight/tricopter_simulation.h": "ab52687a8b5a03f65a6a510798ccb90d0df9acc00ac1205a672e9afda867af63",
+    "src/main/flight/tricopter_servo_model.c": "2dfed735bcd1d271c2f55e9b5c5905dd3bcb053f55d32b9f284d78f1c1e6d979",
+    "src/main/flight/tricopter_servo_model.h": "9cb3dca2f04432673d351e3902d665c712ddd1e5a53281d817b53b7fbf6f8911",
+    "src/main/flight/tricopter_rpm_observer.c": "91f5d9dcb8284fbf47aa3f1929003d11b83ee52c29cef0cc0bd0c018be3f8bd1",
+    "src/main/flight/tricopter_rpm_observer.h": "f55fdf31f8165e9def533eb7c1a6754410d0b3fbd37b392f82dd50eac97f6e0f",
+    "src/main/flight/tricopter_reaction_torque.c": "17f118b19076075ad4247dd6fa8eb357664138459ab9dd415ede3013929b10cf",
+    "src/main/flight/tricopter_reaction_torque.h": "d0f64ba44f9be83e6dcd40a2d13559dec518e96e15839d7c1e30cc9d801723c0",
+    "src/main/flight/tricopter_allocator.c": "3745ea2e27aa2ae3eb01aa0489c4ea701f1a0b25c5bc9c61033b068665d12f77",
+    "src/main/flight/tricopter_allocator.h": "835afd95089621185257d3a8a147a8861945c49f6ea5fed81654ae5290093e2a"
+  },
+  "sources_unchanged": true,
+  "strict_tests_passed": 41,
+  "fast_math_tests_passed": 41,
+  "arm_modules_compiled": 7
+}

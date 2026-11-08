@@ -1,0 +1,1283 @@
+{
+  "schema_version": 1,
+  "kind": "tricopter_basket_measured_angle_mean_map",
+  "status": "offline measured settled map; not installed into flight control",
+  "source_position": "signed PB0-PC0 only",
+  "input_units": "ADC counts",
+  "angle_units": "radians",
+  "operator_defined_reference": true,
+  "motor_present_during_characterization": false,
+  "count_bounds": [
+    1295.7894736842106,
+    1924.7368421052631
+  ],
+  "angle_bounds_rad": [
+    -0.8125121699417601,
+    0.3484504482764905
+  ],
+  "knots": [
+    {
+      "corrected_counts": 1295.7894736842106,
+      "angle_rad": 0.3484504482764905,
+      "half_branch_separation_rad": 0.002368104558212486
+    },
+    {
+      "corrected_counts": 1302.8333333333333,
+      "angle_rad": 0.3345916555824352,
+      "half_branch_separation_rad": 0.002726709312256409
+    },
+    {
+      "corrected_counts": 1317.1052631578948,
+      "angle_rad": 0.30820942374759264,
+      "half_branch_separation_rad": 0.001755509293550811
+    },
+    {
+      "corrected_counts": 1326.95,
+      "angle_rad": 0.2918742856661747,
+      "half_branch_separation_rad": 0.002948829114560819
+    },
+    {
+      "corrected_counts": 1339.157894736842,
+      "angle_rad": 0.2732631624499634,
+      "half_branch_separation_rad": 0.0027834500827015607
+    },
+    {
+      "corrected_counts": 1350.0526315789473,
+      "angle_rad": 0.25507775908497343,
+      "half_branch_separation_rad": 0.001059650710644816
+    },
+    {
+      "corrected_counts": 1359.842105263158,
+      "angle_rad": 0.2368605105304749,
+      "half_branch_separation_rad": 0.0013874707188112068
+    },
+    {
+      "corrected_counts": 1371.2222222222222,
+      "angle_rad": 0.21707586526779057,
+      "half_branch_separation_rad": 0.0031611907028086528
+    },
+    {
+      "corrected_counts": 1382.6842105263158,
+      "angle_rad": 0.1952844741668941,
+      "half_branch_separation_rad": 0.006812081523013033
+    },
+    {
+      "corrected_counts": 1395.0,
+      "angle_rad": 0.1670384692906206,
+      "half_branch_separation_rad": 0.005903548955840485
+    },
+    {
+      "corrected_counts": 1405.4444444444443,
+      "angle_rad": 0.14424037976482423,
+      "half_branch_separation_rad": 0.003977040250870353
+    },
+    {
+      "corrected_counts": 1418.2105263157894,
+      "angle_rad": 0.12144375613617399,
+      "half_branch_separation_rad": 0.0066914249827263045
+    },
+    {
+      "corrected_counts": 1429.842105263158,
+      "angle_rad": 0.10303714231692518,
+      "half_branch_separation_rad": 0.006800478945940137
+    },
+    {
+      "corrected_counts": 1442.611111111111,
+      "angle_rad": 0.08055211175759538,
+      "half_branch_separation_rad": 0.004641723199584995
+    },
+    {
+      "corrected_counts": 1451.9,
+      "angle_rad": 0.06406908308337567,
+      "half_branch_separation_rad": 0.00319748364941699
+    },
+    {
+      "corrected_counts": 1464.421052631579,
+      "angle_rad": 0.044924930954458674,
+      "half_branch_separation_rad": 0.004325020889365851
+    },
+    {
+      "corrected_counts": 1473.65,
+      "angle_rad": 0.03012451337398134,
+      "half_branch_separation_rad": 0.005845852842350088
+    },
+    {
+      "corrected_counts": 1486.611111111111,
+      "angle_rad": 0.006697554785378231,
+      "half_branch_separation_rad": 0.005340417178365619
+    },
+    {
+      "corrected_counts": 1497.9473684210527,
+      "angle_rad": -0.015069610484565631,
+      "half_branch_separation_rad": 0.0061754434546298295
+    },
+    {
+      "corrected_counts": 1507.9473684210527,
+      "angle_rad": -0.03331914180127448,
+      "half_branch_separation_rad": 0.007863878371614787
+    },
+    {
+      "corrected_counts": 1517.0526315789473,
+      "angle_rad": -0.04803202553260995,
+      "half_branch_separation_rad": 0.007497448012675618
+    },
+    {
+      "corrected_counts": 1527.2777777777778,
+      "angle_rad": -0.06377058223069393,
+      "half_branch_separation_rad": 0.007869857095989023
+    },
+    {
+      "corrected_counts": 1540.0526315789473,
+      "angle_rad": -0.08533006440335913,
+      "half_branch_separation_rad": 0.010231541462268456
+    },
+    {
+      "corrected_counts": 1548.0,
+      "angle_rad": -0.09898209257732785,
+      "half_branch_separation_rad": 0.011461117923880625
+    },
+    {
+      "corrected_counts": 1563.111111111111,
+      "angle_rad": -0.12369191989049419,
+      "half_branch_separation_rad": 0.012550919317452475
+    },
+    {
+      "corrected_counts": 1570.0,
+      "angle_rad": -0.13556881321569209,
+      "half_branch_separation_rad": 0.012435621432091142
+    },
+    {
+      "corrected_counts": 1582.111111111111,
+      "angle_rad": -0.15910048777703983,
+      "half_branch_separation_rad": 0.014884250155520348
+    },
+    {
+      "corrected_counts": 1591.1052631578948,
+      "angle_rad": -0.17873753133122386,
+      "half_branch_separation_rad": 0.014541125699350482
+    },
+    {
+      "corrected_counts": 1604.45,
+      "angle_rad": -0.20482219974343246,
+      "half_branch_separation_rad": 0.010980966809071013
+    },
+    {
+      "corrected_counts": 1614.2222222222222,
+      "angle_rad": -0.22167451634361385,
+      "half_branch_separation_rad": 0.010623131523826115
+    },
+    {
+      "corrected_counts": 1628.7777777777778,
+      "angle_rad": -0.2500544746546514,
+      "half_branch_separation_rad": 0.01336886701518332
+    },
+    {
+      "corrected_counts": 1632.9473684210527,
+      "angle_rad": -0.25819719915664135,
+      "half_branch_separation_rad": 0.014142422015446243
+    },
+    {
+      "corrected_counts": 1647.578947368421,
+      "angle_rad": -0.2824837181180437,
+      "half_branch_separation_rad": 0.01256966735367776
+    },
+    {
+      "corrected_counts": 1657.8947368421052,
+      "angle_rad": -0.29854150384774614,
+      "half_branch_separation_rad": 0.012525902497098479
+    },
+    {
+      "corrected_counts": 1671.0526315789473,
+      "angle_rad": -0.3210689749536804,
+      "half_branch_separation_rad": 0.014515681528693647
+    },
+    {
+      "corrected_counts": 1679.611111111111,
+      "angle_rad": -0.33769902904209353,
+      "half_branch_separation_rad": 0.013832736585291439
+    },
+    {
+      "corrected_counts": 1691.157894736842,
+      "angle_rad": -0.36121191114768164,
+      "half_branch_separation_rad": 0.013987561575526497
+    },
+    {
+      "corrected_counts": 1700.5,
+      "angle_rad": -0.37960983467573395,
+      "half_branch_separation_rad": 0.014738365363542921
+    },
+    {
+      "corrected_counts": 1711.5263157894738,
+      "angle_rad": -0.3996664809670155,
+      "half_branch_separation_rad": 0.01396643934193706
+    },
+    {
+      "corrected_counts": 1726.0526315789473,
+      "angle_rad": -0.4271983053488826,
+      "half_branch_separation_rad": 0.011840738083842756
+    },
+    {
+      "corrected_counts": 1735.157894736842,
+      "angle_rad": -0.44598432201588684,
+      "half_branch_separation_rad": 0.012037073824349098
+    },
+    {
+      "corrected_counts": 1747.6315789473683,
+      "angle_rad": -0.4705680652021719,
+      "half_branch_separation_rad": 0.013458056190549239
+    },
+    {
+      "corrected_counts": 1757.2,
+      "angle_rad": -0.4876174417564794,
+      "half_branch_separation_rad": 0.012739542799322823
+    },
+    {
+      "corrected_counts": 1769.3157894736842,
+      "angle_rad": -0.5075442847480142,
+      "half_branch_separation_rad": 0.013491273515935293
+    },
+    {
+      "corrected_counts": 1779.5,
+      "angle_rad": -0.5218568657048528,
+      "half_branch_separation_rad": 0.011685764875912552
+    },
+    {
+      "corrected_counts": 1793.3333333333333,
+      "angle_rad": -0.5432932728698479,
+      "half_branch_separation_rad": 0.007237861624456332
+    },
+    {
+      "corrected_counts": 1799.157894736842,
+      "angle_rad": -0.5541013971466713,
+      "half_branch_separation_rad": 0.007147328883826465
+    },
+    {
+      "corrected_counts": 1816.2631578947369,
+      "angle_rad": -0.5870509938055871,
+      "half_branch_separation_rad": 0.005672586886924513
+    },
+    {
+      "corrected_counts": 1822.2,
+      "angle_rad": -0.5998080113619078,
+      "half_branch_separation_rad": 0.006481710903625926
+    },
+    {
+      "corrected_counts": 1836.8947368421052,
+      "angle_rad": -0.633046071995665,
+      "half_branch_separation_rad": 0.006822256007348482
+    },
+    {
+      "corrected_counts": 1843.9473684210527,
+      "angle_rad": -0.6476086572850901,
+      "half_branch_separation_rad": 0.005595919086799461
+    },
+    {
+      "corrected_counts": 1858.3157894736842,
+      "angle_rad": -0.674713859458775,
+      "half_branch_separation_rad": 0.005660834858659647
+    },
+    {
+      "corrected_counts": 1865.7222222222222,
+      "angle_rad": -0.6892615484588386,
+      "half_branch_separation_rad": 0.0062701751701145225
+    },
+    {
+      "corrected_counts": 1880.2631578947369,
+      "angle_rad": -0.7215732604135336,
+      "half_branch_separation_rad": 0.0037160260919221755
+    },
+    {
+      "corrected_counts": 1887.8947368421052,
+      "angle_rad": -0.7394747818399002,
+      "half_branch_separation_rad": 0.0033187545772401794
+    },
+    {
+      "corrected_counts": 1903.157894736842,
+      "angle_rad": -0.7707660801712273,
+      "half_branch_separation_rad": 0.007035956069282923
+    },
+    {
+      "corrected_counts": 1913.842105263158,
+      "angle_rad": -0.7901898520051005,
+      "half_branch_separation_rad": 0.007157860115657166
+    },
+    {
+      "corrected_counts": 1924.7368421052631,
+      "angle_rad": -0.8125121699417601,
+      "half_branch_separation_rad": 0.004766354529791517
+    }
+  ],
+  "knot_count": 58,
+  "maximum_knots": 64,
+  "interpolation": "Piecewise linear in measured counts; no extrapolation; union of both major-branch knots in their common count domain",
+  "uncertainty_interpretation": "Half-branch separation describes the measured major-branch envelope. It is not a confidence interval, a bound on minor-loop/reversal error or a claim of absolute/loaded accuracy.",
+  "angle_convention": "Mechanical basket rotation is negative gravity-vector phase about the fitted positive hinge normal; physical airframe yaw sign is unassigned.",
+  "reference": {
+    "definition": "Flat basket in drone roll plane, using projected sensor +X and measured hinge normal",
+    "operator_defined_basket_roll_zero": true,
+    "motor_present": false,
+    "external_motor_shaft_vertical_verified": false,
+    "absolute_angle_accuracy_independently_proven": false,
+    "normal_sensor_axes": [
+      0.0017455312457723526,
+      -0.025252231920170204,
+      0.9996795876198133
+    ],
+    "projected_positive_x": [
+      0.9999984765591745,
+      4.407862699332695e-05,
+      -0.0017449746143167713
+    ],
+    "in_plane_quadrature": [
+      6.776263578034403e-21,
+      0.9996811105748296,
+      0.02525227039050985
+    ],
+    "physical_middle_us": 1511.7464892228184,
+    "live_zero_brackets": {
+      "increasing_pwm": {
+        "bracket_plateau_ids": [
+          5,
+          6
+        ],
+        "bracket_command_us": [
+          1510,
+          1519
+        ],
+        "bracket_roll_deg": [
+          -1.0416998143029206,
+          0.16890020876240183
+        ],
+        "interpolated_command_us": 1517.7443401206845,
+        "interpolated_pb0_minus_pc0_counts": 1488.9986147274708,
+        "method": "linear interpolation between adjacent same-approach settled observations; no extrapolation"
+      },
+      "decreasing_pwm": {
+        "bracket_plateau_ids": [
+          12,
+          13
+        ],
+        "bracket_command_us": [
+          1510,
+          1504
+        ],
+        "bracket_roll_deg": [
+          0.42641956279286547,
+          -0.17539170905770307
+        ],
+        "interpolated_command_us": 1505.7486383249523,
+        "interpolated_pb0_minus_pc0_counts": 1492.0765919715623,
+        "method": "linear interpolation between adjacent same-approach settled observations; no extrapolation"
+      }
+    },
+    "curve_warp_or_live_refit_applied": false
+  },
+  "branches": {
+    "increasing_pwm": [
+      {
+        "plateau_id": 46,
+        "command_us": 1700,
+        "corrected_counts": 1280.842105263158,
+        "basket_roll_deg": 21.5576667070224
+      },
+      {
+        "plateau_id": 45,
+        "command_us": 1680,
+        "corrected_counts": 1302.8333333333333,
+        "basket_roll_deg": 19.014460789617075
+      },
+      {
+        "plateau_id": 44,
+        "command_us": 1660,
+        "corrected_counts": 1326.95,
+        "basket_roll_deg": 16.554209254297916
+      },
+      {
+        "plateau_id": 43,
+        "command_us": 1640,
+        "corrected_counts": 1350.0526315789473,
+        "basket_roll_deg": 14.554165529745784
+      },
+      {
+        "plateau_id": 42,
+        "command_us": 1620,
+        "corrected_counts": 1371.2222222222222,
+        "basket_roll_deg": 12.256408028487963
+      },
+      {
+        "plateau_id": 41,
+        "command_us": 1600,
+        "corrected_counts": 1395.0,
+        "basket_roll_deg": 9.232350867359647
+      },
+      {
+        "plateau_id": 40,
+        "command_us": 1580,
+        "corrected_counts": 1418.2105263157894,
+        "basket_roll_deg": 6.574824264380146
+      },
+      {
+        "plateau_id": 39,
+        "command_us": 1560,
+        "corrected_counts": 1442.611111111111,
+        "basket_roll_deg": 4.349344885572171
+      },
+      {
+        "plateau_id": 38,
+        "command_us": 1540,
+        "corrected_counts": 1464.421052631579,
+        "basket_roll_deg": 2.32620349534053
+      },
+      {
+        "plateau_id": 37,
+        "command_us": 1520,
+        "corrected_counts": 1486.611111111111,
+        "basket_roll_deg": 0.07775825710030673
+      },
+      {
+        "plateau_id": 36,
+        "command_us": 1500,
+        "corrected_counts": 1507.9473684210527,
+        "basket_roll_deg": -2.3596132435086847
+      },
+      {
+        "plateau_id": 35,
+        "command_us": 1480,
+        "corrected_counts": 1527.2777777777778,
+        "basket_roll_deg": -4.104694815881977
+      },
+      {
+        "plateau_id": 34,
+        "command_us": 1460,
+        "corrected_counts": 1548.0,
+        "basket_roll_deg": -6.327929837594179
+      },
+      {
+        "plateau_id": 33,
+        "command_us": 1440,
+        "corrected_counts": 1570.0,
+        "basket_roll_deg": -8.48002945453779
+      },
+      {
+        "plateau_id": 32,
+        "command_us": 1420,
+        "corrected_counts": 1591.1052631578948,
+        "basket_roll_deg": -11.074051317808445
+      },
+      {
+        "plateau_id": 31,
+        "command_us": 1400,
+        "corrected_counts": 1614.2222222222222,
+        "basket_roll_deg": -13.309674813620479
+      },
+      {
+        "plateau_id": 30,
+        "command_us": 1380,
+        "corrected_counts": 1632.9473684210527,
+        "basket_roll_deg": -15.603910887352297
+      },
+      {
+        "plateau_id": 29,
+        "command_us": 1360,
+        "corrected_counts": 1657.8947368421052,
+        "basket_roll_deg": -17.822849527640603
+      },
+      {
+        "plateau_id": 28,
+        "command_us": 1340,
+        "corrected_counts": 1679.611111111111,
+        "basket_roll_deg": -20.14128653523118
+      },
+      {
+        "plateau_id": 27,
+        "command_us": 1320,
+        "corrected_counts": 1700.5,
+        "basket_roll_deg": -22.594487520831287
+      },
+      {
+        "plateau_id": 26,
+        "command_us": 1300,
+        "corrected_counts": 1726.0526315789473,
+        "basket_roll_deg": -25.155084230156007
+      },
+      {
+        "plateau_id": 25,
+        "command_us": 1280,
+        "corrected_counts": 1747.6315789473683,
+        "basket_roll_deg": -27.73265392988977
+      },
+      {
+        "plateau_id": 24,
+        "command_us": 1260,
+        "corrected_counts": 1769.3157894736842,
+        "basket_roll_deg": -29.853138464767003
+      },
+      {
+        "plateau_id": 23,
+        "command_us": 1240,
+        "corrected_counts": 1793.3333333333333,
+        "basket_roll_deg": -31.54311049707272
+      },
+      {
+        "plateau_id": 22,
+        "command_us": 1220,
+        "corrected_counts": 1816.2631578947369,
+        "basket_roll_deg": -33.960559591562806
+      },
+      {
+        "plateau_id": 21,
+        "command_us": 1200,
+        "corrected_counts": 1836.8947368421052,
+        "basket_roll_deg": -36.6617546386653
+      },
+      {
+        "plateau_id": 20,
+        "command_us": 1180,
+        "corrected_counts": 1858.3157894736842,
+        "basket_roll_deg": -38.98259847189252
+      },
+      {
+        "plateau_id": 19,
+        "command_us": 1160,
+        "corrected_counts": 1880.2631578947369,
+        "basket_roll_deg": -41.55601504281739
+      },
+      {
+        "plateau_id": 18,
+        "command_us": 1140,
+        "corrected_counts": 1903.157894736842,
+        "basket_roll_deg": -44.56477397326273
+      },
+      {
+        "plateau_id": 17,
+        "command_us": 1120,
+        "corrected_counts": 1924.7368421052631,
+        "basket_roll_deg": -46.82661013889928
+      }
+    ],
+    "decreasing_pwm": [
+      {
+        "plateau_id": 47,
+        "command_us": 1680,
+        "corrected_counts": 1295.7894736842106,
+        "basket_roll_deg": 20.10042245231576
+      },
+      {
+        "plateau_id": 48,
+        "command_us": 1660,
+        "corrected_counts": 1317.1052631578948,
+        "basket_roll_deg": 17.75968246031268
+      },
+      {
+        "plateau_id": 49,
+        "command_us": 1640,
+        "corrected_counts": 1339.157894736842,
+        "basket_roll_deg": 15.816305847004841
+      },
+      {
+        "plateau_id": 50,
+        "command_us": 1620,
+        "corrected_counts": 1359.842105263158,
+        "basket_roll_deg": 13.650603803096068
+      },
+      {
+        "plateau_id": 51,
+        "command_us": 1600,
+        "corrected_counts": 1382.6842105263158,
+        "basket_roll_deg": 11.579279695162281
+      },
+      {
+        "plateau_id": 52,
+        "command_us": 1580,
+        "corrected_counts": 1405.4444444444443,
+        "basket_roll_deg": 8.492232617217152
+      },
+      {
+        "plateau_id": 53,
+        "command_us": 1560,
+        "corrected_counts": 1429.842105263158,
+        "basket_roll_deg": 6.293232130118574
+      },
+      {
+        "plateau_id": 54,
+        "command_us": 1540,
+        "corrected_counts": 1451.9,
+        "basket_roll_deg": 3.8540903761241267
+      },
+      {
+        "plateau_id": 55,
+        "command_us": 1520,
+        "corrected_counts": 1473.65,
+        "basket_roll_deg": 2.0609501717357506
+      },
+      {
+        "plateau_id": 56,
+        "command_us": 1500,
+        "corrected_counts": 1497.9473684210527,
+        "basket_roll_deg": -0.509598233099728
+      },
+      {
+        "plateau_id": 57,
+        "command_us": 1480,
+        "corrected_counts": 1517.0526315789473,
+        "basket_roll_deg": -2.3224602162381003
+      },
+      {
+        "plateau_id": 58,
+        "command_us": 1460,
+        "corrected_counts": 1540.0526315789473,
+        "basket_roll_deg": -4.302828412190886
+      },
+      {
+        "plateau_id": 59,
+        "command_us": 1440,
+        "corrected_counts": 1563.111111111111,
+        "basket_roll_deg": -6.367910263696354
+      },
+      {
+        "plateau_id": 60,
+        "command_us": 1420,
+        "corrected_counts": 1582.111111111111,
+        "basket_roll_deg": -8.262981752968868
+      },
+      {
+        "plateau_id": 1,
+        "command_us": 1400,
+        "corrected_counts": 1604.45,
+        "basket_roll_deg": -11.106284542751204
+      },
+      {
+        "plateau_id": 2,
+        "command_us": 1380,
+        "corrected_counts": 1628.7777777777778,
+        "basket_roll_deg": -13.561086389230876
+      },
+      {
+        "plateau_id": 3,
+        "command_us": 1360,
+        "corrected_counts": 1647.578947368421,
+        "basket_roll_deg": -15.46493594007802
+      },
+      {
+        "plateau_id": 4,
+        "command_us": 1340,
+        "corrected_counts": 1671.0526315789473,
+        "basket_roll_deg": -17.56420990908727
+      },
+      {
+        "plateau_id": 5,
+        "command_us": 1320,
+        "corrected_counts": 1691.157894736842,
+        "basket_roll_deg": -19.894489774659622
+      },
+      {
+        "plateau_id": 6,
+        "command_us": 1300,
+        "corrected_counts": 1711.5263157894738,
+        "basket_roll_deg": -22.098984543137167
+      },
+      {
+        "plateau_id": 7,
+        "command_us": 1280,
+        "corrected_counts": 1735.157894736842,
+        "basket_roll_deg": -24.863345852691157
+      },
+      {
+        "plateau_id": 8,
+        "command_us": 1260,
+        "corrected_counts": 1757.2,
+        "basket_roll_deg": -27.20849939428503
+      },
+      {
+        "plateau_id": 9,
+        "command_us": 1240,
+        "corrected_counts": 1779.5,
+        "basket_roll_deg": -29.23065090704145
+      },
+      {
+        "plateau_id": 10,
+        "command_us": 1220,
+        "corrected_counts": 1799.157894736842,
+        "basket_roll_deg": -31.33815969897133
+      },
+      {
+        "plateau_id": 11,
+        "command_us": 1200,
+        "corrected_counts": 1822.2,
+        "basket_roll_deg": -33.99509289037055
+      },
+      {
+        "plateau_id": 12,
+        "command_us": 1180,
+        "corrected_counts": 1843.9473684210527,
+        "basket_roll_deg": -36.7846202923995
+      },
+      {
+        "plateau_id": 13,
+        "command_us": 1160,
+        "corrected_counts": 1865.7222222222222,
+        "basket_roll_deg": -39.13252313328804
+      },
+      {
+        "plateau_id": 14,
+        "command_us": 1140,
+        "corrected_counts": 1887.8947368421052,
+        "basket_roll_deg": -42.17863342526799
+      },
+      {
+        "plateau_id": 15,
+        "command_us": 1120,
+        "corrected_counts": 1913.842105263158,
+        "basket_roll_deg": -44.864428358987205
+      },
+      {
+        "plateau_id": 16,
+        "command_us": 1100,
+        "corrected_counts": 1936.2222222222222,
+        "basket_roll_deg": -47.77319031140091
+      }
+    ]
+  },
+  "regression": {
+    "physical_middle_us": 1511.7464892228184,
+    "paired_command_points": 29,
+    "branch_observations": 58,
+    "command_bounds_us": [
+      1120,
+      1680
+    ],
+    "pairing_rule": "Exactly one increasing and one decreasing settled mean per shared command; equal branch weighting. Initial/unchanged and unpaired endpoints are excluded. Unexpected duplicate branch/command observations are rejected.",
+    "pearson_r": 0.9997249074316216,
+    "free_intercept": {
+      "slope_deg_per_us": 0.11490966915083518,
+      "intercept_deg": 0.33799303745721154,
+      "r_squared_centered": 0.9994498905391643,
+      "residual_deg": [
+        -1.1680528188051724,
+        -0.9924306521439945,
+        -0.2631894239480488,
+        -0.10072310105805826,
+        0.15626913355333016,
+        0.537139869787481,
+        0.5014254299807632,
+        0.059293819495120914,
+        -0.006080525286030536,
+        0.36669159634114834,
+        0.45104395222557514,
+        0.5445909947951009,
+        0.4552531000783091,
+        0.21845381262933294,
+        0.29477938971837325,
+        0.5360491494988544,
+        0.48240244275373634,
+        0.29279979396157163,
+        0.09640801977736135,
+        -0.4228135854835098,
+        -0.21704701577797847,
+        -0.49444767748038254,
+        -0.5614994883840421,
+        -0.6474529384474694,
+        -0.07335948100185874,
+        0.17613777051248825,
+        0.10967416007908426,
+        -0.2168090540076406,
+        -0.11450667336321985
+      ],
+      "count": 29,
+      "mean": 7.76390446186144e-15,
+      "rms": 0.4511070709222008,
+      "max_abs": 1.1680528188051724,
+      "p95_abs": 0.8544395666653837,
+      "fitted_zero_crossing_us": 1508.8051089198818,
+      "formula": "angle_deg=slope_deg_per_us*(command_us-physical_middle_us)+intercept_deg"
+    },
+    "forced_physical_zero": {
+      "slope_deg_per_us": 0.1139767949908546,
+      "intercept_deg": 0.0,
+      "r_squared_centered": 0.9992363182973901,
+      "residual_deg": [
+        -1.1955099584070439,
+        -1.0012303085462548,
+        -0.253331597150698,
+        -0.07220779106108921,
+        0.20344192674991035,
+        0.6029701461836723,
+        0.5859131895765621,
+        0.16243906229053806,
+        0.11572220070899775,
+        0.5071518055357842,
+        0.6101616446198221,
+        0.722366170388959,
+        0.6516857588717855,
+        0.4335439546224169,
+        0.5285270149110683,
+        0.7884542578911624,
+        0.7534650343456537,
+        0.5825198687531028,
+        0.40478557776850366,
+        -0.0957785442927559,
+        0.1286455086123871,
+        -0.13009766989040505,
+        -0.17849199759445344,
+        -0.24578796445826878,
+        0.3469629761869548,
+        0.6151177109009129,
+        0.5673115836671201,
+        0.2594858527800099,
+        0.3804457166240418
+      ],
+      "count": 29,
+      "mean": 0.23374762519270334,
+      "rms": 0.5315097922647355,
+      "max_abs": 1.1955099584070439,
+      "p95_abs": 0.9161198882842174,
+      "formula": "angle_deg=slope_deg_per_us*(command_us-physical_middle_us)"
+    },
+    "r_squared_definition": "1-SSE/sum((paired_mean_angle-mean(paired_mean_angle))^2), including for the constrained fit; constrained R^2 may be negative.",
+    "paired_means": [
+      {
+        "command_us": 1120,
+        "increasing_plateau_id": 17,
+        "decreasing_plateau_id": 15,
+        "increasing_angle_deg": -46.82661013889928,
+        "decreasing_angle_deg": -44.864428358987205,
+        "mean_angle_deg": -45.84551924894324,
+        "increasing_corrected_counts": 1924.7368421052631,
+        "decreasing_corrected_counts": 1913.842105263158,
+        "mean_corrected_counts": 1919.2894736842104,
+        "half_branch_separation_deg": 0.981090889956036
+      },
+      {
+        "command_us": 1140,
+        "increasing_plateau_id": 18,
+        "decreasing_plateau_id": 14,
+        "increasing_angle_deg": -44.56477397326273,
+        "decreasing_angle_deg": -42.17863342526799,
+        "mean_angle_deg": -43.37170369926536,
+        "increasing_corrected_counts": 1903.157894736842,
+        "decreasing_corrected_counts": 1887.8947368421052,
+        "mean_corrected_counts": 1895.5263157894738,
+        "half_branch_separation_deg": 1.193070273997371
+      },
+      {
+        "command_us": 1160,
+        "increasing_plateau_id": 19,
+        "decreasing_plateau_id": 13,
+        "increasing_angle_deg": -41.55601504281739,
+        "decreasing_angle_deg": -39.13252313328804,
+        "mean_angle_deg": -40.34426908805271,
+        "increasing_corrected_counts": 1880.2631578947369,
+        "decreasing_corrected_counts": 1865.7222222222222,
+        "mean_corrected_counts": 1872.9926900584796,
+        "half_branch_separation_deg": 1.2117459547646767
+      },
+      {
+        "command_us": 1180,
+        "increasing_plateau_id": 20,
+        "decreasing_plateau_id": 12,
+        "increasing_angle_deg": -38.98259847189252,
+        "decreasing_angle_deg": -36.7846202923995,
+        "mean_angle_deg": -37.88360938214601,
+        "increasing_corrected_counts": 1858.3157894736842,
+        "decreasing_corrected_counts": 1843.9473684210527,
+        "mean_corrected_counts": 1851.1315789473683,
+        "half_branch_separation_deg": 1.0989890897465102
+      },
+      {
+        "command_us": 1200,
+        "increasing_plateau_id": 21,
+        "decreasing_plateau_id": 11,
+        "increasing_angle_deg": -36.6617546386653,
+        "decreasing_angle_deg": -33.99509289037055,
+        "mean_angle_deg": -35.32842376451792,
+        "increasing_corrected_counts": 1836.8947368421052,
+        "decreasing_corrected_counts": 1822.2,
+        "mean_corrected_counts": 1829.5473684210526,
+        "half_branch_separation_deg": 1.333330874147375
+      },
+      {
+        "command_us": 1220,
+        "increasing_plateau_id": 22,
+        "decreasing_plateau_id": 10,
+        "increasing_angle_deg": -33.960559591562806,
+        "decreasing_angle_deg": -31.33815969897133,
+        "mean_angle_deg": -32.64935964526707,
+        "increasing_corrected_counts": 1816.2631578947369,
+        "decreasing_corrected_counts": 1799.157894736842,
+        "mean_corrected_counts": 1807.7105263157896,
+        "half_branch_separation_deg": 1.311199946295737
+      },
+      {
+        "command_us": 1240,
+        "increasing_plateau_id": 23,
+        "decreasing_plateau_id": 9,
+        "increasing_angle_deg": -31.54311049707272,
+        "decreasing_angle_deg": -29.23065090704145,
+        "mean_angle_deg": -30.386880702057084,
+        "increasing_corrected_counts": 1793.3333333333333,
+        "decreasing_corrected_counts": 1779.5,
+        "mean_corrected_counts": 1786.4166666666665,
+        "half_branch_separation_deg": 1.1562297950156353
+      },
+      {
+        "command_us": 1260,
+        "increasing_plateau_id": 24,
+        "decreasing_plateau_id": 8,
+        "increasing_angle_deg": -29.853138464767003,
+        "decreasing_angle_deg": -27.20849939428503,
+        "mean_angle_deg": -28.530818929526017,
+        "increasing_corrected_counts": 1769.3157894736842,
+        "decreasing_corrected_counts": 1757.2,
+        "mean_corrected_counts": 1763.257894736842,
+        "half_branch_separation_deg": 1.322319535240986
+      },
+      {
+        "command_us": 1280,
+        "increasing_plateau_id": 25,
+        "decreasing_plateau_id": 7,
+        "increasing_angle_deg": -27.73265392988977,
+        "decreasing_angle_deg": -24.863345852691157,
+        "mean_angle_deg": -26.297999891290466,
+        "increasing_corrected_counts": 1747.6315789473683,
+        "decreasing_corrected_counts": 1735.157894736842,
+        "mean_corrected_counts": 1741.3947368421052,
+        "half_branch_separation_deg": 1.434654038599307
+      },
+      {
+        "command_us": 1300,
+        "increasing_plateau_id": 26,
+        "decreasing_plateau_id": 6,
+        "increasing_angle_deg": -25.155084230156007,
+        "decreasing_angle_deg": -22.098984543137167,
+        "mean_angle_deg": -23.627034386646585,
+        "increasing_corrected_counts": 1726.0526315789473,
+        "decreasing_corrected_counts": 1711.5263157894738,
+        "mean_corrected_counts": 1718.7894736842104,
+        "half_branch_separation_deg": 1.5280498435094199
+      },
+      {
+        "command_us": 1320,
+        "increasing_plateau_id": 27,
+        "decreasing_plateau_id": 5,
+        "increasing_angle_deg": -22.594487520831287,
+        "decreasing_angle_deg": -19.894489774659622,
+        "mean_angle_deg": -21.244488647745456,
+        "increasing_corrected_counts": 1700.5,
+        "decreasing_corrected_counts": 1691.157894736842,
+        "mean_corrected_counts": 1695.828947368421,
+        "half_branch_separation_deg": 1.3499988730858323
+      },
+      {
+        "command_us": 1340,
+        "increasing_plateau_id": 28,
+        "decreasing_plateau_id": 4,
+        "increasing_angle_deg": -20.14128653523118,
+        "decreasing_angle_deg": -17.56420990908727,
+        "mean_angle_deg": -18.852748222159228,
+        "increasing_corrected_counts": 1679.611111111111,
+        "decreasing_corrected_counts": 1671.0526315789473,
+        "mean_corrected_counts": 1675.3318713450292,
+        "half_branch_separation_deg": 1.288538313071955
+      },
+      {
+        "command_us": 1360,
+        "increasing_plateau_id": 29,
+        "decreasing_plateau_id": 3,
+        "increasing_angle_deg": -17.822849527640603,
+        "decreasing_angle_deg": -15.46493594007802,
+        "mean_angle_deg": -16.64389273385931,
+        "increasing_corrected_counts": 1657.8947368421052,
+        "decreasing_corrected_counts": 1647.578947368421,
+        "mean_corrected_counts": 1652.7368421052631,
+        "half_branch_separation_deg": 1.1789567937812917
+      },
+      {
+        "command_us": 1380,
+        "increasing_plateau_id": 30,
+        "decreasing_plateau_id": 2,
+        "increasing_angle_deg": -15.603910887352297,
+        "decreasing_angle_deg": -13.561086389230876,
+        "mean_angle_deg": -14.582498638291586,
+        "increasing_corrected_counts": 1632.9473684210527,
+        "decreasing_corrected_counts": 1628.7777777777778,
+        "mean_corrected_counts": 1630.8625730994154,
+        "half_branch_separation_deg": 1.0214122490607105
+      },
+      {
+        "command_us": 1400,
+        "increasing_plateau_id": 31,
+        "decreasing_plateau_id": 1,
+        "increasing_angle_deg": -13.309674813620479,
+        "decreasing_angle_deg": -11.106284542751204,
+        "mean_angle_deg": -12.207979678185842,
+        "increasing_corrected_counts": 1614.2222222222222,
+        "decreasing_corrected_counts": 1604.45,
+        "mean_corrected_counts": 1609.3361111111112,
+        "half_branch_separation_deg": 1.1016951354346372
+      },
+      {
+        "command_us": 1420,
+        "increasing_plateau_id": 32,
+        "decreasing_plateau_id": 60,
+        "increasing_angle_deg": -11.074051317808445,
+        "decreasing_angle_deg": -8.262981752968868,
+        "mean_angle_deg": -9.668516535388656,
+        "increasing_corrected_counts": 1591.1052631578948,
+        "decreasing_corrected_counts": 1582.111111111111,
+        "mean_corrected_counts": 1586.608187134503,
+        "half_branch_separation_deg": 1.4055347824197888
+      },
+      {
+        "command_us": 1440,
+        "increasing_plateau_id": 33,
+        "decreasing_plateau_id": 59,
+        "increasing_angle_deg": -8.48002945453779,
+        "decreasing_angle_deg": -6.367910263696354,
+        "mean_angle_deg": -7.423969859117072,
+        "increasing_corrected_counts": 1570.0,
+        "decreasing_corrected_counts": 1563.111111111111,
+        "mean_corrected_counts": 1566.5555555555557,
+        "half_branch_separation_deg": 1.0560595954207184
+      },
+      {
+        "command_us": 1460,
+        "increasing_plateau_id": 34,
+        "decreasing_plateau_id": 58,
+        "increasing_angle_deg": -6.327929837594179,
+        "decreasing_angle_deg": -4.302828412190886,
+        "mean_angle_deg": -5.315379124892532,
+        "increasing_corrected_counts": 1548.0,
+        "decreasing_corrected_counts": 1540.0526315789473,
+        "mean_corrected_counts": 1544.0263157894738,
+        "half_branch_separation_deg": 1.0125507127016466
+      },
+      {
+        "command_us": 1480,
+        "increasing_plateau_id": 35,
+        "decreasing_plateau_id": 57,
+        "increasing_angle_deg": -4.104694815881977,
+        "decreasing_angle_deg": -2.3224602162381003,
+        "mean_angle_deg": -3.213577516060039,
+        "increasing_corrected_counts": 1527.2777777777778,
+        "decreasing_corrected_counts": 1517.0526315789473,
+        "mean_corrected_counts": 1522.1652046783624,
+        "half_branch_separation_deg": 0.8911172998219385
+      },
+      {
+        "command_us": 1500,
+        "increasing_plateau_id": 36,
+        "decreasing_plateau_id": 56,
+        "increasing_angle_deg": -2.3596132435086847,
+        "decreasing_angle_deg": -0.509598233099728,
+        "mean_angle_deg": -1.4346057383042063,
+        "increasing_corrected_counts": 1507.9473684210527,
+        "decreasing_corrected_counts": 1497.9473684210527,
+        "mean_corrected_counts": 1502.9473684210527,
+        "half_branch_separation_deg": 0.9250075052044784
+      },
+      {
+        "command_us": 1520,
+        "increasing_plateau_id": 37,
+        "decreasing_plateau_id": 55,
+        "increasing_angle_deg": 0.07775825710030673,
+        "decreasing_angle_deg": 2.0609501717357506,
+        "mean_angle_deg": 1.0693542144180286,
+        "increasing_corrected_counts": 1486.611111111111,
+        "decreasing_corrected_counts": 1473.65,
+        "mean_corrected_counts": 1480.1305555555555,
+        "half_branch_separation_deg": 0.9915959573177219
+      },
+      {
+        "command_us": 1540,
+        "increasing_plateau_id": 38,
+        "decreasing_plateau_id": 54,
+        "increasing_angle_deg": 2.32620349534053,
+        "decreasing_angle_deg": 3.8540903761241267,
+        "mean_angle_deg": 3.0901469357323283,
+        "increasing_corrected_counts": 1464.421052631579,
+        "decreasing_corrected_counts": 1451.9,
+        "mean_corrected_counts": 1458.1605263157894,
+        "half_branch_separation_deg": 0.7639434403917984
+      },
+      {
+        "command_us": 1560,
+        "increasing_plateau_id": 39,
+        "decreasing_plateau_id": 53,
+        "increasing_angle_deg": 4.349344885572171,
+        "decreasing_angle_deg": 6.293232130118574,
+        "mean_angle_deg": 5.321288507845372,
+        "increasing_corrected_counts": 1442.611111111111,
+        "decreasing_corrected_counts": 1429.842105263158,
+        "mean_corrected_counts": 1436.2266081871344,
+        "half_branch_separation_deg": 0.9719436222732019
+      },
+      {
+        "command_us": 1580,
+        "increasing_plateau_id": 40,
+        "decreasing_plateau_id": 52,
+        "increasing_angle_deg": 6.574824264380146,
+        "decreasing_angle_deg": 8.492232617217152,
+        "mean_angle_deg": 7.533528440798649,
+        "increasing_corrected_counts": 1418.2105263157894,
+        "decreasing_corrected_counts": 1405.4444444444443,
+        "mean_corrected_counts": 1411.8274853801167,
+        "half_branch_separation_deg": 0.9587041764185029
+      },
+      {
+        "command_us": 1600,
+        "increasing_plateau_id": 41,
+        "decreasing_plateau_id": 51,
+        "increasing_angle_deg": 9.232350867359647,
+        "decreasing_angle_deg": 11.579279695162281,
+        "mean_angle_deg": 10.405815281260963,
+        "increasing_corrected_counts": 1395.0,
+        "decreasing_corrected_counts": 1382.6842105263158,
+        "mean_corrected_counts": 1388.842105263158,
+        "half_branch_separation_deg": 1.1734644139013168
+      },
+      {
+        "command_us": 1620,
+        "increasing_plateau_id": 42,
+        "decreasing_plateau_id": 50,
+        "increasing_angle_deg": 12.256408028487963,
+        "decreasing_angle_deg": 13.650603803096068,
+        "mean_angle_deg": 12.953505915792014,
+        "increasing_corrected_counts": 1371.2222222222222,
+        "decreasing_corrected_counts": 1359.842105263158,
+        "mean_corrected_counts": 1365.53216374269,
+        "half_branch_separation_deg": 0.6970978873040528
+      },
+      {
+        "command_us": 1640,
+        "increasing_plateau_id": 43,
+        "decreasing_plateau_id": 49,
+        "increasing_angle_deg": 14.554165529745784,
+        "decreasing_angle_deg": 15.816305847004841,
+        "mean_angle_deg": 15.185235688375313,
+        "increasing_corrected_counts": 1350.0526315789473,
+        "decreasing_corrected_counts": 1339.157894736842,
+        "mean_corrected_counts": 1344.6052631578946,
+        "half_branch_separation_deg": 0.6310701586295284
+      },
+      {
+        "command_us": 1660,
+        "increasing_plateau_id": 44,
+        "decreasing_plateau_id": 48,
+        "increasing_angle_deg": 16.554209254297916,
+        "decreasing_angle_deg": 17.75968246031268,
+        "mean_angle_deg": 17.156945857305296,
+        "increasing_corrected_counts": 1326.95,
+        "decreasing_corrected_counts": 1317.1052631578948,
+        "mean_corrected_counts": 1322.0276315789474,
+        "half_branch_separation_deg": 0.6027366030073811
+      },
+      {
+        "command_us": 1680,
+        "increasing_plateau_id": 45,
+        "decreasing_plateau_id": 47,
+        "increasing_angle_deg": 19.014460789617075,
+        "decreasing_angle_deg": 20.10042245231576,
+        "mean_angle_deg": 19.55744162096642,
+        "increasing_corrected_counts": 1302.8333333333333,
+        "decreasing_corrected_counts": 1295.7894736842106,
+        "mean_corrected_counts": 1299.311403508772,
+        "half_branch_separation_deg": 0.5429808313493432
+      }
+    ],
+    "unpaired_commands_excluded_us": [
+      1100,
+      1700
+    ],
+    "maximum_full_branch_separation_deg": 3.0560996870188397,
+    "interpretation": "Descriptive regression of paired settled means from one sweep; individual ADC samples are not independent regression observations. Branch hysteresis remains separate from mean-line residuals."
+  },
+  "count_regression": {
+    "paired_command_points": 29,
+    "source_position": "signed PB0-PC0 only",
+    "slope_deg_per_count": -0.10442633291411987,
+    "intercept_deg": 155.58445704394137,
+    "fitted_zero_count": 1489.896778927341,
+    "count_bounds": [
+      1299.311403508772,
+      1919.2894736842104
+    ],
+    "pearson_r": -0.9997710435684274,
+    "r_squared_centered": 0.9995421395579019,
+    "residual_deg": [
+      -1.005614755371333,
+      -1.013298643100022,
+      -0.3389679342343328,
+      -0.1611838950891311,
+      0.14004176842946947,
+      0.5387645442030617,
+      0.5776038106671706,
+      0.01527995577220409,
+      -0.03499041086198673,
+      0.27539035764428377,
+      0.26025253160936757,
+      0.5115584726108509,
+      0.3608979153146876,
+      0.1380423134247586,
+      0.2646317874766968,
+      0.4307011746457956,
+      0.5812250698500137,
+      0.33716991195967516,
+      0.15609585403069826,
+      -0.07178053510835247,
+      0.04950332128230328,
+      -0.22395354492817132,
+      -0.2832906094291108,
+      -0.6189615975339384,
+      -0.14695371332275187,
+      -0.03343479221675949,
+      0.012975493037997055,
+      -0.37301360970749187,
+      -0.3446902410555843
+    ],
+    "count": 29,
+    "mean": 2.342953417484813e-15,
+    "rms": 0.41154908376971633,
+    "max_abs": 1.013298643100022,
+    "p95_abs": 0.8509534922363744,
+    "formula": "angle_deg=slope_deg_per_count*mean_corrected_counts+intercept_deg",
+    "pairing_rule": "Exactly two settled means per shared PWM: mean(PB0-PC0_increasing,PB0-PC0_decreasing) against mean(angle_increasing,angle_decreasing). Equal weight per command; no knot-grid or individual ADC-sample weighting.",
+    "interpretation": "Descriptive linear approximation only; fitted zero does not replace the operator-defined reference or the bounded monotonic measured mean map."
+  },
+  "training": {
+    "source": "/home/alex/betaflight/docs/validation/tricopter-angle-2026-11-07/training-analysis.json",
+    "excluded_initial_or_unchanged_plateau_ids": [
+      0
+    ],
+    "settled_major_branch_points": 60,
+    "source_position": "Fresh per-plateau signed PB0-PC0 means only; raw PB0/PC0 and commanded PWM are not measured-position fallbacks"
+  },
+  "validation": {
+    "reversal_data_used_for_fitting": false,
+    "held_out_reversal_validation": "pending"
+  },
+  "provenance": {
+    "analysis_sha256": "c077607f17a9fbf8bd29b3de4007b294269a896eadc06a7ebbe7070fcae186c5",
+    "sensor_profile_sha256": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+    "recorded_training_input_artifact_sha256": {
+      "run.json": "f230614b08e76361355804c8f64f5100cd9791691f8b6a7abd2d4148efb9edfd",
+      "plan.json": "7583536789cc1c1ec9a5d7334454e149d31e5c2baa9b918eac637ebe997269bd",
+      "fc-backup.json": "53f7966017ad7b7b0ef146cf799a9b77d226ca4deb68ed25e9dee6852375b902",
+      "fc-run.json": "ea15061735683534affcf24e1a1077927cd35cfffe1ff1a82bb13934d93e1544",
+      "fc-events.json": "96279be9496400f20b9266bed14c9ef26ad0065fdd69a73f4e59ea7a8f557a72",
+      "original-servo-table.bin": "1705a044cf2a31bf68212a698c87efda210e8c5e3f3f2520e26da8e1cc18c3ca",
+      "fc-samples.csv": "bd0a22f2b8f631450c16181c2f3b26a1a12339266dc99887f03a3b590633ae2c",
+      "calibration-profile.json": "d068869cd9034fcf418337a8c45f8dc4f8bb2e77454bbcc086d37aad5191d573",
+      "static-validation-report.json": "e2381ad8068d44d6b55e138cfc34d3444056983b674a923f7295d498cc9057ee",
+      "adxl/capture.bin": "24307b51ab9dece37660309bde2122726734980d4db0b3c814b593d6e5540a00",
+      "adxl/records.csv": "ef9ef7ebff374209eb90957d373666bde0f6aded0d8a542c95f0142eac0836b3",
+      "adxl/summary.json": "15e57bf861f7eb5c47fd1de8bbdfb355ee17568d8cfc359de9f2018e5c6fc40a"
+    },
+    "source_mode": "tracked-summary-only; underlying raw input hashes retained but not reverified",
+    "training_adxl_capture_sha256": "24307b51ab9dece37660309bde2122726734980d4db0b3c814b593d6e5540a00",
+    "training_fc_samples_sha256": "bd0a22f2b8f631450c16181c2f3b26a1a12339266dc99887f03a3b590633ae2c",
+    "mounting_reference_sha256": "9eb575ae0c7fe810721d74fea143e7958cd80fe5543d8f69dea7ab58ffc25174",
+    "live_zero_result_sha256": "4e503bc0bdc761d0ecfcef187d8e9e41a5d0aa9e5f76f3dcec06c8af71711b8b",
+    "export_tool_sha256": "13e0eb8ed0fb2382bfa92fec0cddf4c69cb50c2f332f8081a3bee8d3a2919931"
+  },
+  "limitations": "Frozen unloaded, settled observations with operator-defined basket zero. Branch-mean lookup does not instantaneously switch branches on PWM reversal. No dynamic, motor-load or absolute-angle qualification is implied."
+}

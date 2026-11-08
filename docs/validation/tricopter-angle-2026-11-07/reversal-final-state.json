@@ -1,0 +1,44 @@
+{
+  "exact_original_table": true,
+  "fields": [
+    1100,
+    1700,
+    1420,
+    100,
+    255,
+    0
+  ],
+  "identity": {
+    "api_hex": "000130",
+    "variant": "BTFL",
+    "uid_hex": "1f003d000551313033383336"
+  },
+  "state": {
+    "advanced_config_hex": "01020006e001260200000000307d000000026768",
+    "status_hex": "fa000000230000000000002e000400001e04050000003a00040300",
+    "mixer_config_hex": "0100",
+    "motor_payload_hex": "e803e803e80300000000000000000000",
+    "motor_outputs": [
+      1000,
+      1000,
+      1000,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "debug_hex": "36068c05010035060000ff0001000000",
+    "debug_values": [
+      1590,
+      1420,
+      1,
+      1589,
+      0,
+      255,
+      1,
+      0
+    ],
+    "position_fresh": true
+  }
+}

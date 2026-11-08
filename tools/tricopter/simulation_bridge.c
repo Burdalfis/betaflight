@@ -130,8 +130,13 @@ int tricopterSimulationReplayWithPolicy(const double *controller, const double *
             motorAdvance(&rpm[motor], priorTargetRpm[motor], dt, plant[29+motor], plant[32+motor], plant[35+motor], plant[38+motor], &acceleration[motor]);
         const tricopterServoModelOutput_t servo = tricopterServoModelStep(&truthServo, now, priorPwm);
         if (!servo.valid) return 0;
-        const double direction = params.allocator.tailDirectionMinRad
+        double direction = params.allocator.tailDirectionMinRad
             + (servo.positionCounts-plant[57])/(plant[58]-plant[57])*(params.allocator.tailDirectionMaxRad-params.allocator.tailDirectionMinRad);
+        if (policy && policy->plantAngleMap) {
+            const tricopterAngleCalibrationOutput_t angle = tricopterAngleCalibrationEvaluate(policy->plantAngleMap, servo.positionCounts);
+            if (!angle.valid) return 0;
+            direction = angle.angleRad;
+        }
         double effort[3]; tricopterReactionTorqueMotorState_t truthMotors[3];
         for (unsigned motor = 0; motor < 3; ++motor) {
             const double omega = rpm[motor]*(3.14159265358979323846/30.0);
