@@ -1,0 +1,580 @@
+{
+  "archive": "bench-evidence.tar.gz",
+  "archive_sha256": "d8b01ef8987802d72ad7c5f121f3ed3e081096bafd56fefeda5dc4d5f0195a2e",
+  "archive_bytes": 2345440,
+  "member_count": 112,
+  "uncompressed_file_bytes": 6116886,
+  "members": [
+    {
+      "path": ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/checks.json",
+      "bytes": 11124,
+      "sha256": "d9663ea43dff30c4700a427a409c0279edc0aaf895be95f9d2871c0fe2af011b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/fast-math.log",
+      "bytes": 3370,
+      "sha256": "a9f035c258682648d3c600698a4e9809a7ef7bf2fe94acb451d3d7ba7137373b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/fast-math.xml",
+      "bytes": 4532,
+      "sha256": "3e2bba14ccd1667c9b4b7d94093b785e669e9bcd46605e9ef09fb8c1e6f33ecc"
+    },
+    {
+      "path": ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/strict.log",
+      "bytes": 3370,
+      "sha256": "a9f035c258682648d3c600698a4e9809a7ef7bf2fe94acb451d3d7ba7137373b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/strict.xml",
+      "bytes": 4532,
+      "sha256": "5c04faa94c35446da88aa63d097604635432aa55220c2bca8582f971ad6d2d1f"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/bench_check.py",
+      "bytes": 5378,
+      "sha256": "d8f887f4f9944f155353c454a50214daddb00bdf9e84a8ed115335f6aea2c1e5"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/betaflight_2026.6.2_STM32F405_MATEKF405TE.hex",
+      "bytes": 1534371,
+      "sha256": "cf1bdcf2e80700dc6d745a1ba3a340174a4eea35c503414ff6ceb90cc1e042a6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/betaflight_STM32F405_MATEKF405TE.elf",
+      "bytes": 788256,
+      "sha256": "13cd5d5b8162dfcfdbad24dc49455eb0701ded744611de288bb90d35f323fc49"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/build-final-stable.log",
+      "bytes": 76,
+      "sha256": "6949b1f7706e14dd836f71d8617e49c584adb848921933475f0f3dab0fe4da73"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/build-manifest.json",
+      "bytes": 2411,
+      "sha256": "c89047ced989eeab510d2b57681a011ab96c57c918d6498f31fbf091507b5b31"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/build.log",
+      "bytes": 886,
+      "sha256": "1dd7850981a82d9539112bd5a130ac24f4d06570683b9d081ab2c673bca39a8c"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/cli_io.py",
+      "bytes": 1861,
+      "sha256": "45ed7cb5961852fbc00c0eaec4cf4ab1990b14b035f1e2598b82cc5db4ce4316"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/configuration-comparison.json",
+      "bytes": 468,
+      "sha256": "c002c880b528bfe6f8ec44fc486e4f7b335f299c3d8753853fa4bdb91f6b49b1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/configuration-restore-cli.txt",
+      "bytes": 91449,
+      "sha256": "eb1678aa53919963ac629eef6e8bbc89b1316d2affc5dc3a4d135f7c2e8e6243"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/configuration-restore-verified-cli.txt",
+      "bytes": 10012,
+      "sha256": "642f01a32616a3fe9f69d266e9772ee89637640b8b23eae174c9fd0a60a5f7dd"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/configuration-restore-verified.json",
+      "bytes": 133,
+      "sha256": "e8ed7b576c702c158f7ce2b1677aafe6bd5d2b141951ad6c507e8269f170d862"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/configuration-restore.json",
+      "bytes": 90,
+      "sha256": "4eae3bc9cb82ec4e7e6ce1c3b7ad6e8a0462bc5e1a6bbcfbc1dbb5b1477648e9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-cli.txt",
+      "bytes": 47695,
+      "sha256": "740b7aeecb262d6eca861443568f9ac5b2389db6119adcbb1852529700c6e770"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-diff-all.txt",
+      "bytes": 5210,
+      "sha256": "03d5815a6d04de3b858a1ec954d0c1fe8c46b141c4644b92c703ab342c7be5b0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-dump-all.txt",
+      "bytes": 41231,
+      "sha256": "fc94ea55f61cd2989bdfd202cf1529a44b7d7177a5dad777853b3eb92b0a84fe"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-servo.txt",
+      "bytes": 259,
+      "sha256": "b42f473fe9a8a18ffaf19450414c5b50c146ada416b866390b351f299af28624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-status.txt",
+      "bytes": 528,
+      "sha256": "68ad5863d971bdd744e391a3aebe36fa0ad88f53fd3ac80525d6323c5c5baed6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-tricopter_calibrate-status.txt",
+      "bytes": 223,
+      "sha256": "a6e05836959ed93e39e4bb64c0dabbff5e74e08344647c69a854e4df5308ba60"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-reboot-version.txt",
+      "bytes": 185,
+      "sha256": "af619ebda6c4636f166219727adaedb3e1fe71275b027f90bdd81f55170666da"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/debug-none-save-cli.txt",
+      "bytes": 139,
+      "sha256": "28b65d348fcd995151718a7c64d0a7941c4b3350692cf2d99dd2349528dd5958"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-backup.log",
+      "bytes": 2439,
+      "sha256": "d921d28a47c45f1ffb03cd1ebe649c263e9bf80e9b5941b15101f7bcb39a86c0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-leave-vector.log",
+      "bytes": 1156,
+      "sha256": "c90a9aa47165e3a64bc2665c69cf65bd5b87f02ca8bfe195720ef100b2a8e046"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-leave.log",
+      "bytes": 838,
+      "sha256": "cb0059d61b4b94fc809cac0aef7254b5712a9a5deba82374a8083b4d653d8b77"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-list.log",
+      "bytes": 864,
+      "sha256": "2a9ec6d0b70437e19eb20bc04883bcbb1148100ce8cc1c5509e820e1530e8d72"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-program-body.log",
+      "bytes": 7562,
+      "sha256": "8c9d39968a736c7df670b0c2ac18854b3be1d00ccda2fd438b6759d7dce50366"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-program-vector.log",
+      "bytes": 1154,
+      "sha256": "e0c0274a821a2e0527a0f37216ee0d8d5794f9d5311be727b86ef850726af292"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-readback-verified.log",
+      "bytes": 2275,
+      "sha256": "a57c1cc137faa78a586e7203ad56aa9d6a3bd3941dfe4efa84e9ea0a2185ebbb"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/dfu-readback.log",
+      "bytes": 423,
+      "sha256": "8fe3f5e32adc88388094bfa012cb657358d117c36682776ca20316d8588be560"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/disarmed-motion-and-calibration-cli.txt",
+      "bytes": 10633,
+      "sha256": "1e2315eb9d403cb264092ee8ae607beb37bebfd2b36b2754af0b012e4289dba8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/disarmed-motion-records.json",
+      "bytes": 13972,
+      "sha256": "6b1687b6829cbbae073f04a883cdadec8db7a9cceea51b55541faed5d7486a47"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/enter-dfu.json",
+      "bytes": 108,
+      "sha256": "f2187923647a5505f66164f02d18b4e2d9e4198eb4b198e5aff57454085daf54"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-cli.txt",
+      "bytes": 47729,
+      "sha256": "bc56e0108b181c0f5dbb4a9ea00399a30b0cdac54f8b3277dacbdab567d2a6f0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-diff-all.txt",
+      "bytes": 5239,
+      "sha256": "9be830cd3eb210359ff71afdbe3ba1d96b175a178c071aed0c56da8b56e9bdf1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-dump-all.txt",
+      "bytes": 41237,
+      "sha256": "bd3fdd79d68f27e47ee3535fdf29cfe3e78d030ba158a2cb264497cce73bcbc7"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-msp.json",
+      "bytes": 178,
+      "sha256": "517919ba84bbbefeb19fe2274d1797ab56520b8864456398e8fdf69176cdd45e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-servo.txt",
+      "bytes": 259,
+      "sha256": "b42f473fe9a8a18ffaf19450414c5b50c146ada416b866390b351f299af28624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-cli.txt",
+      "bytes": 5032,
+      "sha256": "3343d85e1698439d399ace73bf18aa7d46fe05d32ad06e59ca17329d6aae0348"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-get-tri.txt",
+      "bytes": 1978,
+      "sha256": "c14ac4e12ab41911d1d58714198f8f12bf499d95c7c34b2e425dc65b8b36a231"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-observations.json",
+      "bytes": 6454,
+      "sha256": "841ef9fb1ac152c556414853d75d8f5989d7e2efe3163a629be8f5a024423a34"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-resource-show-all.txt",
+      "bytes": 2018,
+      "sha256": "875eb7f5df5afe7c04b0313b22884c0f224374a6289a50fe0b7da6a4a5d65917"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-servo.txt",
+      "bytes": 259,
+      "sha256": "b42f473fe9a8a18ffaf19450414c5b50c146ada416b866390b351f299af28624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-status.txt",
+      "bytes": 496,
+      "sha256": "e22a074daaf02d9ec21501d94c182459882410129332eb1cb14f6a78dc024564"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-settled-tricopter_calibrate-status.txt",
+      "bytes": 222,
+      "sha256": "e4bc3b1861d1c3f3553c8b5d08141e39f3a831cfb6f5a049114f7cd4fd4b8bb0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-status.txt",
+      "bytes": 528,
+      "sha256": "f3022d837001c3b567c5eaf0a31829c954c776578e0c3aa6bd38270e9aa36419"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-tricopter_calibrate-status.txt",
+      "bytes": 222,
+      "sha256": "52a3ff225fff02b50d8b5c78a268c6ebd25945cdbd7ae3fc1be52584bf9bcc60"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/final-version.txt",
+      "bytes": 185,
+      "sha256": "af619ebda6c4636f166219727adaedb3e1fe71275b027f90bdd81f55170666da"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/firmware-0-08000000.bin",
+      "bytes": 392,
+      "sha256": "029e06a7f71ff7e3f8c3e7d45e9d66c0866aa34739d7d14b281f52c6e1e46178"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/firmware-1-08008000.bin",
+      "bytes": 545076,
+      "sha256": "c38690a386d5e955f3f18b1382d7d2474499bf5131685c5e45fa0fe5af2eea83"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/flash-verification.json",
+      "bytes": 723,
+      "sha256": "dde1b81100c8e20ea9ba6a4abe401cee6ddab227c0e5efad06239b8bf7002b66"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/host-tests.log",
+      "bytes": 47960,
+      "sha256": "d05590273bb4908cea0873ed8311ec5d53f57ca0751766eac0c459dbbf01bcb4"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/leave-dfu-empty.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/original-servo-table.bin",
+      "bytes": 96,
+      "sha256": "2c8fec80c0ef628e0136e899bc431bf2a38d0c254703759792860685ed16ca97"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-diff-all.txt",
+      "bytes": 791,
+      "sha256": "d9b06b2afe50d68214fe2739225ceb42faa5f86c24651401b614ed30603004c9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-dump-all.txt",
+      "bytes": 40864,
+      "sha256": "596d99012be1eb9e6c4131ab46fc9513448663212f2f6facc771ac101d5c2e4b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-get-tri.txt",
+      "bytes": 1978,
+      "sha256": "c14ac4e12ab41911d1d58714198f8f12bf499d95c7c34b2e425dc65b8b36a231"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-identification-cli.txt",
+      "bytes": 46856,
+      "sha256": "de73804c1625346f7584d2856b7d4b2d8c23d4b6145bfa7fa54510cd5cee8142"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-readback-verified.bin",
+      "bytes": 1048576,
+      "sha256": "360179f38ba762356cc9ec89ef23987545d4697167d4adfa23abc718c5b9e156"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-resource-show-all.txt",
+      "bytes": 2002,
+      "sha256": "64bfff8f972ebca1136e8b72911cfa20a543e3648a85832cd75971e1b988866a"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-servo.txt",
+      "bytes": 259,
+      "sha256": "202cfbe9084c04f71255e8edd0d864f82eabe6c458c99a9e438ac6fa92dbd7b0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-status.txt",
+      "bytes": 499,
+      "sha256": "6256659f4af6fc2ade199db84218e0e160fdf3cc5c146cb186abd406fb81d0a5"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-tricopter_calibrate-status.txt",
+      "bytes": 219,
+      "sha256": "b28dee330b97fd15133878e5751ff8b921d81e6f63386e1920dda98543a1e5db"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/postflash-version.txt",
+      "bytes": 185,
+      "sha256": "af619ebda6c4636f166219727adaedb3e1fe71275b027f90bdd81f55170666da"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-cli.txt",
+      "bytes": 49326,
+      "sha256": "3ef51a41c1645f29b122ebb004e019bf1e05f853b63107c99399f844af6a6d0b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-complete-cli.txt",
+      "bytes": 49326,
+      "sha256": "0126ec185a5a9b86abc27aec54a00c0e695ae472475ed955f96c13c085dabc0d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-complete-diff-all.txt",
+      "bytes": 5238,
+      "sha256": "cb66a255776eb34a465868441e0e2744a473900ad8297831b5b8395d1f118b78"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-complete-dump-all.txt",
+      "bytes": 40912,
+      "sha256": "33f2bc56b29af1909bcf9609c77091543fd8a94073d57fed21bc2a105986c4f9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-config-sector.bin",
+      "bytes": 16384,
+      "sha256": "cfe1550fab9dcf4f25001ae65e49c8d4c569f4de00356cd576534844e44e50a9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-diff-all.txt",
+      "bytes": 43353,
+      "sha256": "bfe1127dadad338c7bcb5a0cdeea3de3c266fcc014b77809147f9ef45ac6abb8"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-dump-all.txt",
+      "bytes": 2797,
+      "sha256": "d8acb236412692c6fec2c38ff0c3acf0a5c3219ab6be4ada7b1dd19011f5f519"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-full-flash.bin",
+      "bytes": 1048576,
+      "sha256": "6e00fb46024d6e720b6a39fa7449b74231ec637b7c7f1932ce9447bcd6e228d1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/preflash-msp.json",
+      "bytes": 515,
+      "sha256": "b01124aff3642c4005cac9159dfb7cdc29d0a8f3ddb11d5e5d5494c9c11d2825"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restore_config.py",
+      "bytes": 1302,
+      "sha256": "8fbc4f864e30b220d8219b56a28329acb1727c0d02589200bb4a495720d96df3"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restore_config_verified.py",
+      "bytes": 1294,
+      "sha256": "29985b02852e512887eeb873e12352850d9dcd40d8f473830dd27acf487f6ba6"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-presave-diff-all.txt",
+      "bytes": 5239,
+      "sha256": "9be830cd3eb210359ff71afdbe3ba1d96b175a178c071aed0c56da8b56e9bdf1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-presave-get-tri.txt",
+      "bytes": 1978,
+      "sha256": "c14ac4e12ab41911d1d58714198f8f12bf499d95c7c34b2e425dc65b8b36a231"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-presave-servo.txt",
+      "bytes": 259,
+      "sha256": "b42f473fe9a8a18ffaf19450414c5b50c146ada416b866390b351f299af28624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-cli.txt",
+      "bytes": 42876,
+      "sha256": "c626d94c5b8afc3c77faf13cff18b75c2983882e0d695c4b3d6f4fb89947b528"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-diff-all.txt",
+      "bytes": 791,
+      "sha256": "d9b06b2afe50d68214fe2739225ceb42faa5f86c24651401b614ed30603004c9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-dump-all.txt",
+      "bytes": 40864,
+      "sha256": "596d99012be1eb9e6c4131ab46fc9513448663212f2f6facc771ac101d5c2e4b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-servo.txt",
+      "bytes": 259,
+      "sha256": "202cfbe9084c04f71255e8edd0d864f82eabe6c458c99a9e438ac6fa92dbd7b0"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-status.txt",
+      "bytes": 499,
+      "sha256": "fd895f6c0f96f0e0b047025dbcc800f6719dfd86901f880a465ba1e0aa6f1cf2"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-tricopter_calibrate-status.txt",
+      "bytes": 219,
+      "sha256": "b28dee330b97fd15133878e5751ff8b921d81e6f63386e1920dda98543a1e5db"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-cli.txt",
+      "bytes": 47697,
+      "sha256": "ede241060e41841e7cd557b82dff4163291188a736c7f000affdfff6ddc3bd7d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-diff-all.txt",
+      "bytes": 5239,
+      "sha256": "9be830cd3eb210359ff71afdbe3ba1d96b175a178c071aed0c56da8b56e9bdf1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-dump-all.txt",
+      "bytes": 41237,
+      "sha256": "bd3fdd79d68f27e47ee3535fdf29cfe3e78d030ba158a2cb264497cce73bcbc7"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-servo.txt",
+      "bytes": 259,
+      "sha256": "b42f473fe9a8a18ffaf19450414c5b50c146ada416b866390b351f299af28624"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-status.txt",
+      "bytes": 495,
+      "sha256": "b7be57181896356269c574d740c5bd0dfbb6721cca243578ab6945ae04bca8e1"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-tricopter_calibrate-status.txt",
+      "bytes": 223,
+      "sha256": "4caa89392be26527ae1ac9534e625a451c3bfd8f39130ba614faae8370b71800"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-verified-version.txt",
+      "bytes": 185,
+      "sha256": "af619ebda6c4636f166219727adaedb3e1fe71275b027f90bdd81f55170666da"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/restored-reboot-version.txt",
+      "bytes": 185,
+      "sha256": "af619ebda6c4636f166219727adaedb3e1fe71275b027f90bdd81f55170666da"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/save-persistence-after-reboot-cli.txt",
+      "bytes": 667,
+      "sha256": "46dff0d5cd83e539bd96480fa568c711e9dfa55c38c03ee9499ed24d4091ca22"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/save-persistence-diagnostic-cli.txt",
+      "bytes": 746,
+      "sha256": "77afca31261ad2ab7dbded47e6ddeca8790e63a77b2faa7302770e58c5aeb6d9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/operational-feedback-2026-11-07/validation-report.json",
+      "bytes": 9010,
+      "sha256": "598a20b1a55f9ee92745ac4404c5ce7572439a6a9081775486adf137d18c752d"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/after-cli.txt",
+      "bytes": 49324,
+      "sha256": "e0c4a0d86f1922d69b39e3e3556164c86be50015e89c0ab92f226672a51d31ce"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/after-diff-all.txt",
+      "bytes": 5238,
+      "sha256": "cb66a255776eb34a465868441e0e2744a473900ad8297831b5b8395d1f118b78"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/after-dump-all.txt",
+      "bytes": 40912,
+      "sha256": "33f2bc56b29af1909bcf9609c77091543fd8a94073d57fed21bc2a105986c4f9"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/apply-result.json",
+      "bytes": 4633,
+      "sha256": "fa2071fd5e3fffc01e185b3903166a049aa855fa774269f513310f80475da272"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/apply_center.py",
+      "bytes": 5734,
+      "sha256": "879ebcbfd18ddfc0ade9728d4807558bc96a9813ef48743d8c466597fe157851"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/backup_config.py",
+      "bytes": 2441,
+      "sha256": "3d46df500ca6d3b798271ed1bf8b5edbae212021e02d213aa226a75389713910"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/before-cli.txt",
+      "bytes": 49333,
+      "sha256": "a95a99251235355ec14ae8e1d223e353834d67232c4a5efca986305e80a5f16b"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/before-diff-all.txt",
+      "bytes": 5238,
+      "sha256": "956d9ae17a633c6c7e1ed3aa573945c6fda92fc2968d424510d1e9616a076b59"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/before-dump-all.txt",
+      "bytes": 40912,
+      "sha256": "fb8ac4aa366f2528d781acc1b164b0a9b6c3a5d330018184b3efe6929265d6fe"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/before-msp.json",
+      "bytes": 1044,
+      "sha256": "e558dafb447aed9b7048e745876593f4a4bab496294011996be63ac8198cc044"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/configuration-comparison.json",
+      "bytes": 253,
+      "sha256": "8b1e0ed0056b543e21faa21f38989c4efe48591ed8eb4e973c0a535f3ec8ab40"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/original-servo-table.bin",
+      "bytes": 96,
+      "sha256": "1705a044cf2a31bf68212a698c87efda210e8c5e3f3f2520e26da8e1cc18c3ca"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/planned-change.json",
+      "bytes": 854,
+      "sha256": "b00bfbdbd77f24e7bd7ca78eae1ccd2de3cf8abb8c507ec6c8fd3270b9d3082e"
+    },
+    {
+      "path": ".local-artifacts/tricopter/servo-neutral-2026-11-07/post-reboot-verification.json",
+      "bytes": 5199,
+      "sha256": "323f7a2ed975c53c880b333375d66adb1fe678050dcc83a003be54a448953716"
+    }
+  ],
+  "excluded_rebuildable_files": [
+    ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/arm-core.o",
+    ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/fast-math-tests",
+    ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/fast-math.o",
+    ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/strict-tests",
+    ".local-artifacts/tricopter/control-core-2026-11-07-agent-01/strict.o",
+    ".local-artifacts/tricopter/operational-feedback-2026-11-07/__pycache__/bench_check.cpython-314.pyc",
+    ".local-artifacts/tricopter/operational-feedback-2026-11-07/__pycache__/cli_io.cpython-314.pyc",
+    ".local-artifacts/tricopter/servo-neutral-2026-11-07/__pycache__/backup_config.cpython-314.pyc"
+  ],
+  "hardware_access_performed_for_packaging": false
+}

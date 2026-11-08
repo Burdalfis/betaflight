@@ -130,4 +130,5 @@ const char * const debugModeNames[DEBUG_COUNT] = {
     [DEBUG_AUTOPILOT_STOP] = "AUTOPILOT_STOP",
     [DEBUG_TRI_SERVO] = "TRI_SERVO",
     [DEBUG_TRI_GROUND] = "TRI_GROUND",
+    [DEBUG_TRI_CONTROL] = "TRI_CONTROL",
 };

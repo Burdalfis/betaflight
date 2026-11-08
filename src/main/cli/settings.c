@@ -61,6 +61,7 @@
 #include "flight/gps_rescue.h"
 #include "flight/imu.h"
 #include "flight/mixer.h"
+#include "flight/mixer_tricopter.h"
 #include "flight/pid.h"
 #include "flight/position.h"
 #include "flight/rpm_filter.h"
@@ -1072,6 +1073,19 @@ const clivalue_t valueTable[] = {
 
 // PG_SERVO_CONFIG
 #ifdef USE_SERVOS
+    { "tri_angle_low",             VAR_INT16 | MASTER_VALUE, .config.minmax = { -800, -1 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, angleDeciDeg[0]) },
+    { "tri_angle_mid",             VAR_INT16 | MASTER_VALUE, .config.minmax = { 0, 0 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, angleDeciDeg[1]) },
+    { "tri_angle_high",            VAR_INT16 | MASTER_VALUE, .config.minmax = { 1, 800 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, angleDeciDeg[2]) },
+    { "tri_adc_low",               VAR_INT16 | MASTER_VALUE, .config.minmax = { -4095, 4095 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, adcCounts[0]) },
+    { "tri_adc_mid",               VAR_INT16 | MASTER_VALUE, .config.minmax = { -4095, 4095 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, adcCounts[1]) },
+    { "tri_adc_high",              VAR_INT16 | MASTER_VALUE, .config.minmax = { -4095, 4095 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, adcCounts[2]) },
+    { "tri_yaw_gain",              VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 2000 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, yawGainPermille) },
+    { "tri_servo_p",               VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 200 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, positionGainDeciUsPerDeg) },
+    { "tri_feedback_timeout",      VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 1, 500 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, feedbackTimeoutMs) },
+    { "tri_adc_margin",            VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 256 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, adcMarginCounts) },
+    { "tri_yaw_trim",              VAR_INT16 | MASTER_VALUE, .config.minmax = { -800, 800 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, neutralTrimDeciDeg) },
+    { "tri_yaw_direction",         VAR_INT8 | MASTER_VALUE, .config.minmax = { -1, 1 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, yawDirection) },
+    { "tri_servo_speed",           VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 2000 }, PG_TRICOPTER_CONFIG, offsetof(tricopterMixerConfig_t, observedServoSpeedDps) },
     { "servo_center_pulse",         VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { PWM_PULSE_MIN, PWM_PULSE_MAX }, PG_SERVO_CONFIG, offsetof(servoConfig_t, dev.servoCenterPulse) },
     { "servo_pwm_rate",             VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 50, 498 }, PG_SERVO_CONFIG, offsetof(servoConfig_t, dev.servoPwmRate) },
     { "servo_lowpass_hz",           VAR_UINT16 | MASTER_VALUE, .config.minmaxUnsigned = { 0, 400}, PG_SERVO_CONFIG, offsetof(servoConfig_t, servo_lowpass_freq) },

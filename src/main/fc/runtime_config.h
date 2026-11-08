@@ -69,10 +69,11 @@ typedef enum {
     ARMING_DISABLED_ALTHOLD         = (1 << 26),
     ARMING_DISABLED_POSHOLD         = (1 << 27),
     ARMING_DISABLED_AUTOPILOT       = (1 << 28),
-    ARMING_DISABLED_ARM_SWITCH      = (1 << 29) // Needs to be the last element, since it's always activated if one of the others is active when arming
+    ARMING_DISABLED_ARM_SWITCH      = (1 << 29), // Preserve existing public bit positions.
+    ARMING_DISABLED_TRICOPTER       = (1 << 30)  // Invalid/stale TRI feedback or active servo calibration.
 } armingDisableFlags_e;
 
-#define ARMING_DISABLE_FLAGS_COUNT (LOG2(ARMING_DISABLED_ARM_SWITCH) + 1)
+#define ARMING_DISABLE_FLAGS_COUNT (LOG2(ARMING_DISABLED_TRICOPTER) + 1)
 
 void setArmingDisabled(armingDisableFlags_e flag);
 void unsetArmingDisabled(armingDisableFlags_e flag);

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-11-08T04:17:02.417853+00:00",
+  "method": "Independent stdlib tar/gzip inventory and hash audit; direct Intel HEX checksum/address parsing and byte comparisons from archived bytes without extracting files or accessing hardware.",
+  "pass": true,
+  "archive": {
+    "file": "bench-evidence.tar.gz",
+    "bytes": 2345440,
+    "sha256": "d8b01ef8987802d72ad7c5f121f3ed3e081096bafd56fefeda5dc4d5f0195a2e",
+    "member_count": 112,
+    "uncompressed_file_bytes": 6116886,
+    "all_member_sizes_and_sha256_match_inventory": true,
+    "all_members_match_current_local_bytes": true,
+    "safe_unique_relative_regular_files_only": true,
+    "sorted_members": true,
+    "normalized_tar_metadata": {
+      "uid": 0,
+      "gid": 0,
+      "mtime": 0,
+      "mode": "0644",
+      "empty_user_and_group_names": true
+    },
+    "gzip_mtime": 0
+  },
+  "source_and_artifact_binding": {
+    "source_files_checked": 17,
+    "source_hash_mismatches": [],
+    "archived_artifacts_checked": 26,
+    "artifact_hash_mismatches": [],
+    "archived_images_checked": 2,
+    "image_hash_mismatches": []
+  },
+  "archived_flash_checks": {
+    "readback_bytes": 1048576,
+    "readback_sha256": "360179f38ba762356cc9ec89ef23987545d4697167d4adfa23abc718c5b9e156",
+    "segments": [
+      {
+        "address": "0x8000000",
+        "bytes": 392,
+        "sha256": "029e06a7f71ff7e3f8c3e7d45e9d66c0866aa34739d7d14b281f52c6e1e46178",
+        "readback_exact": true
+      },
+      {
+        "address": "0x8008000",
+        "bytes": 545076,
+        "sha256": "c38690a386d5e955f3f18b1382d7d2474499bf5131685c5e45fa0fe5af2eea83",
+        "readback_exact": true
+      }
+    ],
+    "intel_hex_checksummed_records": 34107,
+    "intel_hex_loaded_bytes": 545468,
+    "intel_hex_addresses_exactly_match_declared_segments": true,
+    "intel_hex_loaded_bytes_match_readback": true,
+    "configuration_sector_address": "0x08004000",
+    "configuration_sector_bytes": 16384,
+    "configuration_sector_sha256": "cfe1550fab9dcf4f25001ae65e49c8d4c569f4de00356cd576534844e44e50a9",
+    "configuration_sector_matches_preflash_backup_and_programmed_readback": true
+  },
+  "boundary": "This verifies archived bytes, provenance bindings and recorded pre-first-boot flash/config comparisons. It performs no new hardware, loaded-response or flight validation."
+}

@@ -53,6 +53,17 @@ althold_unittest_DEFINES := \
 tricopter_diagnostics_unittest_SRC := \
 		$(USER_DIR)/flight/servos_tricopter.c
 
+tricopter_control_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_control.c
+
+tricopter_servo_calibration_unittest_SRC := \
+		$(USER_DIR)/flight/tricopter_servo_calibration.c
+
+tricopter_feedback_unittest_SRC := \
+		$(USER_DIR)/flight/mixer_tricopter.c \
+		$(USER_DIR)/flight/tricopter_control.c \
+		$(USER_DIR)/flight/tricopter_servo_calibration.c
+
 tricopter_angle_calibration_unittest_SRC := \
 		$(USER_DIR)/flight/tricopter_angle_calibration.c
 

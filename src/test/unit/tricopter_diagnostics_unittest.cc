@@ -8,6 +8,7 @@ extern "C" {
 #include "drivers/adc.h"
 #include "drivers/dshot.h"
 #include "flight/servos.h"
+#include "flight/mixer_tricopter.h"
 
 int16_t debug[DEBUG16_VALUE_COUNT];
 uint8_t debugMode;
@@ -25,6 +26,9 @@ static dshotTelemetryRpmSample_t rpmSamples[3];
 static int16_t invalidPercent[3];
 static unsigned adcReads, adcPairReads, adcResets, rpmReads, clockReads, mixerCalls;
 static timeUs_t now;
+static tricopterControlOutput_t controlOutput;
+static tricopterServoCalibrationOutput_t calibrationOutput;
+static bool tricopterMode, calibrating;
 
 extern "C" {
 timeUs_t micros(void) { clockReads++; return now; }
@@ -53,12 +57,20 @@ dshotTelemetryRpmSample_t getDshotTelemetryRpmSample(uint8_t motor, timeUs_t tim
 }
 int16_t getDshotTelemetryMotorInvalidPercent(uint8_t motor) { return invalidPercent[motor]; }
 void servoMixer(void) { mixerCalls++; }
+bool mixerIsTricopter(void) { return tricopterMode; }
+bool mixerTricopterIsCalibrating(void) { return calibrating; }
+uint16_t mixerTricopterServoPwm(void) { return 1509; }
+const tricopterControlOutput_t *mixerTricopterGetControl(void) { return &controlOutput; }
+const tricopterServoCalibrationOutput_t *mixerTricopterGetCalibration(void) { return &calibrationOutput; }
 }
 
 class TricopterDiagnostics : public ::testing::Test {
 protected:
     void SetUp() override
     {
+        tricopterMode = calibrating = false;
+        controlOutput = {};
+        calibrationOutput = {};
         debugMode = DEBUG_NONE;
         servosTricopterLog(0); // End any previous logging session.
         std::fill(debug, debug + DEBUG16_VALUE_COUNT, 1234);
@@ -73,6 +85,45 @@ protected:
         now = 123456;
     }
 };
+
+TEST_F(TricopterDiagnostics, LiveFeedbackCacheSurvivesDebugChanges)
+{
+    tricopterMode = true;
+    debugMode = DEBUG_TRI_GROUND;
+    servosTricopterLog(1509);
+    debugMode = DEBUG_NONE;
+    servosTricopterLog(1509);
+    EXPECT_EQ(0u, adcResets);
+}
+
+TEST_F(TricopterDiagnostics, OperationalDebugDistinguishesUnavailableMeasuredVectors)
+{
+    debugMode = DEBUG_TRI_CONTROL;
+    controlOutput.targetAngleDeg = 12.3f;
+    controlOutput.pwmUs = 1600;
+    servosTricopterLog(1599);
+    EXPECT_EQ(INT16_MIN, debug[0]);
+    EXPECT_EQ(123, debug[1]);
+    EXPECT_EQ(1599, debug[2]);
+    EXPECT_EQ(INT16_MIN, debug[4]);
+    EXPECT_EQ(INT16_MIN, debug[5]);
+    controlOutput.feedbackValid = controlOutput.currentVectorAvailable = true;
+    controlOutput.actualAngleDeg = -20;
+    controlOutput.currentVertical = .4f;
+    controlOutput.currentLateral = -.2f;
+    servosTricopterLog(1599);
+    EXPECT_EQ(-200, debug[0]);
+    EXPECT_EQ(400, debug[4]);
+    EXPECT_EQ(-200, debug[5]);
+}
+
+TEST_F(TricopterDiagnostics, CalibrationCanTemporarilyDriveDisabledUnarmedServo)
+{
+    servoConfig_System.tri_unarmed_servo = 0;
+    EXPECT_FALSE(servosTricopterIsEnabledServoUnarmed());
+    calibrating = true;
+    EXPECT_TRUE(servosTricopterIsEnabledServoUnarmed());
+}
 
 TEST_F(TricopterDiagnostics, LegacyModeDoesNotSampleOrOverwriteAnotherDebugMode)
 {
@@ -92,7 +143,8 @@ TEST_F(TricopterDiagnostics, LogsWrittenPulseIncludingDisarmedZeroWithoutChangin
     }
     EXPECT_EQ(0u, mixerCalls);
     servosTricopterMixer();
-    EXPECT_EQ(1u, mixerCalls);
+    EXPECT_EQ(0u, mixerCalls);
+    EXPECT_EQ(1509, servo[SERVO_RUDDER]);
 }
 
 TEST_F(TricopterDiagnostics, EncodesLogicalMotorAgesAndWorstPacketError)

@@ -108,6 +108,7 @@ bool cliMode = false;
 #include "flight/flight_plan_nav.h"
 #include "flight/imu.h"
 #include "flight/mixer.h"
+#include "flight/mixer_tricopter.h"
 #include "flight/pid.h"
 #include "flight/position.h"
 #include "flight/servos.h"
@@ -2329,6 +2330,39 @@ static void printServo(dumpFlags_t dumpMask, const servoParam_t *servoParams, co
             }
         }
     }
+}
+
+RAM_CODE static void cliTricopterCalibrate(const char *cmdName, char *cmdline)
+{
+    if (strcasecmp(cmdline, "start") == 0) {
+        if (!mixerTricopterCalibrationStart(micros())) {
+            cliPrintErrorLinef(cmdName, "Requires TRI, disarmed, stopped motors and valid PWM/angle endpoints");
+            return;
+        }
+        cliPrintLine("Servo calibration started; use status, then apply and save when complete.");
+    } else if (strcasecmp(cmdline, "abort") == 0) {
+        mixerTricopterCalibrationAbort();
+        cliPrintLine("Servo calibration aborted; center requested.");
+    } else if (strcasecmp(cmdline, "apply") == 0) {
+        if (!mixerTricopterCalibrationApply()) {
+            cliPrintErrorLinef(cmdName, "No completed disarmed calibration to apply");
+            return;
+        }
+        cliPrintLine("Learned ADC endpoints/speed applied in RAM; save to persist.");
+    } else if (*cmdline && strcasecmp(cmdline, "status") != 0) {
+        cliPrintErrorLinef(cmdName, "Use start | status | abort | apply");
+        return;
+    }
+    const tricopterControlOutput_t *control = mixerTricopterGetControl();
+    const tricopterServoCalibrationOutput_t *cal = mixerTricopterGetCalibration();
+    cliPrintLinef("TRI config=%u feedback=%u vector=%u angle_ddeg=%d target_ddeg=%d pwm=%u yaw_sat=%u vertical_sat=%u",
+        control->validConfig, control->feedbackValid, control->currentVectorAvailable,
+        (int)lrintf(control->actualAngleDeg * 10), (int)lrintf(control->targetAngleDeg * 10),
+        mixerTricopterServoPwm(), control->yawSaturated, control->verticalSaturated);
+    cliPrintLinef("Calibration stage=%u status=%u active=%u complete=%u result=%u adc=%d,%d,%d speed_dps=%u speed_valid=%u",
+        cal->stage, cal->status, cal->active, cal->complete, cal->resultValid,
+        cal->learnedAdc[0], cal->learnedAdc[1], cal->learnedAdc[2],
+        (unsigned)lrintf(cal->observedSpeedDegPerSecond), cal->speedEstimateValid);
 }
 
 RAM_CODE static void cliServo(const char *cmdName, char *cmdline)
@@ -8415,6 +8449,9 @@ const clicmd_t cmdTable[] = {
 #ifdef USE_TIMER_MGMT
     CLI_COMMAND_DEF("timer", "show/set timers", "<> | <pin> list | <pin> [af<alternate function>|none|<option(deprecated)>] | list | show", cliTimer),
 #endif
+#ifdef USE_SERVOS
+    CLI_COMMAND_DEF("tricopter_calibrate", "TRI feedback status / disarmed ADC calibration", "start | status | abort | apply", cliTricopterCalibrate),
+#endif
     CLI_COMMAND_DEF("version", "show version", NULL, cliVersion),
 #ifdef USE_VTX_CONTROL
 #ifdef MINIMAL_CLI
@@ -8623,6 +8660,9 @@ bool cliProcess(void)
 
 static void cliExit(const bool reboot)
 {
+#ifdef USE_SERVOS
+    if (mixerTricopterIsCalibrating()) mixerTricopterCalibrationAbort();
+#endif
     cliWriterFlush();
     waitForSerialPortToFinishTransmitting(cliPort);
     cliClearInputBuffer();

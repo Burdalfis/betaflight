@@ -20,6 +20,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <math.h>
 
 #include "platform.h"
 
@@ -53,7 +54,7 @@ static int16_t diagnosticAge(uint32_t ageUs)
 
 static bool isTricopterDiagnosticMode(uint8_t mode)
 {
-    return mode == DEBUG_TRI_SERVO || mode == DEBUG_TRI_GROUND;
+    return mode == DEBUG_TRI_SERVO || mode == DEBUG_TRI_GROUND || mode == DEBUG_TRI_CONTROL;
 }
 
 tricopterServoPositionSample_t servosTricopterGetPosition(timeUs_t currentTimeUs)
@@ -163,7 +164,7 @@ void servosTricopterLog(int16_t finalPwm)
 #ifdef USE_ADC
     static uint8_t previousMode = DEBUG_NONE;
     if (previousMode != debugMode) {
-        if (isTricopterDiagnosticMode(previousMode)) {
+        if (!mixerIsTricopter() && isTricopterDiagnosticMode(previousMode)) {
             adcResetDiagnosticSnapshot();
         }
         previousMode = debugMode;
@@ -178,6 +179,19 @@ void servosTricopterLog(int16_t finalPwm)
 #else
     const timeUs_t now = 0;
 #endif
+    if (debugMode == DEBUG_TRI_CONTROL) {
+        const tricopterControlOutput_t *c = mixerTricopterGetControl();
+        debug[0] = c->feedbackValid ? lrintf(c->actualAngleDeg * 10) : INT16_MIN;
+        debug[1] = lrintf(c->targetAngleDeg * 10);
+        debug[2] = finalPwm;
+        debug[3] = lrintf(c->tailEffort * 1000);
+        debug[4] = c->currentVectorAvailable ? lrintf(c->currentVertical * 1000) : INT16_MIN;
+        debug[5] = c->currentVectorAvailable ? lrintf(c->currentLateral * 1000) : INT16_MIN;
+        debug[6] = c->validConfig | (c->feedbackValid << 1) | (c->yawSaturated << 2)
+            | (c->verticalSaturated << 3) | (mixerTricopterIsCalibrating() << 4) | (c->validInput << 5);
+        debug[7] = mixerTricopterGetCalibration()->stage;
+        return;
+    }
     if (debugMode == DEBUG_TRI_GROUND) {
         logTricopterGround(finalPwm, now);
         return;
@@ -235,12 +249,14 @@ void servosTricopterLog(int16_t finalPwm)
 
 bool servosTricopterIsEnabledServoUnarmed(void)
 {
-    return servoConfig()->tri_unarmed_servo;
+    return servoConfig()->tri_unarmed_servo || mixerTricopterIsCalibrating();
 }
 
 void servosTricopterMixer(void)
 {
-    servoMixer();
+    // This replaces the old +/-half-width PID servo rule for TRI. The command
+    // was computed with the same measured angle as this tick's motor vector.
+    servo[SERVO_RUDDER] = mixerTricopterServoPwm();
 }
 
 void servosTricopterInit(void)

@@ -458,16 +458,18 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
     // roll/pitch/yaw. This could move throttle down, but also up for those low throttle flips.
     for (int i = 0; i < mixerRuntime.motorCount; i++) {
         float motorOutput = motorOutputMixSign * motorMix[i] + throttle * activeMixer[i].throttle;
+#ifdef USE_SERVOS
+        if (mixerIsTricopter()) {
+            // Normalize first: the feedback allocator preserves requested tail
+            // vertical effort using measured angle, before motor linearization.
+            motorOutput += mixerTricopterMotorCorrection(i);
+        }
+#endif
 #ifdef USE_THRUST_LINEARIZATION
         motorOutput = pidApplyThrustLinearization(motorOutput);
 #endif
         motorOutput = motorOutputMin + motorOutputRange * motorOutput;
 
-#ifdef USE_SERVOS
-        if (mixerIsTricopter()) {
-            motorOutput += mixerTricopterMotorCorrection(i);
-        }
-#endif
         if (failsafeIsActive()) {
 #ifdef USE_DSHOT
             if (isMotorProtocolDshot()) {
@@ -682,6 +684,11 @@ FAST_CODE_NOINLINE void mixTable(timeUs_t currentTimeUs)
     calculateThrottleAndCurrentMotorEndpoints(currentTimeUs);
 
     if (applyCrashFlipModeToMotors()) {
+#ifdef USE_SERVOS
+        if (mixerIsTricopter()) {
+            mixerTricopterUpdate(currentTimeUs, 0.0f, 0.0f);
+        }
+#endif
         return;
         // if crash flip modeis being applied to the motors, mixing is done
 
@@ -831,12 +838,24 @@ FAST_CODE_NOINLINE void mixTable(timeUs_t currentTimeUs)
         break;
     }
 
-    if (featureIsEnabled(FEATURE_MOTOR_STOP)
+    const bool motorStopActive = featureIsEnabled(FEATURE_MOTOR_STOP)
         && ARMING_FLAG(ARMED)
         && !mixerRuntime.feature3dEnabled
         && !airmodeEnabled
         && !FLIGHT_MODE(GPS_RESCUE_MODE | ALT_HOLD_MODE | POS_HOLD_MODE)   // disable motor_stop while GPS Rescue / Alt Hold / Pos Hold is active
-        && (rcData[THROTTLE] < rxConfig()->mincheck)) {
+        && (rcData[THROTTLE] < rxConfig()->mincheck);
+#ifdef USE_SERVOS
+    if (mixerIsTricopter()) {
+        const float tailVertical = motorStopActive ? 0.0f
+            : motorOutputMixSign * motorMix[0] + throttle * activeMixer[0].throttle;
+        // Match the old servo yaw sign (which is independent of motor rotation
+        // configuration) and its reverse-thrust convention.
+        float servoYaw = pidData[FD_YAW].Sum / PID_MIXER_SCALING;
+        if (mixerRuntime.feature3dEnabled && rcData[THROTTLE] < rxConfig()->midrc) servoYaw = -servoYaw;
+        mixerTricopterUpdate(currentTimeUs, tailVertical, motorStopActive ? 0.0f : servoYaw);
+    }
+#endif
+    if (motorStopActive) {
         applyMotorStop();
     } else {
         // Apply the mix to motor endpoints

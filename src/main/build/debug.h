@@ -133,6 +133,7 @@ typedef enum {
     DEBUG_AUTOPILOT_STOP,
     DEBUG_TRI_SERVO,
     DEBUG_TRI_GROUND,
+    DEBUG_TRI_CONTROL,
     DEBUG_COUNT
 } debugType_e;
 

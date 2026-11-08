@@ -1,0 +1,204 @@
+{
+  "date_utc": "2026-11-08T03:35:32.223488+00:00",
+  "base_commit": "1206c78f7b3addf1a41b2bb115187c222af9868b",
+  "working_tree_source_snapshot": true,
+  "source_sha256": {
+    "src/main/flight/tricopter_control.c": "56ad331eeb52051d0024ddf463a91df5cb628136efbbdcd7b2c21c2422dbade2",
+    "src/main/flight/tricopter_control.h": "4990dbc512f79c647fe49ac84be6183a686081761903fb09180b58013cc5e3eb",
+    "src/main/flight/tricopter_servo_calibration.c": "27d3614694fff85fb1b9db72ff451ad763f500a2c6698513fccb9b35cbaf73ab",
+    "src/main/flight/tricopter_servo_calibration.h": "e987f40921b30b1a05bebeb83b20c00084d056b67de2578308c840a0ef4b8911",
+    "src/main/flight/mixer_tricopter.c": "9fae131c55d09a6440dd0ad92eba1d72f950af7bc83594f1aeb63476af851f36",
+    "src/main/flight/mixer_tricopter.h": "b5c2cd2b3561b3727d35c710f45ae081117203e24a4d5ffa5369ec5ddb8ed7c4",
+    "src/main/flight/mixer.c": "71ee15b560710072deb898bacd17a3bfeb7fe3de3187423bb37b88a824fd8b96",
+    "src/main/flight/servos_tricopter.c": "2ac927dc63f19279b2699e79d87c7248710c7d3d8c2b9f72eca87b80c92698bf",
+    "src/main/config/config.c": "e123d0e6317dd531749a084f3d9fa9cef266a6dd7eef21343caa602aabc02a34",
+    "src/main/cli/cli.c": "0bf33ce62eab2188618275a405e065b0083e0f41f37661aa3824b080f0a967d2",
+    "src/main/cli/settings.c": "04fba3799465b7eba31851bcd50f8a7de5f6680a19aa36a396f43d6c299e8e3d",
+    "src/main/fc/core.c": "4b0065bd192f4a4e06abae0487b81c81ff5b558d9263c413d8bf6eec86e9a300",
+    "src/main/fc/runtime_config.h": "15a79c2611b94ac0979b3fcd64ca963c1d977c914afcccaf56a5d82814c877e1",
+    "src/main/fc/runtime_config.c": "7759ae36b7ff5531015fb3507ed04db871dfe62f8de8e90d1960d98c6ccc0d65",
+    "mk/source.mk": "64b2126384f7bf3c0c9ae43ff3131032e9cbd817d95262a4b46a9723fbc85b64",
+    "src/main/build/debug.c": "e761e5e8c762793463556f462aff6e4ec3c0b2fbbaf176c4529d31d125d15ba0",
+    "src/main/build/debug.h": "c36229aae9733db8e1f66794e4446bd6c1e2d8dac683b8f2f8a9455f729aaf80"
+  },
+  "image_sha256": {
+    "betaflight_2026.6.2_STM32F405_MATEKF405TE.hex": "cf1bdcf2e80700dc6d745a1ba3a340174a4eea35c503414ff6ceb90cc1e042a6",
+    "betaflight_STM32F405_MATEKF405TE.elf": "13cd5d5b8162dfcfdbad24dc49455eb0701ded744611de288bb90d35f323fc49"
+  },
+  "host_tests_passed": 231,
+  "new_controller_calibration_adapter_tests": 42,
+  "target": "STM32F405_MATEKF405TE",
+  "build_command": "SOURCE_DATE_EPOCH=1789594937 make -j8 CONFIG=MATEKF405TE CCACHE= fwo",
+  "test_command": "GCOV_PREFIX=/tmp/tricopter-operational-final-gcov CC=gcc CXX=g++ src/test/run_tricopter_checks.sh",
+  "build_memory_bytes": {
+    "flash_vectors": 392,
+    "flash_body": 545076,
+    "ram": 94620,
+    "ccm": 13440
+  },
+  "flash_verification": {
+    "readback_bytes": 1048576,
+    "readback_sha256": "360179f38ba762356cc9ec89ef23987545d4697167d4adfa23abc718c5b9e156",
+    "segments": [
+      {
+        "file": "firmware-0-08000000.bin",
+        "address": "0x8000000",
+        "length": 392,
+        "sha256": "029e06a7f71ff7e3f8c3e7d45e9d66c0866aa34739d7d14b281f52c6e1e46178",
+        "readback_match": true
+      },
+      {
+        "file": "firmware-1-08008000.bin",
+        "address": "0x8008000",
+        "length": 545076,
+        "sha256": "c38690a386d5e955f3f18b1382d7d2474499bf5131685c5e45fa0fe5af2eea83",
+        "readback_match": true
+      }
+    ],
+    "configuration_sector_preserved": true,
+    "configuration_sector_sha256": "cfe1550fab9dcf4f25001ae65e49c8d4c569f4de00356cd576534844e44e50a9"
+  },
+  "configuration_comparison": {
+    "existing_commands_unchanged": 1472,
+    "new_commands": [
+      "set tri_angle_low = -478",
+      "set tri_angle_mid = 0",
+      "set tri_angle_high = 216",
+      "set tri_adc_low = 1936",
+      "set tri_adc_mid = 1490",
+      "set tri_adc_high = 1281",
+      "set tri_yaw_gain = 700",
+      "set tri_servo_p = 20",
+      "set tri_feedback_timeout = 20",
+      "set tri_adc_margin = 32",
+      "set tri_yaw_trim = 0",
+      "set tri_yaw_direction = 1",
+      "set tri_servo_speed = 0"
+    ]
+  },
+  "bench": {
+    "default_tri_controller_installed": true,
+    "feedback_valid_with_debug_none_after_reboot": true,
+    "trim_holds": {
+      "trim-50": {
+        "observations": 5,
+        "actual_angle_deg_range": [
+          4.3,
+          5.8
+        ],
+        "target_angle_deg_range": [
+          4.9,
+          5.1
+        ],
+        "pwm_us_range": [
+          1552,
+          1554
+        ],
+        "max_abs_tracking_error_deg": 0.7
+      },
+      "trim--50": {
+        "observations": 5,
+        "actual_angle_deg_range": [
+          -5.7,
+          -5.1
+        ],
+        "target_angle_deg_range": [
+          -5.3,
+          -4.9
+        ],
+        "pwm_us_range": [
+          1465,
+          1468
+        ],
+        "max_abs_tracking_error_deg": 0.8
+      },
+      "trim-0": {
+        "observations": 5,
+        "actual_angle_deg_range": [
+          -1.1,
+          -0.1
+        ],
+        "target_angle_deg_range": [
+          -0.2,
+          0.1
+        ],
+        "pwm_us_range": [
+          1507,
+          1513
+        ],
+        "max_abs_tracking_error_deg": 1.2
+      }
+    },
+    "calibration": {
+      "complete": true,
+      "result_valid": true,
+      "adc_counts": [
+        1936,
+        1487,
+        1280
+      ],
+      "observed_speed_deg_per_s": 362,
+      "speed_is_ramp_limited_observation": true,
+      "completion_hold_pwm_us": 1509,
+      "apply_in_ram_checked": true,
+      "abort_checked": true,
+      "learned_values_not_persisted": true
+    },
+    "final_settled_observations": 30,
+    "final_disarmed": true,
+    "final_motors": [
+      1000,
+      1000,
+      1000
+    ],
+    "servo_table_preserved": true,
+    "debug_mode_restored": "TRI_GROUND",
+    "final_trim_deci_deg": 0,
+    "final_servo_speed_deg_per_s": 0,
+    "final_feedback_valid": true,
+    "settled_cpu_percent_cli_status": 57,
+    "gyro_cycle_time_us": 125,
+    "remaining_arming_flags_in_cli": [
+      "RXLOSS",
+      "NOPREARM",
+      "CLI"
+    ]
+  },
+  "boundary": {
+    "motor_absent_adxl_in_its_place": true,
+    "external_adxl_not_used_for_controller_or_these_checks": true,
+    "motors_not_armed_or_commanded_during_validation": true,
+    "loaded_response_tested": false,
+    "flight_tested": false,
+    "prop_rotation_changed": false
+  },
+  "artifact_directory": ".local-artifacts/tricopter/operational-feedback-2026-11-07",
+  "artifact_sha256": {
+    "betaflight_2026.6.2_STM32F405_MATEKF405TE.hex": "cf1bdcf2e80700dc6d745a1ba3a340174a4eea35c503414ff6ceb90cc1e042a6",
+    "betaflight_STM32F405_MATEKF405TE.elf": "13cd5d5b8162dfcfdbad24dc49455eb0701ded744611de288bb90d35f323fc49",
+    "preflash-full-flash.bin": "6e00fb46024d6e720b6a39fa7449b74231ec637b7c7f1932ce9447bcd6e228d1",
+    "preflash-config-sector.bin": "cfe1550fab9dcf4f25001ae65e49c8d4c569f4de00356cd576534844e44e50a9",
+    "preflash-complete-cli.txt": "0126ec185a5a9b86abc27aec54a00c0e695ae472475ed955f96c13c085dabc0d",
+    "preflash-complete-dump-all.txt": "33f2bc56b29af1909bcf9609c77091543fd8a94073d57fed21bc2a105986c4f9",
+    "preflash-complete-diff-all.txt": "cb66a255776eb34a465868441e0e2744a473900ad8297831b5b8395d1f118b78",
+    "postflash-readback-verified.bin": "360179f38ba762356cc9ec89ef23987545d4697167d4adfa23abc718c5b9e156",
+    "flash-verification.json": "dde1b81100c8e20ea9ba6a4abe401cee6ddab227c0e5efad06239b8bf7002b66",
+    "configuration-restore-verified.json": "e8ed7b576c702c158f7ce2b1677aafe6bd5d2b141951ad6c507e8269f170d862",
+    "configuration-comparison.json": "c002c880b528bfe6f8ec44fc486e4f7b335f299c3d8753853fa4bdb91f6b49b1",
+    "restored-reboot-verified-dump-all.txt": "bd3fdd79d68f27e47ee3535fdf29cfe3e78d030ba158a2cb264497cce73bcbc7",
+    "debug-none-reboot-dump-all.txt": "fc94ea55f61cd2989bdfd202cf1529a44b7d7177a5dad777853b3eb92b0a84fe",
+    "debug-none-reboot-tricopter_calibrate-status.txt": "a6e05836959ed93e39e4bb64c0dabbff5e74e08344647c69a854e4df5308ba60",
+    "disarmed-motion-and-calibration-cli.txt": "1e2315eb9d403cb264092ee8ae607beb37bebfd2b36b2754af0b012e4289dba8",
+    "disarmed-motion-records.json": "6b1687b6829cbbae073f04a883cdadec8db7a9cceea51b55541faed5d7486a47",
+    "final-dump-all.txt": "bd3fdd79d68f27e47ee3535fdf29cfe3e78d030ba158a2cb264497cce73bcbc7",
+    "final-msp.json": "517919ba84bbbefeb19fe2274d1797ab56520b8864456398e8fdf69176cdd45e",
+    "final-settled-cli.txt": "3343d85e1698439d399ace73bf18aa7d46fe05d32ad06e59ca17329d6aae0348",
+    "final-settled-observations.json": "841ef9fb1ac152c556414853d75d8f5989d7e2efe3163a629be8f5a024423a34",
+    "host-tests.log": "d05590273bb4908cea0873ed8311ec5d53f57ca0751766eac0c459dbbf01bcb4",
+    "build.log": "1dd7850981a82d9539112bd5a130ac24f4d06570683b9d081ab2c673bca39a8c",
+    "build-final-stable.log": "6949b1f7706e14dd836f71d8617e49c584adb848921933475f0f3dab0fe4da73",
+    "bench_check.py": "d8f887f4f9944f155353c454a50214daddb00bdf9e84a8ed115335f6aea2c1e5",
+    "cli_io.py": "45ed7cb5961852fbc00c0eaec4cf4ab1990b14b035f1e2598b82cc5db4ce4316",
+    "restore_config_verified.py": "29985b02852e512887eeb873e12352850d9dcd40d8f473830dd27acf487f6ba6"
+  }
+}

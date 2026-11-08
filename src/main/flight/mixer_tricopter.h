@@ -23,9 +23,20 @@
 #include "platform.h"
 
 #include "pg/pg.h"
+#include "common/time.h"
+#include "flight/tricopter_control.h"
+#include "flight/tricopter_servo_calibration.h"
 
 typedef struct tricopterMixerConfig_s {
-    uint8_t dummy;
+    int16_t angleDeciDeg[3]; // Angle at servo5 min/middle/max PWM.
+    int16_t adcCounts[3];    // Signed PB0-PC0 at those same three angles.
+    uint16_t yawGainPermille;
+    uint16_t positionGainDeciUsPerDeg;
+    uint16_t feedbackTimeoutMs;
+    uint16_t adcMarginCounts;
+    int16_t neutralTrimDeciDeg;
+    int8_t yawDirection;
+    uint16_t observedServoSpeedDps; // Optional calibration estimate, not prediction.
 } tricopterMixerConfig_t;
 
 PG_DECLARE(tricopterMixerConfig_t, tricopterMixerConfig);
@@ -33,3 +44,14 @@ PG_DECLARE(tricopterMixerConfig_t, tricopterMixerConfig);
 bool mixerTricopterIsServoSaturated(float errorRate);
 void mixerTricopterInit(void);
 float mixerTricopterMotorCorrection(int motor);
+// Motor inputs are normalized pre-thrust-linearization effort. Yaw is the
+// existing un-reversed yaw PID sum / PID_MIXER_SCALING.
+void mixerTricopterUpdate(timeUs_t now, float tailVertical, float normalizedYaw);
+uint16_t mixerTricopterServoPwm(void);
+bool mixerTricopterCanArm(void);
+const tricopterControlOutput_t *mixerTricopterGetControl(void);
+bool mixerTricopterCalibrationStart(timeUs_t now);
+void mixerTricopterCalibrationAbort(void);
+bool mixerTricopterCalibrationApply(void);
+bool mixerTricopterIsCalibrating(void);
+const tricopterServoCalibrationOutput_t *mixerTricopterGetCalibration(void);

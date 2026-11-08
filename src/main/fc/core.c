@@ -79,6 +79,7 @@
 
 #include "flight/imu.h"
 #include "flight/mixer.h"
+#include "flight/mixer_tricopter.h"
 #include "flight/pid.h"
 #include "flight/position.h"
 #include "flight/rpm_filter.h"
@@ -405,6 +406,13 @@ if (crashFlipModeActive) {
         } else {
             unsetArmingDisabled(ARMING_DISABLED_CALIBRATING);
         }
+#ifdef USE_SERVOS
+        if (mixerIsTricopter() && !mixerTricopterCanArm()) {
+            setArmingDisabled(ARMING_DISABLED_TRICOPTER);
+        } else {
+            unsetArmingDisabled(ARMING_DISABLED_TRICOPTER);
+        }
+#endif
 
         if (isModeActivationConditionPresent(BOXPREARM)) {
             if (IS_RC_MODE_ACTIVE(BOXPREARM) && (!ARMING_FLAG(WAS_ARMED_WITH_PREARM) || armingConfig()->prearm_allow_rearm) ) {

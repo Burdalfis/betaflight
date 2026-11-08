@@ -66,6 +66,7 @@ const char *armingDisableFlagNames[]= {
     "POS_HOLD_SW",
     "AUTOPILOT_SW",
     "ARM_SWITCH",
+    "TRI_FEEDBACK",
 };
 STATIC_ASSERT(ARRAYLEN(armingDisableFlagNames) == ARMING_DISABLE_FLAGS_COUNT, armingDisableFlagNames_size_mismatch);
 
