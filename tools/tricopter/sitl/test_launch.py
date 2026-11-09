@@ -1,5 +1,6 @@
 """Regression checks for plant startup health and fair rotation comparisons."""
 import copy
+import os
 from pathlib import Path
 import struct
 import tempfile
@@ -33,12 +34,13 @@ class LauncherChecks(unittest.TestCase):
 
     def test_old_world_copy_receives_collisionless_camera_target(self):
         with tempfile.TemporaryDirectory() as temporary:
-            tree = ET.parse(run.HERE/'gazebo/worlds/tricopter.sdf')
+            source, output = Path(temporary)/'old.sdf', Path(temporary)/'new.sdf'
+            run.materialize_world(run.HERE/'gazebo/worlds/tricopter.sdf', source)
+            tree = ET.parse(source)
             world = tree.find('./world')
             world.remove(world.find("model[@name='tricopter_camera_heading']"))
             bridge = world.find("model/plugin[@name='tricopter::TricopterBridge']")
             bridge.remove(bridge.find('camera_heading_model'))
-            source, output = Path(temporary)/'old.sdf', Path(temporary)/'new.sdf'
             tree.write(source)
             run.materialize_world(source, output)
             result = ET.parse(output)
@@ -50,6 +52,68 @@ class LauncherChecks(unittest.TestCase):
             self.assertEqual(result.findtext(
                 "./world/model/plugin[@name='tricopter::TricopterBridge']/camera_heading_model"),
                 'tricopter_camera_heading')
+
+    def test_local_meshes_survive_world_copy_cwd_and_spin_reversal(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            worlds = root/'source/worlds'; worlds.mkdir(parents=True)
+            meshes = root/'source/meshes'; meshes.mkdir()
+            mesh = meshes/'frame with spaces.stl'; mesh.write_bytes(b'local mesh fixture')
+            source = worlds/'model.sdf'
+            run.materialize_world(run.HERE/'gazebo/worlds/tricopter.sdf', source)
+            tree = ET.parse(source)
+            link = tree.find("./world/model[@name='tricopter']/link[@name='base_link']")
+            visual = ET.SubElement(link, 'visual', name='test_local_mesh')
+            uri = ET.SubElement(ET.SubElement(ET.SubElement(visual, 'geometry'), 'mesh'), 'uri')
+            uri.text = '../meshes/frame with spaces.stl'
+            tree.write(source)
+            runs = root/'runs'; runs.mkdir()
+            previous = Path.cwd()
+            try:
+                os.chdir(runs)
+                for reverse in (False, True):
+                    output = runs/f'world-{reverse}.sdf'
+                    run.materialize_world(source, output, reverse)
+                    copied = ET.parse(output).findtext(".//visual[@name='test_local_mesh']/geometry/mesh/uri")
+                    self.assertEqual(copied, str(mesh.resolve()))
+                    self.assertTrue(Path(copied).is_file())
+                    # A materialized world can itself be copied again.
+                    run.materialize_world(output, runs/f'recopy-{reverse}.sdf')
+            finally:
+                os.chdir(previous)
+
+    def test_resource_mesh_uris_keep_gazebo_resolution(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary)/'source.sdf'
+            output = Path(temporary)/'copied.sdf'
+            run.materialize_world(run.HERE/'gazebo/worlds/tricopter.sdf', source)
+            tree = ET.parse(source)
+            link = tree.find("./world/model[@name='tricopter']/link[@name='base_link']")
+            expected = ['model://custom/mesh.stl', 'https://example.test/mesh.stl',
+                        'file:///external/mesh.stl']
+            for i, value in enumerate(expected):
+                visual = ET.SubElement(link, 'visual', name=f'test_resource_{i}')
+                uri = ET.SubElement(ET.SubElement(ET.SubElement(visual, 'geometry'), 'mesh'), 'uri')
+                uri.text = value
+            tree.write(source)
+            run.materialize_world(source, output)
+            result = ET.parse(output)
+            actual = [result.findtext(f".//visual[@name='test_resource_{i}']/geometry/mesh/uri")
+                      for i in range(len(expected))]
+            self.assertEqual(actual, expected)
+
+    def test_missing_local_mesh_rejected_before_launch(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary)/'source.sdf'
+            run.materialize_world(run.HERE/'gazebo/worlds/tricopter.sdf', source)
+            tree = ET.parse(source)
+            link = tree.find("./world/model[@name='tricopter']/link[@name='base_link']")
+            visual = ET.SubElement(link, 'visual', name='missing_mesh')
+            uri = ET.SubElement(ET.SubElement(ET.SubElement(visual, 'geometry'), 'mesh'), 'uri')
+            uri.text = 'not-present.stl'
+            tree.write(source)
+            with self.assertRaisesRegex(FileNotFoundError, 'World mesh does not exist'):
+                run.materialize_world(source, Path(temporary)/'out.sdf')
 
     def test_camera_target_cannot_alias_the_physical_aircraft(self):
         with tempfile.TemporaryDirectory() as temporary:

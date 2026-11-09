@@ -1,6 +1,7 @@
 // Focused algebra and native-wire regression checks; no simulator dependency.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "TricopterMath.hh"
+#include "DragModel.hh"
 #include "sitl_gyro.h"
 #include <iostream>
 #include <deque>
@@ -36,6 +37,50 @@ int main()
   try
   {
     using namespace tricopter;
+    AirframeDragParameters drag; drag.Validate();
+    const std::array<Vector, 3> identity {{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}};
+    const auto stationary = QuadraticAirframeDrag(drag, {0, 0, 0}, identity);
+    for (double force : stationary.forceWorldN) Near(force, 0, "No drag at zero air velocity");
+    Near(stationary.powerW, 0, "No drag work at rest");
+    const auto forwardDrag = QuadraticAirframeDrag(drag, {10, 0, 0}, identity);
+    Near(forwardDrag.forceWorldN[0], -.6125, "Explicit rough forward drag at 10m/s");
+    const auto doubledDrag = QuadraticAirframeDrag(drag, {20, 0, 0}, identity);
+    Near(doubledDrag.forceWorldN[0], 4*forwardDrag.forceWorldN[0], "Double speed gives four times quadratic drag");
+    const auto backwardDrag = QuadraticAirframeDrag(drag, {-10, 0, 0}, identity);
+    Near(backwardDrag.forceWorldN[0], -forwardDrag.forceWorldN[0], "Reverse flow reverses force");
+    const auto mixedDrag = QuadraticAirframeDrag(drag, {10, -20, 30}, identity);
+    Near(mixedDrag.forceWorldN[0], -.6125, "Mixed forward component");
+    Near(mixedDrag.forceWorldN[1], 2.94, "Mixed lateral component");
+    Near(mixedDrag.forceWorldN[2], -13.78125, "Mixed normal component");
+    Check(mixedDrag.powerW < 0, "Airframe drag is dissipative in mixed flow");
+    // Body pitched90deg: its large normal CdA now opposes world forward flow.
+    const std::array<Vector, 3> pitched {{{0, 0, -1}, {0, 1, 0}, {1, 0, 0}}};
+    const auto pitchedDrag = QuadraticAirframeDrag(drag, {10, 0, 0}, pitched);
+    Near(pitchedDrag.forceWorldN[0], -1.53125, "Attitude rotates body normal drag into world forward");
+    Near(pitchedDrag.forceWorldN[2], 0, "Pitched drag introduces no arbitrary perpendicular component");
+    // Arbitrary yaw rotation and signed velocities: power in either frame agrees.
+    for (double angle : {-.9, .4, 2.3})
+    {
+      const double ca = std::cos(angle), sa = std::sin(angle);
+      const std::array<Vector, 3> basis {{{ca, sa, 0}, {-sa, ca, 0}, {0, 0, 1}}};
+      for (const Vector velocity : {Vector {-3, 7, -2}, Vector {2, -5, 11}, Vector {0, 0, -4}})
+      {
+        const auto result = QuadraticAirframeDrag(drag, velocity, basis);
+        double worldPower = 0;
+        for (unsigned i = 0; i < 3; ++i) worldPower += velocity[i]*result.forceWorldN[i];
+        Near(result.powerW, worldPower, "Drag power agrees across rotated frames", 1e-12);
+        Check(worldPower <= 0, "All tested signed and rotated flows dissipate energy");
+      }
+    }
+    auto invalidDrag = drag; invalidDrag.cdaBodyM2[1] = -1;
+    bool invalidDragRejected = false;
+    try { invalidDrag.Validate(); } catch (const std::invalid_argument &) { invalidDragRejected = true; }
+    Check(invalidDragRejected, "Negative aerodynamic area rejected");
+    invalidDrag = drag; invalidDrag.densityKgM3 = std::numeric_limits<double>::quiet_NaN();
+    invalidDragRejected = false;
+    try { invalidDrag.Validate(); } catch (const std::invalid_argument &) { invalidDragRejected = true; }
+    Check(invalidDragRejected, "Nonfinite density rejected");
+
     Calibration c; c.Validate();
     for (unsigned i = 0; i < 3; ++i)
     {
@@ -186,6 +231,73 @@ int main()
       Near(reaction, -spin*.08, "Reaction sign opposes rotor spin");
       Near(reaction*axis[2], -spin*.08*std::cos(angle), "Tilted reaction Z projection");
       Near(reaction*axis[1], -spin*.08*std::sin(angle), "Tilted reaction Y projection");
+    }
+
+    // Relative-spin reaction is distinct from aerodynamic drag torque and
+    // from the rotor inertia already carried in the link's locked tensor.
+    const double rotorJ = 2e-6;
+    const auto spinup = RotorReaction(rotorJ, 500, 1000, {0, 0, 1}, {0, 0, 0});
+    Near(spinup.Total()[2], -.002, "CCW rotor acceleration gives CW carrier reaction");
+    Near(spinup.precession[2], 0, "No precession for a stationary carrier");
+    const auto rolling = RotorReaction(rotorJ, 500, 0, {0, 0, 1}, {2, 0, 0});
+    Near(rolling.Total()[0], 0, "Roll gyro reaction has no roll component");
+    Near(rolling.Total()[1], .002, "CCW rotor rolling +X reacts toward +Y");
+    Near(rolling.Total()[2], 0, "Precession reaction is transverse to rotor axis");
+    const auto reverse = RotorReaction(rotorJ, -500, 0, {0, 0, 1}, {2, 0, 0});
+    Near(reverse.Total()[1], -.002, "Rotor reversal reverses gyro reaction");
+    const auto yawing = RotorReaction(rotorJ, 500, 0, {0, 0, 1}, {0, 0, 2});
+    const auto stopped = RotorReaction(rotorJ, 0, 0, {0, 0, 1}, {2, 0, 0});
+    const auto disabled = RotorReaction(0, 500, 1000, axis, {2, 3, 4});
+    for (unsigned i = 0; i < 3; ++i)
+    {
+      Near(yawing.Total()[i], 0, "Axial carrier rotation has no precession reaction");
+      Near(stopped.Total()[i], 0, "Stopped rotor has no angular momentum reaction");
+      Near(disabled.Total()[i], 0, "Zero polar inertia disables extra reaction");
+    }
+
+    // Independent numerical derivative of a rotating angular-momentum vector.
+    // This covers arbitrary tilted axes, spin acceleration and carrier rotation.
+    const Vector carrierRate {.3, -.4, .5};
+    const double rate = std::sqrt(.3*.3+.4*.4+.5*.5);
+    const Vector unit {carrierRate[0]/rate, carrierRate[1]/rate, carrierRate[2]/rate};
+    const auto momentum = [&](double time)
+    {
+      const double cosine = std::cos(rate*time), sine = std::sin(rate*time);
+      const double dot = unit[0]*axis[0]+unit[1]*axis[1]+unit[2]*axis[2];
+      const Vector cross {unit[1]*axis[2]-unit[2]*axis[1],
+                          unit[2]*axis[0]-unit[0]*axis[2],
+                          unit[0]*axis[1]-unit[1]*axis[0]};
+      Vector h {};
+      for (unsigned i = 0; i < 3; ++i)
+        h[i] = rotorJ*(500+1000*time) *
+          (axis[i]*cosine+cross[i]*sine+unit[i]*dot*(1-cosine));
+      return h;
+    };
+    const auto tiltedReaction = RotorReaction(rotorJ, 500, 1000, axis, carrierRate);
+    const double h = 1e-6;
+    const auto before = momentum(-h), after = momentum(h);
+    double precessionPower = 0;
+    for (unsigned i = 0; i < 3; ++i)
+    {
+      Near(tiltedReaction.Total()[i], -(after[i]-before[i])/(2*h),
+           "Carrier reaction equals negative rotor momentum derivative", 1e-10);
+      precessionPower += carrierRate[i]*tiltedReaction.precession[i];
+    }
+    Near(precessionPower, 0, "Ideal precession does no work on carrier rotation", 1e-15);
+
+    // Free axial spin-up: I_locked includes J exactly once. With no external
+    // torque, carrier momentum plus relative rotor momentum must remain zero.
+    const double lockedPolarInertia = 5e-5, step = .001;
+    double speed = 0, carrierSpeed = 0;
+    for (unsigned i = 0; i < 200; ++i)
+    {
+      const double next = LagStep(speed, 900, step, .03);
+      const auto torque = RotorReaction(rotorJ, next, (next-speed)/step,
+                                        {0, 0, 1}, {0, 0, carrierSpeed});
+      carrierSpeed += torque.Total()[2]*step/lockedPolarInertia;
+      speed = next;
+      Near(lockedPolarInertia*carrierSpeed+rotorJ*speed, 0,
+           "Spin-up conserves total axial angular momentum", 1e-14);
     }
     double target = 0;
     for (unsigned i = 0; i < 100; ++i)

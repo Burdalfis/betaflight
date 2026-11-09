@@ -24,6 +24,8 @@ README.pdf
 /downloads/
 /tools/*
 !/tools/tricopter/
+!/tools/tricopter/sitl/patches/
+!/tools/tricopter/sitl/patches/corrected-frame.patch
 /build/
 # local changes only
 mk/local.mk

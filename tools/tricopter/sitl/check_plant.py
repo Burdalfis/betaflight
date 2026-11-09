@@ -22,12 +22,12 @@ from run import materialize_world
 
 class Commands:
     def __init__(self):
-        self.pwm=1509;self.stop=threading.Event()
+        self.pwm=1509;self.motor_pwm=1400.;self.stop=threading.Event()
         self.socket=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         self.thread=threading.Thread(target=self.run,daemon=True)
     def run(self):
         while not self.stop.is_set():
-            data=RAW_PWM_PACKET.pack(3,1400.,1400.,1400.,float(self.pwm),*[0.]*12)
+            data=RAW_PWM_PACKET.pack(3,*[float(self.motor_pwm)]*3,float(self.pwm),*[0.]*12)
             self.socket.sendto(data,('127.0.0.1',9001));self.stop.wait(.01)
     def start(self):self.thread.start()
     def close(self):
@@ -74,6 +74,29 @@ def episode(artifacts,reverse):
     mount=ET.SubElement(model,'joint',{'name':'bench_mount','type':'fixed'})
     ET.SubElement(mount,'parent').text='world';ET.SubElement(mount,'child').text='base_link'
     tree.write(world,encoding='utf-8',xml_declaration=True)
+    bridge=model.find("plugin[@name='tricopter::TricopterBridge']")
+    max_thrust=[float(v) for v in bridge.findtext('max_thrust_n').split()]
+    reaction_ratio=[float(v) for v in bridge.findtext('reaction_ratio_m').split()]
+    rotor_j=[float(v) for v in bridge.findtext('rotor_inertia_kgm2').split()]
+    coupled=bridge.findtext('motor_model','lag')=='dc_prop'
+    expected_thrust=max_thrust[0]*.4**2
+    if coupled:
+        voltage=float(bridge.findtext('motor_voltage_v'));resistance=float(bridge.findtext('motor_resistance_ohm'))
+        constant=60/(2*math.pi*float(bridge.findtext('motor_kv_rpm_v')))
+        i0=float(bridge.findtext('motor_no_load_current_a'));limit=float(bridge.findtext('motor_current_limit_a'))
+        smooth=float(bridge.findtext('motor_friction_smoothing_rad_s'))
+        no_load_voltage=float(bridge.findtext('motor_no_load_voltage_v'))
+        no_load_speed=(no_load_voltage-resistance*i0)/constant
+        loss_current=i0*(no_load_speed+smooth)/no_load_speed
+        kt=float(bridge.findtext('prop_thrust_n_per_rad_s_squared'))
+        kq=float(bridge.findtext('prop_torque_nm_per_rad_s_squared'))
+        low,high=0.,.4*voltage/constant
+        for _ in range(100):
+            omega=(low+high)/2
+            current=max(0.,min(limit,(.4*voltage-constant*omega)/resistance))
+            if constant*(current-loss_current*omega/(omega+smooth))-kq*omega**2>0:low=omega
+            else:high=omega
+        expected_thrust=kt*((low+high)/2)**2
     plugin=artifacts/'gazebo-build/libTricopterBridge.so'
     if not plugin.exists():raise RuntimeError('Build Gazebo plugin first')
     env=os.environ.copy();env['GZ_SIM_SYSTEM_PLUGIN_PATH']=str(plugin.parent)
@@ -100,17 +123,66 @@ def episode(artifacts,reverse):
             assert abs(row['rear_axis_world_x'])<.01
             assert abs(row['rear_axis_world_y']-math.sin(angle))<.01
             assert abs(row['rear_axis_world_z']-math.cos(angle))<.01
-            assert row['thrust0_n']>2.3
+            # A 1400us command is40% equivalent voltage duty in dc_prop mode;
+            # solve its prop-loaded equilibrium rather than assuming40% RPM.
+            for i in range(3):
+                expected=expected_thrust if coupled else max_thrust[i]*.4**2
+                assert abs(row[f'thrust{i}_n']-expected)<.01,row
             signs=[-1,1,-1] if reverse else [1,-1,1]
             for i,sign in enumerate(signs):
-                assert abs(row[f'reaction{i}_nm']+sign*.02*row[f'thrust{i}_n'])<1e-6
+                assert abs(row[f'reaction{i}_nm']+sign*reaction_ratio[i]*row[f'thrust{i}_n'])<1e-6
             row['requested_pwm']=pwm;row['adc_wire_pb0']=adc[6];row['adc_wire_pc0']=adc[7]
             observations.append(row)
+        # A positive-duty reduction exercises synchronous damping separately
+        # from the ESC's Brake On Stop option and the watchdog's open circuit.
+        braking_interval=None
+        if coupled and float(bridge.findtext('motor_brake_current_limit_a','35.22'))>0:
+            commands.motor_pwm=1700.;time.sleep(.4)
+            before_brake=latest_trace(directory/'plant.csv')
+            commands.motor_pwm=1350.;time.sleep(.35)
+            after_brake=latest_trace(directory/'plant.csv')
+            braking_interval=(before_brake['sim_time_s'],after_brake['sim_time_s'])
         commands.close();time.sleep(.8)
+        coast=latest_trace(directory/'plant.csv')
+        assert coast['actuator_valid']==0 and abs(coast['servo_torque_nm'])<1e-9,coast
+        if coupled:
+            # Drive loss opens the electrical model. It must not teleport RPM
+            # to zero; friction and the aerodynamic load dissipate stored energy.
+            assert all(abs(coast[f'rotor{i}_terminal_current_a'])<1e-10 for i in range(3)),coast
+            time.sleep(1.5)
         row=latest_trace(directory/'plant.csv')
-        assert row['actuator_valid']==0 and abs(row['servo_torque_nm'])<1e-9,row
         assert all(row[f'thrust{i}_n']<.001 for i in range(3)),row
+        history=list(csv.DictReader(io.StringIO((directory/'plant.csv').read_text())))
+        history=[{key:float(value) for key,value in point.items()} for point in history if point.get('actuator_valid') is not None]
+        gyro={'peak_rear_precession_nm':max(math.sqrt(sum(point[f'rotor0_precession_{axis}_nm']**2 for axis in 'xyz')) for point in history),
+              'peak_rear_spinup_nm':max(math.sqrt(sum(point[f'rotor0_spinup_{axis}_nm']**2 for axis in 'xyz')) for point in history)}
+        if rotor_j[0]>0:
+            assert gyro['peak_rear_precession_nm']>.001,gyro
+            assert gyro['peak_rear_spinup_nm']>.001,gyro
+        if coupled:
+            errors=[]
+            for point in history:
+                for i in range(3):
+                    current=point[f'rotor{i}_terminal_current_a'];speed=point[f'rotor{i}_omega_rad_s']
+                    input_power=point[f'rotor{i}_effective_voltage_v']*current
+                    output=constant*current*speed+resistance*current**2
+                    errors.append(abs(input_power-output))
+            gyro['max_electrical_power_residual_w']=max(errors)
+            assert max(errors)<1e-6,gyro
+            if braking_interval:
+                braking=[point for point in history
+                    if braking_interval[0]<point['sim_time_s']<=braking_interval[1]
+                    and point['actuator_valid']==1 and point['pwm0_us']==1350]
+                assert braking,'No recorded positive-duty reduction'
+                gyro['braking_min_terminal_current_a']=min(
+                    point[f'rotor{i}_terminal_current_a'] for point in braking for i in range(3))
+                gyro['braking_min_battery_current_a']=min(
+                    point[f'rotor{i}_battery_current_a'] for point in braking for i in range(3))
+                assert gyro['braking_min_terminal_current_a']<0,gyro
+                assert gyro['braking_min_battery_current_a']<0,gyro
+                gyro['positive_duty_braking_interval_s']=list(braking_interval)
         report={'reverse_spin':reverse,'plateaus':observations,'watchdog_after_input_stop':row,
+                'watchdog_coasting_observation':coast,'rotor_diagnostics':gyro,
                 'actual_gazebo_physics':True,'body_fixed_joint_mount':True,'flight_test':False,'pass':True}
         (directory/'plant-check.json').write_text(json.dumps(report,indent=2)+'\n')
         print(f'Actual Gazebo plant passed reverse_spin={reverse}: {directory}',flush=True)

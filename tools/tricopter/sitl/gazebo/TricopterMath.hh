@@ -248,6 +248,39 @@ inline Vector RearAxis(double angle)
   return {0, std::sin(angle), std::cos(angle)};
 }
 
+struct RotorInertialTorque
+{
+  Vector spinup {};
+  Vector precession {};
+
+  Vector Total() const
+  {
+    return {spinup[0]+precession[0], spinup[1]+precession[1],
+            spinup[2]+precession[2]};
+  }
+};
+
+// The physics link includes the rotor's locked mass and inertia. Relative spin
+// contributes additional angular momentum H = J * signedSpeed * axis. Apply
+// -dH/dt to the carrier, including reorientation by its actual angular velocity.
+// Vectors share a frame; axis is unit length. Speeds use rad/s, acceleration
+// rad/s^2, J kg*m^2, and output torques N*m. A stopped rotor has no precession.
+inline RotorInertialTorque RotorReaction(double polarInertia, double signedSpeed,
+    double signedAcceleration, const Vector &axis, const Vector &angularVelocity)
+{
+  const Vector axisRate {
+    angularVelocity[1]*axis[2]-angularVelocity[2]*axis[1],
+    angularVelocity[2]*axis[0]-angularVelocity[0]*axis[2],
+    angularVelocity[0]*axis[1]-angularVelocity[1]*axis[0]};
+  RotorInertialTorque result;
+  for (unsigned i = 0; i < 3; ++i)
+  {
+    result.spinup[i] = -polarInertia*signedAcceleration*axis[i];
+    result.precession[i] = -polarInertia*signedSpeed*axisRate[i];
+  }
+  return result;
+}
+
 inline Vector BodyFluToSensorFrd(const Vector &v)
 {
   return {v[0], -v[1], -v[2]};

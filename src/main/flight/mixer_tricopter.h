@@ -43,7 +43,10 @@ PG_DECLARE(tricopterMixerConfig_t, tricopterMixerConfig);
 
 bool mixerTricopterIsServoSaturated(float errorRate);
 void mixerTricopterInit(void);
+// Correction is added AFTER the common vertical-effort scale.
 float mixerTricopterMotorCorrection(int motor);
+float mixerTricopterCollectiveScale(void);
+float mixerTricopterApplyMotorEffort(int motor, float verticalEffort);
 // Motor inputs are normalized pre-thrust-linearization effort. Yaw is the
 // existing un-reversed yaw PID sum / PID_MIXER_SCALING.
 void mixerTricopterUpdate(timeUs_t now, float tailVertical, float normalizedYaw);

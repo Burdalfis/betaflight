@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <sdf version="1.10">
   <world name="tricopter">
     <physics name="physics" type="dart">
@@ -6,25 +6,45 @@
       <real_time_factor>1.0</real_time_factor>
     </physics>
     <gravity>0 0 -9.80665</gravity>
-    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
-    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
-    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
-    <scene><ambient>0.5 0.5 0.5 1</ambient><background>0.65 0.75 0.85 1</background></scene>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <scene>
+      <ambient>0.5 0.5 0.5 1</ambient>
+      <background>0.65 0.75 0.85 1</background>
+    </scene>
     <light name="sun" type="directional">
-      <pose>0 0 10 0 0 0</pose><cast_shadows>true</cast_shadows>
-      <diffuse>0.9 0.9 0.9 1</diffuse><specular>0.2 0.2 0.2 1</specular>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
       <direction>-0.4 0.2 -1</direction>
     </light>
     <model name="ground">
       <static>true</static>
       <link name="ground_link">
-        <collision name="ground_collision"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry></collision>
-        <visual name="ground_visual"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
-          <material><ambient>0.25 0.3 0.25 1</ambient><diffuse>0.35 0.4 0.35 1</diffuse></material>
+        <collision name="ground_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.25 0.3 0.25 1</ambient>
+            <diffuse>0.35 0.4 0.35 1</diffuse>
+          </material>
         </visual>
       </link>
     </model>
-
     <!-- Camera-only kinematic target: position and yaw follow the aircraft,
          while roll / pitch stay zero. The separate world model has no geometry
          or collisions and adds no mass or forces to the aircraft. -->
@@ -36,92 +56,476 @@
         <gravity>false</gravity>
       </link>
     </model>
-
-    <!-- Approximate 500 g / 6S / 1800KV 2207 / GF51466 aircraft profile.
-         Geometry, inertia, drag and loaded servo response remain estimates.
-         Model frame: FLU (+X nose, +Y left, +Z up). Rotor order is logical BF
-         0 tail, 1 front-right, 2 front-left, independent of FC pin reordering. -->
+    <!-- CAD-based preliminary mass model, Tricopter_motors.step.
+         Body datum is the lower face centre of the regular midplate.
+         CAD -> FLU: (-X, +Z, +Y). CAD parts use local visual meshes; missing parts and collisions use primitives;
+         physics uses the component budget in ../model/mass_properties.json.
+         Each link carries only its own group, with full CG-centred inertia.
+         Thrust acts at motor-axis link origins; rear hinge has its CAD offset.
+         Drag and loaded actuator response remain unmeasured estimates. -->
     <model name="tricopter">
       <pose>0 0 0.125 0 0 0</pose>
       <self_collide>false</self_collide>
       <link name="base_link">
-        <!-- Remaining airframe/battery mass after three estimated 38 g motor/prop
-             assemblies. Body inertia scales with mass, preserving the previous
-             assumed radius of gyration; it is not a measured aircraft inertia. -->
-        <inertial><mass>0.386</mass><inertia><ixx>0.006948</ixx><iyy>0.008492</iyy><izz>0.01351</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
-        <collision name="body_collision"><geometry><box><size>0.22 0.16 0.05</size></box></geometry></collision>
-        <visual name="body_visual"><geometry><box><size>0.22 0.16 0.05</size></box></geometry>
-          <material><ambient>0.1 0.1 0.15 1</ambient><diffuse>0.15 0.15 0.2 1</diffuse></material>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>-0.0082526455142832 3.37263560962394e-05 -0.0149274337584018 0 0 0</pose>
+          <mass>0.381203263922867</mass>
+          <inertia>
+            <ixx>0.000270021384613139</ixx>
+            <iyy>0.000677432334510116</iyy>
+            <izz>0.000686874018245244</izz>
+            <ixy>1.00305300890464e-06</ixy>
+            <ixz>2.65390291494677e-05</ixz>
+            <iyz>-1.69832027892387e-07</iyz>
+          </inertia>
+        </inertial>
+        <visual name="top_plate">
+          <pose>0 0 0.029 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.04 0.02 0.004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.08 0.09 0.11 1</ambient>
+            <diffuse>0.08 0.09 0.11 1</diffuse>
+          </material>
         </visual>
-        <visual name="nose"><pose>0.125 0 0 0 0 0</pose><geometry><box><size>0.04 0.08 0.04</size></box></geometry>
-          <material><ambient>0.8 0.1 0.1 1</ambient><diffuse>0.9 0.1 0.1 1</diffuse></material>
+        <visual name="battery">
+          <pose>0 0 -0.0265 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.078 0.042 0.039</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.25 0.6 1</ambient>
+            <diffuse>0.2 0.25 0.6 1</diffuse>
+          </material>
         </visual>
-        <visual name="tail_arm"><pose>-0.16 0 0 0 0 0</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
-        <visual name="right_arm"><pose>0.08 -0.1385 0 0 0 -1.0472</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
-        <visual name="left_arm"><pose>0.08 0.1385 0 0 0 1.0472</pose><geometry><box><size>0.32 0.025 0.025</size></box></geometry></visual>
-        <collision name="foot_rear"><pose>-0.23 0 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
-        <collision name="foot_right"><pose>0.12 -0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
-        <collision name="foot_left"><pose>0.12 0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></collision>
-        <visual name="foot_rear_visual"><pose>-0.23 0 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
-        <visual name="foot_right_visual"><pose>0.12 -0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
-        <visual name="foot_left_visual"><pose>0.12 0.20 -0.10 0 0 0</pose><geometry><sphere><radius>0.025</radius></sphere></geometry></visual>
+        <collision name="battery_collision">
+          <pose>0 0 -0.0265 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.078 0.042 0.039</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="frame_collision">
+          <pose>0 0 -0.0025 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.05682 0.05913 0.009</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name="tail_frame_collision">
+          <pose>-0.07018 0.00054 -0.0025 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.12949 0.025 0.005</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="top_standoff_0">
+          <pose>-0.017 -0.007 0.0145 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.003</radius>
+              <length>0.025</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.30 0.32 0.35 1</ambient>
+            <diffuse>0.30 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
+        <visual name="top_standoff_1">
+          <pose>-0.017 0.007 0.0145 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.003</radius>
+              <length>0.025</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.30 0.32 0.35 1</ambient>
+            <diffuse>0.30 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
+        <visual name="top_standoff_2">
+          <pose>0.017 -0.007 0.0145 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.003</radius>
+              <length>0.025</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.30 0.32 0.35 1</ambient>
+            <diffuse>0.30 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
+        <visual name="top_standoff_3">
+          <pose>0.017 0.007 0.0145 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.003</radius>
+              <length>0.025</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.30 0.32 0.35 1</ambient>
+            <diffuse>0.30 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
+        <visual name="esc">
+          <pose>0 0 0.008 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.05 0.35 0.1 1</ambient>
+            <diffuse>0.05 0.35 0.1 1</diffuse>
+          </material>
+        </visual>
+        <visual name="flight_controller">
+          <pose>0 0 0.017 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.05 0.35 0.1 1</ambient>
+            <diffuse>0.05 0.35 0.1 1</diffuse>
+          </material>
+        </visual>
+        <visual name="camera">
+          <pose>0.017 0 0.015 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.014 0.014 0.014</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.22 1</ambient>
+            <diffuse>0.2 0.2 0.22 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_frame">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/frame.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.08 0.09 0.11 1</ambient>
+            <diffuse>0.08 0.09 0.11 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_servo">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/servo.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.15 0.2 0.75 1</ambient>
+            <diffuse>0.15 0.2 0.75 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_servo_horn">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/servo_horn.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_servo_support">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/servo_support.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.3 0.32 0.35 1</ambient>
+            <diffuse>0.3 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
       </link>
       <link name="right_motor">
-        <pose>0.16 -0.277 0.035 0 0 0</pose>
-        <inertial><mass>0.038</mass><inertia><ixx>0.000038</ixx><iyy>0.000038</iyy><izz>0.0000633333333333</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
-        <visual name="right_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
-          <material><ambient>0.1 0.3 0.8 0.8</ambient><diffuse>0.1 0.3 0.9 0.8</diffuse></material>
+        <pose>0.054714242295288 -0.08246814281222 -3.5864499636773e-10 0 0 0</pose>
+        <inertial>
+          <pose>-0.000146995313685221 4.09075616436549e-09 0.012902179314974 0 0 0</pose>
+          <mass>0.038</mass>
+          <inertia>
+            <ixx>4.57143089281476e-06</ixx>
+            <iyy>4.6170677394181e-06</iyy>
+            <izz>5.72619968402828e-06</izz>
+            <ixy>5.73605004594462e-13</ixy>
+            <ixz>-5.28077114950233e-08</ixz>
+            <iyz>4.62014138725637e-13</iyz>
+          </inertia>
+        </inertial>
+        <collision name="right_motor_collision">
+          <pose>0 0 0.0105 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.014</radius>
+              <length>0.021</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="right_prop">
+          <!-- Rotating-envelope visual only; CAD mass/inertia remain unchanged. -->
+          <pose>0 0 0.02511765155941248 0 0 0</pose>
+          <transparency>0.72</transparency>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder><radius>0.06477</radius><length>0.0008</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.3 0.9 1</ambient>
+            <diffuse>0.1 0.3 0.9 1</diffuse>
+          </material>
+        </visual>
+        <visual name="right_motor_body">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/right_motor.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.3 0.32 0.35 1</ambient>
+            <diffuse>0.3 0.32 0.35 1</diffuse>
+          </material>
         </visual>
       </link>
-      <joint name="right_fixed" type="fixed"><parent>base_link</parent><child>right_motor</child></joint>
       <link name="left_motor">
-        <pose>0.16 0.277 0.035 0 0 0</pose>
-        <inertial><mass>0.038</mass><inertia><ixx>0.000038</ixx><iyy>0.000038</iyy><izz>0.0000633333333333</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
-        <visual name="left_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
-          <material><ambient>0.1 0.8 0.3 0.8</ambient><diffuse>0.1 0.9 0.3 0.8</diffuse></material>
+        <pose>0.054533242295288 0.08256885718778 -3.5864499636773e-10 0 0 0</pose>
+        <inertial>
+          <pose>-0.000146995313685221 4.09075615048771e-09 0.0129021717412188 0 0 0</pose>
+          <mass>0.038</mass>
+          <inertia>
+            <ixx>4.57147626618162e-06</ixx>
+            <iyy>4.61711311278497e-06</iyy>
+            <izz>5.72630617759538e-06</izz>
+            <ixy>5.73605004628341e-13</ixy>
+            <ixz>-5.2807669189375e-08</ixz>
+            <iyz>4.62012961531435e-13</iyz>
+          </inertia>
+        </inertial>
+        <collision name="left_motor_collision">
+          <pose>0 0 0.0105 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.014</radius>
+              <length>0.021</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="left_prop">
+          <pose>0 0 0.025117646902799607 0 0 0</pose>
+          <transparency>0.72</transparency>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder><radius>0.06477</radius><length>0.0008</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.9 0.3 1</ambient>
+            <diffuse>0.1 0.9 0.3 1</diffuse>
+          </material>
+        </visual>
+        <visual name="left_motor_body">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/left_motor.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.3 0.32 0.35 1</ambient>
+            <diffuse>0.3 0.32 0.35 1</diffuse>
+          </material>
         </visual>
       </link>
-      <joint name="left_fixed" type="fixed"><parent>base_link</parent><child>left_motor</child></joint>
       <link name="tail_motor">
-        <pose>-0.32 0 0.035 0 0 0</pose>
-        <inertial><mass>0.038</mass><inertia><ixx>0.000076</ixx><iyy>0.000076</iyy><izz>0.0001266666666667</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
-        <visual name="tail_prop"><geometry><cylinder><radius>0.06477</radius><length>0.008</length></cylinder></geometry>
-          <material><ambient>0.8 0.5 0.1 0.8</ambient><diffuse>0.9 0.6 0.1 0.8</diffuse></material>
+        <pose>-0.104015726904792 0.000144352790639999 0.008800000000005 0 0 0</pose>
+        <inertial>
+          <pose>-0.000105994123073258 -5.38094956429832e-08 0.00997656860779605 0 0 0</pose>
+          <mass>0.0526999361658138</mass>
+          <inertia>
+            <ixx>6.75336543639412e-06</ixx>
+            <iyy>1.01234446922355e-05</iyy>
+            <izz>9.77210370228482e-06</izz>
+            <ixy>9.31381897630519e-08</ixy>
+            <ixz>-3.64665088042517e-08</ixz>
+            <iyz>-3.58157739064484e-11</iyz>
+          </inertia>
+        </inertial>
+        <collision name="tail_motor_collision">
+          <pose>0 0 0.0105 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.014</radius>
+              <length>0.021</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="tail_prop">
+          <pose>0 0 0.025117646902799607 0 0 0</pose>
+          <transparency>0.72</transparency>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <cylinder><radius>0.06477</radius><length>0.0008</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.6 0.1 1</ambient>
+            <diffuse>0.9 0.6 0.1 1</diffuse>
+          </material>
         </visual>
-        <visual name="basket"><pose>0 0 -0.015 0 0 0</pose><geometry><box><size>0.06 0.06 0.03</size></box></geometry></visual>
+        <visual name="tail_motor_body">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/tail_motor.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.3 0.32 0.35 1</ambient>
+            <diffuse>0.3 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_basket">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/basket.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.08 0.09 0.11 1</ambient>
+            <diffuse>0.08 0.09 0.11 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cad_pivot_bearings">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>../meshes/pivot_bearings.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.3 0.32 0.35 1</ambient>
+            <diffuse>0.3 0.32 0.35 1</diffuse>
+          </material>
+        </visual>
       </link>
-      <!-- The synthetic -X hinge makes +angle thrust toward FLU+Y and produce
-           clockwise BF+yaw. This does not prove the real aircraft yaw sign. -->
+      <joint name="right_fixed" type="fixed">
+        <parent>base_link</parent>
+        <child>right_motor</child>
+      </joint>
+      <joint name="left_fixed" type="fixed">
+        <parent>base_link</parent>
+        <child>left_motor</child>
+      </joint>
       <joint name="tail_joint" type="revolute">
-        <parent>base_link</parent><child>tail_motor</child>
-        <axis><xyz>-1 0 0</xyz>
-          <limit><lower>-0.83426738245</lower><upper>0.37699111843</upper><effort>0.45</effort><velocity>20</velocity></limit>
-          <dynamics><damping>0.002</damping><friction>0</friction></dynamics>
+        <pose relative_to="base_link">-0.104015757704712 0.000143857187779986 0.019499999641355 0 0 0</pose>
+        <parent>base_link</parent>
+        <child>tail_motor</child>
+        <axis>
+          <xyz>-1 0 0</xyz>
+          <limit>
+            <lower>-0.83426738245</lower>
+            <upper>0.37699111843</upper>
+            <effort>.45</effort>
+            <velocity>20</velocity>
+          </limit>
+          <dynamics>
+            <damping>.002</damping>
+            <friction>0</friction>
+          </dynamics>
         </axis>
       </joint>
       <plugin filename="TricopterBridge" name="tricopter::TricopterBridge">
         <camera_heading_model>tricopter_camera_heading</camera_heading_model>
-        <body_link>base_link</body_link><servo_joint>tail_joint</servo_joint>
-        <motor0_link>tail_motor</motor0_link><motor1_link>right_motor</motor1_link><motor2_link>left_motor</motor2_link>
-        <actuator_port>9001</actuator_port><fdm_port>9003</fdm_port><adc_port>9005</adc_port>
-        <pwm_knots_us>1100 1509 1700</pwm_knots_us><angle_knots_deg>-47.8 0 21.6</angle_knots_deg><adc_knots>1936 1490 1281</adc_knots>
-        <!-- iFlight XING2 2207 1855KV + GF51466 measured 1685 g at 24 V.
-             Approximation for 1800KV at fixed nominal 6S (22.2 V):
-             1.685*9.80665*(1800/1855)^2*(22.2/24)^2 = 13.31255 N.
-             KV/voltage-square scaling is an estimate, not this motor's test.
-             There is no dynamic battery sag model. See the Gazebo README. -->
-        <max_thrust_n>13.31255 13.31255 13.31255</max_thrust_n>
-        <!-- RPM lag estimate; comparable 5-inch racing hardware was identified
-             at 33 ms (NeuroBEM). Not measured for this motor/prop/ESC. -->
+        <body_link>base_link</body_link>
+        <servo_joint>tail_joint</servo_joint>
+        <motor0_link>tail_motor</motor0_link>
+        <motor1_link>right_motor</motor1_link>
+        <motor2_link>left_motor</motor2_link>
+        <actuator_port>9001</actuator_port>
+        <fdm_port>9003</fdm_port>
+        <adc_port>9005</adc_port>
+        <pwm_knots_us>1100 1509 1700</pwm_knots_us>
+        <angle_knots_deg>-47.8 0 21.6</angle_knots_deg>
+        <adc_knots>1936 1490 1281</adc_knots>
+        <!-- DC-equivalent motor + static GF51466 load. See model/motor_performance.json.
+             Prop coefficients are inferred from the nearby XING2 1855 KV motor's
+             24 V full-command GF51466 thrust/current point. XING-e target uses
+             1800 KV, 81.5 mOhm interphase-as-equivalent resistance and assumed I0.
+             Battery sag, ESC duty mapping and actual loaded RPM are not identified. -->
+        <max_thrust_n>12.6282182296905 12.6282182296905 12.6282182296905</max_thrust_n>
+        <!-- Legacy lag-model coefficient; ignored by motor_model=dc_prop. -->
         <motor_time_constant_s>0.03</motor_time_constant_s>
-        <reaction_ratio_m>0.02 0.02 0.02</reaction_ratio_m>
+        <reaction_ratio_m>0.0106185490067429 0.0106185490067429 0.0106185490067429</reaction_ratio_m>
         <!-- Rotor spin viewed from above: CCW+1, CW-1; torque on carrier is opposite. -->
         <spin_sign>1 -1 1</spin_sign>
-        <rotor_inertia_kgm2>0 0 0</rotor_inertia_kgm2><max_rotor_speed_rad_s>2000</max_rotor_speed_rad_s>
-        <servo_time_constant_s>0.02</servo_time_constant_s><servo_speed_deg_s>362</servo_speed_deg_s>
-        <servo_kp_nm_rad>1.5</servo_kp_nm_rad><servo_kd_nm_s_rad>0.03</servo_kd_nm_s_rad><servo_max_torque_nm>0.45</servo_max_torque_nm>
-        <linear_drag_n_s_m>0.15</linear_drag_n_s_m><angular_drag_nm_s_rad>0.02</angular_drag_nm_s_rad>
-        <actuator_timeout_s>0.25</actuator_timeout_s><trace_rate_hz>100</trace_rate_hz>
+        <rotor_inertia_kgm2>4.56687230448498e-06 4.56687230448498e-06 4.56697879805209e-06</rotor_inertia_kgm2>
+        <max_rotor_speed_rad_s>3777.76739164043</max_rotor_speed_rad_s>
+        <servo_time_constant_s>0.02</servo_time_constant_s>
+        <servo_speed_deg_s>362</servo_speed_deg_s>
+        <!-- Derivative gain reduced for the CAD basket inertia (~6.8e-6 kg m2
+             about the hinge): the old 0.03 gain chatters at a 1 ms step.
+             This servo plant gain remains an unmeasured numerical estimate. -->
+        <servo_kp_nm_rad>1.5</servo_kp_nm_rad>
+        <servo_kd_nm_s_rad>0.003</servo_kd_nm_s_rad>
+        <servo_max_torque_nm>0.45</servo_max_torque_nm>
+        <!-- Rough, unmeasured airframe CdA in body FLU. No rotor inflow model.
+             See model/airframe_aerodynamics.json; shared by both firmwares. -->
+        <airframe_drag_model>quadratic_body</airframe_drag_model>
+        <air_density_kg_m3>1.225</air_density_kg_m3>
+        <drag_cda_body_m2>0.010 0.012 0.025</drag_cda_body_m2>
+        <!-- Historical compatibility only: select airframe_drag_model=linear_world. -->
+        <linear_drag_n_s_m>0.15</linear_drag_n_s_m>
+        <angular_drag_nm_s_rad>0.02</angular_drag_nm_s_rad>
+        <actuator_timeout_s>0.25</actuator_timeout_s>
+        <trace_rate_hz>100</trace_rate_hz>
+        <motor_voltage_v>22.2</motor_voltage_v>
+        <motor_kv_rpm_v>1800</motor_kv_rpm_v>
+        <motor_resistance_ohm>0.0815</motor_resistance_ohm>
+        <motor_no_load_current_a>1.2</motor_no_load_current_a>
+        <motor_current_limit_a>35.22</motor_current_limit_a>
+        <!-- Rough synchronous-PWM brake bound; not an identified ESC setting. -->
+        <motor_brake_current_limit_a>35.22</motor_brake_current_limit_a>
+        <motor_brake_on_stop>false</motor_brake_on_stop>
+        <motor_friction_smoothing_rad_s>20</motor_friction_smoothing_rad_s>
+        <prop_thrust_n_per_rad_s_squared>8.84854066617053e-07</prop_thrust_n_per_rad_s_squared>
+        <prop_torque_nm_per_rad_s_squared>9.39586627018892e-09</prop_torque_nm_per_rad_s_squared>
+        <motor_model>dc_prop</motor_model>
+        <motor_no_load_voltage_v>10</motor_no_load_voltage_v>
       </plugin>
     </model>
   </world>

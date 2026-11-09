@@ -1,0 +1,11 @@
+profile 0
+set p_yaw = 31
+set i_yaw = 20
+set d_yaw = 10
+set f_yaw = 0
+set feedforward_yaw_hold_gain = 0
+get p_yaw
+get i_yaw
+get d_yaw
+get f_yaw
+get feedforward_yaw_hold_gain

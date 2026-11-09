@@ -56,3 +56,7 @@ docs/validation/tricopter-adxl345-bench-2026-11-07/**/*.csv -text -whitespace
 docs/validation/tricopter-adxl345-bench-2026-11-07/capture/*.log -text -whitespace
 docs/validation/tricopter-adxl345-bench-2026-11-07/capture/*.patch -text -whitespace
 docs/validation/tricopter-angle-2026-11-07/*.log -text -whitespace
+
+# Keep the supplied CAD export and hash-pinned simulator patch byte-for-byte.
+/Tricopter_motors.step -text -diff -whitespace
+tools/tricopter/sitl/patches/corrected-frame.patch -text -whitespace

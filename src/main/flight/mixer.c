@@ -460,9 +460,10 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
         float motorOutput = motorOutputMixSign * motorMix[i] + throttle * activeMixer[i].throttle;
 #ifdef USE_SERVOS
         if (mixerIsTricopter()) {
-            // Normalize first: the feedback allocator preserves requested tail
-            // vertical effort using measured angle, before motor linearization.
-            motorOutput += mixerTricopterMotorCorrection(i);
+            // Sacrifice common collective when measured tail cosine requires
+            // headroom, preserving RP vertical-effort ratios before correcting
+            // the tail and before native thrust linearization/output scaling.
+            motorOutput = mixerTricopterApplyMotorEffort(i, motorOutput);
         }
 #endif
 #ifdef USE_THRUST_LINEARIZATION

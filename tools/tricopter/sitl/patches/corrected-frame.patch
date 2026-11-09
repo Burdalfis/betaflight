@@ -1,0 +1,104 @@
+diff --git a/src/platform/SIMULATOR/sitl_gyro.h b/src/platform/SIMULATOR/sitl_gyro.h
+--- a/src/platform/SIMULATOR/sitl_gyro.h
++++ b/src/platform/SIMULATOR/sitl_gyro.h
+@@ -46,3 +46,12 @@
+     *pitch = -rpy[1];
+     *yaw   =  gazeboBridge ? rpy[2] : -rpy[2];
+ }
++
++// The Gazebo rate PID keeps CW-positive yaw, while the NWU/FLU quaternion
++// estimator and ANGLE coordinated-turn geometry use a right-handed Up axis.
++// Convert only those attitude consumers; never rewrite the rate PID sample.
++// Legacy simulator bridges already use their existing attitude convention.
++static inline double sitlGyroYawForAttitude(double pidYaw, bool gazeboBridge)
++{
++    return gazeboBridge ? -pidYaw : pidYaw;
++}
+diff --git a/src/main/flight/imu.c b/src/main/flight/imu.c
+--- a/src/main/flight/imu.c
++++ b/src/main/flight/imu.c
+@@ -26,6 +26,10 @@
+ #include <math.h>
+ 
+ #include "platform.h"
++
++#if ENABLE_SIMULATOR
++#include "sitl_gyro.h"
++#endif
+ 
+ #include "build/build_config.h"
+ #include "build/debug.h"
+@@ -763,9 +767,16 @@
+         gyroAverage[axis] = gyroGetFilteredDownsampled(axis);
+     }
+ 
++    // Gazebo's rate PID yaw is CW-positive, but Mahony integrates a
++    // right-handed NWU-body angular velocity. Leave the rate PID and its
++    // filtered sample untouched; adapt only this local estimator input.
++    float gyroYawForAttitude = gyroAverage[Z];
++#if ENABLE_SIMULATOR && ENABLE_GAZEBO_BRIDGE
++    gyroYawForAttitude = sitlGyroYawForAttitude(gyroYawForAttitude, true);
++#endif
+     const bool useAcc = imuIsAccelerometerHealthy(); // all smoothed accADC values are within 10% of 1G
+     imuMahonyAHRSupdate(dt,
+-                        DEGREES_TO_RADIANS(gyroAverage[X]), DEGREES_TO_RADIANS(gyroAverage[Y]), DEGREES_TO_RADIANS(gyroAverage[Z]),
++                        DEGREES_TO_RADIANS(gyroAverage[X]), DEGREES_TO_RADIANS(gyroAverage[Y]), DEGREES_TO_RADIANS(gyroYawForAttitude),
+                         useAcc, acc.accADC.x, acc.accADC.y, acc.accADC.z,
+                         magErr, cogErr,
+                         imuCalcKpGain(currentTimeUs, useAcc, gyroAverage));
+diff --git a/src/main/flight/pid.c b/src/main/flight/pid.c
+--- a/src/main/flight/pid.c
++++ b/src/main/flight/pid.c
+@@ -25,6 +25,10 @@
+ #include <math.h>
+ 
+ #include "platform.h"
++
++#if ENABLE_SIMULATOR
++#include "sitl_gyro.h"
++#endif
+ 
+ #include "build/build_config.h"
+ #include "build/debug.h"
+@@ -615,7 +619,13 @@
+     float sinAngle = sin_approx(DEGREES_TO_RADIANS(pidRuntime.angleTarget[axis == FD_ROLL ? FD_PITCH : FD_ROLL]));
+     sinAngle *= (axis == FD_ROLL) ? -1.0f : 1.0f; // must be negative for Roll
+     const float earthRefGain = FLIGHT_MODE(GPS_RESCUE_MODE | ALT_HOLD_MODE) ? 1.0f : pidRuntime.angleEarthRef;
+-    angleRate += pidRuntime.angleYawSetpoint * sinAngle * earthRefGain;
++    float coordinatedYawRate = pidRuntime.angleYawSetpoint;
++#if ENABLE_SIMULATOR && ENABLE_GAZEBO_BRIDGE
++    // The Gazebo PID yaw sample is CW-positive; coordinated ANGLE geometry
++    // uses the Up-positive attitude convention, just like the estimator.
++    coordinatedYawRate = sitlGyroYawForAttitude(coordinatedYawRate, true);
++#endif
++    angleRate += coordinatedYawRate * sinAngle * earthRefGain;
+     pidRuntime.angleTarget[axis] = angleTarget;  // set target for alternate axis to current axis, for use in preceding calculation
+ 
+     // smooth final angle rate output to clean up attitude signal steps (500hz), GPS steps (10 or 100hz), RC steps etc
+diff --git a/src/platform/SIMULATOR/sitl.c b/src/platform/SIMULATOR/sitl.c
+--- a/src/platform/SIMULATOR/sitl.c
++++ b/src/platform/SIMULATOR/sitl.c
+@@ -328,7 +328,7 @@
+     // The Gazebo BetaflightPlugin sends the quaternion conjugated by Rx(π)
+     // (q_plugin = Rx(π) * M * Rx(π), with M the FLU-body to ENU-world
+     // attitude). Undo the conjugation (negate qy/qz), then rotate the world
+-    // frame by Rz(π/2) (ENU -> NWU): q = Rz(π/2) * Rx(π) * q_plugin * Rx(π).
++    // frame by Rz(-π/2) (ENU -> NWU): q = Rz(-π/2) * Rx(π) * q_plugin * Rx(π).
+     // FLU body equals Betaflight's internal NWU body, so the result is the
+     // proper body-to-world rotation - the Euler display and every rMat
+     // vector consumer (position estimator, mag fusion) agree at any heading.
+@@ -337,10 +337,10 @@
+     const float pktQy = -pkt->imu_orientation_quat[2];
+     const float pktQz = -pkt->imu_orientation_quat[3];
+     static const float k = 0.70710678f; // cos(π/4) = sin(π/4) = √2/2
+-    const float attQw = k * (pktQw - pktQz);
+-    const float attQx = k * (pktQx - pktQy);
+-    const float attQy = k * (pktQy + pktQx);
+-    const float attQz = k * (pktQz + pktQw);
++    const float attQw = k * (pktQw + pktQz);
++    const float attQx = k * (pktQx + pktQy);
++    const float attQy = k * (pktQy - pktQx);
++    const float attQz = k * (pktQz - pktQw);
+ #else
+     // Legacy bridges send the body-to-world quaternion directly
+     const float attQw = pkt->imu_orientation_quat[0];

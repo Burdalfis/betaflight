@@ -52,6 +52,22 @@ def materialize_world(source: Path, destination: Path, reverse_spin=False):
         child=element.find(tag)
         if child is None: child=ET.SubElement(element,tag)
         child.text=value
+    # Runs copy the SDF into a fresh directory. Preserve the source world's
+    # local mesh references before that move, independently of Gazebo's cwd.
+    # Resource / remote URIs keep their normal Gazebo resolution semantics.
+    for uri in tree.findall('.//mesh/uri'):
+        value = (uri.text or '').strip()
+        if not value:
+            raise ValueError('Mesh URI must not be empty')
+        if '://' in value:
+            continue
+        asset = Path(value)
+        if not asset.is_absolute():
+            asset = source.resolve().parent/asset
+        asset = asset.resolve()
+        if not asset.is_file():
+            raise FileNotFoundError(f'World mesh does not exist: {asset}')
+        uri.text = str(asset)
     tree.write(destination, encoding='utf-8', xml_declaration=True)
 
 
@@ -115,6 +131,22 @@ def verified_binary(artifacts: Path, variant: str) -> Path:
         path = source/name
         if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
             raise RuntimeError(f'Source changed after build: {path}; rebuild {variant}')
+    # Adapter builds use immutable source copies. Still reject stale modified
+    # builds when their original working-tree inputs or the shared patch change.
+    if metadata.get('live_source_sha256'):
+        live = Path(metadata['live_source_root'])
+        for name, expected in metadata['live_source_sha256'].items():
+            path = live/name
+            if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise RuntimeError(f'Working source changed after adapted build: {path}; rebuild {variant}')
+    adapter = metadata.get('provenance', {}).get('sitl_adapter')
+    if adapter:
+        patch = Path(adapter['patch_file'])
+        if not patch.is_file() or hashlib.sha256(patch.read_bytes()).hexdigest() != adapter['patch_sha256']:
+            raise RuntimeError(f'SITL adapter changed after build: {patch}; rebuild {variant}')
+        snapshot = Path(metadata['source_snapshot_manifest'])
+        if not snapshot.is_file() or hashlib.sha256(snapshot.read_bytes()).hexdigest() != metadata['source_snapshot_manifest_sha256']:
+            raise RuntimeError(f'SITL source snapshot manifest changed after build: {snapshot}; rebuild {variant}')
     return binary
 
 
@@ -251,7 +283,7 @@ def execute(args):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--variant',choices=['stock','modified'],default='modified')
-    parser.add_argument('--artifacts',type=Path,default=ARTIFACTS)
+    parser.add_argument('--artifacts',type=Path,default=ARTIFACTS/'corrected-frame')
     parser.add_argument('--world',type=Path,default=HERE/'gazebo/worlds/tricopter.sdf')
     parser.add_argument('--config',type=Path,help='Additional simulator CLI settings, appended after common settings')
     parser.add_argument('--profile',type=Path,default=HERE/'profiles/xbox.json')

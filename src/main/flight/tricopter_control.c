@@ -112,7 +112,7 @@ static float safeNeutral(const tricopterControlParams_t *p)
 tricopterControlOutput_t tricopterControlEvaluate(const tricopterControlParams_t *p,
     const tricopterControlInput_t *in)
 {
-    tricopterControlOutput_t out = {.pwmUs = safeNeutral(p)};
+    tricopterControlOutput_t out = {.pwmUs = safeNeutral(p), .collectiveScale = 1.0f};
     if (in && finiteFloat(in->verticalEffort)) {
         out.tailEffort = (float)bounded(in->verticalEffort, 0.0f, 1.0f);
         out.verticalSaturated = out.tailEffort != in->verticalEffort;
@@ -122,10 +122,39 @@ tricopterControlOutput_t tricopterControlEvaluate(const tricopterControlParams_t
     if (!out.validConfig || !out.validInput) return out;
 
     const float vertical = out.tailEffort;
+    // Reserve motor headroom from the measured basket position only. A
+    // requested future angle must not masquerade as the current thrust axis.
+    out.feedbackValid = in->feedbackValid && in->feedbackAgeUs <= p->feedbackTimeoutUs
+        && tricopterControlAngleFromAdc(p, in->correctedCounts, &out.actualAngleDeg);
+    if (out.feedbackValid) {
+        const float actualRadians = out.actualAngleDeg*(CONTROL_PI/180.0f);
+        const float cosine = cosf(actualRadians);
+        if (cosine < TRICOPTER_CONTROL_MIN_COSINE) {
+            out.feedbackValid = false;
+            out.actualAngleDeg = 0;
+        } else {
+            // A common scale preserves roll/pitch vertical-effort ratios.
+            // The tail can then compensate its measured cosine without
+            // independently clipping and upsetting the other two motors.
+            if (vertical > cosine) {
+                out.collectiveScale = cosine/vertical;
+                out.verticalSaturated = true;
+            }
+            const float availableVertical = vertical*out.collectiveScale;
+            out.tailEffort = (float)bounded(availableVertical/cosine, 0.0f, 1.0f);
+            out.currentVertical = (float)(out.tailEffort*cosine);
+            out.currentLateral = (float)(out.tailEffort*sinf(actualRadians));
+            out.currentVectorAvailable = true;
+        }
+    }
+
     const float yaw = bounded(in->normalizedYaw, -1e6f, 1e6f);
     const float lateral = yaw*p->yawGain*p->yawDirection;
     out.yawSaturated = yaw != in->normalizedYaw;
-    const float denominator = vertical > p->minVerticalEffort ? vertical : p->minVerticalEffort;
+    const float availableVertical = vertical*out.collectiveScale;
+    const float denominator = availableVertical > p->minVerticalEffort ? availableVertical : p->minVerticalEffort;
+    // Trim is a physical angle bias, not the PWM/ADC calibration zero.
+    // Keep residual torque normalization at the CURRENT achievable vertical.
     const float requestedAngle = atan2f(lateral, denominator)*(180.0f/CONTROL_PI)+p->neutralTrimDeg;
 
     const float mapPwmLow = p->pwmUs[0] < p->pwmUs[2] ? p->pwmUs[0] : p->pwmUs[2];
@@ -140,36 +169,20 @@ tricopterControlOutput_t tricopterControlEvaluate(const tricopterControlParams_t
     }
     const float angleLow = angleA < angleB ? angleA : angleB;
     const float angleHigh = angleA > angleB ? angleA : angleB;
-    const float feasible = acosf(vertical)*(180.0f/CONTROL_PI);
-    const float lower = angleLow > -feasible ? angleLow : -feasible;
-    const float upper = angleHigh < feasible ? angleHigh : feasible;
-    out.targetAngleDeg = (float)bounded(requestedAngle, lower, upper);
-    if (requestedAngle < lower || requestedAngle > upper
-        || (vertical < p->minVerticalEffort && lateral != 0)) out.yawSaturated = true;
+    // Mechanical limits bound the servo. At full collective, reduce common
+    // lift as measured tilt requires; do not collapse the yaw target to zero.
+    out.targetAngleDeg = (float)bounded(requestedAngle, angleLow, angleHigh);
+    if (requestedAngle < angleLow || requestedAngle > angleHigh
+        || (availableVertical < p->minVerticalEffort && lateral != 0)) out.yawSaturated = true;
 
     float pwm;
     if (!interpolate(p->angleDeg, p->pwmUs, out.targetAngleDeg, &pwm)) {
         out.validConfig = false;
         return out;
     }
-    out.feedbackValid = in->feedbackValid && in->feedbackAgeUs <= p->feedbackTimeoutUs
-        && tricopterControlAngleFromAdc(p, in->correctedCounts, &out.actualAngleDeg);
     if (out.feedbackValid) {
-        const float actualRadians = out.actualAngleDeg*(CONTROL_PI/180.0f);
-        const float cosine = cosf(actualRadians);
-        if (cosine < TRICOPTER_CONTROL_MIN_COSINE) {
-            out.feedbackValid = false;
-            out.actualAngleDeg = 0;
-        } else {
-            const float compensated = vertical/cosine;
-            out.tailEffort = (float)bounded(compensated, 0.0f, 1.0f);
-            if (compensated > 1) out.verticalSaturated = true;
-            out.currentVertical = (float)(out.tailEffort*cosine);
-            out.currentLateral = (float)(out.tailEffort*sinf(actualRadians));
-            out.currentVectorAvailable = true;
-            const float pwmDirection = p->pwmUs[2] > p->pwmUs[0] ? 1 : -1;
-            pwm = (float)(pwm+p->positionGainUsPerDeg*((float)out.targetAngleDeg-out.actualAngleDeg)*pwmDirection);
-        }
+        const float pwmDirection = p->pwmUs[2] > p->pwmUs[0] ? 1 : -1;
+        pwm = (float)(pwm+p->positionGainUsPerDeg*((float)out.targetAngleDeg-out.actualAngleDeg)*pwmDirection);
     }
     out.pwmUs = (float)bounded(pwm, pwmLow, pwmHigh);
     if (pwm < pwmLow || pwm > pwmHigh) out.yawSaturated = true;

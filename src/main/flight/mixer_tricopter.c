@@ -58,6 +58,7 @@ static tricopterControlOutput_t control;
 static tricopterServoCalibrationState_t calibration;
 static tricopterServoCalibrationOutput_t calibrationOutput;
 static float motorCorrection;
+static float collectiveScale = 1.0f;
 static uint16_t servoPwm;
 static bool calibrationSession;
 static bool returningToCenter;
@@ -124,6 +125,7 @@ void mixerTricopterInit(void)
     memset(&calibration, 0, sizeof(calibration));
     memset(&calibrationOutput, 0, sizeof(calibrationOutput));
     motorCorrection = 0;
+    collectiveScale = 1.0f;
     servoPwm = servoParams(SERVO_RUDDER)->middle;
     calibrationSession = returningToCenter = false;
 }
@@ -144,7 +146,8 @@ void mixerTricopterUpdate(timeUs_t now, float tailVertical, float normalizedYaw)
     control = tricopterControlEvaluate(&p, &input);
     servoPwm = control.validConfig && control.validInput ? lrintf(control.pwmUs) : s->middle;
     servoPwm = constrain(servoPwm, s->min, s->max);
-    motorCorrection = control.validConfig && control.validInput ? control.tailEffort - tailVertical : 0;
+    collectiveScale = control.validConfig && control.validInput ? control.collectiveScale : 1.0f;
+    motorCorrection = control.validConfig && control.validInput ? control.tailEffort - tailVertical*collectiveScale : 0;
 
     if (returningToCenter && (armed || (uint32_t)(now - centerReturnStarted) >= 300000U)) returningToCenter = false;
     if (calibrationSession && !calibrationMatchesParams(&p)) {
@@ -165,12 +168,14 @@ void mixerTricopterUpdate(timeUs_t now, float tailVertical, float normalizedYaw)
         if (!armed) {
             servoPwm = constrain(calibrationOutput.commandedPwmUs, s->min, s->max);
             motorCorrection = 0;
+            collectiveScale = 1.0f;
         }
     }
     if (!armed && (returningToCenter || (!calibrationSession && s->rate == 0))) {
         // Retain the existing disarmed fixed-output bench-test convention.
         servoPwm = constrain(s->middle, s->min, s->max);
         motorCorrection = 0;
+        collectiveScale = 1.0f;
     }
 }
 
@@ -179,12 +184,22 @@ float mixerTricopterMotorCorrection(int motor)
     return motor == 0 ? motorCorrection : 0.0f;
 }
 
+float mixerTricopterCollectiveScale(void) { return collectiveScale; }
+
+float mixerTricopterApplyMotorEffort(int motor, float verticalEffort)
+{
+    if (motor < 0 || motor >= mixerRuntime.motorCount) return verticalEffort;
+    return constrainf(verticalEffort*collectiveScale + mixerTricopterMotorCorrection(motor), 0.0f, 1.0f);
+}
+
 uint16_t mixerTricopterServoPwm(void) { return servoPwm; }
 const tricopterControlOutput_t *mixerTricopterGetControl(void) { return &control; }
 bool mixerTricopterIsServoSaturated(float errorRate)
 {
     UNUSED(errorRate);
-    return control.yawSaturated || control.verticalSaturated || !control.feedbackValid;
+    // Common collective reduction is a lift shortfall, not a stopped servo.
+    // Keep yaw authority available while the angle/PWM command has headroom.
+    return control.yawSaturated || !control.feedbackValid;
 }
 
 bool mixerTricopterCanArm(void)

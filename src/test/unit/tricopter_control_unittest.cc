@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <cstring>
@@ -20,6 +21,7 @@ static bool finiteBits(float f)
 static void finiteBounded(const tricopterControlOutput_t &o)
 {
     EXPECT_TRUE(finiteBits(o.tailEffort)); EXPECT_GE(o.tailEffort,0); EXPECT_LE(o.tailEffort,1);
+    EXPECT_TRUE(finiteBits(o.collectiveScale)); EXPECT_GT(o.collectiveScale,0); EXPECT_LE(o.collectiveScale,1);
     EXPECT_TRUE(finiteBits(o.pwmUs)); EXPECT_GE(o.pwmUs,500); EXPECT_LE(o.pwmUs,2500);
     EXPECT_TRUE(finiteBits(o.targetAngleDeg)); EXPECT_TRUE(finiteBits(o.actualAngleDeg));
     EXPECT_TRUE(finiteBits(o.currentVertical)); EXPECT_TRUE(finiteBits(o.currentLateral));
@@ -74,21 +76,28 @@ TEST(TricopterControl, PositionCorrectionRespectsPwmMapDirection)
     ASSERT_TRUE(tricopterControlPwmFromAngle(&p,o.targetAngleDeg,&ff));
     EXPECT_LT(o.pwmUs,ff); EXPECT_LT(o.pwmUs,1509);
 }
-TEST(TricopterControl, VerticalFeasibilityConstrainsTargetAndActualSaturationIsVisible)
+TEST(TricopterControl, MeasuredReserveReducesCollectiveWithoutMechanicalYawSaturation)
 {
     const auto p=tricopterControlDefaultParams(); const auto in=input(.95f,-.8f,1936);
     const auto o=tricopterControlEvaluate(&p,&in); finiteBounded(o);
-    EXPECT_NEAR(o.targetAngleDeg,-std::acos(.95f)*180/PI,1e-5);
-    EXPECT_EQ(o.tailEffort,1); EXPECT_TRUE(o.yawSaturated); EXPECT_TRUE(o.verticalSaturated);
-    EXPECT_NEAR(o.currentVertical,std::cos(47.8*PI/180),1e-6);
-    EXPECT_LT(o.currentVertical,.95);
+    const double cosine=std::cos(47.8*PI/180);
+    EXPECT_NEAR(o.targetAngleDeg,std::atan2(-.56,cosine)*180/PI,1e-5);
+    EXPECT_EQ(o.tailEffort,1); EXPECT_FALSE(o.yawSaturated); EXPECT_TRUE(o.verticalSaturated);
+    EXPECT_NEAR(o.collectiveScale,cosine/.95,1e-6);
+    EXPECT_NEAR(o.currentVertical,cosine,1e-6); EXPECT_LT(o.currentVertical,.95);
 }
-TEST(TricopterControl, FullVerticalDemandLeavesNoRequestedTiltHeadroom)
+TEST(TricopterControl, FullVerticalDemandRetainsBoundedYawAndTrimTargets)
 {
-    const auto p=tricopterControlDefaultParams();const auto in=input(1,1);
-    const auto o=tricopterControlEvaluate(&p,&in);
-    EXPECT_EQ(o.targetAngleDeg,0); EXPECT_EQ(o.tailEffort,1); EXPECT_EQ(o.pwmUs,1509);
-    EXPECT_TRUE(o.yawSaturated); EXPECT_FALSE(o.verticalSaturated);
+    auto p=tricopterControlDefaultParams();const auto in=input(1,.2f);
+    auto o=tricopterControlEvaluate(&p,&in);
+    EXPECT_NEAR(o.targetAngleDeg,std::atan(.14)*180/PI,1e-5);
+    EXPECT_EQ(o.tailEffort,1);EXPECT_EQ(o.collectiveScale,1);
+    EXPECT_FALSE(o.yawSaturated); EXPECT_FALSE(o.verticalSaturated);
+    p.neutralTrimDeg=-5.7f;
+    auto neutral=input(1,0);o=tricopterControlEvaluate(&p,&neutral);
+    EXPECT_EQ(o.targetAngleDeg,-5.7f);EXPECT_LT(o.pwmUs,1509);
+    // Target tilt cannot cause motor boost/reduction before it is measured.
+    EXPECT_EQ(o.actualAngleDeg,0);EXPECT_EQ(o.collectiveScale,1);EXPECT_EQ(o.tailEffort,1);
 }
 TEST(TricopterControl, ZeroAndLowThrottleAreFiniteAndReportLateralAuthorityLimit)
 {
@@ -123,7 +132,7 @@ TEST(TricopterControl, InvalidOrStaleFeedbackUsesOnlyFeedForwardAndUncompensated
     auto p=tricopterControlDefaultParams();auto in=input(.8f,.1f,1936);in.feedbackValid=false;
     auto o=tricopterControlEvaluate(&p,&in);float ff=0;
     ASSERT_TRUE(tricopterControlPwmFromAngle(&p,o.targetAngleDeg,&ff));
-    EXPECT_FALSE(o.feedbackValid);EXPECT_FALSE(o.currentVectorAvailable);EXPECT_EQ(o.tailEffort,.8f);EXPECT_EQ(o.pwmUs,ff);
+    EXPECT_FALSE(o.feedbackValid);EXPECT_FALSE(o.currentVectorAvailable);EXPECT_EQ(o.tailEffort,.8f);EXPECT_EQ(o.collectiveScale,1);EXPECT_EQ(o.pwmUs,ff);
     in.feedbackValid=true;in.feedbackAgeUs=p.feedbackTimeoutUs+1;
     o=tricopterControlEvaluate(&p,&in);EXPECT_FALSE(o.feedbackValid);EXPECT_EQ(o.tailEffort,.8f);
     in.feedbackAgeUs=p.feedbackTimeoutUs;
@@ -195,4 +204,56 @@ TEST(TricopterControl, SignedAdcMapsAndExtremeValidAnglesRemainBounded)
     p.angleDeg[0]=-80;p.angleDeg[2]=80;
     const auto extreme=input(1,0,-1000);o=tricopterControlEvaluate(&p,&extreme);finiteBounded(o);
     EXPECT_TRUE(o.feedbackValid);EXPECT_TRUE(o.verticalSaturated);EXPECT_EQ(o.tailEffort,1);
+}
+
+static float countsAt(const tricopterControlParams_t &p, float angle)
+{
+    const unsigned i=angle<=0 ? 0 : 1;
+    return p.adcCounts[i]+(angle-p.angleDeg[i])*(p.adcCounts[i+1]-p.adcCounts[i])/(p.angleDeg[i+1]-p.angleDeg[i]);
+}
+TEST(TricopterControl, PhysicalTrimNeedsNoIntegralOrThrottleDependentZeroShift)
+{
+    auto p=tricopterControlDefaultParams();p.neutralTrimDeg=-5.7f;
+    for (float vertical : {.05f,.1f,.35f,.7f,.95f,1.f}) {
+        const auto in=input(vertical,0,countsAt(p,p.neutralTrimDeg));
+        const auto o=tricopterControlEvaluate(&p,&in);finiteBounded(o);
+        const double cosine=std::cos(5.7*PI/180);
+        EXPECT_NEAR(o.targetAngleDeg,-5.7,1e-5);EXPECT_NEAR(o.actualAngleDeg,-5.7,1e-4);
+        EXPECT_NEAR(o.collectiveScale,std::min(1.,cosine/vertical),1e-6);
+        EXPECT_NEAR(o.currentVertical,vertical*o.collectiveScale,1e-6);
+        EXPECT_FALSE(o.yawSaturated);
+    }
+    float zeroAngle=42;ASSERT_TRUE(tricopterControlAngleFromAdc(&p,1490,&zeroAngle));
+    EXPECT_EQ(zeroAngle,0);EXPECT_EQ(p.pwmUs[1],1509);
+}
+TEST(TricopterControl, ResidualYawUsesAchievableVerticalAfterCommonReserve)
+{
+    const auto p=tricopterControlDefaultParams();
+    for(float vertical : {.95f,1.f}) {
+        // A requested lateral effort-.5 needs-30deg at maximum tail effort.
+        const auto in=input(vertical,-.5f/p.yawGain,countsAt(p,-30));
+        const auto o=tricopterControlEvaluate(&p,&in);finiteBounded(o);
+        EXPECT_NEAR(o.actualAngleDeg,-30,1e-4);EXPECT_NEAR(o.targetAngleDeg,-30,1e-4);
+        EXPECT_EQ(o.tailEffort,1);EXPECT_NEAR(o.currentLateral,-.5,1e-6);
+        EXPECT_NEAR(o.currentVertical,std::cos(30*PI/180),1e-6);
+        EXPECT_LT(o.collectiveScale,1);EXPECT_TRUE(o.verticalSaturated);EXPECT_FALSE(o.yawSaturated);
+    }
+}
+TEST(TricopterControl, MotorReserveNeverReplacesPhysicalAsymmetricAngleBounds)
+{
+    const auto p=tricopterControlDefaultParams();
+    auto positive=input(1,10,1490);auto o=tricopterControlEvaluate(&p,&positive);
+    EXPECT_NEAR(o.targetAngleDeg,21.6,1e-5);EXPECT_TRUE(o.yawSaturated);
+    auto negative=input(1,-10,1490);o=tricopterControlEvaluate(&p,&negative);
+    EXPECT_NEAR(o.targetAngleDeg,-47.8,1e-5);EXPECT_TRUE(o.yawSaturated);
+}
+TEST(TricopterControl, PropReactionTrimSignIsIndependentOfYawPolarityAndMapZero)
+{
+    auto p=tricopterControlDefaultParams();
+    for(float trim : {-5.7f,5.7f}) for(int direction : {-1,1}) {
+        p.neutralTrimDeg=trim;p.yawDirection=direction;
+        const auto in=input(1,0,countsAt(p,trim));const auto o=tricopterControlEvaluate(&p,&in);
+        EXPECT_NEAR(o.targetAngleDeg,trim,1e-5);EXPECT_NEAR(o.actualAngleDeg,trim,1e-4);
+        EXPECT_EQ(p.adcCounts[1],1490);EXPECT_EQ(p.pwmUs[1],1509);EXPECT_FALSE(o.yawSaturated);
+    }
 }

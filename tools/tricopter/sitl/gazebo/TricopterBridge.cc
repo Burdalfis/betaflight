@@ -1,6 +1,8 @@
 // Articulated three-motor Betaflight SITL plant / UDP bridge.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "TricopterMath.hh"
+#include "MotorModel.hh"
+#include "DragModel.hh"
 
 #include <gz/common/Console.hh>
 #include <gz/math/Vector3.hh>
@@ -11,6 +13,7 @@
 #include <gz/sim/System.hh>
 #include <gz/sim/Util.hh>
 #include <gz/sim/components/Model.hh>
+#include <gz/sim/components/Inertial.hh>
 #include <gz/sim/components/Name.hh>
 #include <gz/sim/components/ParentEntity.hh>
 #include <gz/sim/components/Pose.hh>
@@ -77,6 +80,17 @@ public:
       body.EnableAccelerationChecks(ecm);
       joint.EnablePositionCheck(ecm);
       joint.EnableVelocityCheck(ecm);
+      dragLinks = {body, rotor[0], rotor[1], rotor[2]};
+      dragTotalMass = 0;
+      for (unsigned i = 0; i < dragLinks.size(); ++i)
+      {
+        const auto *inertial = ecm.Component<gz::sim::components::Inertial>(dragLinks[i].Entity());
+        if (!inertial) throw std::runtime_error("Drag link lacks mass/CG");
+        dragMass[i] = inertial->Data().MassMatrix().Mass();
+        Positive(dragMass[i]);
+        dragLocalCg[i] = inertial->Data().Pose().Pos();
+        dragTotalMass += dragMass[i];
+      }
 
       const auto three = [&sdf](const std::string &name, std::array<double, 3> fallback)
       {
@@ -99,6 +113,33 @@ public:
       }
       motorTau = sdf->Get<double>("motor_time_constant_s", motorTau).first;
       maxRotorSpeed = sdf->Get<double>("max_rotor_speed_rad_s", maxRotorSpeed).first;
+      const auto motorModel = sdf->Get<std::string>("motor_model", "lag").first;
+      if (motorModel != "lag" && motorModel != "dc_prop")
+        throw std::runtime_error("motor_model must be lag or dc_prop");
+      coupledMotor = motorModel == "dc_prop";
+      if (coupledMotor)
+      {
+        MotorParameters parameters;
+        parameters.kvRpmPerVolt = sdf->Get<double>("motor_kv_rpm_v", parameters.kvRpmPerVolt).first;
+        parameters.resistanceOhm = sdf->Get<double>("motor_resistance_ohm", parameters.resistanceOhm).first;
+        parameters.noLoadCurrentA = sdf->Get<double>("motor_no_load_current_a", parameters.noLoadCurrentA).first;
+        parameters.noLoadVoltageV = sdf->Get<double>("motor_no_load_voltage_v", parameters.noLoadVoltageV).first;
+        parameters.voltageV = sdf->Get<double>("motor_voltage_v", parameters.voltageV).first;
+        parameters.currentLimitA = sdf->Get<double>("motor_current_limit_a", parameters.currentLimitA).first;
+        parameters.brakeCurrentLimitA = sdf->Get<double>("motor_brake_current_limit_a", parameters.brakeCurrentLimitA).first;
+        parameters.brakeOnStop = sdf->Get<bool>("motor_brake_on_stop", parameters.brakeOnStop).first;
+        parameters.frictionSmoothingRadS = sdf->Get<double>("motor_friction_smoothing_rad_s", parameters.frictionSmoothingRadS).first;
+        parameters.thrustCoefficientNPerRadS2 = sdf->Get<double>("prop_thrust_n_per_rad_s_squared", 0).first;
+        parameters.torqueCoefficientNmPerRadS2 = sdf->Get<double>("prop_torque_nm_per_rad_s_squared", 0).first;
+        Positive(parameters.thrustCoefficientNPerRadS2);
+        Positive(parameters.torqueCoefficientNmPerRadS2);
+        for (unsigned i = 0; i < 3; ++i)
+        {
+          motorParameters[i] = parameters;
+          motorParameters[i].rotorInertiaKgM2 = rotorInertia[i];
+          motorParameters[i].Validate();
+        }
+      }
       servoTau = sdf->Get<double>("servo_time_constant_s", servoTau).first;
       servoRate = sdf->Get<double>("servo_speed_deg_s", servoRate).first * kPi / 180;
       servoKp = sdf->Get<double>("servo_kp_nm_rad", servoKp).first;
@@ -106,6 +147,13 @@ public:
       servoTorqueLimit = sdf->Get<double>("servo_max_torque_nm", servoTorqueLimit).first;
       watchdogSeconds = sdf->Get<double>("actuator_timeout_s", watchdogSeconds).first;
       linearDrag = sdf->Get<double>("linear_drag_n_s_m", linearDrag).first;
+      const auto dragModel = sdf->Get<std::string>("airframe_drag_model", "quadratic_body").first;
+      if (dragModel != "quadratic_body" && dragModel != "linear_world")
+        throw std::runtime_error("airframe_drag_model must be quadratic_body or linear_world");
+      quadraticDrag = dragModel == "quadratic_body";
+      dragParameters.densityKgM3 = sdf->Get<double>("air_density_kg_m3", dragParameters.densityKgM3).first;
+      dragParameters.cdaBodyM2 = three("drag_cda_body_m2", dragParameters.cdaBodyM2);
+      dragParameters.Validate();
       angularDrag = sdf->Get<double>("angular_drag_nm_s_rad", angularDrag).first;
       homeLat = sdf->Get<double>("home_latitude_deg", homeLat).first;
       homeLon = sdf->Get<double>("home_longitude_deg", homeLon).first;
@@ -140,7 +188,21 @@ public:
           "joint_velocity_dps,servo_target_deg,pb0,pc0,thrust0_n,thrust1_n,thrust2_n,"
           "reaction0_nm,reaction1_nm,reaction2_nm,x_m,y_m,z_m,vx_m_s,vy_m_s,vz_m_s,roll_deg,pitch_deg,yaw_deg,"
           "gyro_frd_x,gyro_frd_y,gyro_frd_z,rear_axis_world_x,rear_axis_world_y,"
-          "rear_axis_world_z,servo_torque_nm,actuator_valid\n";
+          "rear_axis_world_z,servo_torque_nm,actuator_valid";
+        for (unsigned i = 0; i < 3; ++i)
+        {
+          trace << ",rotor" << i << "_omega_rad_s";
+          for (const char *kind : {"spinup", "precession"})
+            for (const char *axis : {"x", "y", "z"})
+              trace << ",rotor" << i << '_' << kind << '_' << axis << "_nm";
+        }
+        for (unsigned i = 0; i < 3; ++i)
+          trace << ",rotor" << i << "_terminal_current_a,rotor" << i << "_battery_current_a,rotor"
+                << i << "_effective_voltage_v,rotor" << i << "_shaft_torque_nm,rotor"
+                << i << "_prop_torque_nm,rotor" << i << "_numerical_dissipation_w";
+        trace << ",airframe_drag_world_x_n,airframe_drag_world_y_n,airframe_drag_world_z_n,"
+                 "airframe_drag_power_w,airframe_air_velocity_body_x_m_s,"
+                 "airframe_air_velocity_body_y_m_s,airframe_air_velocity_body_z_m_s\n";
         trace << std::setprecision(12);
       }
       epoch = static_cast<uint32_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -198,23 +260,74 @@ public:
     for (unsigned i = 0; i < 3; ++i)
     {
       const double target = actuatorValid ? Clamp((actuator.motorPwm[i]-1000)/1000, 0, 1) : 0;
-      const double previousSpeed = motorState[i] * maxRotorSpeed;
-      motorState[i] = LagStep(motorState[i], target, dt, motorTau);
-      const double omega = motorState[i] * maxRotorSpeed;
-      thrust[i] = maxThrust[i] * motorState[i] * motorState[i];
-      reaction[i] = -spin[i] * reactionRatio[i] * thrust[i];
+      const double previousSpeed = rotorSpeed[i];
+      if (coupledMotor)
+      {
+        motorElectrical[i] = StepMotor(motorParameters[i], previousSpeed, target, dt,
+                                      actuatorValid && actuator.motorPwm[i] > 0);
+        rotorSpeed[i] = motorElectrical[i].omegaRadS;
+        thrust[i] = motorElectrical[i].thrustN;
+        reaction[i] = -spin[i] * motorElectrical[i].propTorqueNm;
+      }
+      else
+      {
+        motorState[i] = LagStep(motorState[i], target, dt, motorTau);
+        rotorSpeed[i] = motorState[i] * maxRotorSpeed;
+        thrust[i] = maxThrust[i] * motorState[i] * motorState[i];
+        reaction[i] = -spin[i] * reactionRatio[i] * thrust[i];
+      }
+      const double omega = rotorSpeed[i];
       const auto pose = gz::sim::worldPose(rotor[i].Entity(), ecm);
       const Vec axis = pose.Rot().RotateVector(Vec::UnitZ);
       const Vec linkOmega = rotor[i].WorldAngularVelocity(ecm).value_or(Vec::Zero);
       // Optional rotor-relative angular momentum. SDF carrier inertia must
       // include the corresponding locked-rotor inertia when J is nonzero.
-      const Vec inertial = -spin[i] * rotorInertia[i] *
-        (((omega-previousSpeed)/dt)*axis + omega*linkOmega.Cross(axis));
+      rotorTorque[i] = RotorReaction(rotorInertia[i], spin[i]*omega,
+        spin[i]*(omega-previousSpeed)/dt, {axis.X(), axis.Y(), axis.Z()},
+        {linkOmega.X(), linkOmega.Y(), linkOmega.Z()});
+      const auto sum = rotorTorque[i].Total();
+      const Vec inertial(sum[0], sum[1], sum[2]);
       rotor[i].AddWorldWrench(ecm, thrust[i]*axis, reaction[i]*axis + inertial);
     }
-    body.AddWorldWrench(ecm,
-      -linearDrag * body.WorldLinearVelocity(ecm).value_or(Vec::Zero),
-      -angularDrag * body.WorldAngularVelocity(ecm).value_or(Vec::Zero));
+    const auto bodyPose = gz::sim::worldPose(body.Entity(), ecm);
+    if (quadraticDrag)
+    {
+      // Mass-weighted link-CG velocity includes the moving basket. Distributing
+      // the force in the same mass fractions makes its resultant pass through
+      // the instantaneous aircraft CG, with exactly F.v_CG mechanical power.
+      Vec cgVelocity = Vec::Zero;
+      for (unsigned i = 0; i < dragLinks.size(); ++i)
+        cgVelocity += dragMass[i]/dragTotalMass *
+          dragLinks[i].WorldLinearVelocity(ecm, dragLocalCg[i]).value_or(Vec::Zero);
+      std::array<Vector, 3> axes;
+      for (unsigned i = 0; i < 3; ++i)
+      {
+        Vec axis = Vec::Zero; axis[i] = 1;
+        axis = bodyPose.Rot().RotateVector(axis);
+        axes[i] = {axis.X(), axis.Y(), axis.Z()};
+      }
+      airframeDrag = QuadraticAirframeDrag(dragParameters,
+        {cgVelocity.X(), cgVelocity.Y(), cgVelocity.Z()}, axes);
+      const auto &force = airframeDrag.forceWorldN;
+      const Vec drag(force[0], force[1], force[2]);
+      for (unsigned i = 0; i < dragLinks.size(); ++i)
+        dragLinks[i].AddWorldForce(ecm, dragMass[i]/dragTotalMass * drag);
+      body.AddWorldWrench(ecm, Vec::Zero,
+        -angularDrag * body.WorldAngularVelocity(ecm).value_or(Vec::Zero));
+    }
+    else
+    {
+      // Exact former model/application point retained for historical replays.
+      const Vec velocity = body.WorldLinearVelocity(ecm).value_or(Vec::Zero);
+      const Vec force = -linearDrag * velocity;
+      const Vec bodyVelocity = bodyPose.Rot().RotateVectorReverse(velocity);
+      airframeDrag = AirframeDragResult {};
+      airframeDrag.forceWorldN = {force.X(), force.Y(), force.Z()};
+      airframeDrag.velocityBodyMPS = {bodyVelocity.X(), bodyVelocity.Y(), bodyVelocity.Z()};
+      airframeDrag.powerW = force.Dot(velocity);
+      body.AddWorldWrench(ecm, force,
+        -angularDrag * body.WorldAngularVelocity(ecm).value_or(Vec::Zero));
+    }
   }
 
   void PostUpdate(const gz::sim::UpdateInfo &info,
@@ -274,7 +387,21 @@ public:
         << ',' << euler.X() << ',' << euler.Y() << ',' << euler.Z();
       for (double v : gyro) trace << ',' << v;
       trace << ',' << rearAxis.X() << ',' << rearAxis.Y() << ',' << rearAxis.Z()
-        << ',' << servoTorque << ',' << actuatorValid << '\n';
+        << ',' << servoTorque << ',' << actuatorValid;
+      for (unsigned i = 0; i < 3; ++i)
+      {
+        trace << ',' << rotorSpeed[i];
+        for (double value : rotorTorque[i].spinup) trace << ',' << value;
+        for (double value : rotorTorque[i].precession) trace << ',' << value;
+      }
+      for (const auto &point : motorElectrical)
+        trace << ',' << point.terminalCurrentA << ',' << point.batteryCurrentA << ','
+              << point.effectiveVoltageV << ',' << point.shaftTorqueNm << ','
+              << point.propTorqueNm << ',' << point.numericalDissipationW;
+      for (double value : airframeDrag.forceWorldN) trace << ',' << value;
+      trace << ',' << airframeDrag.powerW;
+      for (double value : airframeDrag.velocityBodyMPS) trace << ',' << value;
+      trace << '\n';
       trace.flush(); // External simulation pilots need each current 100 Hz state.
       nextTraceTime = now + 1/traceRate;
     }
@@ -361,19 +488,33 @@ private:
     ++epoch; sequence = 0; lastSimulationTime = -1; nextTraceTime = 0;
     InvalidateActuators(); wasPaused = false; havePreUpdateWallTime = false;
     motorState.fill(0); thrust.fill(0); reaction.fill(0);
+    rotorSpeed.fill(0); rotorTorque.fill(RotorInertialTorque {}); motorElectrical.fill(MotorStep {});
     servoTarget = servoTorque = 0;
+    airframeDrag = AirframeDragResult {};
   }
 
   bool ready {false}, actuatorValid {false}, warnedSend {false};
   bool wasPaused {false}, havePreUpdateWallTime {false};
   int socketFd {-1}; sockaddr_in fdmAddress {}, adcAddress {};
   gz::sim::Link body; std::array<gz::sim::Link, 3> rotor; gz::sim::Joint joint;
+  std::array<gz::sim::Link, 4> dragLinks;
+  std::array<Vec, 4> dragLocalCg;
+  std::array<double, 4> dragMass {};
+  double dragTotalMass {0};
+  bool quadraticDrag {true};
+  AirframeDragParameters dragParameters;
+  AirframeDragResult airframeDrag;
   std::string cameraHeadingName;
   gz::sim::Entity worldEntity {gz::sim::kNullEntity}, cameraHeadingEntity {gz::sim::kNullEntity};
   Calibration calibration; Actuators actuator; ActuatorGate actuatorGate; FdmPacer fdmPacer;
   std::array<double, 3> maxThrust {15, 15, 15}, reactionRatio {.02, .02, .02};
   std::array<double, 3> spin {1, -1, 1}, rotorInertia {0, 0, 0};
   std::array<double, 3> motorState {}, thrust {}, reaction {};
+  std::array<double, 3> rotorSpeed {};
+  std::array<RotorInertialTorque, 3> rotorTorque {};
+  std::array<MotorParameters, 3> motorParameters {};
+  std::array<MotorStep, 3> motorElectrical {};
+  bool coupledMotor {false};
   double motorTau {.03}, maxRotorSpeed {2000}, servoTau {.02}, servoRate {362};
   double servoKp {1.5}, servoKd {.03}, servoTorqueLimit {.45}, servoTarget {0}, servoTorque {0};
   double linearDrag {.15}, angularDrag {.02}, watchdogSeconds {.25};

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "ROUGH ENGINEERING PLACEHOLDERS; not measured or flight-validated airframe aerodynamics",
+  "model": "quadratic_body",
+  "axes": "Body FLU: +X forward, +Y left, +Z up",
+  "air_density_kg_m3": 1.225,
+  "cda_body_m2": [0.010, 0.012, 0.025],
+  "equation": "F_body[i] = -0.5 * rho * CdA_body[i] * abs(v_air_body[i]) * v_air_body[i]",
+  "velocity": "Mass-weighted instantaneous world velocity of the four physical link CGs, expressed in body FLU; still air is assumed",
+  "application": "Distribute the total world force to the four link CGs in proportion to mass. The resultant passes through the instantaneous aircraft CG, giving zero net drag moment about it and power F_world dot v_CG <= 0",
+  "coefficient_basis": {
+    "method": "Explicit tunable engineering allowances, chosen for a small exposed 5-inch tricopter with battery, motors and frame; not a CAD projection calculation",
+    "cad_context_only": "CAD budget includes a 78 x 42 x 39 mm battery and approximately 0.2 m frame span. These dimensions do not identify the assembled CdA or flow shielding",
+    "forward_cda_m2": 0.010,
+    "lateral_cda_m2": 0.012,
+    "normal_cda_m2": 0.025,
+    "symmetry": "Each body-axis coefficient is the same for positive and negative flow; attitude changes the world force through the body basis"
+  },
+  "legacy": {
+    "model": "linear_world",
+    "linear_drag_n_s_m": 0.15,
+    "application": "Original force -linear_drag * base_link world-origin velocity, applied at the base_link origin; retained exactly for historical replay"
+  },
+  "angular_drag_nm_s_rad": 0.02,
+  "angular_drag_change": "None: original pure world torque -0.02 * base_link world angular velocity",
+  "reference_forces_n": {
+    "body_x_at_10_m_s": -0.6125,
+    "body_x_at_20_m_s": -2.45,
+    "body_y_at_10_m_s": -0.735,
+    "body_z_at_10_m_s": -1.53125
+  },
+  "limits": [
+    "The coefficients have no experimentally justified uncertainty interval and do not predict the real craft's top speed",
+    "No blade-element/inflow, induced drag, propeller translational lift, stall, airframe lift, aerodynamic centre offset, wind or ground-effect model is introduced",
+    "Componentwise quadratic drag is a dissipative lumped approximation, not a resolved aerodynamic flow solution",
+    "Rotor thrust, propeller reaction, motor electrical dynamics, active braking, rotor inertia and servo physics are unchanged",
+    "A new shared nonlinear-drag baseline must be used for both firmwares; previous linear-drag recordings remain historical results"
+  ]
+}

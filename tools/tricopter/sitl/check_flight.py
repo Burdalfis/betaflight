@@ -35,6 +35,76 @@ PILOT = {'position_p_xy': .8, 'velocity_d_xy': 1.5,
 def clamp(v, lo, hi): return max(lo, min(hi, v))
 
 
+class DcCollectiveFeedforward:
+    """Setup RC pilot only: invert the world's steady DC/prop force model.
+
+    Firmware allocation and measurement inputs remain untouched. This assumes
+    the shared linear throttle curve, zero thrust_linear and ordinary PWM
+    output; native RX mincheck and motor idle are read back rather than inferred
+    from RC pulse width. Attitude/yaw trim remains the setup pilot's feedback job.
+    """
+    def __init__(self, bridge, mincheck, idle, mincommand, maximum):
+        fields = ('motor_voltage_v', 'motor_resistance_ohm', 'motor_kv_rpm_v',
+                  'motor_no_load_current_a', 'motor_no_load_voltage_v',
+                  'motor_friction_smoothing_rad_s', 'motor_current_limit_a',
+                  'prop_thrust_n_per_rad_s_squared', 'prop_torque_nm_per_rad_s_squared')
+        self.coefficients = {name: float(bridge.findtext(name)) for name in fields}
+        if not all(math.isfinite(value) and value > 0 for value in self.coefficients.values()):
+            raise ValueError('Invalid DC setup feedforward coefficients')
+        if not (1000 <= mincheck < 2000 and 0 <= idle < 1 and mincommand+1000*idle < maximum):
+            raise ValueError('Invalid setup receiver/motor output mapping')
+        self.mincheck, self.idle = mincheck, idle
+        self.mincommand, self.maximum = mincommand, maximum
+        p = self.coefficients
+        self.constant = 60/(2*math.pi*p['motor_kv_rpm_v'])
+        reference = (p['motor_no_load_voltage_v'] -
+                     p['motor_resistance_ohm']*p['motor_no_load_current_a'])/self.constant
+        if reference <= 0: raise ValueError('Invalid no-load reference speed')
+        self.loss_current = p['motor_no_load_current_a']*(
+            reference+p['motor_friction_smoothing_rad_s'])/reference
+
+    def __call__(self, total_force_n):
+        if not math.isfinite(total_force_n) or total_force_n < 0:
+            raise ValueError('Setup force must be finite and nonnegative')
+        p = self.coefficients
+        speed = math.sqrt(total_force_n/(3*p['prop_thrust_n_per_rad_s_squared']))
+        current = (p['prop_torque_nm_per_rad_s_squared']*speed*speed/self.constant +
+                   self.loss_current*speed/(speed+p['motor_friction_smoothing_rad_s']))
+        duty = ((self.constant*speed+p['motor_resistance_ohm']*current)/p['motor_voltage_v']
+                if current <= p['motor_current_limit_a'] else 1.0)
+        plant_pwm = 1000+1000*clamp(duty, 0, 1)
+        # Native analogInitEndpoints adds motorIdle*0.1 us independently of
+        # max_throttle. idle here is motorIdle/10000, hence the 1000-us factor.
+        motor_low = self.mincommand+1000*self.idle
+        normalized = clamp((plant_pwm-motor_low)/(self.maximum-motor_low), 0, 1)
+        return self.mincheck+(2000-self.mincheck)*normalized
+
+    def report(self):
+        return {'backend': 'dc_prop_steady_inverse_for_setup_only',
+                'coefficients': self.coefficients, 'rx_mincheck_us': self.mincheck,
+                'motor_idle_fraction': self.idle, 'min_command_us': self.mincommand,
+                'max_throttle_us': self.maximum, 'equal_thrust_feedforward': True,
+                'setup_roll_trim_from_actual_tail_thrust': True,
+                'measurement_inputs_or_firmware_gains_changed': False}
+
+
+def setup_collective_feedforward(bridge, client):
+    if bridge.findtext('motor_model', 'lag') != 'dc_prop': return None
+    rates, advanced, rx, motors = (client.request(command) for command in (111, 90, 44, 131))
+    if rates[7] != 0 or rates[14] != 0:
+        raise ValueError('DC setup feedforward requires linear, unlimited common throttle profile')
+    return DcCollectiveFeedforward(bridge, struct.unpack_from('<H', rx, 5)[0],
+        struct.unpack_from('<H', advanced, 6)[0]/10000,
+        struct.unpack_from('<H', motors, 4)[0], struct.unpack_from('<H', motors, 2)[0])
+
+
+def tail_force_roll_trim(state):
+    """Body roll that makes the current articulated thrust resultant vertical."""
+    angle = math.radians(state['joint_angle_deg'])
+    return math.atan2(state['thrust0_n']*math.sin(angle),
+                      state['thrust1_n']+state['thrust2_n']+state['thrust0_n']*math.cos(angle))
+
+
 class RecordedReceiver(RcFeed):
     """Retain the exact send time and all channels of every RC datagram."""
     def __init__(self):
@@ -104,9 +174,13 @@ def read_limits(client):
 
 
 class Pilot:
-    def __init__(self, receiver, path, trace, limits, mass, max_thrust):
+    maximum_height_m = 3.0
+    maximum_attitude_deg = 40.0
+
+    def __init__(self, receiver, path, trace, limits, mass, max_thrust, collective=None):
         self.receiver, self.trace, self.limits = receiver, trace, limits
         self.mass, self.max_thrust = mass, max_thrust
+        self.collective = collective
         self.lock = threading.Lock(); self.stop = threading.Event()
         self.thread = threading.Thread(target=self._run, daemon=True)
         self.phase = 'idle'; self.active = False; self.destination = None; self.yaw = 1500
@@ -142,10 +216,10 @@ class Pilot:
                     self.reference_z = self.origin[2]
                 target_roll = target_pitch = 0.0
                 if active:
-                    if abs(state['roll_deg']) > 40 or abs(state['pitch_deg']) > 40:
-                        raise RuntimeError('Vehicle exceeded 40 degree attitude envelope')
-                    if state['z_m'] > self.origin[2]+3:
-                        raise RuntimeError('Vehicle exceeded 3 metre altitude envelope')
+                    if max(abs(state['roll_deg']), abs(state['pitch_deg'])) > self.maximum_attitude_deg:
+                        raise RuntimeError(f'Vehicle exceeded {self.maximum_attitude_deg:g} degree attitude envelope')
+                    if state['z_m'] > self.origin[2]+self.maximum_height_m:
+                        raise RuntimeError(f'Vehicle exceeded {self.maximum_height_m:g} metre altitude envelope')
                     destination = destination if destination is not None else self.origin[2]+1
                     delta = destination-self.reference_z
                     rate = PILOT['ascent_m_s'] if delta >= 0 else PILOT['descent_m_s']
@@ -164,11 +238,15 @@ class Pilot:
                     heading = math.radians(state['yaw_deg'])
                     bx = math.cos(heading)*ax+math.sin(heading)*ay
                     by = -math.sin(heading)*ax+math.cos(heading)*ay
-                    target_roll = clamp(math.degrees(math.atan2(-by, G)), -5, 5)
-                    target_pitch = clamp(math.degrees(math.atan2(bx, G)), -5, 5)
+                    angle_bound = PILOT['max_angle_deg']
+                    roll_trim = tail_force_roll_trim(state) if self.collective is not None else 0.0
+                    target_roll = clamp(math.degrees(roll_trim+math.atan2(-by, G)), -angle_bound, angle_bound)
+                    target_pitch = clamp(math.degrees(math.atan2(bx, G)), -angle_bound, angle_bound)
                     vertical_fraction = max(.5, math.cos(math.radians(state['roll_deg']))*math.cos(math.radians(state['pitch_deg'])))
-                    effort = math.sqrt(max(0, self.mass*(G+az)/(self.max_thrust*vertical_fraction)))
-                    requested = clamp(1000+1000*effort, 1250, 1700)
+                    force = self.mass*(G+az)/vertical_fraction
+                    requested = (self.collective(force) if self.collective is not None else
+                                 1000+1000*math.sqrt(max(0, force/self.max_thrust)))
+                    requested = clamp(requested, 1250, 1700)
                     self.throttle += clamp(requested-self.throttle, -PILOT['throttle_slew_us_s']*dt, PILOT['throttle_slew_us_s']*dt)
                     roll = angle_channel(target_roll, self.limits, 0)
                     pitch = angle_channel(target_pitch, self.limits, 1)
@@ -290,6 +368,8 @@ def run_variant(artifacts, variant, plugin, source_world, directory):
     try:
         firmware = start_firmware(binary, directory); client = Msp.connect(port=5762); client.request(1)
         limits = read_limits(client); record['angle_rate_mapping'] = limits
+        collective = setup_collective_feedforward(bridge, client)
+        record['setup_collective_feedforward'] = collective.report() if collective else {'backend': 'legacy_square_law'}
         boxes = client.request(119)
         environment = os.environ.copy()
         environment['GZ_SIM_SYSTEM_PLUGIN_PATH'] = str(plugin.parent)+os.pathsep+environment.get('GZ_SIM_SYSTEM_PLUGIN_PATH', '')
@@ -301,7 +381,7 @@ def run_variant(artifacts, variant, plugin, source_world, directory):
         receiver = RecordedReceiver(); receiver.set(5, 1900); receiver.start()
         wait_for_plant(directory, firmware, gazebo, client, variant)
         trace = TraceReader(directory/'plant.csv')
-        pilot = Pilot(receiver, directory/'pilot.csv', trace, limits, parameters['mass_kg'], sum(parameters['max_thrust_n'])); pilot.start()
+        pilot = Pilot(receiver, directory/'pilot.csv', trace, limits, parameters['mass_kg'], sum(parameters['max_thrust_n']), collective); pilot.start()
         deadline = time.monotonic()+25
         while time.monotonic() < deadline:
             state = client.status()
@@ -396,7 +476,7 @@ def run_variant(artifacts, variant, plugin, source_world, directory):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--variant', choices=['stock', 'modified', 'both'], default='both')
-    parser.add_argument('--artifacts', type=Path, default=ARTIFACTS)
+    parser.add_argument('--artifacts', type=Path, default=ARTIFACTS/'corrected-frame')
     parser.add_argument('--world', type=Path, default=HERE/'gazebo/worlds/tricopter.sdf')
     args = parser.parse_args(); artifacts = args.artifacts.resolve()
     with SessionLock():

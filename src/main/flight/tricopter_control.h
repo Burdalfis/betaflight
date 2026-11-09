@@ -34,6 +34,7 @@ typedef struct tricopterControlInput_s {
 
 typedef struct tricopterControlOutput_s {
     float tailEffort;
+    float collectiveScale; // Common reduction of all requested vertical efforts.
     float targetAngleDeg;
     float actualAngleDeg; // Available only when feedbackValid.
     float pwmUs;

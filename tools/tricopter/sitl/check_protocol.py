@@ -21,6 +21,7 @@ import traceback
 from runtime import (ADC_PACKET, ARTIFACTS, FDM_PACKET, Msp, RAW_PWM_PACKET,
                      RcFeed, SessionLock, fresh_run_directory, provision,
                      start_firmware, stop_process)
+from run import verified_binary
 
 GRAVITY = 9.80665
 TRI_FEEDBACK = 1 << 30
@@ -179,7 +180,7 @@ def wait_feedback(msp, outputs, observations, valid: bool, label: str, timeout=3
 
 
 def run_variant(artifacts: Path, directory: Path, variant: str, frame_hold: float) -> dict:
-    binary = artifacts/variant/'betaflight_SITL.elf'
+    binary = verified_binary(artifacts,variant)
     record = {'variant': variant, 'binary': str(binary),
               'binary_sha256': hashlib.sha256(binary.read_bytes()).hexdigest(),
               'observations': [], 'pass': False}
@@ -302,7 +303,7 @@ def run_variant(artifacts: Path, directory: Path, variant: str, frame_hold: floa
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--artifacts', type=Path, default=ARTIFACTS)
+    parser.add_argument('--artifacts', type=Path, default=ARTIFACTS/'corrected-frame')
     parser.add_argument('--variant', choices=['stock', 'modified', 'both'], default='both')
     parser.add_argument('--frame-hold', type=float, default=2.0)
     args = parser.parse_args()

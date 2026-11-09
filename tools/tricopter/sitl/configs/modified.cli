@@ -10,5 +10,7 @@ set tri_servo_p = 20
 set tri_feedback_timeout = 20
 set tri_adc_margin = 32
 set tri_yaw_direction = 1
-set tri_yaw_trim = 0
+# Signed physical trim observed in the shared synthetic airframe hover.
+# This does not change physical vertical zero or the PB0-PC0 calibration.
+set tri_yaw_trim = -61
 set debug_mode = TRI_CONTROL

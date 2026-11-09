@@ -1,0 +1,223 @@
+{
+  "source_step_sha256": "58d1a5f2e55bb05799011594abee32acdc62e99ddc57694e0769f1e6ae6d9e56",
+  "units": "metres",
+  "linear_deflection_mm": 0.05,
+  "angular_deflection_rad": 0.2,
+  "meshes": {
+    "frame.stl": {
+      "link": "base_link",
+      "cad_components": [
+        "midplate_1",
+        "Tri_Arm_Front_1",
+        "Tri_Arm_Front_2",
+        "Rear_Motor_Swivel_Post_1",
+        "Rear_Motor_Swivel_Post_2",
+        "Rear_Arm_1",
+        "MotorPlate_1",
+        "Rear_Motor_Servo_Bracket_1",
+        "Rear_Motor_Servo_Bracket_2",
+        "ServoPlate_1",
+        "Midplate_Modded_1"
+      ],
+      "facets": 34300,
+      "bbox_link_m": [
+        -0.13492389023303986,
+        -0.09664378315210342,
+        -0.020499998703598976,
+        0.07313448935747147,
+        0.0967370867729187,
+        0.024500001221895218
+      ],
+      "sha256": "dabda099318153f419add10152033fc4b0eb1efd1b2d304323a8de9c7d4977fe",
+      "derived_components": [
+        {
+          "source": "midplate_1",
+          "translation_cad_mm": [
+            0,
+            -7,
+            0
+          ]
+        }
+      ]
+    },
+    "basket.stl": {
+      "link": "tail_motor",
+      "cad_components": [
+        "Rear_Motor_Plate_1",
+        "Rear_Motor_Bearing_Block_1",
+        "Rear_Motor_Bearing_Block_2"
+      ],
+      "facets": 6260,
+      "bbox_link_m": [
+        -0.021015647798776627,
+        -0.012534784153103828,
+        -0.004000002518296242,
+        0.021015647798776627,
+        0.01253478042781353,
+        0.017198147252202034
+      ],
+      "sha256": "5bb96ee6cf698ce17ebcef7943f84d814f0dbbf482e2e7159e75676967580a34"
+    },
+    "pivot_bearings.stl": {
+      "link": "tail_motor",
+      "cad_components": [
+        "_57155K435_Flanged_Ball_Bearing_1",
+        "_57155K435_Flanged_Ball_Bearing_2"
+      ],
+      "facets": 44184,
+      "bbox_link_m": [
+        -0.021009741351008415,
+        -0.005785440094769001,
+        0.004950002301484346,
+        0.02100975811481476,
+        0.005786077585071325,
+        0.01644999533891678
+      ],
+      "sha256": "a91dbfe7ff764c120c68850a3d659bef757b66d3ebd13e342bca721d2631c686"
+    },
+    "servo.stl": {
+      "link": "base_link",
+      "cad_components": [
+        "Emax_ES08A_1"
+      ],
+      "facets": 29171,
+      "bbox_link_m": [
+        -0.11190350353717804,
+        -0.015871159732341766,
+        -0.018550001084804535,
+        -0.08424994349479675,
+        0.016131220385432243,
+        -0.006950002629309893
+      ],
+      "sha256": "81f8752a31a988705dae041864119153dbae28c85f890e18f5073a74b55dddcb"
+    },
+    "servo_horn.stl": {
+      "link": "base_link",
+      "cad_components": [
+        "Micro_Servo_Horn_Arm_1"
+      ],
+      "facets": 2556,
+      "bbox_link_m": [
+        -0.086799256503582,
+        -0.024075062945485115,
+        -0.01656954735517502,
+        -0.08252133429050446,
+        -0.002069462789222598,
+        -0.008928525261580944
+      ],
+      "sha256": "8368c35db27addcf4e1eb1a1699196fc583395192d619592e008893649846d37"
+    },
+    "servo_support.stl": {
+      "link": "base_link",
+      "cad_components": [
+        "M3_Standoff_11_5mm_1"
+      ],
+      "facets": 504,
+      "bbox_link_m": [
+        -0.1168128252029419,
+        -0.002336811972782016,
+        -0.01849999837577343,
+        -0.11181572079658508,
+        0.0026616163086146116,
+        -0.006999997887760401
+      ],
+      "sha256": "75a18968b8c0478d5025aaaec03e7adecce4ac229eaf276743bc29b7e560bc96"
+    },
+    "right_motor.stl": {
+      "link": "right_motor",
+      "cad_components": [
+        "Front_lower_Z_Xing2207"
+      ],
+      "facets": 127097,
+      "bbox_link_m": [
+        -0.014243056997656822,
+        -0.014243055135011673,
+        -0.0004500020877458155,
+        0.014243057928979397,
+        0.014240164309740067,
+        0.03319999948143959
+      ],
+      "sha256": "4ff3e9641a66070784669e8ce059644aabc75c440f2e7067bf17521697af9c66"
+    },
+    "left_motor.stl": {
+      "link": "left_motor",
+      "cad_components": [
+        "Front_upper_Z_Xing2207"
+      ],
+      "facets": 127097,
+      "bbox_link_m": [
+        -0.014243056997656822,
+        -0.014243056066334248,
+        -0.0004500020877458155,
+        0.014243056066334248,
+        0.014240158721804619,
+        0.03319999948143959
+      ],
+      "sha256": "8df3872b8491a3d2a5ac3beecf81b9211b5a36ddc0d817cfb96a51bb0d65ec8c"
+    },
+    "tail_motor.stl": {
+      "link": "tail_motor",
+      "cad_components": [
+        "Rear_tilting_Xing2207"
+      ],
+      "facets": 127097,
+      "bbox_link_m": [
+        -0.014243064448237419,
+        -0.014243051409721375,
+        -0.0004499994101934135,
+        0.0142430504783988,
+        0.014240164309740067,
+        0.03320000320672989
+      ],
+      "sha256": "b79bb5d6b642a524d863ab966711d06b25c77b9458ddc5f16f977d525a02993d"
+    },
+    "right_prop.stl": {
+      "link": "right_motor",
+      "cad_components": [
+        "Part__Feature086"
+      ],
+      "facets": 73576,
+      "bbox_link_m": [
+        -0.06391779333353043,
+        -0.055124908685684204,
+        0.021000001579523087,
+        0.03454836830496788,
+        0.05658717826008797,
+        0.029235301539301872
+      ],
+      "sha256": "19732e34d35b7ecd9984a066433a447137a9b06faf516c982cd2c032c641f0b3"
+    },
+    "left_prop.stl": {
+      "link": "left_motor",
+      "cad_components": [
+        "Part__Feature112"
+      ],
+      "facets": 73356,
+      "bbox_link_m": [
+        -0.03454785794019699,
+        -0.055125243961811066,
+        0.021000001579523087,
+        0.06391806900501251,
+        0.056586794555187225,
+        0.029235292226076126
+      ],
+      "sha256": "8e854b30801c23c80ec1449cb7d7e4572963fc388c75cefd66fb014ccf6a0467"
+    },
+    "tail_prop.stl": {
+      "link": "tail_motor",
+      "cad_components": [
+        "Part__Feature138"
+      ],
+      "facets": 73470,
+      "bbox_link_m": [
+        -0.06391779333353043,
+        -0.055124908685684204,
+        0.020999997854232788,
+        0.03454836457967758,
+        0.05658717826008797,
+        0.029235295951366425
+      ],
+      "sha256": "da26f9e22e1b26fb9cb74ef94bac75f85015e4fd23b6215f6c816cb5b7839916"
+    }
+  }
+}

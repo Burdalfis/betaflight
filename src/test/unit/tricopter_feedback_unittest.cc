@@ -127,7 +127,7 @@ TEST_F(TricopterFeedback, StaleOrInvalidRawFeedbackCannotDriveCompensationOrArmi
         update(.4f,.1f,100000+kind*1000);
         const auto &o=*mixerTricopterGetControl();
         EXPECT_FALSE(o.feedbackValid);EXPECT_FALSE(o.currentVectorAvailable);
-        EXPECT_EQ(o.tailEffort,.4f);EXPECT_EQ(mixerTricopterMotorCorrection(0),0);
+        EXPECT_EQ(o.tailEffort,.4f);EXPECT_EQ(mixerTricopterMotorCorrection(0),0);EXPECT_EQ(mixerTricopterCollectiveScale(),1);
         EXPECT_FALSE(mixerTricopterCanArm());EXPECT_TRUE(mixerTricopterIsServoSaturated(0));
         EXPECT_GE(mixerTricopterServoPwm(),1100U);EXPECT_LE(mixerTricopterServoPwm(),1700U);
     }
@@ -166,8 +166,9 @@ TEST_F(TricopterFeedback, DisarmedRateZeroRetainsFixedBenchPulseAndBlocksArming)
 {
     auto *s=servoParamsMutable(SERVO_RUDDER);s->middle=1550;s->rate=0;
     position.correctedCounts=1281;position.rawWiperCounts=1281;
-    update(.5f,.2f);
+    update(1,.2f);
     EXPECT_EQ(mixerTricopterServoPwm(),1550U);EXPECT_EQ(mixerTricopterMotorCorrection(0),0);
+    EXPECT_EQ(mixerTricopterCollectiveScale(),1);
     EXPECT_FALSE(mixerTricopterCanArm());
 }
 TEST_F(TricopterFeedback, ArmingNeedsValidFeedbackConfigurationAndNoChannelForwarding)
@@ -264,4 +265,56 @@ TEST_F(TricopterFeedback, ExplicitAbortClosesCompletedSessionAndWaitsForCenterRe
     EXPECT_FALSE(mixerTricopterCalibrationApply());EXPECT_FALSE(mixerTricopterCanArm());
     update(.5f,0,done+300001);
     EXPECT_FALSE(mixerTricopterIsCalibrating());EXPECT_FALSE(mixerTricopterCalibrationApply());
+}
+
+TEST_F(TricopterFeedback, FullCollectiveReservesHeadroomGloballyAndKeepsYawAvailable)
+{
+    const double cosine=std::cos(21.6*3.14159265358979323846/180);
+    position={true,true,true,true,1281,0,1281,0};
+    update(1,0);
+    const auto &o=*mixerTricopterGetControl();
+    ASSERT_TRUE(o.feedbackValid);EXPECT_TRUE(o.verticalSaturated);EXPECT_FALSE(o.yawSaturated);
+    EXPECT_FALSE(mixerTricopterIsServoSaturated(0));
+    EXPECT_NEAR(mixerTricopterCollectiveScale(),cosine,1e-6);
+    for(int i=0;i<3;++i) {
+        const float output=mixerTricopterApplyMotorEffort(i,1);
+        EXPECT_GE(output,0);EXPECT_LE(output,1);
+        EXPECT_NEAR(i==0 ? output*cosine : output,cosine,1e-6);
+    }
+    EXPECT_EQ(mixerTricopterApplyMotorEffort(0,1),1);
+    EXPECT_LT(mixerTricopterApplyMotorEffort(1,1),1);
+    EXPECT_LT(mixerTricopterApplyMotorEffort(2,1),1);
+}
+TEST_F(TricopterFeedback, ReservePreservesThreeMotorRollPitchVerticalRatios)
+{
+    position={true,true,true,true,1936,0,1936,0};
+    update(.95f,-.1f);
+    const float requested[3]={.95f,.82f,.9f};
+    const float cosine=std::cos(47.8*3.14159265358979323846/180);
+    for(int i=0;i<3;++i) {
+        const float output=mixerTricopterApplyMotorEffort(i,requested[i]);
+        const float vertical=i==0 ? output*cosine : output;
+        EXPECT_GE(output,0);EXPECT_LE(output,1);
+        EXPECT_NEAR(vertical/requested[i],mixerTricopterCollectiveScale(),1e-6);
+    }
+    EXPECT_EQ(mixerTricopterApplyMotorEffort(-1,.7f),.7f);
+    EXPECT_EQ(mixerTricopterApplyMotorEffort(3,.7f),.7f);
+}
+TEST_F(TricopterFeedback, LostFeedbackClearsCommonReserveWithoutInventingPosition)
+{
+    position={true,true,true,true,1936,0,1936,0};update(1,0);
+    ASSERT_LT(mixerTricopterCollectiveScale(),1);
+    position.ageUs=20001;update(1,0);
+    EXPECT_EQ(mixerTricopterCollectiveScale(),1);EXPECT_EQ(mixerTricopterMotorCorrection(0),0);
+    for(int i=0;i<3;++i)EXPECT_EQ(mixerTricopterApplyMotorEffort(i,.9f),.9f);
+    EXPECT_TRUE(mixerTricopterIsServoSaturated(0));
+}
+
+TEST_F(TricopterFeedback, DisarmedCalibrationSuppressesCommonReserveAndTailBoost)
+{
+    position={true,true,true,true,1936,0,1936,0};update(1,0);
+    ASSERT_LT(mixerTricopterCollectiveScale(),1);
+    ASSERT_TRUE(mixerTricopterCalibrationStart(fakeNow));update(1,0,fakeNow+1000);
+    EXPECT_EQ(mixerTricopterCollectiveScale(),1);EXPECT_EQ(mixerTricopterMotorCorrection(0),0);
+    for(int i=0;i<3;++i)EXPECT_EQ(mixerTricopterApplyMotorEffort(i,.8f),.8f);
 }
